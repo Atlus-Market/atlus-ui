@@ -16,6 +16,8 @@
     --color-dark-grey: #605B56;
 }
 
-body {
+
+html, body {
+    height: 100%;
     background: var(--color-white);
 }
