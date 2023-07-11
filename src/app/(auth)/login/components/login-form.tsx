@@ -31,10 +31,6 @@ export const LoginForm = ({ onSubmit, errorMessage }: LoginFormProps) => {
   const formProps = useAtlusForm<LoginFormSchema>({
     formOptions: {
       resolver: yupResolver(schema),
-      defaultValues: {
-        email: 'sergio+0.7947031469408283@toptal.com',
-        password: 'fay$0FgTx7F8@9RW'
-      }
     }
   });
   const { register, formState: { isSubmitting } } = formProps;

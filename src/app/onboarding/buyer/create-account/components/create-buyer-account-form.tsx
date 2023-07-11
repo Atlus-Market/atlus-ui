@@ -38,15 +38,6 @@ export const CreateBuyerAccountForm = forwardRef<
   const formProps = useAtlusForm<UserAccountForm>({
     formOptions: {
       resolver: yupResolver(schema),
-      defaultValues: {
-        firstName: 'John',
-        lastName: 'Doe',
-        businessPhone: '+541168071234',
-        email: `sergio+${Math.random()}@toptal.com`,
-        companyName: 'Ofinno',
-        title: 'Developer',
-        password: 'fay$0FgTx7F8@9RW'
-      }
     }
   });
   const { register, handleSubmit } = formProps;

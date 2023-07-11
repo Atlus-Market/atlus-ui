@@ -40,14 +40,6 @@ export const CreateBrokerAccountForm = forwardRef<
   const formProps = useAtlusForm<BrokerAccountForm>({
     formOptions: {
       resolver: yupResolver(schema),
-      defaultValues: {
-        firstName: 'John',
-        lastName: 'Doe',
-        companyName: 'Ofinno',
-        businessPhone: '+541168071234',
-        email: `sergio+${Math.random()}@toptal.com`,
-        password: 'fay$0FgTx7F8@9RW'
-      }
     }
   });
   const { register, handleSubmit } = formProps;
