@@ -46,14 +46,17 @@ export const LoginForm = ({ onSubmit, errorMessage }: LoginFormProps) => {
         placeholder='email'
         type='email'
         wrapperClassName='mb-[18px] md:mb-8'
+        tabIndex={1}
         {...register('email')}
       />
       <AtlusFormInputPassword
         label='Password'
         placeholder='password'
         type='password'
+        tabIndex={2}
         rightLabel={
           <Link
+            tabIndex={3}
             href={ForgotPassword}
             className='text-orange text-[13px] md:text-sm leading-0'>
             Forgot password
