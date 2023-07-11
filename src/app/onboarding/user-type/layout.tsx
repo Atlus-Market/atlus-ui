@@ -1,7 +1,16 @@
-export default function UserTypeLayout({children}: { children: React.ReactNode }) {
+import { OnboardingContainer } from '@/app/onboarding/components/onboarding-container';
+import { SetOnboardingProgress } from '@/app/onboarding/components/onboarding-progress-bar/set-onboarding-progress';
+import { ReactNode } from 'react';
+
+export default function UserTypeLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
-    <div>
+    <OnboardingContainer>
+      <SetOnboardingProgress pageNumber={0} />
       {children}
-    </div>
-  )
+    </OnboardingContainer>
+  );
 }

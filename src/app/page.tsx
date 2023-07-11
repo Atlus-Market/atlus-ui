@@ -1,10 +1,7 @@
-export default function Home() {
+export default function RootPage() {
   return (
     <main>
-      <div className="flex justify-center items-center h-screen">
-        onboarding
-      </div>
+      <div className="flex justify-center items-center h-screen">root page</div>
     </main>
-  )
+  );
 }
-

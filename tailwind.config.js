@@ -1,3 +1,5 @@
+const colors = require('./src/components/ui/theme/colors')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -7,20 +9,16 @@ module.exports = {
   ],
   theme: {
     extend: {},
-    colors: {
-      'orange': 'var(--color-orange)',
-      'peach': 'var(--color-peach)',
-      'off-white': 'var(--color-off-white)',
-      'white': 'var(--color-white)',
-      'soft-black': 'var(--color-soft-black)',
-      'red': 'var(--color-red)',
-      'lightest-grey': 'var(--color-lightest-grey)',
-      'light-grey': 'var(--color-light-grey)',
-      'middle-grey': 'var(--color-middle-grey)',
-      'dark-grey': 'var(--color-dark-grey)',
-    },
+    colors: colors,
     fontFamily: {
       inter: ['Inter', 'sans-serif']
+    },
+    screens: {
+      sm: '360px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
     }
   },
   plugins: [],

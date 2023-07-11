@@ -1,12 +1,12 @@
 import Image from 'next/image';
-import AtlusSvgLogo from '@/public/assets/logos/logo-orange.svg'
+import AtlusSvgLogo from '@/public/assets/logos/logo-orange.svg';
 
 interface AtlusLogoProps {
   width?: number;
   height?: number;
 }
 
-export default function AtlusLogo({width = 30, height}: AtlusLogoProps) {
+export default function AtlusLogo({ width = 30, height }: AtlusLogoProps) {
   return (
     <Image
       width={width}
@@ -15,5 +15,5 @@ export default function AtlusLogo({width = 30, height}: AtlusLogoProps) {
       src={AtlusSvgLogo}
       alt="Atlus logo"
     />
-  )
+  );
 }

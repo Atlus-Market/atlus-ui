@@ -1,0 +1,21 @@
+.spinner {
+  --atlus-spinner-size: 22px;
+  box-sizing: border-box;
+  display: inline-block;
+  flex-shrink: 0;
+  width: var(--atlus-spinner-size);
+  height: var(--atlus-spinner-size);
+  border-radius: 50%;
+  border: calc(var(--atlus-spinner-size) / 10) solid rgba(255, 255, 255, 0.5);
+  border-top-color: var(--color-white);
+  animation: 1s spin infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

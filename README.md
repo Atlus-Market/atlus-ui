@@ -24,3 +24,19 @@ To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 
+## Env Variables
+
+Environment variables are loaded using `.env` files. See [Next.js env variables documentation](https://nextjs.org/docs/app/building-your-application/configuring/environment-variables) for more info
+
+To setup the environment variables, create a file named `.env`, copy the contents from
+`.env.template` file and replace accordingly.
+
+If a new variable needs to be added, please update `.env.template` file.
+
+
+## Stack
+
+* React Framework: [Next.js](https://nextjs.org/)
+* Typescript
+* CSS: [Tailwindcss](https://tailwindcss.com/)
+  * React classNames: [clsx](https://www.npmjs.com/package/clsx)
