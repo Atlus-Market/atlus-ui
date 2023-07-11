@@ -1,6 +1,6 @@
 import { useOnboardingContext } from '@/app/onboarding/context/use-onboarding-context';
 import { useCallback } from 'react';
-import { worldWide } from '@/app/onboarding/buyer/countries-of-interest/components/default-country-codes';
+import { worldWide } from '@/app/onboarding/buyer/jurisdictions-of-interest/components/default-country-codes';
 
 export const useSelectCountry = () => {
   const { updateContext, countryCodesIds } = useOnboardingContext();

@@ -3,14 +3,14 @@
 import { AtlusInputSearch } from '@/components/ui/input/atlus-input-search';
 import { CountryCode } from '@/api/country-codes/country-code';
 import { useEffect, useMemo, useState } from 'react';
-import { CountryCodesList } from '@/app/onboarding/buyer/countries-of-interest/components/country-codes-list';
+import { CountryCodesList } from '@/app/onboarding/buyer/jurisdictions-of-interest/components/country-codes-list';
 import {
   getDefaultCountryCodes,
   worldWide,
-} from '@/app/onboarding/buyer/countries-of-interest/components/default-country-codes';
-import { CountryCodeSelector } from '@/app/onboarding/buyer/countries-of-interest/components/country-code-selector';
+} from '@/app/onboarding/buyer/jurisdictions-of-interest/components/default-country-codes';
+import { CountryCodeSelector } from '@/app/onboarding/buyer/jurisdictions-of-interest/components/country-code-selector';
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
-import { useSelectCountry } from '@/app/onboarding/buyer/countries-of-interest/hooks/use-select-country';
+import { useSelectCountry } from '@/app/onboarding/buyer/jurisdictions-of-interest/hooks/use-select-country';
 import { useOnboardingContext } from '@/app/onboarding/context/use-onboarding-context';
 
 interface CountryCodeSearchProps {

@@ -10,7 +10,7 @@ export const InterestAreaFooter = () => {
   return (
     <Footer
       shouldSkip={!hasInterestAreasSelected}
-      nextUrl="countries-of-interest"
+      nextUrl="jurisdictions-of-interest"
     />
   );
 };

@@ -2,7 +2,7 @@
 
 import { CountryCode } from '@/api/country-codes/country-code';
 import { Icon } from '@/components/ui/icon/icon';
-import { worldWide } from '@/app/onboarding/buyer/countries-of-interest/components/default-country-codes';
+import { worldWide } from '@/app/onboarding/buyer/jurisdictions-of-interest/components/default-country-codes';
 import { HiGlobeAlt } from 'react-icons/hi2';
 import { useOnboardingContext } from '@/app/onboarding/context/use-onboarding-context';
 import { AtlusIconTag } from '@/components/ui/tag/atlus-icon-tag';
@@ -55,7 +55,7 @@ export const CountryCodesList = ({ countryCodes }: CountryCodesListProps) => {
   if (!existsCountries) {
     return (
       <div className="text-center text-lg leading-[22px] font-normal mt-[50px] w-full">
-        This country isn’t available or can’t be found
+        This jurisdictions isn’t available or can’t be found
       </div>
     );
   }

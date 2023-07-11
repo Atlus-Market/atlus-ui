@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 import { atlusIconTagDataId } from '@/components/ui/tag/atlus-icon-tag';
-import { useSelectCountry } from '@/app/onboarding/buyer/countries-of-interest/hooks/use-select-country';
+import { useSelectCountry } from '@/app/onboarding/buyer/jurisdictions-of-interest/hooks/use-select-country';
 
 interface CountryCodeSelectorProps {
   children: ReactNode;
