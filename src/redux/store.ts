@@ -1,7 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
+import setPackageReducer from '@/redux/features/set-package/set-package';
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    setPackageReducer
+  },
   devTools: process.env.NODE_ENV !== 'production'
 });
 

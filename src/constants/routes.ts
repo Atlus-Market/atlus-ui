@@ -12,3 +12,10 @@ export const PasswordResetRoute = '/password/reset';
 export const OnboardingSelectUser = '/onboarding/user-type';
 export const OnboardingBrokerCreateAccount = '/onboarding/broker/create-account';
 export const OnboardingBuyerInterestAreas = '/onboarding/buyer/areas-of-interest';
+
+
+// Set Package
+const SetPackageBaseRoute = 'set-package';
+export const SetPackagePatent = `/${SetPackageBaseRoute}/patent`;
+export const SetPackagePackageDetails = `/${SetPackageBaseRoute}/package-details`;
+export const SetPackageDocuments = `/${SetPackageBaseRoute}/documents`;
