@@ -1,0 +1,18 @@
+.atlus-modal--overlay {
+    height: 100%;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    @apply flex;
+    @apply justify-center;
+    @apply items-center;
+}
+
+.atlus-modal-content {
+    border: none;
+    background: rgb(255, 255, 255);
+    overflow: auto;
+    outline: none;
+    padding: 40px;
+    border-radius: 12px;
+}
