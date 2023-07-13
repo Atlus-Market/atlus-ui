@@ -11,7 +11,7 @@ import {
 export const Sidebar = () => {
   const pathname = usePathname();
   return (
-    <div className='h-full pt-[99px] p-4 [&>*:not(:last-child)]:mb-4'>
+    <div className='pt-[99px] p-4 [&>*:not(:last-child)]:mb-4'>
       <SidebarItem
         itemNumber={1}
         text='Patent'

@@ -8,7 +8,7 @@ interface LayoutStructureProps {
 
 export const LayoutStructure = ({ sideBarChildren, children }: LayoutStructureProps) => {
   return (
-    <div className='grid grid-cols-[240px,1fr] h-full'>
+    <div className='grid grid-cols-[240px,1fr]'>
       <div>
         {sideBarChildren}
       </div>
