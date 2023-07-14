@@ -16,8 +16,7 @@ interface ButtonProps extends HtmlButtonProps {
 }
 
 const baseButton = clsx(
-  'font-bold leading-[22px]',
-  'text-[15px] md:text-lg',
+  'text-lg font-bold leading-[23px]',
   'inline-flex justify-center items-center',
   'active:opacity-95'
 );
@@ -25,9 +24,8 @@ const baseButton = clsx(
 const solidVariant = clsx(
   baseButton,
   'min-w-[200px]',
-  'bg-orange text-white rounded-[53px]',
-  'px-8 md:px-9',
-  'py-[13px] md:py-[15px]'
+  'bg-orange text-white rounded-[32px]',
+  'py-[15px] px-9',
 );
 
 const clearVariant = ({ variant, color }: ButtonProps) => {
