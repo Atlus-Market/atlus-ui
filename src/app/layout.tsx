@@ -21,6 +21,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <ApiClientProvider>{children}</ApiClientProvider>
       </AtlusSessionProvider>
     </StoreProvider>
+
+    {/*Used in Atlus Modal*/}
+    <div id="modals" />
+
     </body>
     </html>
   );

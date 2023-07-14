@@ -18,7 +18,8 @@ interface ButtonProps extends HtmlButtonProps {
 const baseButton = clsx(
   'font-bold leading-[22px]',
   'text-[15px] md:text-lg',
-  'inline-flex justify-center items-center'
+  'inline-flex justify-center items-center',
+  'active:opacity-95'
 );
 
 const solidVariant = clsx(
