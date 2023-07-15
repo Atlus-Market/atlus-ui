@@ -25,7 +25,7 @@ const solidVariant = clsx(
   baseButton,
   'min-w-[200px]',
   'bg-orange text-white rounded-[32px]',
-  'py-[15px] px-9',
+  'py-[15px] px-9'
 );
 
 const clearVariant = ({ variant, color }: ButtonProps) => {
@@ -33,7 +33,7 @@ const clearVariant = ({ variant, color }: ButtonProps) => {
   return clsx(
     baseButton,
     'text-dark-grey',
-    isClearVariant && color === 'orange' ? 'bg-none text-orange' : '',
+    isClearVariant && color === 'orange' ? 'bg-none text-orange' : ''
   );
 };
 
@@ -57,7 +57,7 @@ export const AtlusButton = (props: ButtonProps) => {
         classVariant,
         className,
         isClearVariant && color,
-        disabled ? 'opacity-70' : 'opacity-1'
+        disabled ? 'bg-middle-grey' : ''
       )}
       disabled={isLoading || disabled}
       {...restProps}

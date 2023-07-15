@@ -5,6 +5,9 @@ import {
 import {
   EnterPatentsNumberTab
 } from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
+import {
+  PatentsIdsForm
+} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-ids/patents-ids-form';
 
 
 export interface SetPackageState {
@@ -12,14 +15,40 @@ export interface SetPackageState {
     isSetPackageModalOpen: boolean;
     currentStep: AddPatentsStep;
     activeTab: EnterPatentsNumberTab;
+    [EnterPatentsNumberTab.EnterManually]: {
+      form: {
+        formValues: PatentsIdsForm;
+        formState: {
+          isValid: boolean;
+        }
+      }
+    };
+    [EnterPatentsNumberTab.ImportFromFile]: {
+      patentsIds: string[]
+    }
   };
 }
+
+export type EnterPatentsIdsManuallyForm = SetPackageState['addPatents'][EnterPatentsNumberTab.EnterManually]['form'];
 
 const initialState: SetPackageState = {
   addPatents: {
     isSetPackageModalOpen: false,
     currentStep: AddPatentsStep.EnterPatentsNumber,
-    activeTab: EnterPatentsNumberTab.EnterManually
+    activeTab: EnterPatentsNumberTab.EnterManually,
+    [EnterPatentsNumberTab.EnterManually]: {
+      form: {
+        formValues: {
+          patentsIds: ''
+        },
+        formState: {
+          isValid: false
+        }
+      }
+    },
+    [EnterPatentsNumberTab.ImportFromFile]: {
+      patentsIds: []
+    }
   }
 };
 
@@ -39,6 +68,9 @@ export const setPackage = createSlice({
     },
     setAddPatentsActiveTab: (state, action: PayloadAction<EnterPatentsNumberTab>) => {
       state.addPatents.activeTab = action.payload;
+    },
+    updateEnterPatentsIdsManuallyForm: (state, action: PayloadAction<EnterPatentsIdsManuallyForm>) => {
+      state.addPatents[EnterPatentsNumberTab.EnterManually].form = action.payload;
     }
   }
 });
@@ -48,6 +80,7 @@ export const {
   showSetPackageModal,
   hideSetPackageModal,
   setAddPatentsStep,
-  setAddPatentsActiveTab
+  setAddPatentsActiveTab,
+  updateEnterPatentsIdsManuallyForm
 } = setPackage.actions;
 export default setPackage.reducer;
