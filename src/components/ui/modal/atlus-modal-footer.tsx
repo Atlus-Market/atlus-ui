@@ -1,12 +1,14 @@
 import { ReactNode } from 'react';
+import clsx from 'clsx';
 
 interface AtlusModalFooterProps {
   children: ReactNode;
+  className?: string;
 }
 
-export const AtlusModalFooter = ({ children }: AtlusModalFooterProps) => {
+export const AtlusModalFooter = ({ children, className }: AtlusModalFooterProps) => {
   return (
-    <div className='flex justify-end'>
+    <div className={clsx('flex justify-end', className)}>
       {children}
     </div>
   );

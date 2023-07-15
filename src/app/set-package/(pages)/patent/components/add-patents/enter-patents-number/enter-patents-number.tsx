@@ -11,19 +11,23 @@ import {
 import {
   AddPatentTabSelector
 } from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-number/components/section/add-patent-tab-selector';
+import {
+  EnterPatentsIds
+} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-number/components/enter-patents-ids/enter-patents-ids';
 
 export const EnterPatentsNumber = () => {
   return (
-    <>
-      <AtlusModalHeader rightContent={<CloseModalButton />} className="mb-6">
+    <div className='w-[650px]'>
+      <AtlusModalHeader rightContent={<CloseModalButton />} className='mb-6'>
         <AtlusModalTitle text='Enter patent numbers' />
       </AtlusModalHeader>
-      <AtlusModalBody className='w-[730px]'>
+      <AtlusModalBody>
         <AddPatentTabSelector />
+        <EnterPatentsIds />
       </AtlusModalBody>
-      <AtlusModalFooter>
+      <AtlusModalFooter className="mt-[200px]">
         <EnterPatentsNextButton />
       </AtlusModalFooter>
-    </>
+    </div>
   );
 };
