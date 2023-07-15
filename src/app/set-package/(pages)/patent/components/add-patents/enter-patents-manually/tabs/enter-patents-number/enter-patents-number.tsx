@@ -7,13 +7,10 @@ import {
 } from '@/app/set-package/(pages)/patent/components/add-patents/close-modal-button';
 import {
   EnterPatentsNextButton
-} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-number/components/enter-patents-next-button';
+} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-next-button';
 import {
-  AddPatentTabSelector
-} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-number/components/section/add-patent-tab-selector';
-import {
-  EnterPatentsIds
-} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-number/components/enter-patents-ids/enter-patents-ids';
+  EnterPatentsNumberBody
+} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-number-body';
 
 export const EnterPatentsNumber = () => {
   return (
@@ -21,11 +18,10 @@ export const EnterPatentsNumber = () => {
       <AtlusModalHeader rightContent={<CloseModalButton />} className='mb-6'>
         <AtlusModalTitle text='Enter patent numbers' />
       </AtlusModalHeader>
-      <AtlusModalBody>
-        <AddPatentTabSelector />
-        <EnterPatentsIds />
+      <AtlusModalBody className="min-h-[450px]">
+        <EnterPatentsNumberBody />
       </AtlusModalBody>
-      <AtlusModalFooter className="mt-[200px]">
+      <AtlusModalFooter>
         <EnterPatentsNextButton />
       </AtlusModalFooter>
     </div>

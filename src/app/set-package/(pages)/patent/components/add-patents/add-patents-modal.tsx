@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { selectSetPackageState } from '@/redux/features/set-package/set-package.selectors';
 import {
   EnterPatentsNumber
-} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-number/enter-patents-number';
+} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/enter-patents-number';
 import {
   SelectPatents
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/select-patents';

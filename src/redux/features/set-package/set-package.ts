@@ -4,7 +4,7 @@ import {
 } from '@/app/set-package/(pages)/patent/components/add-patents/add-patents-step';
 import {
   EnterPatentsNumberTab
-} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-number/enter-patents-number-tab';
+} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
 
 
 export interface SetPackageState {
