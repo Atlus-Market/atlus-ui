@@ -7,17 +7,19 @@ import {
 } from '@/app/set-package/(pages)/patent/components/add-patents/close-modal-button';
 import {
   EnterPatentsNextButton
-} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-number/enter-patents-next-button';
+} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-number/components/enter-patents-next-button';
+import {
+  AddPatentTabSelector
+} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-number/components/section/add-patent-tab-selector';
 
 export const EnterPatentsNumber = () => {
   return (
     <>
-      <AtlusModalHeader rightContent={<CloseModalButton />}>
+      <AtlusModalHeader rightContent={<CloseModalButton />} className="mb-6">
         <AtlusModalTitle text='Enter patent numbers' />
       </AtlusModalHeader>
       <AtlusModalBody className='w-[730px]'>
-        <label>data</label>
-        <input />
+        <AddPatentTabSelector />
       </AtlusModalBody>
       <AtlusModalFooter>
         <EnterPatentsNextButton />
