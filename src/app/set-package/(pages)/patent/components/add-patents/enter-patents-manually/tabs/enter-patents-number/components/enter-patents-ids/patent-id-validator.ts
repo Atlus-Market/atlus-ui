@@ -9,19 +9,20 @@ export const patentIdValidator: Validator<string> = {
 };
 
 // TODO: replace with patentId regex
-const isValidPatentId = (patentId: string): boolean => patentId?.length > 3;
+const isValidPatentId = (patentId: string): boolean => patentId?.trim().length > 3;
 
 export const getInvalidPatentsIds = (patentsIds: string): string[] => {
-  const x = patentsIds
+  return patentsIds
     .split(',')
-    // .map(patentId => patentId.trim())
     .filter(patentId => !isValidPatentId(patentId));
-  return x;
 };
 
-
-const commaLength =1;
+const commaLength = 1;
 const calculateLengthToIndex = (arr: string[], indexPosition: number): number => {
+  if (indexPosition >= arr.length) {
+    return 0;
+  }
+
   let sum = 0;
   for (let i = 0; i < indexPosition; i++) {
     sum += arr[i].length + commaLength;
