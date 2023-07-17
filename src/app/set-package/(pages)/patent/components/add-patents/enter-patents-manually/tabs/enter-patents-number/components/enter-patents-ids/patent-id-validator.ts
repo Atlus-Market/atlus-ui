@@ -17,35 +17,52 @@ export const getInvalidPatentsIds = (patentsIds: string): string[] => {
     .filter(patentId => !isValidPatentId(patentId));
 };
 
-const commaLength = 1;
-const calculateLengthToIndex = (arr: string[], indexPosition: number): number => {
+/**
+ * Given an array of words and a position of the array,
+ * returns the length to the start of the index.
+ * It counts the length of the elements separator if provided.
+ * @param arr
+ * @param indexPosition
+ * @param separatorLength
+ */
+const calculateLengthToIndex = (arr: string[], indexPosition: number, separatorLength: number): number => {
   if (indexPosition >= arr.length) {
     return 0;
   }
 
   let sum = 0;
   for (let i = 0; i < indexPosition; i++) {
-    sum += arr[i].length + commaLength;
+    sum += arr[i].length + separatorLength;
   }
   return sum;
 };
+
+const commaLength = 1;
+const INVALID_CHUNK_VALUE = -1;
+const INVALID_CHUNK = { start: INVALID_CHUNK_VALUE, end: INVALID_CHUNK_VALUE };
 
 export const findChunks = ({ textToHighlight, searchWords }: FindChunks): Chunk[] => {
   const allWords = textToHighlight.split(',');
   return searchWords
     .map((wordToHighlight, wordIndex) => {
       if (typeof wordToHighlight === 'string') {
-        const start = allWords.findIndex(word => word === wordToHighlight);
-        const positionInPlainText = calculateLengthToIndex(allWords, start);
+        const start = allWords.findIndex(
+          (word, globalWordIndex) =>
+            // globalWordIndex is any word in textToHighlight and its index
+            // must be >= than the index of the invalid words to highlight
+            // (if not, it means the word to highlight was already counted).
+            // This prevents cases where duplicates (for example, at the beginning and at the end)
+            // are not highlighted because the word index is always found at first position.
+            globalWordIndex >= wordIndex && word === wordToHighlight);
+
+        const positionInPlainText = calculateLengthToIndex(allWords, start, commaLength);
         const end = positionInPlainText + wordToHighlight.length;
         return {
           start: positionInPlainText,
           end
         };
       }
-      return {
-        start: -1, end: -1
-      };
+      return INVALID_CHUNK;
     })
-    .filter(chunk => chunk.start > -1);
+    .filter(chunk => chunk.start > INVALID_CHUNK_VALUE);
 };
