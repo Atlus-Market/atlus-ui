@@ -14,6 +14,9 @@ import {
 import {
   AddPatentsStep
 } from '@/app/set-package/(pages)/patent/components/add-patents/add-patents-step';
+import {
+  PatentsTable
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/patents-table';
 
 export const SelectPatents = () => {
   return (
@@ -23,8 +26,8 @@ export const SelectPatents = () => {
         rightContent={<CloseModalButton />}>
         <AtlusModalTitle text='Select Patents' />
       </AtlusModalHeader>
-      <AtlusModalBody className='w-[500px]'>
-        patents results
+      <AtlusModalBody className='w-[1000px]'>
+        <PatentsTable />
       </AtlusModalBody>
       <AtlusModalFooter>
         <SelectPatentsNextButton />
