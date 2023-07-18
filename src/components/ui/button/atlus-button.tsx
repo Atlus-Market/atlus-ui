@@ -57,7 +57,7 @@ export const AtlusButton = (props: ButtonProps) => {
         classVariant,
         className,
         isClearVariant && color,
-        disabled ? 'bg-middle-grey' : ''
+        disabled ? '!bg-middle-grey' : ''
       )}
       disabled={isLoading || disabled}
       {...restProps}

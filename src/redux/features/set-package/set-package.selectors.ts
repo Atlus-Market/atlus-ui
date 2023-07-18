@@ -31,6 +31,10 @@ export const selectIsActiveTabValid = createSelector(
       return enterPatentsIdsManuallyState.form.formState.isValid;
     }
 
+    if (activeTab === EnterPatentsNumberTab.ImportFromFile) {
+      return false;
+    }
+
     return false;
   }
 );
