@@ -1,20 +1,31 @@
 
 table {
-    border: 1px solid lightgray;
+    background: #eadede;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+    --patents-table-border-radius: 12px;
+    padding: 10px;
 }
 
 tbody {
-    border-bottom: 1px solid lightgray;
+}
+
+tbody tr td:first-child {
+    border-top-left-radius: var(--patents-table-border-radius);
+    border-bottom-left-radius: var(--patents-table-border-radius);
+    border-style: solid none;
+    /*padding-left: 16px;*/
+}
+
+tbody tr td:last-child {
+    border-top-right-radius: var(--patents-table-border-radius);
+    border-bottom-right-radius: var(--patents-table-border-radius);
+    border-style: solid none;
+    /*padding-right: 16px;*/
 }
 
 th {
-    border-bottom: 1px solid lightgray;
-    border-right: 1px solid lightgray;
-    padding: 2px 4px;
-}
-
-tfoot {
-    color: gray;
+    padding: 16px 0 10px 0;
 }
 
 tfoot th {

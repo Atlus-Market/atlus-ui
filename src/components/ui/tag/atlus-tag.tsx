@@ -13,7 +13,7 @@ export const AtlusTag = ({ text, onClose, className }: TagProps) => {
   return (
     <div
       className={clsx(
-        'px-3 py-2 inline-flex items-center  bg-off-white rounded',
+        'px-3 py-2 inline-flex items-center bg-off-white rounded',
         className
       )}
     >

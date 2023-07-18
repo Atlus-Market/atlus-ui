@@ -17,6 +17,8 @@ import { CellContext } from '@tanstack/table-core/src/core/cell';
 import {
   RowCell
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/row-cell';
+import { AtlusTag } from '@/components/ui/tag/atlus-tag';
+import format from 'date-fns/format';
 
 type Patent = {
   publicationNumber: string; // also patent id
@@ -41,18 +43,25 @@ const columns = [
     header: () => <HeaderCell title='Title' />,
     cell: (cellContext: CellContext<Patent, string>) =>
       <RowCell
-      className="!font-medium"
+        className='!font-medium'
         text={cellContext.getValue()}
       />
   }),
   columnHelper.accessor('status', {
     header: () => <HeaderCell title='Status' />,
-    cell: (cellContext: CellContext<Patent, string>) => <RowCell text={cellContext.getValue()} />
+    cell: (cellContext: CellContext<Patent, string>) =>
+      <AtlusTag
+        className='!text-xs !px-2 !py-[6px]'
+        text={cellContext.getValue()}
+      />
   }),
   columnHelper.accessor('applicantsOriginal', {
     header: () => <HeaderCell title='Assignee' />,
     cell: (cellContext: CellContext<Patent, string[]>) => {
-      return <RowCell text={cellContext.getValue().join(' & ')} />;
+      return <RowCell
+        className='whitespace-break-spaces'
+        text={cellContext.getValue().join(' &\n')}
+      />;
     }
   }),
   columnHelper.accessor('applicationNumber', {
@@ -61,7 +70,10 @@ const columns = [
   }),
   columnHelper.accessor('applicationDateEpodoc', {
     header: () => <HeaderCell title='Application date' />,
-    cell: (cellContext: CellContext<Patent, string>) => <RowCell text={cellContext.getValue()} />
+    cell: (cellContext: CellContext<Patent, string>) => {
+      const t = Date.parse(cellContext.getValue());
+      return <RowCell text={format(t, 'dd  MMM yyyy')} />;
+    }
   })
 ];
 
@@ -77,13 +89,13 @@ export const PatentsTable = () => {
   return (
     <div className='p-2'>
       <table>
-        <thead>
+        <thead className='text-left whitespace-nowrap'>
           {table.getHeaderGroups().map(headerGroup => {
             console.log('headerGroup: ', headerGroup);
             return (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
-                  <th key={header.id}>
+                  <th key={header.id} className='px-4'>
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -98,9 +110,9 @@ export const PatentsTable = () => {
         </thead>
         <tbody>
           {table.getRowModel().rows.map(row => (
-            <tr key={row.id}>
+            <tr key={row.id} className='bg-white'>
               {row.getVisibleCells().map(cell => (
-                <td key={cell.id}>
+                <td key={cell.id} className='pt-5 pb-8 px-4'>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
