@@ -17,6 +17,14 @@ import './styles.css';
 import { groupBy } from 'lodash';
 import { RowData } from '@tanstack/table-core/src/types';
 import { Dictionary } from '@reduxjs/toolkit';
+import {
+  HeaderCell
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/header-cell';
+import { AtlusTag } from '@/components/ui/tag/atlus-tag';
+import {
+  RowCell
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/row-cell';
+import format from 'date-fns/format';
 
 type TableData<T extends RowData> = T & {
   subRows?: TableData<T>[];
@@ -48,29 +56,12 @@ const familyRows: PatentTableData[] = Object.keys(groupedPatents).map(familyIdKe
 }));
 
 export const PatentsTable = () => {
-  const columns = useMemo<ColumnDef<PatentTableData>[]>(
+  const columns = useMemo<ColumnDef<PatentTableData, string | string[]>[]>(
     () => [
       {
         accessorKey: 'familyId',
         header: ({ table }) => (
-          <>
-            <IndeterminateCheckbox
-              {...{
-                checked: table.getIsAllRowsSelected(),
-                indeterminate: table.getIsSomeRowsSelected(),
-                onChange: table.getToggleAllRowsSelectedHandler()
-              }}
-            />{' '}
-            <button
-              {...{
-                onClick: table.getToggleAllRowsExpandedHandler()
-              }}
-            >
-              {table.getIsAllRowsExpanded() ? '👇' : '👉'}
-            </button>
-            {' '}
-            Publication/Patent no.
-          </>
+          <HeaderCell title='Publication/Patent no.' />
         ),
         cell: ({ row, getValue }) => (
           <div
@@ -97,28 +88,75 @@ export const PatentsTable = () => {
                     style: { cursor: 'pointer' }
                   }}
                 >
-                  {row.getIsExpanded() ? '👇' : '👉'} Select Family ({row.subRows.filter(r => r.getIsSelected()).length} out of {row.subRows.length} selected)
+                  {row.getIsExpanded() ? '👇' : '👉'} Select Family
+                  ({row.subRows.filter(r => r.getIsSelected()).length} out
+                  of {row.subRows.length} selected)
                 </button>
               ) : (
-                `🔵 ${getValue()}`
+                <RowCell text={getValue().toString()} />
               )}{' '}
             </>
           </div>
         )
       },
       {
-        accessorFn: row => row.title,
-        id: 'title',
-        cell: info => {
-          console.log('cell', info);
-          if (info.row.getCanExpand()) {
-            return '';
+        accessorKey: 'title',
+        cell: cellContext => {
+          if (cellContext.row.getCanExpand()) {
+            return null;
           }
-          return info.getValue();
+          return <RowCell text={cellContext.getValue().toString()} />;
         },
-        header: () => <span>Title</span>
-      }
+        header: () => <HeaderCell title='Title' />
+      },
+      {
+        accessorKey: 'status',
+        header: () => <HeaderCell title='Status' />,
+        cell: (cellContext) => {
+          if (cellContext.row.getCanExpand()) {
+            return null;
+          }
 
+          return <AtlusTag
+            className='!text-xs !px-2 !py-[6px]'
+            text={cellContext.getValue().toString()}
+          />;
+        }
+      },
+      {
+        accessorKey: 'applicantsOriginal',
+        header: () => <HeaderCell title='Assignee' />,
+        cell: (cellContext) => {
+          if (cellContext.row.getCanExpand()) {
+            return null;
+          }
+          return <RowCell
+            className='whitespace-break-spaces'
+            text={(cellContext.getValue() as string[]).join(' &\n')}
+          />;
+        }
+      },
+      {
+        accessorKey: 'applicationNumber',
+        header: () => <HeaderCell title='Application No.' />,
+        cell: (cellContext) => {
+          if (cellContext.row.getCanExpand()) {
+            return null;
+          }
+          return <RowCell text={cellContext.getValue().toString()} />;
+        }
+      },
+      {
+        accessorKey: 'applicationDateEpodoc',
+        header: () => <HeaderCell title='Application date' />,
+        cell: (cellContext) => {
+          const date = Date.parse(cellContext.getValue().toString());
+          if (cellContext.row.getCanExpand()) {
+            return null;
+          }
+          return <RowCell text={format(date, 'dd  MMM yyyy')} />;
+        }
+      }
     ],
     []
   );
