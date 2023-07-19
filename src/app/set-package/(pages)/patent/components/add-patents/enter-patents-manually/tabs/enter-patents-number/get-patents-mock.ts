@@ -87,7 +87,8 @@ export const patentsMock = [
     'applicationNumber': 'EP16206875A',
     'country': 'EP',
     'docNumber': '3339243',
-    'familyId': '57714451',
+    // 'familyId': '57714451',// for grouping
+    'familyId': '55359471',
     'inventorsEpodoc': [
       'GMUNDNER GERNOT [AT]',
       'VOCKENBERGER CHRISTIAN [AT]'
