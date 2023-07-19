@@ -25,6 +25,7 @@ import {
 import format from 'date-fns/format';
 
 import './styles.css';
+import clsx from 'clsx';
 
 type TableData<T extends RowData> = T & {
   subRows?: TableData<T>[];
@@ -207,8 +208,20 @@ export const PatentsTable = () => {
         <tbody>
           {table.getRowModel().rows.map(row => {
             return (
-              <tr key={row.id} className='bg-white'>
+              <tr key={row.id} className={clsx(
+                row.getCanExpand() ? '' : 'bg-white'
+              )}>
                 {row.getVisibleCells().map(cell => {
+                  if (row.getCanExpand()) {
+                    return (
+                      <td key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </td>
+                    );
+                  }
                   return (
                     <td key={cell.id} className='pt-5 pb-8 px-4'>
                       {flexRender(
