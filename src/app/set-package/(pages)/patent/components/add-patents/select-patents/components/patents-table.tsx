@@ -47,9 +47,6 @@ const familyRows: PatentTableData[] = Object.keys(groupedPatents).map(familyIdKe
   subRows: groupedPatents[familyIdKey]
 }));
 
-console.log(familyRows);
-
-
 export const PatentsTable = () => {
   const columns = useMemo<ColumnDef<PatentTableData>[]>(
     () => [
@@ -100,21 +97,26 @@ export const PatentsTable = () => {
                     style: { cursor: 'pointer' }
                   }}
                 >
-                  {row.getIsExpanded() ? '👇' : '👉'}
+                  {row.getIsExpanded() ? '👇' : '👉'} Select Family
                 </button>
               ) : (
-                '🔵'
+                `🔵 ${getValue()}`
               )}{' '}
-              {getValue() || 'NNN'}
             </>
           </div>
         )
       },
       {
-        accessorFn: row => row.publicationNumber,
-        id: 'publicationNumber',
-        cell: info => info.getValue(),
-        header: () => <span>Last Name</span>
+        accessorFn: row => row.title,
+        id: 'title',
+        cell: info => {
+          console.log('cell', info);
+          if (info.row.getCanExpand()) {
+            return '';
+          }
+          return info.getValue();
+        },
+        header: () => <span>Title</span>
       }
 
     ],
