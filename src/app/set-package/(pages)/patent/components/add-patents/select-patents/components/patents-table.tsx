@@ -97,7 +97,7 @@ export const PatentsTable = () => {
                     style: { cursor: 'pointer' }
                   }}
                 >
-                  {row.getIsExpanded() ? '👇' : '👉'} Select Family
+                  {row.getIsExpanded() ? '👇' : '👉'} Select Family ({row.subRows.filter(r => r.getIsSelected()).length} out of {row.subRows.length} selected)
                 </button>
               ) : (
                 `🔵 ${getValue()}`
