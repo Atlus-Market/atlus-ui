@@ -11,10 +11,16 @@ import {
   getPaginationRowModel,
   useReactTable
 } from '@tanstack/react-table';
-import { HTMLProps, useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { HTMLProps, useEffect, useMemo, useRef, useState } from 'react';
 
 import './styles.css';
 import { groupBy } from 'lodash';
+import { RowData } from '@tanstack/table-core/src/types';
+import { Dictionary } from '@reduxjs/toolkit';
+
+type TableData<T extends RowData> = T & {
+  subRows?: TableData<T>[];
+}
 
 type Patent = {
   publicationNumber: string; // also patent id
@@ -24,23 +30,20 @@ type Patent = {
   applicationNumber: string;
   applicationDateEpodoc: string;
   familyId: string;
-  subRows?: Patent[]
 }
 
-const defaultData: Patent[] = patentsMock;
+type PatentTableData = TableData<Patent>;
 
-const groupedPatents = groupBy(patentsMock, 'familyId');
+const groupedPatents: Dictionary<Patent[]> = groupBy(patentsMock, 'familyId');
 
-const familyRows: Patent[] = Object.keys(groupedPatents).map(familyIdKey => ({
-  id: familyIdKey,
-  isParent: true,
+const familyRows: PatentTableData[] = Object.keys(groupedPatents).map(familyIdKey => ({
   familyId: familyIdKey,
-  publicationNumber: 'Select Family',
-  applicationDateEpodoc: 'Select Family',
+  publicationNumber: `familyId: ${familyIdKey}`,
+  applicationDateEpodoc: 'applicationDateEpodoc',
   applicantsOriginal: [],
-  title: 'Select Family',
-  status: 'Select Family',
-  applicationNumber: 'Select Family',
+  title: 'title',
+  status: 'status',
+  applicationNumber: 'applicationNumber',
   subRows: groupedPatents[familyIdKey]
 }));
 
@@ -48,81 +51,72 @@ console.log(familyRows);
 
 
 export const PatentsTable = () => {
-  const rerender = useReducer(() => ({}), {})[1];
-
-  const columns = useMemo<ColumnDef<Patent>[]>(
+  const columns = useMemo<ColumnDef<PatentTableData>[]>(
     () => [
       {
-        header: 'Name',
-        footer: props => props.column.id,
-        columns: [
-          {
-            accessorKey: 'firstName',
-            header: ({ table }) => (
-              <>
-                <IndeterminateCheckbox
-                  {...{
-                    checked: table.getIsAllRowsSelected(),
-                    indeterminate: table.getIsSomeRowsSelected(),
-                    onChange: table.getToggleAllRowsSelectedHandler()
-                  }}
-                />{' '}
+        accessorKey: 'familyId',
+        header: ({ table }) => (
+          <>
+            <IndeterminateCheckbox
+              {...{
+                checked: table.getIsAllRowsSelected(),
+                indeterminate: table.getIsSomeRowsSelected(),
+                onChange: table.getToggleAllRowsSelectedHandler()
+              }}
+            />{' '}
+            <button
+              {...{
+                onClick: table.getToggleAllRowsExpandedHandler()
+              }}
+            >
+              {table.getIsAllRowsExpanded() ? '👇' : '👉'}
+            </button>
+            {' '}
+            Publication/Patent no.
+          </>
+        ),
+        cell: ({ row, getValue }) => (
+          <div
+            style={{
+              // Since rows are flattened by default,
+              // we can use the row.depth property
+              // and paddingLeft to visually indicate the depth
+              // of the row
+              paddingLeft: `${row.depth * 2}rem`
+            }}
+          >
+            <>
+              <IndeterminateCheckbox
+                {...{
+                  checked: row.getIsSelected(),
+                  indeterminate: row.getIsSomeSelected(),
+                  onChange: row.getToggleSelectedHandler()
+                }}
+              />{' '}
+              {row.getCanExpand() ? (
                 <button
                   {...{
-                    onClick: table.getToggleAllRowsExpandedHandler()
+                    onClick: row.getToggleExpandedHandler(),
+                    style: { cursor: 'pointer' }
                   }}
                 >
-                  {table.getIsAllRowsExpanded() ? '👇' : '👉'}
+                  {row.getIsExpanded() ? '👇' : '👉'}
                 </button>
-                {' '}
-                First Name
-              </>
-            ),
-            cell: ({ row, getValue }) => (
-              <div
-                style={{
-                  // Since rows are flattened by default,
-                  // we can use the row.depth property
-                  // and paddingLeft to visually indicate the depth
-                  // of the row
-                  paddingLeft: `${row.depth * 2}rem`
-                }}
-              >
-                <>
-                  <IndeterminateCheckbox
-                    {...{
-                      checked: row.getIsSelected(),
-                      indeterminate: row.getIsSomeSelected(),
-                      onChange: row.getToggleSelectedHandler()
-                    }}
-                  />{' '}
-                  {row.getCanExpand() ? (
-                    <button
-                      {...{
-                        onClick: row.getToggleExpandedHandler(),
-                        style: { cursor: 'pointer' }
-                      }}
-                    >
-                      {row.getIsExpanded() ? '👇' : '👉'}
-                    </button>
-                  ) : (
-                    '🔵'
-                  )}{' '}
-                  {getValue() || 'NNN'}
-                </>
-              </div>
-            ),
-            footer: props => props.column.id
-          },
-          {
-            accessorFn: row => row.publicationNumber,
-            id: 'publicationNumber',
-            cell: info => info.getValue(),
-            header: () => <span>Last Name</span>,
-            footer: props => props.column.id
-          }
-        ]
+              ) : (
+                '🔵'
+              )}{' '}
+              {getValue() || 'NNN'}
+            </>
+          </div>
+        )
+      },
+      {
+        accessorFn: row => row.publicationNumber,
+        id: 'publicationNumber',
+        cell: info => info.getValue(),
+        header: () => <span>Last Name</span>
       }
+
     ],
     []
   );
@@ -193,9 +187,6 @@ export const PatentsTable = () => {
       <div>
       </div>
       <div>{table.getRowModel().rows.length} Rows</div>
-      <div>
-        <button onClick={() => rerender()}>Force Rerender</button>
-      </div>
       <pre>{JSON.stringify(expanded, null, 2)}</pre>
     </div>
   );
