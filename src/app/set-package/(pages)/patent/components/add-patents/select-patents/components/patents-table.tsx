@@ -12,8 +12,6 @@ import {
   useReactTable
 } from '@tanstack/react-table';
 import { HTMLProps, useEffect, useMemo, useRef, useState } from 'react';
-
-import './styles.css';
 import { groupBy } from 'lodash';
 import { RowData } from '@tanstack/table-core/src/types';
 import { Dictionary } from '@reduxjs/toolkit';
@@ -25,6 +23,8 @@ import {
   RowCell
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/row-cell';
 import format from 'date-fns/format';
+
+import './styles.css';
 
 type TableData<T extends RowData> = T & {
   subRows?: TableData<T>[];
@@ -71,8 +71,7 @@ export const PatentsTable = () => {
               // and paddingLeft to visually indicate the depth
               // of the row
               paddingLeft: `${row.depth * 2}rem`
-            }}
-          >
+            }}>
             <>
               <IndeterminateCheckbox
                 {...{
@@ -80,7 +79,7 @@ export const PatentsTable = () => {
                   indeterminate: row.getIsSomeSelected(),
                   onChange: row.getToggleSelectedHandler()
                 }}
-              />{' '}
+              />
               {row.getCanExpand() ? (
                 <button
                   {...{
@@ -185,12 +184,12 @@ export const PatentsTable = () => {
     <div className='p-2'>
       <div className='h-2' />
       <table>
-        <thead>
+        <thead className='text-left whitespace-nowrap'>
           {table.getHeaderGroups().map(headerGroup => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map(header => {
                 return (
-                  <th key={header.id} colSpan={header.colSpan}>
+                  <th key={header.id} colSpan={header.colSpan} className='px-4'>
                     {header.isPlaceholder ? null : (
                       <div>
                         {flexRender(
@@ -208,10 +207,10 @@ export const PatentsTable = () => {
         <tbody>
           {table.getRowModel().rows.map(row => {
             return (
-              <tr key={row.id}>
+              <tr key={row.id} className='bg-white'>
                 {row.getVisibleCells().map(cell => {
                   return (
-                    <td key={cell.id}>
+                    <td key={cell.id} className='pt-5 pb-8 px-4'>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
