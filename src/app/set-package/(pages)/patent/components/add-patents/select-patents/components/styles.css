@@ -1,5 +1,4 @@
 table {
-    background: #eadede;
     border-collapse: separate;
     border-spacing: 0 12px;
     padding: 10px;
@@ -27,7 +26,6 @@ th {
 }
 
 /* Row */
-
 .row {
     background-color: var(--color-white);
     --row-border-color: var(--color-white);

@@ -26,7 +26,7 @@ export const SelectPatents = () => {
         rightContent={<CloseModalButton />}>
         <AtlusModalTitle text='Select Patents' />
       </AtlusModalHeader>
-      <AtlusModalBody className='w-[1200px]'>
+      <AtlusModalBody className='w-[1200px] bg-[#FCFCFC] !py-0'>
         <PatentsTable />
       </AtlusModalBody>
       <AtlusModalFooter>

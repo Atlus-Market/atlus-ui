@@ -10,7 +10,7 @@ import {
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/patents-table';
 import {
   PatentsRows
-} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/patents-rows';
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/rows/patents-rows';
 
 interface PatentsFamilyGroupProps {
   patentsFamilyGroup: PatentsFamilyRowsGroup;

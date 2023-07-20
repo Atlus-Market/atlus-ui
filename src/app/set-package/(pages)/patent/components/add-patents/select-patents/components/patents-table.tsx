@@ -20,8 +20,8 @@ import {
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/header-cell';
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
 import {
-  RowCell
-} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/row-cell';
+  PatentCell
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/rows/patent-cell';
 import format from 'date-fns/format';
 
 import './styles.css';
@@ -110,16 +110,9 @@ export const PatentsTable = () => {
           }
 
           return (
-            <div
-              style={{
-                // Since rows are flattened by default,
-                // we can use the row.depth property
-                // and paddingLeft to visually indicate the depth
-                // of the row
-                paddingLeft: `${row.depth * 2}rem`
-              }}>
+            <div className="flex items-center gap-5">
               <Checkbox />
-              <RowCell text={getValue().toString()} />
+              <PatentCell text={getValue().toString()} />
             </div>
           );
         }
@@ -130,7 +123,7 @@ export const PatentsTable = () => {
           if (cellContext.row.getCanExpand()) {
             return <div className='select-family-cell' />;
           }
-          return <RowCell text={cellContext.getValue().toString()} />;
+          return <PatentCell text={cellContext.getValue().toString()} />;
         },
         header: () => <HeaderCell title='Title' />
       },
@@ -155,7 +148,7 @@ export const PatentsTable = () => {
           if (cellContext.row.getCanExpand()) {
             return null;
           }
-          return <RowCell
+          return <PatentCell
             className='whitespace-break-spaces'
             text={(cellContext.getValue() as string[]).join(' &\n')}
           />;
@@ -168,7 +161,7 @@ export const PatentsTable = () => {
           if (cellContext.row.getCanExpand()) {
             return null;
           }
-          return <RowCell text={cellContext.getValue().toString()} />;
+          return <PatentCell text={cellContext.getValue().toString()} />;
         }
       },
       {
@@ -179,7 +172,7 @@ export const PatentsTable = () => {
           if (cellContext.row.getCanExpand()) {
             return null;
           }
-          return <RowCell text={format(date, 'dd  MMM yyyy')} />;
+          return <PatentCell text={format(date, 'dd  MMM yyyy')} />;
         }
       }
     ],
@@ -188,8 +181,6 @@ export const PatentsTable = () => {
 
   const [data, setData] = useState(familyRows);
   const [expanded, setExpanded] = useState<ExpandedState>(getInitialExpandedState(familyRows));
-  console.log('data: ', data);
-  console.log('expanded: ', expanded);
 
   const table = useReactTable({
     data,
@@ -240,10 +231,6 @@ export const PatentsTable = () => {
           )}
         </tbody>
       </table>
-      <div>
-      </div>
-      <div>{table.getRowModel().rows.length} Rows</div>
-      <pre>{JSON.stringify(expanded, null, 2)}</pre>
     </div>
   );
 };

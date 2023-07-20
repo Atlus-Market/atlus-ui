@@ -15,7 +15,7 @@ export const AtlusModalHeader = ({
                                    rightContent
                                  }: AtlusModalHeaderProps) => {
   return (
-    <div className={clsx('flex justify-between items-center', className)}>
+    <div className={clsx('flex justify-between items-center p-10', className)}>
       <div className='flex justify-start items-center gap-6'>
         {leftContent}
         {children}
