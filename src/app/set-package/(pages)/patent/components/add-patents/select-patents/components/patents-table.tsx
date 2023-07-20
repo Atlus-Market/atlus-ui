@@ -26,6 +26,7 @@ import format from 'date-fns/format';
 
 import './styles.css';
 import clsx from 'clsx';
+import { AtlusCheckbox } from '@/components/ui/checkbox/atlus-checkbox';
 
 type TableData<T extends RowData> = T & {
   subRows?: TableData<T>[];
@@ -74,12 +75,10 @@ export const PatentsTable = () => {
               paddingLeft: `${row.depth * 2}rem`
             }}>
             <>
-              <IndeterminateCheckbox
-                {...{
-                  checked: row.getIsSelected(),
-                  indeterminate: row.getIsSomeSelected(),
-                  onChange: row.getToggleSelectedHandler()
-                }}
+              <AtlusCheckbox
+                  checked={row.getIsSelected()}
+                  indeterminate={row.getIsSomeSelected()}
+                  onChange={row.getToggleSelectedHandler()}
               />
               {row.getCanExpand() ? (
                 <button
@@ -243,26 +242,3 @@ export const PatentsTable = () => {
     </div>
   );
 };
-
-function IndeterminateCheckbox({
-                                 indeterminate,
-                                 className = '',
-                                 ...rest
-                               }: { indeterminate?: boolean } & HTMLProps<HTMLInputElement>) {
-  const ref = useRef<HTMLInputElement>(null!);
-
-  useEffect(() => {
-    if (typeof indeterminate === 'boolean') {
-      ref.current.indeterminate = !rest.checked && indeterminate;
-    }
-  }, [ref, indeterminate]);
-
-  return (
-    <input
-      type='checkbox'
-      ref={ref}
-      className={className + ' cursor-pointer'}
-      {...rest}
-    />
-  );
-}
