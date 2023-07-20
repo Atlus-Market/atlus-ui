@@ -37,6 +37,7 @@ export const AddPatentsModal = () => {
     <AtlusModal
       isOpen={isSetPackageModalOpen}
       onAfterClose={() => dispatch(reset())}
+      modalBodyClassName="max-h-[80%]"
     >
       {step}
     </AtlusModal>

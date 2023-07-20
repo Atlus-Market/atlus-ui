@@ -1,4 +1,8 @@
 import { Row } from '@tanstack/react-table';
+import { ExpandedState } from '@tanstack/table-core/src/features/Expanding';
+import {
+  TableData
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/patents-table';
 
 
 export interface CheckBoxState {
@@ -22,4 +26,13 @@ export const getCheckboxState = <T>(row: Row<T>): CheckBoxState => {
     indeterminate: false,
     checked: row.getIsSelected()
   };
+};
+
+export const getInitialExpandedState = <T>(tableData: TableData<T>[]): ExpandedState => {
+  const numberOfRows = tableData.length;
+  const expandedState: ExpandedState = {};
+  for (let i = 0; i < numberOfRows; i++) {
+    expandedState[i] = true;
+  }
+  return expandedState;
 };

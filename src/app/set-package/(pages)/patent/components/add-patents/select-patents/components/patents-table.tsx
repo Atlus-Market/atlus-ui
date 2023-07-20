@@ -27,11 +27,12 @@ import format from 'date-fns/format';
 import './styles.css';
 import clsx from 'clsx';
 import {
-  getCheckboxState
+  getCheckboxState,
+  getInitialExpandedState
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/utils';
 import { AtlusCheckbox } from '@/components/ui/checkbox/atlus-checkbox';
 
-type TableData<T extends RowData> = T & {
+export type TableData<T extends RowData> = T & {
   subRows?: TableData<T>[];
 }
 
@@ -183,9 +184,9 @@ export const PatentsTable = () => {
   );
 
   const [data, setData] = useState(familyRows);
+  const [expanded, setExpanded] = useState<ExpandedState>(getInitialExpandedState(familyRows));
   console.log('data: ', data);
-
-  const [expanded, setExpanded] = useState<ExpandedState>({});
+  console.log('expanded: ', expanded);
 
   const table = useReactTable({
     data,
