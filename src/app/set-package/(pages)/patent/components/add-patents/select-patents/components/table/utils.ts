@@ -1,6 +1,7 @@
 import { Row } from '@tanstack/react-table';
 import { ExpandedState } from '@tanstack/table-core/src/features/Expanding';
 import {
+  PatentTableData,
   TableData
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/patents-table';
 
@@ -35,4 +36,30 @@ export const getInitialExpandedState = <T>(tableData: TableData<T>[]): ExpandedS
     expandedState[i] = true;
   }
   return expandedState;
+};
+
+
+export interface PatentsFamilyRowsGroup {
+  parentRow: Row<TableData<any>>;
+  childRows: Row<TableData<any>>[];
+}
+
+export const makeFamilyRowGroups = (rows: Row<PatentTableData>[]): PatentsFamilyRowsGroup[] => {
+  let result: PatentsFamilyRowsGroup[] = [];
+
+  let familyGroup: PatentsFamilyRowsGroup;
+  rows.forEach(row => {
+    if (row.getCanExpand()) {
+      familyGroup = {
+        parentRow: row,
+        childRows: []
+      };
+      result.push(familyGroup);
+    } else {
+      familyGroup.childRows.push(row);
+    }
+  });
+
+  console.log('FamilyGroups: ', result);
+  return result;
 };

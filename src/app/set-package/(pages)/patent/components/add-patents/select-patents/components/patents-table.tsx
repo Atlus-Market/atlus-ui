@@ -11,7 +11,7 @@ import {
   getPaginationRowModel,
   useReactTable
 } from '@tanstack/react-table';
-import { HTMLProps, useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { groupBy } from 'lodash';
 import { RowData } from '@tanstack/table-core/src/types';
 import { Dictionary } from '@reduxjs/toolkit';
@@ -25,12 +25,15 @@ import {
 import format from 'date-fns/format';
 
 import './styles.css';
-import clsx from 'clsx';
 import {
   getCheckboxState,
-  getInitialExpandedState
+  getInitialExpandedState,
+  makeFamilyRowGroups
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/utils';
 import { AtlusCheckbox } from '@/components/ui/checkbox/atlus-checkbox';
+import {
+  PatentsFamilyGroup
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/patents-family-group';
 
 export type TableData<T extends RowData> = T & {
   subRows?: TableData<T>[];
@@ -46,7 +49,7 @@ type Patent = {
   familyId: string;
 }
 
-type PatentTableData = TableData<Patent>;
+export type PatentTableData = TableData<Patent>;
 
 const groupedPatents: Dictionary<Patent[]> = groupBy(patentsMock, 'familyId');
 
@@ -203,6 +206,7 @@ export const PatentsTable = () => {
     debugTable: true
   });
 
+  const patentsFamilyGroups = makeFamilyRowGroups(table.getRowModel().rows);
   return (
     <div className='p-2'>
       <div className='h-2' />
@@ -228,46 +232,12 @@ export const PatentsTable = () => {
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map(row => {
-            const rowCanExpand = row.getCanExpand();
-            return (
-              <tr key={row.id} className={clsx({
-                'row': !rowCanExpand,
-                'selected-row': !rowCanExpand && row.getIsSelected()
-              })}>
-                {row.getVisibleCells().map((cell, index) => {
-                  if (row.getCanExpand()) { // Select family Row
-                    /**
-                     * Just render the first cell of `Select Family` because the other cells
-                     * will be empty (as Figma design).
-                     */
-                    if (index !== 0) {
-                      return null;
-                    }
-                    // Select family cell expands horizontally as much as full table width (max columns count).
-                    return (
-                      <td key={cell.id} colSpan={table.getAllColumns().length}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </td>
-                    );
-                  }
-
-                  // Render regular cell with data
-                  return (
-                    <td key={cell.id} className='pt-5 pb-8 px-4'>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
+          {patentsFamilyGroups.map(patentsGroup =>
+            <PatentsFamilyGroup
+              key={patentsGroup.parentRow.id}
+              patentsFamilyGroup={patentsGroup} table={table}
+            />
+          )}
         </tbody>
       </table>
       <div>
@@ -277,31 +247,3 @@ export const PatentsTable = () => {
     </div>
   );
 };
-
-function IndeterminateCheckbox({
-                                 indeterminate,
-                                 className = '',
-                                 id,
-                                 ...rest
-                               }: {
-  indeterminate?: boolean,
-  id: string
-} & HTMLProps<HTMLInputElement>) {
-  const ref = useRef<HTMLInputElement>(null!);
-  const checked = rest.checked;
-  useEffect(() => {
-    if (typeof indeterminate === 'boolean') {
-      ref.current.indeterminate = !checked && indeterminate;
-      // console.log(`${id}:Indeterminate: `, ref.current.indeterminate);
-    }
-  }, [ref, indeterminate, checked, id]);
-
-  return (
-    <input
-      type='checkbox'
-      ref={ref}
-      className={className + ' cursor-pointer'}
-      {...rest}
-    />
-  );
-}
