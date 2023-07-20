@@ -26,6 +26,9 @@ import format from 'date-fns/format';
 
 import './styles.css';
 import clsx from 'clsx';
+import {
+  getCheckboxState
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/utils';
 import { AtlusCheckbox } from '@/components/ui/checkbox/atlus-checkbox';
 
 type TableData<T extends RowData> = T & {
@@ -65,38 +68,47 @@ export const PatentsTable = () => {
         header: ({ table }) => (
           <HeaderCell title='Publication/Patent no.' />
         ),
-        cell: ({ row, getValue }) => (
-          <div
-            style={{
-              // Since rows are flattened by default,
-              // we can use the row.depth property
-              // and paddingLeft to visually indicate the depth
-              // of the row
-              paddingLeft: `${row.depth * 2}rem`
-            }}>
-            <>
-              <AtlusCheckbox
-                  checked={row.getIsSelected()}
-                  indeterminate={row.getIsSomeSelected()}
-                  onChange={row.getToggleSelectedHandler()}
-              />
-              {row.getCanExpand() ? (
+        cell: ({ row, getValue }) => {
+          const Checkbox = () => {
+            const checkboxState = getCheckboxState<PatentTableData>(row);
+            return <AtlusCheckbox
+              checked={checkboxState.checked}
+              indeterminate={checkboxState.indeterminate}
+              onChange={row.getToggleSelectedHandler()}
+            />;
+          };
+
+          if (row.getCanExpand()) {
+            return (
+              <div>
+                <Checkbox />
                 <button
                   {...{
                     onClick: row.getToggleExpandedHandler(),
                     style: { cursor: 'pointer' }
-                  }}
-                >
+                  }}>
                   {row.getIsExpanded() ? '👇' : '👉'} Select Family
                   ({row.subRows.filter(r => r.getIsSelected()).length} out
                   of {row.subRows.length} selected)
                 </button>
-              ) : (
-                <RowCell text={getValue().toString()} />
-              )}{' '}
-            </>
-          </div>
-        )
+              </div>
+            );
+          }
+
+          return (
+            <div
+              style={{
+                // Since rows are flattened by default,
+                // we can use the row.depth property
+                // and paddingLeft to visually indicate the depth
+                // of the row
+                paddingLeft: `${row.depth * 2}rem`
+              }}>
+              <Checkbox />
+              <RowCell text={getValue().toString()} />
+            </div>
+          );
+        }
       },
       {
         accessorKey: 'title',
@@ -242,3 +254,31 @@ export const PatentsTable = () => {
     </div>
   );
 };
+
+function IndeterminateCheckbox({
+                                 indeterminate,
+                                 className = '',
+                                 id,
+                                 ...rest
+                               }: {
+  indeterminate?: boolean,
+  id: string
+} & HTMLProps<HTMLInputElement>) {
+  const ref = useRef<HTMLInputElement>(null!);
+  const checked = rest.checked;
+  useEffect(() => {
+    if (typeof indeterminate === 'boolean') {
+      ref.current.indeterminate = !checked && indeterminate;
+      // console.log(`${id}:Indeterminate: `, ref.current.indeterminate);
+    }
+  }, [ref, indeterminate, checked, id]);
+
+  return (
+    <input
+      type='checkbox'
+      ref={ref}
+      className={className + ' cursor-pointer'}
+      {...rest}
+    />
+  );
+}
