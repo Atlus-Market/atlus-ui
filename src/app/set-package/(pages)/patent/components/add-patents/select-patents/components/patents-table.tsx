@@ -27,8 +27,7 @@ import format from 'date-fns/format';
 import './styles.css';
 import clsx from 'clsx';
 import {
-  getCheckboxState,
-  isParentRow
+  getCheckboxState
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/utils';
 import { AtlusCheckbox } from '@/components/ui/checkbox/atlus-checkbox';
 
@@ -219,13 +218,12 @@ export const PatentsTable = () => {
         </thead>
         <tbody>
           {table.getRowModel().rows.map(row => {
-            const isParent = isParentRow(row);
+            const rowCanExpand = row.getCanExpand();
             return (
-              <tr key={row.id} className={clsx(
-                row.getCanExpand() ? '' : 'bg-white',
-                !isParent ? 'row' : '',
-                !isParent && row.getIsSelected() ? 'selected-row' : ''
-              )}>
+              <tr key={row.id} className={clsx({
+                'row': !rowCanExpand,
+                'selected-row': !rowCanExpand && row.getIsSelected()
+              })}>
                 {row.getVisibleCells().map(cell => {
                   if (row.getCanExpand()) {
                     return (

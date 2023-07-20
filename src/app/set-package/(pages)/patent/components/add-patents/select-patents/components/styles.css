@@ -33,6 +33,7 @@ tfoot th {
 /* Row */
 
 .row {
+    background-color: var(--color-white);
     --row-border-color: var(--color-white);
     --row-border: 1px solid var(--row-border-color);
 }
