@@ -64,7 +64,7 @@ export const PatentsTable = () => {
   const columns = useMemo<ColumnDef<PatentTableData, string | string[]>[]>(
     () => [
       {
-        accessorKey: 'familyId',
+        accessorKey: 'publicationNumber',
         header: ({ table }) => (
           <HeaderCell title='Publication/Patent no.' />
         ),
@@ -80,7 +80,7 @@ export const PatentsTable = () => {
 
           if (row.getCanExpand()) {
             return (
-              <div>
+              <div className='select-family-cell'>
                 <Checkbox />
                 <button
                   {...{
@@ -114,7 +114,7 @@ export const PatentsTable = () => {
         accessorKey: 'title',
         cell: cellContext => {
           if (cellContext.row.getCanExpand()) {
-            return null;
+            return <div className='select-family-cell' />;
           }
           return <RowCell text={cellContext.getValue().toString()} />;
         },
@@ -224,10 +224,18 @@ export const PatentsTable = () => {
                 'row': !rowCanExpand,
                 'selected-row': !rowCanExpand && row.getIsSelected()
               })}>
-                {row.getVisibleCells().map(cell => {
-                  if (row.getCanExpand()) {
+                {row.getVisibleCells().map((cell, index) => {
+                  if (row.getCanExpand()) { // Select family Row
+                    /**
+                     * Just render the first cell of `Select Family` because the other cells
+                     * will be empty (as Figma design).
+                     */
+                    if (index !== 0) {
+                      return null;
+                    }
+                    // Select family cell expands horizontally as much as full table width (max columns count).
                     return (
-                      <td key={cell.id}>
+                      <td key={cell.id} colSpan={table.getAllColumns().length}>
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
@@ -235,6 +243,8 @@ export const PatentsTable = () => {
                       </td>
                     );
                   }
+
+                  // Render regular cell with data
                   return (
                     <td key={cell.id} className='pt-5 pb-8 px-4'>
                       {flexRender(

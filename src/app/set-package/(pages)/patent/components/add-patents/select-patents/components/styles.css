@@ -26,10 +26,6 @@ th {
     padding: 16px 0 10px 0;
 }
 
-tfoot th {
-    font-weight: normal;
-}
-
 /* Row */
 
 .row {
@@ -55,3 +51,7 @@ tfoot th {
     --row-border-color: var(--color-orange);
 }
 
+
+.select-family-cell {
+
+}
