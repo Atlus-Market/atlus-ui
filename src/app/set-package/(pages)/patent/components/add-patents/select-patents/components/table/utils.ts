@@ -7,7 +7,7 @@ export interface CheckBoxState {
 }
 
 export const getCheckboxState = <T>(row: Row<T>): CheckBoxState => {
-  const hasSubRows = row.subRows.length > 0;
+  const hasSubRows = isParentRow(row);
 
   if (hasSubRows) {
     const indeterminate = row.getIsSomeSelected();
@@ -23,3 +23,6 @@ export const getCheckboxState = <T>(row: Row<T>): CheckBoxState => {
     checked: row.getIsSelected()
   };
 };
+
+
+export const isParentRow = <T>(row: Row<T>): boolean => row.subRows?.length > 0;

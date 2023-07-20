@@ -13,14 +13,12 @@ tbody {
 tbody tr td:first-child {
     border-top-left-radius: var(--patents-table-border-radius);
     border-bottom-left-radius: var(--patents-table-border-radius);
-    border-style: solid none;
     /*padding-left: 16px;*/
 }
 
 tbody tr td:last-child {
     border-top-right-radius: var(--patents-table-border-radius);
     border-bottom-right-radius: var(--patents-table-border-radius);
-    border-style: solid none;
     /*padding-right: 16px;*/
 }
 
@@ -30,4 +28,36 @@ th {
 
 tfoot th {
     font-weight: normal;
+}
+
+/*
+    Row
+*/
+
+.row td {
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+}
+
+.row td:first-child {
+    border-left: 1px solid white;
+}
+
+.row td:last-child {
+    border-right: 1px solid white;
+}
+
+
+/* Selected Patent row */
+.selected-row td {
+    border-top: 1px solid red;
+    border-bottom: 1px solid red;
+}
+
+.selected-row td:first-child {
+    border-left: 1px solid red;
+}
+
+.selected-row td:last-child {
+    border-right: 1px solid red;
 }
