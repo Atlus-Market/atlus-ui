@@ -4,7 +4,6 @@ import {
 import {
   ColumnDef,
   ExpandedState,
-  flexRender,
   getCoreRowModel,
   getExpandedRowModel,
   getFilteredRowModel,
@@ -17,11 +16,11 @@ import { RowData } from '@tanstack/table-core/src/types';
 import { Dictionary } from '@reduxjs/toolkit';
 import {
   HeaderCell
-} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/header-cell';
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/header/header-cell';
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
 import {
-  PatentCell
-} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/rows/patent-cell';
+  RowCell
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/rows/row-cell';
 import format from 'date-fns/format';
 
 import './styles.css';
@@ -34,6 +33,9 @@ import { AtlusCheckbox } from '@/components/ui/checkbox/atlus-checkbox';
 import {
   PatentsFamilyGroup
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/patents-family-group';
+import {
+  HeaderRow
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/header/header-row';
 
 export type TableData<T extends RowData> = T & {
   subRows?: TableData<T>[];
@@ -110,9 +112,9 @@ export const PatentsTable = () => {
           }
 
           return (
-            <div className="flex items-center gap-5">
+            <div className='flex items-center gap-5'>
               <Checkbox />
-              <PatentCell text={getValue().toString()} />
+              <RowCell text={getValue().toString()} />
             </div>
           );
         }
@@ -123,7 +125,7 @@ export const PatentsTable = () => {
           if (cellContext.row.getCanExpand()) {
             return <div className='select-family-cell' />;
           }
-          return <PatentCell text={cellContext.getValue().toString()} />;
+          return <RowCell text={cellContext.getValue().toString()} />;
         },
         header: () => <HeaderCell title='Title' />
       },
@@ -148,7 +150,7 @@ export const PatentsTable = () => {
           if (cellContext.row.getCanExpand()) {
             return null;
           }
-          return <PatentCell
+          return <RowCell
             className='whitespace-break-spaces'
             text={(cellContext.getValue() as string[]).join(' &\n')}
           />;
@@ -161,7 +163,7 @@ export const PatentsTable = () => {
           if (cellContext.row.getCanExpand()) {
             return null;
           }
-          return <PatentCell text={cellContext.getValue().toString()} />;
+          return <RowCell text={cellContext.getValue().toString()} />;
         }
       },
       {
@@ -172,7 +174,7 @@ export const PatentsTable = () => {
           if (cellContext.row.getCanExpand()) {
             return null;
           }
-          return <PatentCell text={format(date, 'dd  MMM yyyy')} />;
+          return <RowCell text={format(date, 'dd  MMM yyyy')} />;
         }
       }
     ],
@@ -194,43 +196,26 @@ export const PatentsTable = () => {
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
-    debugTable: true
   });
 
   const patentsFamilyGroups = makeFamilyRowGroups(table.getRowModel().rows);
   return (
-    <div className='p-2'>
-      <div className='h-2' />
-      <table>
-        <thead className='text-left whitespace-nowrap'>
-          {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => {
-                return (
-                  <th key={header.id} colSpan={header.colSpan} className='px-4'>
-                    {header.isPlaceholder ? null : (
-                      <div>
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                      </div>
-                    )}
-                  </th>
-                );
-              })}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {patentsFamilyGroups.map(patentsGroup =>
-            <PatentsFamilyGroup
-              key={patentsGroup.parentRow.id}
-              patentsFamilyGroup={patentsGroup} table={table}
-            />
-          )}
-        </tbody>
-      </table>
-    </div>
+    <table>
+      <thead className='text-left whitespace-nowrap'>
+        {table.getHeaderGroups().map(headerGroup => (
+          <tr key={headerGroup.id}>
+            {headerGroup.headers.map(header => <HeaderRow key={header.id} header={header} />)}
+          </tr>
+        ))}
+      </thead>
+      <tbody>
+        {patentsFamilyGroups.map(patentsGroup =>
+          <PatentsFamilyGroup
+            key={patentsGroup.parentRow.id}
+            patentsFamilyGroup={patentsGroup} table={table}
+          />
+        )}
+      </tbody>
+    </table>
   );
 };

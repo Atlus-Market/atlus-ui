@@ -5,7 +5,7 @@ interface RowCellProps {
   className?: string;
 }
 
-export const PatentCell = ({ text, className }: RowCellProps) => {
+export const RowCell = ({ text, className }: RowCellProps) => {
   return (
     <span className={clsx(
       'text-soft-black text-sm leading-5 font-normal',
