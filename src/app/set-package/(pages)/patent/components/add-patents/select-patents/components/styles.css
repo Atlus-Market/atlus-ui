@@ -1,6 +1,8 @@
 table {
     border-collapse: separate;
-    border-spacing: 0 12px;
+    --border-spacing: 12px;
+    border-spacing: 0 var(--border-spacing);
+    top: calc(var(--border-spacing) * -1);
     width: 100%;
     position: relative;
     --patents-table-border-radius: 12px;
