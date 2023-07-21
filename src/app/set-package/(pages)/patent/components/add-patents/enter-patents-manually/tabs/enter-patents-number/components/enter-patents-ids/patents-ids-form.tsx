@@ -102,8 +102,8 @@ export const PatentsIdsForm = ({ initialFormValues, onFormChange }: PatentsIdsFo
                 textStyles,
                 'flex'
               )}
-              highlightClassName='bg-transparent text-red whitespace-pre'
-              unhighlightClassName='bg-transparent whitespace-pre'
+              highlightClassName='bg-transparent text-red'
+              unhighlightClassName='bg-transparent'
               searchWords={getInvalidPatentsIds(patentsIds)}
               autoEscape={true}
               textToHighlight={patentsIds}

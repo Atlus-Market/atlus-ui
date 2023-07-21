@@ -15,10 +15,10 @@ import {
 export const EnterPatentsNumber = () => {
   return (
     <div className='w-[650px]'>
-      <AtlusModalHeader rightContent={<CloseModalButton />} className='mb-6'>
+      <AtlusModalHeader rightContent={<CloseModalButton />}>
         <AtlusModalTitle text='Enter patent numbers' />
       </AtlusModalHeader>
-      <AtlusModalBody className="min-h-[450px]">
+      <AtlusModalBody className="min-h-[450px] !py-0">
         <EnterPatentsNumberBody />
       </AtlusModalBody>
       <AtlusModalFooter>

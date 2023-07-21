@@ -8,12 +8,13 @@ import {
   getExpandedRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
+  Row,
+  RowSelectionState,
   useReactTable
 } from '@tanstack/react-table';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { groupBy } from 'lodash';
 import { RowData } from '@tanstack/table-core/src/types';
-import { Dictionary } from '@reduxjs/toolkit';
 import {
   HeaderCell
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/header/header-cell';
@@ -36,6 +37,10 @@ import {
 import {
   HeaderRow
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/header/header-row';
+import { useSelector } from 'react-redux';
+import {
+  selectEnterPatentsIdsManuallyState
+} from '@/redux/features/set-package/set-package.selectors';
 
 export type TableData<T extends RowData> = T & {
   subRows?: TableData<T>[];
@@ -53,20 +58,60 @@ type Patent = {
 
 export type PatentTableData = TableData<Patent>;
 
-const groupedPatents: Dictionary<Patent[]> = groupBy(patentsMock, 'familyId');
+// const familyRows: PatentTableData[] = Object.keys(groupedPatents).map(familyIdKey => ({
+//   familyId: familyIdKey,
+//   publicationNumber: `familyId: ${familyIdKey}`,
+//   applicationDateEpodoc: 'applicationDateEpodoc',
+//   applicantsOriginal: [],
+//   title: 'title',
+//   status: 'status',
+//   applicationNumber: 'applicationNumber',
+//   subRows: groupedPatents[familyIdKey]
+// }));
 
-const familyRows: PatentTableData[] = Object.keys(groupedPatents).map(familyIdKey => ({
-  familyId: familyIdKey,
-  publicationNumber: `familyId: ${familyIdKey}`,
-  applicationDateEpodoc: 'applicationDateEpodoc',
-  applicantsOriginal: [],
-  title: 'title',
-  status: 'status',
-  applicationNumber: 'applicationNumber',
-  subRows: groupedPatents[familyIdKey]
-}));
+
+const createTableData = (patents: Patent[]): PatentTableData[] => {
+  const groupedPatents = groupBy(patents, 'familyId');
+  return Object.keys(groupedPatents).map(familyIdKey => ({
+    familyId: familyIdKey,
+    publicationNumber: `familyId: ${familyIdKey}`,
+    applicationDateEpodoc: 'applicationDateEpodoc',
+    applicantsOriginal: [],
+    title: 'title',
+    status: 'status',
+    applicationNumber: 'applicationNumber',
+    subRows: groupedPatents[familyIdKey]
+  }));
+};
 
 export const PatentsTable = () => {
+  const enterPatentsStateManuallyState = useSelector(selectEnterPatentsIdsManuallyState);
+  const filteredPatents = patentsMock.filter(p => enterPatentsStateManuallyState.form.formValues.patentsIds.includes(p.applicationNumber));
+  console.log('filteredPatents: ', filteredPatents);
+  const familyRows = createTableData(filteredPatents);
+  const [r, setR] = useState<Row<PatentTableData> | undefined>();
+
+  useEffect(() => {
+    if (!r) {
+      return;
+    }
+    console.log('-------------------');
+    console.log('parentRow.getIsSelected: ', r.getIsSelected());
+    console.log('parentRow.getIsSomeSelected: ', r.getIsSomeSelected());
+    console.log('parentRow.getIsAllSubRowsSelected: ', r.getIsAllSubRowsSelected());
+
+    if (r.getCanExpand() && (!r.getIsSomeSelected() && !r.getIsAllSubRowsSelected())) {
+      console.log('Setting parent to FALSE');
+      r.toggleSelected(false);
+    }
+    setR(undefined);
+    console.log('-------------------');
+  }, [r]);
+
+  const [data, setData] = useState(familyRows);
+  const [expanded, setExpanded] = useState<ExpandedState>(getInitialExpandedState(familyRows));
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+
   const columns = useMemo<ColumnDef<PatentTableData, string | string[]>[]>(
     () => [
       {
@@ -80,7 +125,29 @@ export const PatentsTable = () => {
             return <AtlusCheckbox
               checked={checkboxState.checked}
               indeterminate={checkboxState.indeterminate}
-              onChange={row.getToggleSelectedHandler()}
+              onChange={e => {
+                console.log('******************** Row Checkbox ID: ', row.id, '********************');
+                if (row.id === '0') {
+                  console.log('row.getIsSelected: ', row.getIsSelected());
+                  console.log('row.getIsSomeSelected: ', row.getIsSomeSelected());
+                  console.log('row.getIsAllSubRowsSelected: ', row.getIsAllSubRowsSelected());
+                }
+
+
+                row.getToggleSelectedHandler()(e);
+                const parentRow = row.getParentRow();
+                if (parentRow) {
+                  setR(parentRow);
+                  // console.log('parentRow.getIsSelected: ', parentRow.getIsSelected());
+                  // console.log('parentRow.getIsSomeSelected: ', parentRow.getIsSomeSelected());
+                  // console.log('parentRow.getIsAllSubRowsSelected: ', parentRow.getIsAllSubRowsSelected());
+                  //
+                  // if (parentRow && parentRow.getCanExpand() && parentRow.getIsSelected() && (!parentRow.getIsSomeSelected() && !parentRow.getIsAllSubRowsSelected())) {
+                  //   console.log('-------------------');
+                  //   row.toggleSelected(false);
+                  // }
+                }
+              }}
             />;
           };
 
@@ -95,6 +162,10 @@ export const PatentsTable = () => {
                 {/*    style: { cursor: 'pointer' }*/}
                 {/*  }}>*/}
                 {/*  {row.getIsExpanded() ? '👇' : '👉'}*/}
+                {/*</button>*/}
+                {/*<button onClick={() => {*/}
+                {/*  row.toggleSelected(false);*/}
+                {/*}}>unSelect*/}
                 {/*</button>*/}
                 <span
                   className='text-dark-grey text-sm font-normal leading-[17px] inline-block ml-5'>
@@ -178,24 +249,24 @@ export const PatentsTable = () => {
         }
       }
     ],
-    []
+    [rowSelection]
   );
 
-  const [data, setData] = useState(familyRows);
-  const [expanded, setExpanded] = useState<ExpandedState>(getInitialExpandedState(familyRows));
-
+  console.log('rowSelection: ', rowSelection);
   const table = useReactTable({
     data,
     columns,
     state: {
-      expanded
+      expanded,
+      rowSelection
     },
     onExpandedChange: setExpanded,
+    onRowSelectionChange: setRowSelection,
     getSubRows: row => row.subRows,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    getExpandedRowModel: getExpandedRowModel(),
+    getExpandedRowModel: getExpandedRowModel()
   });
 
   const patentsFamilyGroups = makeFamilyRowGroups(table.getRowModel().rows);

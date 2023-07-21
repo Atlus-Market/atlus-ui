@@ -17,7 +17,7 @@ export const getCheckboxState = <T>(row: Row<T>): CheckBoxState => {
   if (hasSubRows) {
     const indeterminate = row.getIsSomeSelected();
     return {
-      checked: !indeterminate && row.getIsAllSubRowsSelected(),
+      checked: row.getIsAllSubRowsSelected(),
       indeterminate
     };
   }
