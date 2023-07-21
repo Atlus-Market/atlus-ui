@@ -34,7 +34,7 @@ export type EnterPatentsIdsManuallyForm = SetPackageState['addPatents'][EnterPat
 const initialState: SetPackageState = {
   addPatents: {
     isSetPackageModalOpen: false,
-    currentStep: AddPatentsStep.EnterPatentsNumber,
+    currentStep: AddPatentsStep.SelectPatents,
     activeTab: EnterPatentsNumberTab.EnterManually,
     [EnterPatentsNumberTab.EnterManually]: {
       form: {

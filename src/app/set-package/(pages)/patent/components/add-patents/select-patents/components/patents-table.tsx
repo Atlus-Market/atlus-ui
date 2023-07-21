@@ -192,7 +192,7 @@ export const PatentsTable = () => {
           if (cellContext.row.getCanExpand()) {
             return <div className='select-family-cell' />;
           }
-          return <RowCell text={cellContext.getValue().toString()} />;
+          return <RowCell text={cellContext.getValue().toString()} className='inline-block !w-[248px]' />;
         },
         header: () => <HeaderCell title='Title' />
       },
@@ -218,7 +218,7 @@ export const PatentsTable = () => {
             return null;
           }
           return <RowCell
-            className='whitespace-break-spaces'
+            className='whitespace-break-spaces inline-block !w-[187px]'
             text={(cellContext.getValue() as string[]).join(' &\n')}
           />;
         }
