@@ -11,19 +11,24 @@ import {
 import {
   EnterPatentsNumberBody
 } from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-number-body';
+import { AtlusModalContainer } from '@/components/ui/modal/container/atlus-modal-container';
 
 export const EnterPatentsNumber = () => {
   return (
-    <div className='w-[650px]'>
-      <AtlusModalHeader rightContent={<CloseModalButton />}>
-        <AtlusModalTitle text='Enter patent numbers' />
-      </AtlusModalHeader>
-      <AtlusModalBody className="min-h-[450px] !py-0">
+    <AtlusModalContainer
+      header={
+        <AtlusModalHeader rightContent={<CloseModalButton />}>
+          <AtlusModalTitle text='Enter patent numbers' />
+        </AtlusModalHeader>
+      }
+      footer={
+        <AtlusModalFooter>
+          <EnterPatentsNextButton />
+        </AtlusModalFooter>
+      }>
+      <AtlusModalBody className='w-[650px] !py-0'>
         <EnterPatentsNumberBody />
       </AtlusModalBody>
-      <AtlusModalFooter>
-        <EnterPatentsNextButton />
-      </AtlusModalFooter>
-    </div>
+    </AtlusModalContainer>
   );
 };

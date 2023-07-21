@@ -6,6 +6,6 @@ interface AtlusModalTitleProps {
 
 export const AtlusModalTitle = ({ text }: AtlusModalTitleProps) => {
   return (
-    <AtlusTitle text={text} className='!text-2xl font-normal' />
+    <AtlusTitle text={text} className='!text-2xl !leading-[30px] font-normal' />
   );
 };

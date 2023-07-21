@@ -37,14 +37,6 @@ import {
 import {
   HeaderRow
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/header/header-row';
-import { useSelector } from 'react-redux';
-import {
-  selectEnterPatentsIdsManuallyState
-} from '@/redux/features/set-package/set-package.selectors';
-import {
-  useIsLoadingMock
-} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/is-loading-mock';
-import AtlusLogo from '@/components/ui/atlus-logo';
 
 export type TableData<T extends RowData> = T & {
   subRows?: TableData<T>[];
@@ -89,9 +81,8 @@ const createTableData = (patents: Patent[]): PatentTableData[] => {
 };
 
 export const PatentsTable = () => {
-  const { isLoading } = useIsLoadingMock();
-  const enterPatentsStateManuallyState = useSelector(selectEnterPatentsIdsManuallyState);
-  const filteredPatents = patentsMock.filter(p => enterPatentsStateManuallyState.form.formValues.patentsIds.includes(p.applicationNumber));
+  const enterPatentsStateManuallyState = patentsMock.map(p => p.applicationNumber);//useSelector(selectEnterPatentsIdsManuallyState);
+  const filteredPatents = patentsMock.filter(p => enterPatentsStateManuallyState.includes(p.applicationNumber));
   console.log('filteredPatents: ', filteredPatents);
   const familyRows = createTableData(filteredPatents);
   const [r, setR] = useState<Row<PatentTableData> | undefined>();
@@ -276,13 +267,6 @@ export const PatentsTable = () => {
 
   const patentsFamilyGroups = makeFamilyRowGroups(table.getRowModel().rows);
 
-  if (isLoading) {
-    return (
-      <div className='h-[400px] text-center flex justify-center'>
-        <AtlusLogo />
-      </div>
-    );
-  }
   return (
     <table>
       <thead className='text-left whitespace-nowrap'>

@@ -11,7 +11,8 @@
 .atlus-modal-content {
     border: none;
     background: rgb(255, 255, 255);
-    overflow: auto;
     outline: none;
     border-radius: 12px;
+    max-height: 792px;
 }
+

@@ -17,21 +17,26 @@ import {
 import {
   PatentsTable
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/patents-table';
+import { AtlusModalContainer } from '@/components/ui/modal/container/atlus-modal-container';
 
 export const SelectPatents = () => {
   return (
-    <>
-      <AtlusModalHeader
-        leftContent={<BackButtonModal step={AddPatentsStep.EnterPatentsNumber} />}
-        rightContent={<CloseModalButton />}>
-        <AtlusModalTitle text='Select Patents' />
-      </AtlusModalHeader>
+    <AtlusModalContainer
+      header={
+        <AtlusModalHeader
+          leftContent={<BackButtonModal step={AddPatentsStep.EnterPatentsNumber} />}
+          rightContent={<CloseModalButton />}>
+          <AtlusModalTitle text='Select Patents' />
+        </AtlusModalHeader>
+      }
+      footer={
+        <AtlusModalFooter>
+          <SelectPatentsNextButton />
+        </AtlusModalFooter>
+      }>
       <AtlusModalBody className='w-[1200px] bg-[#FCFCFC] !py-0'>
         <PatentsTable />
       </AtlusModalBody>
-      <AtlusModalFooter>
-        <SelectPatentsNextButton />
-      </AtlusModalFooter>
-    </>
+    </AtlusModalContainer>
   );
 };
