@@ -2,7 +2,10 @@ table {
     border-collapse: separate;
     --border-spacing: 12px;
     border-spacing: 0 var(--border-spacing);
+
+    /* Move the table to the top to prevent the header moving ip when scrolling */
     top: calc(var(--border-spacing) * -1);
+
     width: 100%;
     position: relative;
     --patents-table-border-radius: 12px;
