@@ -9,12 +9,16 @@ export const ListClientSession = () => {
   console.log(session);
   return (
     <div>
-      Client Session
-
-      <AtlusButton onClick={() => signOut({
-        callbackUrl: LoginRoute,
-        redirect: true,
-      })}>Logout</AtlusButton>
+      <AtlusButton
+        onClick={() =>
+          signOut({
+            callbackUrl: LoginRoute,
+            redirect: true,
+          })
+        }
+      >
+        Logout
+      </AtlusButton>
     </div>
   );
 };
