@@ -3,13 +3,14 @@
 import { FieldValues, FormProvider, SubmitHandler } from 'react-hook-form';
 import { FormHTMLAttributes, ReactNode } from 'react';
 import { UseFormReturn } from 'react-hook-form/dist/types/form';
+import { noop } from '@/utils/noop';
 
 interface AtlusFormProps<TFieldValues extends FieldValues> {
   children: ReactNode;
   htmlFormProps?: FormHTMLAttributes<HTMLFormElement>;
 
   // Receives the form values
-  onSubmit: SubmitHandler<TFieldValues>;
+  onSubmit?: SubmitHandler<TFieldValues>;
 
   formProps: UseFormReturn<TFieldValues>;
   className?: string;
@@ -18,7 +19,7 @@ interface AtlusFormProps<TFieldValues extends FieldValues> {
 export const AtlusForm = <T extends FieldValues>({
                                                    className,
                                                    children,
-                                                   onSubmit,
+                                                   onSubmit = noop,
                                                    htmlFormProps,
                                                    formProps
                                                  }: AtlusFormProps<T>) => {

@@ -16,17 +16,16 @@ interface ButtonProps extends HtmlButtonProps {
 }
 
 const baseButton = clsx(
-  'font-bold leading-[22px]',
-  'text-[15px] md:text-lg',
-  'inline-flex justify-center items-center'
+  'text-lg font-bold leading-[23px]',
+  'inline-flex justify-center items-center',
+  'active:opacity-95'
 );
 
 const solidVariant = clsx(
   baseButton,
   'min-w-[200px]',
-  'bg-orange text-white rounded-[53px]',
-  'px-8 md:px-9',
-  'py-[13px] md:py-[15px]'
+  'bg-orange text-white rounded-[32px]',
+  'py-[15px] px-9'
 );
 
 const clearVariant = ({ variant, color }: ButtonProps) => {
@@ -34,7 +33,7 @@ const clearVariant = ({ variant, color }: ButtonProps) => {
   return clsx(
     baseButton,
     'text-dark-grey',
-    isClearVariant && color === 'orange' ? 'bg-none text-orange' : '',
+    isClearVariant && color === 'orange' ? 'bg-none text-orange' : ''
   );
 };
 
@@ -58,7 +57,7 @@ export const AtlusButton = (props: ButtonProps) => {
         classVariant,
         className,
         isClearVariant && color,
-        disabled ? 'opacity-70' : 'opacity-1'
+        disabled ? '!bg-middle-grey' : ''
       )}
       disabled={isLoading || disabled}
       {...restProps}

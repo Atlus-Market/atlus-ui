@@ -40,7 +40,8 @@ export const CreateBuyerAccountForm = forwardRef<
       resolver: yupResolver(schema),
     }
   });
-  const { register, handleSubmit } = formProps;
+  const { register, handleSubmit, formState: { errors }, } = formProps;
+  console.log(errors)
 
   useImperativeHandle(
     ref,

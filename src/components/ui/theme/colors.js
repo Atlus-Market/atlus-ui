@@ -9,4 +9,5 @@ module.exports = {
   'light-grey': 'var(--color-light-grey)',
   'middle-grey': 'var(--color-middle-grey)',
   'dark-grey': 'var(--color-dark-grey)',
+  transparent: 'transparent' // create the color to use it
 };
