@@ -13,14 +13,19 @@ export const selectAddPatentsActiveTab = createSelector(
   (state) => state.addPatents.activeTab
 );
 
-export const selectEnterPatentsIdsManuallyState = createSelector(
+const selectEnterPatentsState = createSelector(
   selectSetPackageState,
-  state => state.addPatents[EnterPatentsNumberTab.EnterManually]
+  state => state.addPatents.enterPatents
+)
+
+export const selectEnterPatentsIdsManuallyState = createSelector(
+  selectEnterPatentsState,
+  state => state[EnterPatentsNumberTab.EnterManually]
 );
 
 export const selectImportPatentsIdsFromFileState = createSelector(
-  selectSetPackageState,
-  state => state.addPatents[EnterPatentsNumberTab.ImportFromFile]
+  selectEnterPatentsState,
+  state => state[EnterPatentsNumberTab.ImportFromFile]
 );
 
 export const selectIsActiveTabValid = createSelector(

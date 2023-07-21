@@ -39,7 +39,6 @@ export const usePatentsColumns = () => {
                   console.log('row.getIsAllSubRowsSelected: ', row.getIsAllSubRowsSelected());
                 }
 
-
                 row.getToggleSelectedHandler()(e);
                 const parentRow = row.getParentRow();
                 if (parentRow) {

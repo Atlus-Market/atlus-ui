@@ -6,9 +6,6 @@ import { AtlusModalTitle } from '@/components/ui/modal/atlus-modal-title';
 import { AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
 import {
-  SelectPatentsNextButton
-} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/select-patents-next-button';
-import {
   BackButtonModal
 } from '@/app/set-package/(pages)/patent/components/add-patents/back-button-modal';
 import {
@@ -18,6 +15,12 @@ import {
   PatentsTable
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/patents-table';
 import { AtlusModalContainer } from '@/components/ui/modal/container/atlus-modal-container';
+import {
+  SelectedPatents
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/selected-patents';
+import {
+  SelectPatentsNextButton
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/select-patents-next-button';
 
 export const SelectPatents = () => {
   return (
@@ -31,6 +34,7 @@ export const SelectPatents = () => {
       }
       footer={
         <AtlusModalFooter>
+          <SelectedPatents />
           <SelectPatentsNextButton />
         </AtlusModalFooter>
       }>

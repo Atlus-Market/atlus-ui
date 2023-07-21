@@ -8,7 +8,7 @@ interface AtlusModalFooterProps {
 
 export const AtlusModalFooter = ({ children, className }: AtlusModalFooterProps) => {
   return (
-    <div className={clsx('flex justify-end px-10 pt-4 pb-7', className)}>
+    <div className={clsx('flex [&:has(:nth-child(2))]:justify-between justify-end items-center px-10 pt-4 pb-7', className)}>
       {children}
     </div>
   );

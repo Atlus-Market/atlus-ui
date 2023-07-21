@@ -29,6 +29,9 @@ import {
 import {
   usePatentsColumns
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/column/use-patents-columns';
+import {
+  useSetSelectedPatents
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/use-set-selected-patents';
 
 export type TableData<T extends RowData> = T & {
   subRows?: TableData<T>[];
@@ -100,8 +103,8 @@ export const PatentsTable = () => {
   const [expanded, setExpanded] = useState<ExpandedState>(getInitialExpandedState(familyRows));
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const columns = usePatentsColumns();
+  useSetSelectedPatents({ rowSelectionState: rowSelection });
 
-  console.log('rowSelection: ', rowSelection);
   const table = useReactTable({
     data,
     columns,

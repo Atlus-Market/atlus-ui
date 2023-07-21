@@ -15,39 +15,49 @@ export interface SetPackageState {
     isSetPackageModalOpen: boolean;
     currentStep: AddPatentsStep;
     activeTab: EnterPatentsNumberTab;
-    [EnterPatentsNumberTab.EnterManually]: {
-      form: {
-        formValues: PatentsIdsForm;
-        formState: {
-          isValid: boolean;
+    enterPatents: {
+      [EnterPatentsNumberTab.EnterManually]: {
+        form: {
+          formValues: PatentsIdsForm;
+          formState: {
+            isValid: boolean;
+          }
         }
+      };
+      [EnterPatentsNumberTab.ImportFromFile]: {
+        patentsIds: string[]
       }
     };
-    [EnterPatentsNumberTab.ImportFromFile]: {
-      patentsIds: string[]
+    patentsTable: {
+      selectedPatentsCount: number;
     }
   };
 }
 
-export type EnterPatentsIdsManuallyForm = SetPackageState['addPatents'][EnterPatentsNumberTab.EnterManually]['form'];
+export type EnterPatentsIdsManuallyForm = SetPackageState['addPatents']['enterPatents'][EnterPatentsNumberTab.EnterManually]['form'];
 
 const initialState: SetPackageState = {
   addPatents: {
     isSetPackageModalOpen: false,
     currentStep: AddPatentsStep.SelectPatents,
     activeTab: EnterPatentsNumberTab.EnterManually,
-    [EnterPatentsNumberTab.EnterManually]: {
-      form: {
-        formValues: {
-          patentsIds: ''
-        },
-        formState: {
-          isValid: false
+    enterPatents: {
+      [EnterPatentsNumberTab.EnterManually]: {
+        form: {
+          formValues: {
+            patentsIds: ''
+          },
+          formState: {
+            isValid: false
+          }
         }
+      },
+      [EnterPatentsNumberTab.ImportFromFile]: {
+        patentsIds: []
       }
     },
-    [EnterPatentsNumberTab.ImportFromFile]: {
-      patentsIds: []
+    patentsTable: {
+      selectedPatentsCount: 0,
     }
   }
 };
@@ -70,7 +80,7 @@ export const setPackage = createSlice({
       state.addPatents.activeTab = action.payload;
     },
     updateEnterPatentsIdsManuallyForm: (state, action: PayloadAction<EnterPatentsIdsManuallyForm>) => {
-      state.addPatents[EnterPatentsNumberTab.EnterManually].form = action.payload;
+      state.addPatents.enterPatents[EnterPatentsNumberTab.EnterManually].form = action.payload;
     }
   }
 });
