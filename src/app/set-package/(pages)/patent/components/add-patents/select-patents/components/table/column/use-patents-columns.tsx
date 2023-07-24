@@ -31,7 +31,7 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
           <HeaderCell title='Publication/Patent no.' />
         ),
         cell: ({ row, getValue }) => {
-          console.log(`&&&& cell:rowSelection ${row.id} &&&&`, rowSelection);
+          // console.log(`&&&& cell:rowSelection ${row.id} &&&&`, rowSelection);
           const Checkbox = () => {
             const checkboxState = getCheckboxState<PatentTableData>(row);
             return <AtlusCheckbox

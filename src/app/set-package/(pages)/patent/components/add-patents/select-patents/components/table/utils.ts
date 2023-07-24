@@ -1,9 +1,12 @@
-import { Row, RowSelectionState } from '@tanstack/react-table';
+import { Row } from '@tanstack/react-table';
 import { ExpandedState } from '@tanstack/table-core/src/features/Expanding';
 import {
   PatentTableData,
   TableData
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/patents-table';
+import {
+  NO_FAMILY_GROUP_ID
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/use-group-patents-by-family';
 
 
 export interface CheckBoxState {
@@ -69,6 +72,7 @@ export const getCheckboxState = <T>(row: Row<T>): CheckBoxState => {
 
 export const getInitialExpandedState = <T>(tableData: TableData<T>[]): ExpandedState => {
   const numberOfRows = tableData.length;
+  console.log('numberOfRows: ', numberOfRows);
   const expandedState: ExpandedState = {};
   for (let i = 0; i < numberOfRows; i++) {
     expandedState[i] = true;
@@ -84,9 +88,14 @@ export interface PatentsFamilyRowsGroup {
 
 export const makeFamilyRowGroups = (rows: Row<PatentTableData>[]): PatentsFamilyRowsGroup[] => {
   let result: PatentsFamilyRowsGroup[] = [];
+  console.log('rows: ', rows);
 
   let familyGroup: PatentsFamilyRowsGroup;
   rows.forEach(row => {
+    console.log('row.id: ', row.original.familyId, row.getCanExpand());
+    if (row.original.familyId === NO_FAMILY_GROUP_ID) {
+      console.log(row);
+    }
     if (row.getCanExpand()) {
       familyGroup = {
         parentRow: row,

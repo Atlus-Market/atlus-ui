@@ -1,6 +1,47 @@
 export const patentsMock = [
   {
     'applicantsEpodoc': [
+      'no family - OFINNO TECHNOLOGIES LLC [US]',
+      'OFINNO LLP [US]'
+    ],
+    'applicantsOriginal': [
+      'Ofinno Technologies, LLC',
+      'Ofinno, LLP'
+    ],
+    'applicationDateDocdb': null,
+    'applicationDateEpodoc': 'Fri, 04 May 2018 00:00:00 GMT',
+    'applicationNumber': 'NO_FAMILY-US201815972026A-99999',
+    'country': 'US',
+    'docNumber': '10609611',
+    'familyId': '',
+    // 'familyId': '62455839asaasaaaas',
+    'inventorsEpodoc': [
+      'PARK KYUNGMIN [US]',
+      'DINAN ESMAEL [US]',
+      'BABAEI ALIREZA [US]',
+      'JEON HYOUNGSUK [US]'
+    ],
+    'inventorsOriginal': [
+      'Park, Kyungmin',
+      'Dinan, Esmael',
+      'Babaei, Alireza',
+      'Jeon, Hyoungsuk'
+    ],
+    'kind': 'B2',
+    'publicationDateDocdb': 'Tue, 31 Mar 2020 00:00:00 GMT',
+    'publicationDateEpodoc': 'Tue, 31 Mar 2020 00:00:00 GMT',
+    'publicationNumber': 'NO_FAMILY-US10609611B2',
+    'status': 'Unknown',
+    'title': 'NO FAMILY - Beam-based measurement configuration',
+    'titles': [
+      {
+        'lang': 'en',
+        'text': 'Beam-based measurement configuration'
+      }
+    ]
+  },
+  {
+    'applicantsEpodoc': [
       'OFINNO TECHNOLOGIES LLC [US]',
       'OFINNO LLP [US]'
     ],
@@ -100,7 +141,7 @@ export const patentsMock = [
     'kind': 'A1',
     'publicationDateDocdb': 'Wed, 27 Jun 2018 00:00:00 GMT',
     'publicationDateEpodoc': 'Wed, 27 Jun 2018 00:00:00 GMT',
-    'publicationNumber': 'EP3339243A1',
+    'publicationNumber': 'EP3339243A1sss',
     'status': 'Unknown',
     'title': 'INTERCONNECTED LAYER STACK WITH VERTICALLY ALIGNED MEMS AND ASSIGNED CHIP',
     'titles': [
@@ -177,7 +218,7 @@ export const patentsMock = [
     'kind': 'B1',
     'publicationDateDocdb': 'Wed, 07 Jul 2021 00:00:00 GMT',
     'publicationDateEpodoc': 'Wed, 07 Jul 2021 00:00:00 GMT',
-    'publicationNumber': 'EP3218303B1',
+    'publicationNumber': 'EP3218303B1-1246789',
     'status': 'Unknown',
     'title': 'MICROELECTROMECHANICAL SYSTEM (MEMS) PACKAGE',
     'titles': [
@@ -194,5 +235,5 @@ export const patentsMock = [
         'text': 'MICROELECTROMECHANICAL SYSTEM (MEMS) PACKAGE'
       }
     ]
-  }
+  },
 ];
