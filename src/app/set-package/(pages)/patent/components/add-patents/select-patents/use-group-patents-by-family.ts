@@ -9,28 +9,24 @@ interface UseGroupPatentsByFamilyProps {
   patents: Patent[];
 }
 
-export const NO_FAMILY_GROUP_ID = 'US000000000000';
+export const NO_FAMILY_GROUP_ID = 'NO_FAMILY_GROUP_ID';
 
 export const useGroupPatentsByFamily = ({ patents }: UseGroupPatentsByFamilyProps): PatentTableData[] => {
   return useMemo(() => {
     const m = patents.map(patent => ({
       ...patent,
-      publicationNumber: Math.random().toString(),
-      applicationNumber: Math.random().toString(),
       familyId: patent.familyId || NO_FAMILY_GROUP_ID
     }));
-    console.log('m: ', m);
     const groupedPatents = groupBy(m, (patent: Patent) => patent.familyId);
-    console.log('groupedPatents: ', groupedPatents);
 
     return Object.keys(groupedPatents).map(familyIdKey => ({
       familyId: familyIdKey,
-      publicationNumber: `familyId: ${familyIdKey}`,
+      publicationNumber: `publicationNumber:familyId: ${familyIdKey}`,
       applicationDateEpodoc: 'applicationDateEpodoc',
       applicantsOriginal: [],
       title: 'title',
       status: 'status',
-      applicationNumber: 'applicationNumber',
+      applicationNumber: `applicationNumber:familyId: ${familyIdKey}`,
       subRows: groupedPatents[familyIdKey]
     }));
   }, [patents]);

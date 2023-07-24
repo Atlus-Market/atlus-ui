@@ -43,15 +43,13 @@ export type PatentTableData = TableData<Patent>;
 export const PatentsTable = () => {
   const groupPatentsByFamily = useGroupPatentsByFamily({ patents: patentsMock });
   console.log('useGroupPatentsByFamily: ', groupPatentsByFamily);
+
   const [data, setData] = useState(groupPatentsByFamily);
 
   const [expanded, setExpanded] = useState<ExpandedState>(getInitialExpandedState(groupPatentsByFamily));
   console.log('expandedState: ', expanded);
 
-  const {
-    rowSelection,
-    setRowSelection
-  } = useSetSelectedPatents();
+  const { rowSelection, setRowSelection } = useSetSelectedPatents();
   const columns = usePatentsColumns({ rowSelection, setRowSelection });
 
   const table = useReactTable({
@@ -71,8 +69,10 @@ export const PatentsTable = () => {
   });
 
   const tableRows = table.getRowModel().rows;
-  // This grouping is used to render only first row and expand the rest.
-  const patentsFamilyGroups = makeFamilyRowGroups(tableRows);
+  const patentsFamilyGroups = useMemo(() => {
+    // This grouping is used to render only first row and expand the rest.
+    return makeFamilyRowGroups(tableRows);
+  }, [tableRows]);
 
   return (
     <table>

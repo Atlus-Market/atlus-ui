@@ -236,4 +236,46 @@ export const patentsMock = [
       }
     ]
   },
+  {
+    'applicantsEpodoc': [
+      'AUSTRIA TECH & SYSTEM TECH [AT]'
+    ],
+    'applicantsOriginal': [
+      'AT & S Austria Technologie & Systemtechnik Aktiengesellschaft'
+    ],
+    'applicationDateDocdb': null,
+    'applicationDateEpodoc': 'Tue, 10 Nov 2015 00:00:00 GMT',
+    'applicationNumber': 'EP15791629A-99999',
+    'country': 'EP',
+    'docNumber': '3218303',
+    'familyId': '',
+    'inventorsEpodoc': [
+      'LEITGEB MARKUS [AT]',
+      'RENAUD-BEZOT NICK [AT]'
+    ],
+    'inventorsOriginal': [
+      'LEITGEB, Markus',
+      'RENAUD-BEZOT, Nick'
+    ],
+    'kind': 'B1',
+    'publicationDateDocdb': 'Wed, 07 Jul 2021 00:00:00 GMT',
+    'publicationDateEpodoc': 'Wed, 07 Jul 2021 00:00:00 GMT',
+    'publicationNumber': 'EP3218303B1-999999',
+    'status': 'Unknown',
+    'title': 'MICROELECTROMECHANICAL SYSTEM (MEMS) PACKAGE',
+    'titles': [
+      {
+        'lang': 'de',
+        'text': 'MEMS PACKAGE'
+      },
+      {
+        'lang': 'fr',
+        'text': 'BOÎTIER DE SYSTÈME MICROÉLECTROMÉCANIQUE'
+      },
+      {
+        'lang': 'en',
+        'text': 'MICROELECTROMECHANICAL SYSTEM (MEMS) PACKAGE'
+      }
+    ]
+  },
 ];
