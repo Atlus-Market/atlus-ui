@@ -1,18 +1,12 @@
 import {
-  patentsMock
-} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/get-patents-mock';
-import {
   ExpandedState,
   getCoreRowModel,
   getExpandedRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
-  Row,
-  RowSelectionState,
   useReactTable
 } from '@tanstack/react-table';
-import { useEffect, useState } from 'react';
-import { groupBy } from 'lodash';
+import { useMemo, useState } from 'react';
 import { RowData } from '@tanstack/table-core/src/types';
 
 import './styles.css';
@@ -32,78 +26,29 @@ import {
 import {
   useSetSelectedPatents
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/use-set-selected-patents';
+import { Patent } from '@/models/patent';
+import {
+  useGroupPatentsByFamily
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/use-group-patents-by-family';
+import {
+  patentsMock
+} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/get-patents-mock';
 
 export type TableData<T extends RowData> = T & {
   subRows?: TableData<T>[];
 }
 
-type Patent = {
-  publicationNumber: string; // also patent id
-  title: string;
-  status: string;
-  applicantsOriginal: string[];
-  applicationNumber: string;
-  applicationDateEpodoc: string;
-  familyId: string;
-}
-
 export type PatentTableData = TableData<Patent>;
 
-// const familyRows: PatentTableData[] = Object.keys(groupedPatents).map(familyIdKey => ({
-//   familyId: familyIdKey,
-//   publicationNumber: `familyId: ${familyIdKey}`,
-//   applicationDateEpodoc: 'applicationDateEpodoc',
-//   applicantsOriginal: [],
-//   title: 'title',
-//   status: 'status',
-//   applicationNumber: 'applicationNumber',
-//   subRows: groupedPatents[familyIdKey]
-// }));
-
-
-const createTableData = (patents: Patent[]): PatentTableData[] => {
-  const groupedPatents = groupBy(patents, 'familyId');
-  return Object.keys(groupedPatents).map(familyIdKey => ({
-    familyId: familyIdKey,
-    publicationNumber: `familyId: ${familyIdKey}`,
-    applicationDateEpodoc: 'applicationDateEpodoc',
-    applicantsOriginal: [],
-    title: 'title',
-    status: 'status',
-    applicationNumber: 'applicationNumber',
-    subRows: groupedPatents[familyIdKey]
-  }));
-};
-
 export const PatentsTable = () => {
-  const enterPatentsStateManuallyState = patentsMock.map(p => p.applicationNumber);//useSelector(selectEnterPatentsIdsManuallyState);
-  const filteredPatents = patentsMock.filter(p => enterPatentsStateManuallyState.includes(p.applicationNumber));
-  console.log('filteredPatents: ', filteredPatents);
-  const familyRows = createTableData(filteredPatents);
-  const [r, setR] = useState<Row<PatentTableData> | undefined>();
-
-  useEffect(() => {
-    if (!r) {
-      return;
-    }
-    console.log('-------------------');
-    console.log('parentRow.getIsSelected: ', r.getIsSelected());
-    console.log('parentRow.getIsSomeSelected: ', r.getIsSomeSelected());
-    console.log('parentRow.getIsAllSubRowsSelected: ', r.getIsAllSubRowsSelected());
-
-    if (r.getCanExpand() && (!r.getIsSomeSelected() && !r.getIsAllSubRowsSelected())) {
-      console.log('Setting parent to FALSE');
-      r.toggleSelected(false);
-    }
-    setR(undefined);
-    console.log('-------------------');
-  }, [r]);
-
-  const [data, setData] = useState(familyRows);
-  const [expanded, setExpanded] = useState<ExpandedState>(getInitialExpandedState(familyRows));
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const columns = usePatentsColumns();
-  useSetSelectedPatents({ rowSelectionState: rowSelection });
+  const groupPatentsByFamily = useGroupPatentsByFamily({ patents: patentsMock });
+  const [data, setData] = useState(groupPatentsByFamily);
+  const [expanded, setExpanded] = useState<ExpandedState>(getInitialExpandedState(groupPatentsByFamily));
+  const {
+    rowSelection,
+    setRowSelection
+  } = useSetSelectedPatents();
+  const columns = usePatentsColumns({ rowSelection, setRowSelection });
 
   const table = useReactTable({
     data,
@@ -121,7 +66,11 @@ export const PatentsTable = () => {
     getExpandedRowModel: getExpandedRowModel()
   });
 
-  const patentsFamilyGroups = makeFamilyRowGroups(table.getRowModel().rows);
+  const tableRows = table.getRowModel().rows;
+  // This grouping is used to render only first row and expand the rest.
+  const patentsFamilyGroups = useMemo(() => {
+    return makeFamilyRowGroups(tableRows);
+  }, [tableRows]);
 
   return (
     <table>

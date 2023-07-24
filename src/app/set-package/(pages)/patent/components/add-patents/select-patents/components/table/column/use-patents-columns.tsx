@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { ColumnDef } from '@tanstack/react-table';
+import { ColumnDef, RowSelectionState } from '@tanstack/react-table';
 import {
   HeaderCell
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/header/header-cell';
@@ -17,7 +17,12 @@ import {
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/patents-table';
 
 
-export const usePatentsColumns = () => {
+interface UsePatentsColumnsProps {
+  rowSelection: RowSelectionState;
+  setRowSelection: (rowSelection: RowSelectionState) => void;
+}
+
+export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsColumnsProps) => {
   return useMemo<ColumnDef<PatentTableData, string | string[]>[]>(
     () => [
       {
@@ -26,6 +31,7 @@ export const usePatentsColumns = () => {
           <HeaderCell title='Publication/Patent no.' />
         ),
         cell: ({ row, getValue }) => {
+          console.log(`&&&& cell:rowSelection ${row.id} &&&&`, rowSelection);
           const Checkbox = () => {
             const checkboxState = getCheckboxState<PatentTableData>(row);
             return <AtlusCheckbox
@@ -33,24 +39,35 @@ export const usePatentsColumns = () => {
               indeterminate={checkboxState.indeterminate}
               onChange={e => {
                 console.log('******************** Row Checkbox ID: ', row.id, '********************');
-                if (row.id === '0') {
+
+                // @ts-ignore
+                const checkboxState = e.target.checked;
+                // setRowSelection({ ...rowSelection, [row.id]: checkboxState });
+                console.log('--- target value ---', checkboxState);
+
+                if (row.getCanExpand()) {
                   console.log('row.getIsSelected: ', row.getIsSelected());
                   console.log('row.getIsSomeSelected: ', row.getIsSomeSelected());
                   console.log('row.getIsAllSubRowsSelected: ', row.getIsAllSubRowsSelected());
                 }
 
-                row.getToggleSelectedHandler()(e);
                 const parentRow = row.getParentRow();
                 if (parentRow) {
-                  // setR(parentRow);
-                  // console.log('parentRow.getIsSelected: ', parentRow.getIsSelected());
-                  // console.log('parentRow.getIsSomeSelected: ', parentRow.getIsSomeSelected());
-                  // console.log('parentRow.getIsAllSubRowsSelected: ', parentRow.getIsAllSubRowsSelected());
-                  //
-                  // if (parentRow && parentRow.getCanExpand() && parentRow.getIsSelected() && (!parentRow.getIsSomeSelected() && !parentRow.getIsAllSubRowsSelected())) {
-                  //   console.log('-------------------');
-                  //   row.toggleSelected(false);
+                  row.getToggleSelectedHandler()(e);
+
+                  console.log('parentRow.getIsSelected: ', parentRow.getIsSelected());
+                  console.log('parentRow.getIsSomeSelected: ', parentRow.getIsSomeSelected());
+                  console.log('parentRow.getIsAllSubRowsSelected: ', parentRow.getIsAllSubRowsSelected());
+                  // if (parentRow.getIsAllSubRowsSelected()) {
+                  //   parentRow.toggleSelected(true);
+                  // } else if (!parentRow.getIsSomeSelected() && !parentRow.getIsAllSubRowsSelected()) {
+                  //   parentRow.toggleSelected(false);
                   // }
+                } else {
+                  if (!checkboxState && row.getIsAllSubRowsSelected()) {
+                    row.toggleSelected(false);
+                  }
+                  // row.toggleSelected(checkboxState);
                 }
               }}
             />;
@@ -155,6 +172,6 @@ export const usePatentsColumns = () => {
         }
       }
     ],
-    []
+    [rowSelection]
   );
 };

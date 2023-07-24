@@ -1,4 +1,4 @@
-import { Row } from '@tanstack/react-table';
+import { Row, RowSelectionState } from '@tanstack/react-table';
 import { ExpandedState } from '@tanstack/table-core/src/features/Expanding';
 import {
   PatentTableData,
@@ -10,6 +10,44 @@ export interface CheckBoxState {
   checked: boolean;
   indeterminate: boolean;
 }
+
+
+export const getCheckboxState2 = <T>(row: Row<T>): CheckBoxState => {
+  const { id } = row;
+  const hasSubRows = row.getCanExpand();
+
+
+  if (hasSubRows) {
+    const checked = row.getIsAllSubRowsSelected();
+    const indeterminate = row.getIsSomeSelected();
+
+    return {
+      checked: row.getIsAllSubRowsSelected(),
+      indeterminate: row.getIsSomeSelected()
+    };
+  }
+
+  const parent = row.getParentRow();
+  if (parent?.getIsSomeSelected()) {
+    return {
+      checked: false,
+      indeterminate: true
+    };
+  }
+
+  if (parent?.getIsAllSubRowsSelected()) {
+    return {
+      checked: true,
+      indeterminate: false
+    };
+  }
+
+  return {
+    checked: false,
+    indeterminate: false
+  };
+
+};
 
 export const getCheckboxState = <T>(row: Row<T>): CheckBoxState => {
   const hasSubRows = row.getCanExpand();
