@@ -69,8 +69,6 @@ export const getCheckboxState = <T>(row: Row<T>): CheckBoxState => {
 
 export const getInitialExpandedState = <T>(tableData: TableData<T>[]): ExpandedState => {
   const numberOfRows = tableData.length;
-  console.log('numberOfRows: ', numberOfRows);
-
   const expandedState: ExpandedState = {};
   for (let i = 0; i < numberOfRows; i++) {
     expandedState[i] = true;
@@ -88,8 +86,6 @@ export const makeFamilyRowGroups = (rows: Row<PatentTableData>[]): PatentsFamily
   let result: PatentsFamilyRowsGroup[] = [];
   let familyGroup: PatentsFamilyRowsGroup;
   rows.forEach(row => {
-    console.log('row.id: ', row.original.familyId, row.getCanExpand(), row);
-
     if (row.getCanExpand()) {
       familyGroup = {
         parentRow: row,
@@ -98,7 +94,5 @@ export const makeFamilyRowGroups = (rows: Row<PatentTableData>[]): PatentsFamily
       result.push(familyGroup);
     }
   });
-
-  console.log('FamilyGroups: ', result);
   return result;
 };
