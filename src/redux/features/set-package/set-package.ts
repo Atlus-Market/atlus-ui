@@ -100,7 +100,20 @@ export const setPackage = createSlice({
       state.addPatents.selectPatents.familyPatents = familyPatents;
     },
     setPackagePatents: (state) => {
-      state.familyPatents = { ...state.addPatents.selectPatents.familyPatents };
+      const stateFamilyPatents = state.addPatents.selectPatents.familyPatents;
+
+      Object.keys(stateFamilyPatents).forEach(familyId => {
+        const familyPatents = stateFamilyPatents[familyId] || [];
+        const patentsToAdd: Patent[] = [];
+
+        familyPatents.forEach(patent => {
+          const hasPatent = familyPatents.find(p => p.applicationNumber === patent.applicationNumber);
+          if (!hasPatent) {
+            patentsToAdd.push(patent);
+          }
+        });
+        state.familyPatents[familyId] = [...familyPatents, ...patentsToAdd];
+      });
     }
   }
 });

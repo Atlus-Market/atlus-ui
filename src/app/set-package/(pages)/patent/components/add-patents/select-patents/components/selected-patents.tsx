@@ -6,12 +6,12 @@ import {
 } from '@/redux/features/set-package/selectors/add-patents-selectors';
 import { pluralize } from '@/utils/words';
 import {
-  useFamilyPatentsCount
-} from '@/app/set-package/(pages)/patent/hooks/use-family-patents-count';
+  useFamilyPatentsHelper
+} from '@/app/set-package/(pages)/patent/hooks/use-family-patents-helper';
 
 export const SelectedPatents = () => {
   const selectedFamilyPatents = useSelector(selectSelectedFamilyPatents);
-  const { patentsCount } = useFamilyPatentsCount(selectedFamilyPatents);
+  const { patentsCount } = useFamilyPatentsHelper(selectedFamilyPatents);
 
   if (!patentsCount) {
     return null;
