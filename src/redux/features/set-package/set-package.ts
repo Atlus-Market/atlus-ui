@@ -10,8 +10,12 @@ import {
 } from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-ids/patents-ids-form';
 import { Patent } from '@/models/patent';
 
+export type FamilyPatents = {
+  [familyId: string]: Patent[];
+}
 
 export interface SetPackageState {
+  familyPatents: FamilyPatents;
   addPatents: {
     isSetPackageModalOpen: boolean;
     currentStep: AddPatentsStep;
@@ -30,7 +34,7 @@ export interface SetPackageState {
       }
     };
     selectPatents: {
-      selectedPatents: Patent[];
+      familyPatents: FamilyPatents;
     }
   };
 }
@@ -38,6 +42,7 @@ export interface SetPackageState {
 export type EnterPatentsIdsManuallyForm = SetPackageState['addPatents']['enterPatents'][EnterPatentsNumberTab.EnterManually]['form'];
 
 const initialState: SetPackageState = {
+  familyPatents: {},
   addPatents: {
     isSetPackageModalOpen: false,
     currentStep: AddPatentsStep.SelectPatents,
@@ -58,7 +63,7 @@ const initialState: SetPackageState = {
       }
     },
     selectPatents: {
-      selectedPatents: []
+      familyPatents: {}
     }
   }
 };
@@ -68,10 +73,13 @@ export const setPackage = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
-    showSetPackageModal: state => {
+    resetAddPatents: (state) => {
+      state.addPatents = initialState.addPatents;
+    },
+    showAddPatentsModal: state => {
       state.addPatents.isSetPackageModalOpen = true;
     },
-    hideSetPackageModal: state => {
+    hideAddPatentsModal: state => {
       state.addPatents.isSetPackageModalOpen = false;
     },
     setAddPatentsStep: (state, action: PayloadAction<AddPatentsStep>) => {
@@ -83,19 +91,29 @@ export const setPackage = createSlice({
     updateEnterPatentsIdsManuallyForm: (state, action: PayloadAction<EnterPatentsIdsManuallyForm>) => {
       state.addPatents.enterPatents[EnterPatentsNumberTab.EnterManually].form = action.payload;
     },
-    setPatents: (state, action: PayloadAction<{ patents: Patent[] }>) => {
-      state.addPatents.selectPatents.selectedPatents = action.payload.patents;
+    selectPatents: (state, action: PayloadAction<{ patents: Patent[] }>) => {
+      const familyPatents: FamilyPatents = {};
+      action.payload.patents.forEach(patent => {
+        const currentPatents = familyPatents[patent.familyId] || [];
+        familyPatents[patent.familyId] = [...currentPatents, patent];
+      });
+      state.addPatents.selectPatents.familyPatents = familyPatents;
+    },
+    setPackagePatents: (state) => {
+      state.familyPatents = { ...state.addPatents.selectPatents.familyPatents };
     }
   }
 });
 
 export const {
   reset,
-  showSetPackageModal,
-  hideSetPackageModal,
+  resetAddPatents,
+  showAddPatentsModal,
+  hideAddPatentsModal,
   setAddPatentsStep,
   setAddPatentsActiveTab,
   updateEnterPatentsIdsManuallyForm,
-  setPatents
+  selectPatents,
+  setPackagePatents
 } = setPackage.actions;
 export default setPackage.reducer;

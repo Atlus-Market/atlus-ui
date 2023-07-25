@@ -57,7 +57,7 @@ export const selectIsActiveTabValid = createSelector(
 
 // Select Patents State
 
-export const selectSelectedPatents = createSelector(
+export const selectSelectedFamilyPatents = createSelector(
   selectSelectPatentsState,
-  state => state.selectedPatents
+  state => state.familyPatents
 );

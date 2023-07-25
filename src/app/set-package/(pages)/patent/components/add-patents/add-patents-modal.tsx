@@ -12,7 +12,7 @@ import {
   AddPatentsStep
 } from '@/app/set-package/(pages)/patent/components/add-patents/add-patents-step';
 import { useAppDispatch } from '@/redux/hooks';
-import { reset } from '@/redux/features/set-package/set-package';
+import { resetAddPatents } from '@/redux/features/set-package/set-package';
 import {
   selectSetPackageState
 } from '@/redux/features/set-package/selectors/set-package.selectors';
@@ -38,8 +38,8 @@ export const AddPatentsModal = () => {
   return (
     <AtlusModal
       isOpen={isSetPackageModalOpen}
-      onAfterClose={() => dispatch(reset())}
-      modalBodyClassName="max-h-[80%]"
+      onAfterClose={() => dispatch(resetAddPatents())}
+      modalBodyClassName='max-h-[80%]'
     >
       {step}
     </AtlusModal>
