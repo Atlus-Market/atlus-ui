@@ -1,13 +1,14 @@
 'use client';
 
 import { AtlusButton } from '@/components/ui/button/atlus-button';
-import { useAppDispatch } from '@/redux/hooks';
-import { showAddPatentsModal } from '@/redux/features/set-package/set-package';
+import {
+  useShowAddPatentsModal
+} from '@/app/set-package/(pages)/patent/hooks/use-show-add-patents-modal';
 
 export const OpenAddPatentsModalButton = () => {
-  const dispatch = useAppDispatch();
+  const { showAddPatentsModal } = useShowAddPatentsModal();
 
   return (
-    <AtlusButton variant='solid' onClick={() => dispatch(showAddPatentsModal())}>Add patents</AtlusButton>
+    <AtlusButton variant='solid' onClick={showAddPatentsModal}>Add patents</AtlusButton>
   );
 };
