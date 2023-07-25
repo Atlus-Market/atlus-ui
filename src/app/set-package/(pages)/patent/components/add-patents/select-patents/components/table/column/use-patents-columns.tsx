@@ -15,6 +15,10 @@ import format from 'date-fns/format';
 import {
   PatentTableData
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/patents-table';
+import {
+  NO_FAMILY_GROUP_ID
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/use-group-patents-by-family';
+import { pluralize } from '@/utils/words';
 
 
 interface UsePatentsColumnsProps {
@@ -74,25 +78,24 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
           };
 
           if (row.getCanExpand()) {
+            const isNoFamilyGroup = row.original.familyId === NO_FAMILY_GROUP_ID;
+            if (isNoFamilyGroup) {
+              const noPatentsCount = row.subRows.length;
+              return (
+                <div className='select-family-cell'>
+                  <span className='text-dark-grey text-sm font-normal leading-[17px] inline-block'>
+                    {noPatentsCount} {pluralize('assets', noPatentsCount)} not found in the public patent database
+                  </span>
+                </div>
+              );
+            }
             const selectedRowsCount = row.subRows.filter(r => r.getIsSelected()).length;
             return (
               <div className='select-family-cell'>
                 <Checkbox />
-                {/*<button*/}
-                {/*  {...{*/}
-                {/*    onClick: row.getToggleExpandedHandler(),*/}
-                {/*    style: { cursor: 'pointer' }*/}
-                {/*  }}>*/}
-                {/*  {row.getIsExpanded() ? '👇' : '👉'}*/}
-                {/*</button>*/}
-                {/*<button onClick={() => {*/}
-                {/*  row.toggleSelected(false);*/}
-                {/*}}>unSelect*/}
-                {/*</button>*/}
                 <span
                   className='text-dark-grey text-sm font-normal leading-[17px] inline-block ml-5'>
-                   <span
-                     className='text-soft-black'>Select Family</span>
+                   <span className='text-soft-black'>Select Family</span>
                   {selectedRowsCount > 0 &&
                     <span
                       className='inline-block ml-1'>
