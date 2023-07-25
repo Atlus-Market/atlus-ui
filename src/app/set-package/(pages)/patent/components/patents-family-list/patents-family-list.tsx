@@ -10,10 +10,12 @@ import { Header } from '@/app/set-package/(pages)/patent/components/patents-fami
 import {
   PatentsFamily
 } from '@/app/set-package/(pages)/patent/components/patents-family-list/patents-family';
+import { AtlusButton } from '@/components/ui/button/atlus-button';
+import Link from 'next/link';
+import { SetPackagePackageDetails } from '@/constants/routes';
 
 export const PatentsFamilyList = () => {
   const familyPatents = useAppSelector(selectPatents);
-
   const { familiesCount, patentsCount, familyIds } = useFamilyPatentsHelper(familyPatents);
 
   if (!familiesCount) {
@@ -27,6 +29,11 @@ export const PatentsFamilyList = () => {
         {familyIds.map(familyId => (
           <PatentsFamily key={familyId} familyId={familyId} patents={familyPatents[familyId]} />
         ))}
+      </div>
+      <div className='flex justify-end w-full p-5'>
+        <Link href={SetPackagePackageDetails} className='block'>
+          <AtlusButton variant='solid' size='medium'>Next</AtlusButton>
+        </Link>
       </div>
     </div>
   );

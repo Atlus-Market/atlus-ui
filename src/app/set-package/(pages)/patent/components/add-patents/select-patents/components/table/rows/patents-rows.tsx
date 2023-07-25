@@ -29,7 +29,8 @@ export const PatentsRows = ({ rows }: PatentsRowsProps) => {
               See all {rows.length} patents
               {!expanded ?
                 <HiChevronDown size={16} className='ml-[3px]' /> :
-                <HiChevronUp size={16} className='ml-[3px]' />}
+                <HiChevronUp size={16} className='ml-[3px]' />
+              }
             </button>
           </td>
         </tr>}

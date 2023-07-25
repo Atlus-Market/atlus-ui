@@ -7,6 +7,9 @@ import {
 import {
   NO_FAMILY_GROUP_ID
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/use-group-patents-by-family';
+import { useState } from 'react';
+import { HiChevronDown, HiChevronUp } from 'react-icons/hi2';
+import { HiOutlineDotsVertical } from 'react-icons/hi';
 
 interface PatentProps {
   familyId: string;
@@ -16,6 +19,9 @@ interface PatentProps {
 export const PatentsFamily = ({ familyId, patents }: PatentProps) => {
   const patentsCount = patents.length;
   const isCreatedManually = familyId === NO_FAMILY_GROUP_ID;
+  const [showingExpandedPatentsList, setShowingExpandedPatentsList] = useState<boolean>(false);
+
+  const patentsToShow = showingExpandedPatentsList ? patents : patents.slice(0, 1);
   return (
     <div className={clsx(
       '[&:not(:last-child)]:mb-8',
@@ -25,17 +31,32 @@ export const PatentsFamily = ({ familyId, patents }: PatentProps) => {
     )}>
       <div className={clsx('bg-lightest-grey', 'px-6 py-4', 'flex justify-between items-center')}>
         <div>
-        <span
-          className='text-sm text-dark-grey'>{patentsCount} {pluralizeWord('patent', patentsCount)} in this family
-        </span>
+            <span
+              className='text-sm text-dark-grey'>{patentsCount} {pluralizeWord('patent', patentsCount)} in this family
+            </span>
         </div>
-        <div>
-          {isCreatedManually && <span className="text-xs text-dark-grey">Created Manually</span>}
+        <div className="flex items-center">
+          {isCreatedManually && <span className='text-xs text-dark-grey inline-block mr-4'>Created Manually</span>}
+          <button>
+            <HiOutlineDotsVertical className='text-dark-grey' />
+          </button>
         </div>
       </div>
       <div>
-        {patents.map(patent => (<Patent key={patent.publicationNumber} patent={patent} />))}
+        {patentsToShow.map(patent => (<Patent key={patent.publicationNumber} patent={patent} />))}
       </div>
+      {patents.length > 1 &&
+        <div className='px-6 pb-4'>
+          <button
+            className='text-orange text-xs font-medium flex items-center'
+            onClick={() => setShowingExpandedPatentsList(!showingExpandedPatentsList)}>
+            {showingExpandedPatentsList ?
+              <>Show less <HiChevronUp size={16} className='ml-[3px]' /></> :
+              <>See all {patents.length} patents <HiChevronDown size={16} className='ml-[3px]' /></>
+            }
+          </button>
+        </div>
+      }
     </div>
   );
 };
