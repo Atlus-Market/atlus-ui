@@ -1,18 +1,22 @@
-import { useEffect, useState } from 'react';
-import { RowSelectionState } from '@tanstack/react-table';
+import { useEffect } from 'react';
+import { Table } from '@tanstack/react-table';
+import { useAppDispatch } from '@/redux/hooks';
+import {
+  PatentTableData
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/patents-table';
+import { setPatents } from '@/redux/features/set-package/set-package';
 
 
-export const useSetSelectedPatents = () => {
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+interface UseSetSelectedPatentsProps {
+  table: Table<PatentTableData>;
+}
 
+export const useSetSelectedPatents = ({ table }: UseSetSelectedPatentsProps) => {
+  const dispatch = useAppDispatch();
+
+  const selectedRowModel = table.getSelectedRowModel();
   useEffect(() => {
-    console.log('rowSelectionState: ', rowSelection);
-    const selectedRowsCount = Object.keys(rowSelection).filter(key => key.toString().indexOf('.') !== -1).length;
-    console.log('selectedRow count: ', selectedRowsCount);
-  }, [rowSelection]);
-
-  return {
-    rowSelection,
-    setRowSelection
-  }
+    const patents = selectedRowModel.flatRows.map(row => row.original);
+    dispatch(setPatents({ patents }));
+  }, [dispatch, selectedRowModel]);
 };

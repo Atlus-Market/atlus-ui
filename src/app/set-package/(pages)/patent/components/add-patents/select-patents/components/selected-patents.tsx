@@ -1,8 +1,14 @@
 'use client';
 
-export const SelectedPatents = () => {
+import { useSelector } from 'react-redux';
+import {
+  selectSelectedPatents
+} from '@/redux/features/set-package/selectors/add-patents-selectors';
 
-  const count = 1;
+export const SelectedPatents = () => {
+  const selectedPatents = useSelector(selectSelectedPatents);
+
+  const count = selectedPatents.length;
 
   if (!count) {
     return null;

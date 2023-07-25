@@ -8,6 +8,7 @@ import {
 import {
   PatentsIdsForm
 } from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-ids/patents-ids-form';
+import { Patent } from '@/models/patent';
 
 
 export interface SetPackageState {
@@ -28,8 +29,8 @@ export interface SetPackageState {
         patentsIds: string[]
       }
     };
-    patentsTable: {
-      selectedPatentsCount: number;
+    selectPatents: {
+      selectedPatents: Patent[];
     }
   };
 }
@@ -56,8 +57,8 @@ const initialState: SetPackageState = {
         patentsIds: []
       }
     },
-    patentsTable: {
-      selectedPatentsCount: 0,
+    selectPatents: {
+      selectedPatents: []
     }
   }
 };
@@ -81,6 +82,9 @@ export const setPackage = createSlice({
     },
     updateEnterPatentsIdsManuallyForm: (state, action: PayloadAction<EnterPatentsIdsManuallyForm>) => {
       state.addPatents.enterPatents[EnterPatentsNumberTab.EnterManually].form = action.payload;
+    },
+    setPatents: (state, action: PayloadAction<{ patents: Patent[] }>) => {
+      state.addPatents.selectPatents.selectedPatents = action.payload.patents;
     }
   }
 });
@@ -91,6 +95,7 @@ export const {
   hideSetPackageModal,
   setAddPatentsStep,
   setAddPatentsActiveTab,
-  updateEnterPatentsIdsManuallyForm
+  updateEnterPatentsIdsManuallyForm,
+  setPatents
 } = setPackage.actions;
 export default setPackage.reducer;

@@ -7,7 +7,7 @@ import {
   AddPatentsStep
 } from '@/app/set-package/(pages)/patent/components/add-patents/add-patents-step';
 import { useSelector } from 'react-redux';
-import { selectIsActiveTabValid } from '@/redux/features/set-package/set-package.selectors';
+import { selectIsActiveTabValid } from '@/redux/features/set-package/selectors/add-patents-selectors';
 
 export const EnterPatentsNextButton = () => {
   const dispatch = useAppDispatch();

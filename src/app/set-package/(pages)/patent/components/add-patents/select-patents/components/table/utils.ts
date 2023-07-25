@@ -76,7 +76,6 @@ export const getInitialExpandedState = <T>(tableData: TableData<T>[]): ExpandedS
   return expandedState;
 };
 
-
 export interface PatentsFamilyRowsGroup {
   parentRow: Row<TableData<any>>;
   childRows: Row<TableData<any>>[];

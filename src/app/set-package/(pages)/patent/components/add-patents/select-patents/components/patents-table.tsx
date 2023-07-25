@@ -4,6 +4,7 @@ import {
   getExpandedRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
+  RowSelectionState,
   useReactTable
 } from '@tanstack/react-table';
 import { useMemo, useState } from 'react';
@@ -45,28 +46,30 @@ export const PatentsTable = () => {
   console.log('useGroupPatentsByFamily: ', groupPatentsByFamily);
 
   const [data, setData] = useState(groupPatentsByFamily);
-
   const [expanded, setExpanded] = useState<ExpandedState>(getInitialExpandedState(groupPatentsByFamily));
-  console.log('expandedState: ', expanded);
-
-  const { rowSelection, setRowSelection } = useSetSelectedPatents();
-  const columns = usePatentsColumns({ rowSelection, setRowSelection });
+  const [rowSelectionState, setRowSelectionState] = useState<RowSelectionState>({});
+  const columns = usePatentsColumns({
+    rowSelection: rowSelectionState,
+    setRowSelection: setRowSelectionState
+  });
 
   const table = useReactTable({
     data,
     columns,
     state: {
       expanded,
-      rowSelection
+      rowSelection: rowSelectionState
     },
     onExpandedChange: setExpanded,
-    onRowSelectionChange: setRowSelection,
+    onRowSelectionChange: setRowSelectionState,
     getSubRows: row => row.subRows,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getExpandedRowModel: getExpandedRowModel()
   });
+
+  useSetSelectedPatents({ table });
 
   const tableRows = table.getRowModel().rows;
   const patentsFamilyGroups = useMemo(() => {
