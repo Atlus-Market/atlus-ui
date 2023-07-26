@@ -9,19 +9,24 @@ import {
 
 // Add patents
 
-export const selectAddPatentsActiveTab = createSelector(
+const selectAddPatentsState = createSelector(
   selectSetPackageState,
-  (state) => state.addPatents.activeTab
+  state => state.addPatents
+);
+
+export const selectAddPatentsActiveTab = createSelector(
+  selectAddPatentsState,
+  (state) => state.activeTab
 );
 
 const selectEnterPatentsState = createSelector(
-  selectSetPackageState,
-  state => state.addPatents.enterPatents
+  selectAddPatentsState,
+  state => state.enterPatents
 );
 
 const selectSelectPatentsState = createSelector(
-  selectSetPackageState,
-  state => state.addPatents.selectPatents
+  selectAddPatentsState,
+  state => state.selectPatents
 );
 
 
@@ -68,8 +73,8 @@ export const selectActivePatentsIds = createSelector(
 );
 
 export const selectFetchedPatents = createSelector(
-  selectSetPackageState,
-  (state) => state.addPatents.patents
+  selectAddPatentsState,
+  (state) => state.patents
 );
 
 // Select Patents State
