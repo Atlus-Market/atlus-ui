@@ -7,10 +7,16 @@ import { LoginRoute } from '@/constants/routes';
 export const ListClientSession = () => {
   return (
     <div>
-      <AtlusButton onClick={() => signOut({
-        callbackUrl: LoginRoute,
-        redirect: true
-      })}>Logout</AtlusButton>
+      <AtlusButton
+        onClick={() =>
+          signOut({
+            callbackUrl: LoginRoute,
+            redirect: true,
+          })
+        }
+      >
+        Logout
+      </AtlusButton>
     </div>
   );
 };
