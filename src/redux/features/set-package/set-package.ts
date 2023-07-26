@@ -17,9 +17,10 @@ export type FamilyPatents = {
 export interface SetPackageState {
   familyPatents: FamilyPatents;
   addPatents: {
-    isSetPackageModalOpen: boolean;
+    isAddPatentsModalOpen: boolean;
     currentStep: AddPatentsStep;
     activeTab: EnterPatentsNumberTab;
+    patents: Patent[], // Fetched from the API
     enterPatents: {
       [EnterPatentsNumberTab.EnterManually]: {
         form: {
@@ -44,9 +45,10 @@ export type EnterPatentsIdsManuallyForm = SetPackageState['addPatents']['enterPa
 const initialState: SetPackageState = {
   familyPatents: {},
   addPatents: {
-    isSetPackageModalOpen: false,
-    currentStep: AddPatentsStep.SelectPatents,
+    isAddPatentsModalOpen: false,
+    currentStep: AddPatentsStep.EnterPatentsNumber,
     activeTab: EnterPatentsNumberTab.EnterManually,
+    patents: [],
     enterPatents: {
       [EnterPatentsNumberTab.EnterManually]: {
         form: {
@@ -77,10 +79,10 @@ export const setPackage = createSlice({
       state.addPatents = initialState.addPatents;
     },
     showAddPatentsModal: state => {
-      state.addPatents.isSetPackageModalOpen = true;
+      state.addPatents.isAddPatentsModalOpen = true;
     },
     hideAddPatentsModal: state => {
-      state.addPatents.isSetPackageModalOpen = false;
+      state.addPatents.isAddPatentsModalOpen = false;
     },
     setAddPatentsStep: (state, action: PayloadAction<AddPatentsStep>) => {
       state.addPatents.currentStep = action.payload;
@@ -114,6 +116,9 @@ export const setPackage = createSlice({
         });
         state.familyPatents[familyId] = [...familyPatents, ...patentsToAdd];
       });
+    },
+    setFetchedPatents: (state, action: PayloadAction<{ patents: Patent[] }>) => {
+      state.addPatents.patents = action.payload.patents;
     }
   }
 });
@@ -127,6 +132,7 @@ export const {
   setAddPatentsActiveTab,
   updateEnterPatentsIdsManuallyForm,
   selectPatents,
-  setPackagePatents
+  setPackagePatents,
+  setFetchedPatents
 } = setPackage.actions;
 export default setPackage.reducer;

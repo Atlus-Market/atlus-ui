@@ -31,9 +31,8 @@ import { Patent } from '@/models/patent';
 import {
   useGroupPatentsByFamily
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/use-group-patents-by-family';
-import {
-  patentsMock
-} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/get-patents-mock';
+import { useAppSelector } from '@/redux/hooks';
+import { selectFetchedPatents } from '@/redux/features/set-package/selectors/add-patents-selectors';
 
 export type TableData<T extends RowData> = T & {
   subRows?: TableData<T>[];
@@ -42,7 +41,8 @@ export type TableData<T extends RowData> = T & {
 export type PatentTableData = TableData<Patent>;
 
 export const PatentsTable = () => {
-  const groupPatentsByFamily = useGroupPatentsByFamily({ patents: patentsMock });
+  const selectedPatents = useAppSelector(selectFetchedPatents);
+  const groupPatentsByFamily = useGroupPatentsByFamily({ patents: selectedPatents });
   console.log('useGroupPatentsByFamily: ', groupPatentsByFamily);
 
   const [data, setData] = useState(groupPatentsByFamily);

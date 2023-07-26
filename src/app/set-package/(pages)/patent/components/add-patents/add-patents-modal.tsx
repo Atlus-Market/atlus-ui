@@ -20,7 +20,7 @@ import {
 export const AddPatentsModal = () => {
   const dispatch = useAppDispatch();
   const { addPatents } = useSelector(selectSetPackageState);
-  const { isSetPackageModalOpen, currentStep } = addPatents;
+  const { isAddPatentsModalOpen, currentStep } = addPatents;
 
   let step = null;
   switch (currentStep) {
@@ -37,7 +37,7 @@ export const AddPatentsModal = () => {
 
   return (
     <AtlusModal
-      isOpen={isSetPackageModalOpen}
+      isOpen={isAddPatentsModalOpen}
       onAfterClose={() => dispatch(resetAddPatents())}
       modalBodyClassName='max-h-[80%]'
     >

@@ -55,6 +55,23 @@ export const selectIsActiveTabValid = createSelector(
   }
 );
 
+export const selectActivePatentsIds = createSelector(
+  selectAddPatentsActiveTab,
+  selectEnterPatentsIdsManuallyState,
+  (activeTab, selectEnterPatentsIdsManuallyState): string[] => {
+    if (activeTab == EnterPatentsNumberTab.EnterManually) {
+      return selectEnterPatentsIdsManuallyState.form?.formValues?.patentsIds?.split(',') || [];
+    }
+    // TODO: return import from file patents ids
+    return [];
+  }
+);
+
+export const selectFetchedPatents = createSelector(
+  selectSetPackageState,
+  (state) => state.addPatents.patents
+);
+
 // Select Patents State
 
 export const selectSelectedFamilyPatents = createSelector(
