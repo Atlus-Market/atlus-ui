@@ -1,38 +1,52 @@
-import { HTMLProps, useEffect, useRef } from 'react';
+import { forwardRef, HTMLProps, useEffect, useRef } from 'react';
 
 import './styles.css';
+import { FieldErrors } from 'react-hook-form';
+import clsx from 'clsx';
 
-interface AtlusCheckboxProps extends HTMLProps<HTMLInputElement> {
+export interface AtlusCheckboxProps extends HTMLProps<HTMLInputElement> {
   indeterminate?: boolean;
+  wrapperClassName?: string;
   label?: string;
+  errors?: FieldErrors;
 }
 
-export const AtlusCheckbox = ({
-                                indeterminate,
-                                className = '',
-                                checked,
-                                label,
-                                ...rest
-                              }: AtlusCheckboxProps) => {
-  const ref = useRef<HTMLInputElement>(null!);
 
-  useEffect(() => {
-    if (typeof indeterminate === 'boolean') {
-      ref.current.indeterminate = !checked && indeterminate;
-    }
-  }, [ref, indeterminate, checked]);
+export const AtlusCheckbox = forwardRef<HTMLInputElement, AtlusCheckboxProps>(
+  function AtlusCheckbox(
+    {
+      indeterminate,
+      className = '',
+      wrapperClassName,
+      checked,
+      label,
+      ...rest
+    }: AtlusCheckboxProps,
+    ref
+  ) {
 
-  return (
-    <div className='checkbox-wrapper'>
-      <label>
-        <input
-          ref={ref}
-          checked={checked}
-          type='checkbox'
-          {...rest}
-        />
-        {label && <span>{label}</span>}
-      </label>
-    </div>
-  );
-};
+    const indeterminateRef = useRef<HTMLInputElement>(null!);
+
+    useEffect(() => {
+      if (typeof indeterminate === 'boolean') {
+        indeterminateRef.current.indeterminate = !checked && indeterminate;
+      }
+    }, [ref, indeterminate, checked]);
+
+    return (
+      <div className={clsx(
+        'checkbox-wrapper',
+        wrapperClassName
+      )}>
+        <label className='flex items-center'>
+          <input
+            ref={ref}
+            checked={checked}
+            type='checkbox'
+            {...rest}
+          />
+          {label && <span className='inline-block ml-[15px]'>{label}</span>}
+        </label>
+      </div>
+    );
+  });

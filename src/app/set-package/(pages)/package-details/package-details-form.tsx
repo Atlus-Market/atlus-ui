@@ -1,6 +1,6 @@
 'use client';
 
-import { object, ObjectSchema, string } from 'yup';
+import { boolean, object, ObjectSchema, string } from 'yup';
 import { RequiredField } from '@/constants/form';
 import { useAtlusForm } from '@/components/ui/form/use-atlus-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,6 +11,7 @@ import { AtlusFormDropdownList } from '@/components/ui/form/atlus-form-dropdown'
 import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 import { HiOutlineLockClosed } from 'react-icons/hi2';
 import { AtlusTitle } from '@/components/ui/typography/atlus-title';
+import { AtlusFormCheckbox } from '@/components/ui/form/atlus-form-checkbox';
 
 export interface IPackageDetailsForm {
   title: string;
@@ -19,6 +20,8 @@ export interface IPackageDetailsForm {
   keywords: string;
   visibility: string;
   price: string;
+  isOpenToLicensing: boolean;
+  showPricingPublicly: boolean;
 }
 
 const schema: ObjectSchema<IPackageDetailsForm> = object({
@@ -28,6 +31,8 @@ const schema: ObjectSchema<IPackageDetailsForm> = object({
   keywords: string().trim().required(RequiredField),
   visibility: string().trim().required(RequiredField),
   price: string().trim().required(RequiredField),
+  isOpenToLicensing: boolean().default(false).required(RequiredField),
+  showPricingPublicly: boolean().default(false).required(RequiredField)
 });
 
 const visibilityOptions: DropdownOption[] = [
@@ -54,41 +59,43 @@ export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
   return (
     <div>
       <AtlusForm formProps={formProps} onSubmit={onSubmit}>
-        <AtlusFormInput
-          label='Title'
-          placeholder='Enter package title'
-          type='text'
-          {...register('title')}
-        />
+        <div className='pb-[44px]'>
+          <AtlusFormInput
+            label='Title'
+            placeholder='Enter package title'
+            type='text'
+            {...register('title')}
+          />
 
-        <AtlusFormTextarea
-          label='Description'
-          placeholder='Write a description for your package'
-          {...register('description')}
-        />
+          <AtlusFormTextarea
+            label='Description'
+            placeholder='Write a description for your package'
+            {...register('description')}
+          />
 
-        <AtlusFormDropdownList
-          placeholder='Choose an industry'
-          {...register('industry')}
-          options={[
-            { label: 'Industry 1', value: 'industry 1' },
-            { label: 'Industry 2', value: 'industry 2' }
-          ]}
-        />
+          <AtlusFormDropdownList
+            placeholder='Choose an industry'
+            {...register('industry')}
+            options={[
+              { label: 'Industry 1', value: 'industry 1' },
+              { label: 'Industry 2', value: 'industry 2' }
+            ]}
+          />
 
-        <AtlusFormInput
-          label='Keywords'
-          placeholder='Type and press Enter to add a keyword'
-          type='text'
-          {...register('keywords')}
-        />
+          <AtlusFormInput
+            label='Keywords'
+            placeholder='Type and press Enter to add a keyword'
+            type='text'
+            {...register('keywords')}
+          />
 
-        <AtlusFormDropdownList
-          placeholder='Visibility'
-          {...register('visibility')}
-          options={visibilityOptions}
-          leftIcon={<HiOutlineLockClosed size={16} />}
-        />
+          <AtlusFormDropdownList
+            placeholder='Visibility'
+            {...register('visibility')}
+            options={visibilityOptions}
+            leftIcon={<HiOutlineLockClosed size={16} />}
+          />
+        </div>
 
         <AtlusTitle text='Pricing' className='!font-normal !text-2xl mb-6' />
 
@@ -97,6 +104,18 @@ export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
           placeholder='$'
           type='text'
           {...register('price')}
+        />
+
+        <AtlusFormCheckbox
+          {...register('isOpenToLicensing')}
+          wrapperClassName='mb-4 md:mb-6'
+          label='This package is open to licensing.'
+        />
+
+        <AtlusFormCheckbox
+          {...register('showPricingPublicly')}
+          wrapperClassName='mb-4 md:mb-6'
+          label='Show pricing details publicly.'
         />
 
       </AtlusForm>
