@@ -41,9 +41,9 @@ export const AtlusCheckbox = forwardRef<HTMLInputElement, AtlusCheckboxProps>(
         <label className='flex items-center'>
           <input
             ref={indeterminateRef}
+            {...rest}
             checked={checked}
             type='checkbox'
-            {...rest}
           />
           {label && <span className='inline-block ml-[15px]'>{label}</span>}
         </label>

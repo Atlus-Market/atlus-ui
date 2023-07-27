@@ -57,8 +57,8 @@ export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
   const { register, watch, handleSubmit, formState: { errors } } = formProps;
   console.log('Errors:', errors);
 
-  const k = watch('keywords');
-  console.log('keywords: ', k);
+  const k = watch('isOpenToLicensing');
+  console.log('isOpenToLicensing: ', k);
 
   return (
     <div>
