@@ -4,6 +4,7 @@ import { forwardRef, TextareaHTMLAttributes } from 'react';
 import clsx from 'clsx';
 import { ErrorMessage } from '@hookform/error-message';
 import { FieldErrors } from 'react-hook-form';
+import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
 
 export interface AtlusTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
@@ -27,15 +28,11 @@ export const AtlusTextarea = forwardRef<HTMLTextAreaElement, AtlusTextareaProps>
     return (
       <div className={clsx('mb-4 md:mb-6', wrapperClassName)}>
         <div className='flex justify-between items-center'>
-          <label
-            htmlFor={textareaId}
-            className='text-xs md:text-sm leading-[17px] font-medium'>
-            {label}
-          </label>
+          <AtlusFormLabel htmlFor={id} label={label} />
         </div>
         <div className={clsx(
           'border border-light-grey rounded-lg',
-          'py-[18px] pl-4 pr-[27px] mt-2',
+          'py-[18px] pl-4 pr-[27px]',
           'flex justify-start items-center'
         )}>
           <textarea

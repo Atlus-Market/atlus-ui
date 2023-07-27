@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { forwardRef, ReactNode, useEffect, useRef, useState } from 'react';
 import { FieldErrors } from 'react-hook-form';
 import { generateID } from '@/utils/id';
+import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
 
 
 export interface DropdownOption {
@@ -17,7 +18,7 @@ const classNames = {
   container: () => 'rounded-lg',
   control: () => clsx(
     'px-4 py-[16px] m-0',
-    'rounded-lg border border-solid border-lightest-grey'
+    'rounded-lg border border-solid border-light-grey'
   ),
   valueContainer: () => 'text-soft-black text-sm font-normal leading-[15px]',
   placeholder: () => 'bg-white text-xs font-medium text-middle-grey leading-[15px]',
@@ -50,6 +51,8 @@ export interface AtlusDropdownListProps {
   errors?: FieldErrors;
   onChange?: (value: string) => void;
   leftIcon?: ReactNode;
+  label?: string;
+  bottomText?: string;
 }
 
 export const AtlusDropdownList = forwardRef<
@@ -64,7 +67,9 @@ export const AtlusDropdownList = forwardRef<
       name,
       onChange,
       wrapperClassName,
-      leftIcon
+      leftIcon,
+      label,
+      bottomText
     },
     ref
   ) {
@@ -85,6 +90,7 @@ export const AtlusDropdownList = forwardRef<
 
     return (
       <div className={clsx('mb-4 md:mb-6', wrapperClassName)}>
+        {label && <AtlusFormLabel label={label} />}
         <Select
           id={refId.current}
           instanceId={refId.current}
@@ -110,6 +116,11 @@ export const AtlusDropdownList = forwardRef<
             )
           }}
         />
+        {bottomText &&
+          <span className='text-xs text-dark-grey font-normal inline-block mt-2'>
+            {bottomText}
+          </span>
+        }
       </div>
     );
   });

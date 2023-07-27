@@ -90,10 +90,12 @@ export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
           />
 
           <AtlusFormDropdownList
+            label='Visibility'
             placeholder='Visibility'
             {...register('visibility')}
             options={visibilityOptions}
             leftIcon={<HiOutlineLockClosed size={16} />}
+            bottomText='Only people you share the package with can view it.'
           />
         </div>
 
@@ -123,7 +125,7 @@ export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
         <div>
           <AtlusTitle text='Seller information' className='!font-normal !text-2xl mb-6' />
           <div>
-            <span className="text-sm text-black leading-6">
+            <span className='text-sm text-black leading-6'>
               Specify which seller you’re representing. This is for your records only and cannot be seen by others.
             </span>
           </div>

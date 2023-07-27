@@ -4,6 +4,7 @@ import { forwardRef, InputHTMLAttributes, ReactNode } from 'react';
 import clsx from 'clsx';
 import { ErrorMessage } from '@hookform/error-message';
 import { FieldErrors } from 'react-hook-form';
+import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
 
 export interface AtlusInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -21,17 +22,18 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(
     const inputId = id || name;
     return (
       <div className={clsx('mb-4 md:mb-6', wrapperClassName)}>
-        <div className="flex justify-between items-center">
-          <label
-            htmlFor={inputId}
-            className='text-xs md:text-sm leading-[17px] font-medium'>
-            {label}
-          </label>
+        <div className='flex justify-between items-center'>
+          {/*<label*/}
+          {/*  htmlFor={inputId}*/}
+          {/*  className='text-xs md:text-sm leading-[17px] font-medium'>*/}
+          {/*  {label}*/}
+          {/*</label>*/}
+          <AtlusFormLabel htmlFor={inputId} label={label} />
           {rightLabel}
         </div>
         <div className={clsx(
           'border border-light-grey rounded-lg',
-          'py-[16px] md:py-[19px] px-4 mt-2',
+          'py-[16px] md:py-[19px] px-4',
           'flex justify-start items-center'
         )}>
           <input
