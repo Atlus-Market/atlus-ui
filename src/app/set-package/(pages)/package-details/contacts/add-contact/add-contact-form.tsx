@@ -7,17 +7,21 @@ import { useAtlusForm } from '@/components/ui/form/use-atlus-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AtlusForm } from '@/components/ui/form/atlus-form';
 import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
-import { forwardRef, useImperativeHandle } from 'react';
+import { forwardRef, useCallback, useImperativeHandle } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { createUser } from '@/api/user/create-user';
 
 export interface AddContact {
-  name: string;
+  firstName: string;
+  lastName: string;
   companyName: string;
   email: string;
   businessPhone: string;
 }
 
 const schema: ObjectSchema<AddContact> = object({
-  name: string().trim().required(RequiredField),
+  firstName: string().trim().required(RequiredField),
+  lastName: string().trim().required(RequiredField),
   companyName: string().trim().required(RequiredField),
   businessPhone: string()
     .trim()
@@ -28,7 +32,6 @@ const schema: ObjectSchema<AddContact> = object({
 });
 
 interface AddContactFormProps {
-  onSubmit: (formValues: AddContact) => void;
 }
 
 export interface AddContactRefExposedProps {
@@ -39,7 +42,7 @@ export interface AddContactRefExposedProps {
 export const AddContactForm = forwardRef<
   AddContactRefExposedProps,
   AddContactFormProps
->(function AddContactForm({ onSubmit }, ref) {
+>(function AddContactForm({}, ref) {
   const formProps = useAtlusForm<AddContact>({
     formOptions: {
       resolver: yupResolver(schema)
@@ -48,6 +51,26 @@ export const AddContactForm = forwardRef<
   const { register, handleSubmit, formState: { errors, isValid } } = formProps;
   console.log(errors);
 
+  const mutation = useMutation({
+    mutationFn: createUser
+  });
+
+  const { isLoading: isLoadingMutation, isSuccess, isError, mutateAsync } = mutation;
+
+  const onSubmit = useCallback(async (formValues: AddContact) => {
+    await mutateAsync({
+      broker: true,
+      cellPhone: '',
+      dealSizePreference: undefined,
+      password: 'fay$0FgTx7F8@9RW',
+      title: '',
+      dealTimeframePreference: undefined,
+      interestAreas: [],
+      interestCountryCodes: [],
+      description: '',
+      ...formValues,
+    });
+  }, [mutateAsync]);
 
   useImperativeHandle(
     ref,
@@ -64,10 +87,18 @@ export const AddContactForm = forwardRef<
   return (
     <AtlusForm formProps={formProps} onSubmit={onSubmit}>
       <AtlusFormInput
-        label='Name'
-        placeholder='John Doe'
+        label='First name'
+        placeholder='John'
         type='text'
-        {...register('name')}
+        {...register('firstName')}
+      />
+
+      <
+        AtlusFormInput
+        label='Last name'
+        placeholder='Doe'
+        type='text'
+        {...register('lastName')}
       />
 
       <AtlusFormInput

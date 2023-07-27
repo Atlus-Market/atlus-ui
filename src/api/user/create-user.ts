@@ -1,8 +1,6 @@
 import { createRequest, ProtectedEndpoint } from '@/api/api';
 import { DealSize, Timeframe } from '@/models/user';
 
-export const UserApiKey = 'user';
-
 export interface CreateUserPayload {
   firstName: string;
   lastName: string;

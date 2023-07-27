@@ -23,7 +23,6 @@ interface AddContactModalProps {
 
 export const AddContactModal = ({ isOpen, onClose }: AddContactModalProps) => {
   const addContactFormRef = useRef<AddContactRefExposedProps | null>(null);
-  console.log('addContactFormRef: ', addContactFormRef);
   return (
     <AtlusModal
       isOpen={isOpen}
@@ -44,11 +43,7 @@ export const AddContactModal = ({ isOpen, onClose }: AddContactModalProps) => {
           </AtlusModalFooter>
         }>
         <AtlusModalBody className='w-[650px]'>
-          <AddContactForm
-            ref={addContactFormRef}
-            onSubmit={(formValues) => {
-              console.log('formValues: ', formValues);
-            }} />
+          <AddContactForm ref={addContactFormRef} />
         </AtlusModalBody>
       </AtlusModalContainer>
     </AtlusModal>
