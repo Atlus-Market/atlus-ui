@@ -9,21 +9,22 @@ import { AtlusForm } from '@/components/ui/form/atlus-form';
 import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
 import { forwardRef, useCallback, useImperativeHandle } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { createUser } from '@/api/user/create-user';
+import { createSeller } from '@/api/seller/create-seller';
+import { addContact } from '@/api/contacts/add-contact';
 
 export interface AddContact {
   firstName: string;
   lastName: string;
   companyName: string;
   email: string;
-  businessPhone: string;
+  phoneNumber: string;
 }
 
 const schema: ObjectSchema<AddContact> = object({
   firstName: string().trim().required(RequiredField),
   lastName: string().trim().required(RequiredField),
   companyName: string().trim().required(RequiredField),
-  businessPhone: string()
+  phoneNumber: string()
     .trim()
     .optional()
     .default('')
@@ -32,6 +33,7 @@ const schema: ObjectSchema<AddContact> = object({
 });
 
 interface AddContactFormProps {
+  onContactAdded?: () => void;
 }
 
 export interface AddContactRefExposedProps {
@@ -42,7 +44,7 @@ export interface AddContactRefExposedProps {
 export const AddContactForm = forwardRef<
   AddContactRefExposedProps,
   AddContactFormProps
->(function AddContactForm({}, ref) {
+>(function AddContactForm({ onContactAdded }, ref) {
   const formProps = useAtlusForm<AddContact>({
     formOptions: {
       resolver: yupResolver(schema)
@@ -51,26 +53,22 @@ export const AddContactForm = forwardRef<
   const { register, handleSubmit, formState: { errors, isValid } } = formProps;
   console.log(errors);
 
-  const mutation = useMutation({
-    mutationFn: createUser
+  const createSellerMutation = useMutation({
+    mutationFn: createSeller
+  });
+  const { isLoading: isLoadingMutation, isSuccess, isError, mutateAsync: createSellerAsync } = createSellerMutation;
+
+  const addContactMutation = useMutation({
+    mutationFn: addContact
   });
 
-  const { isLoading: isLoadingMutation, isSuccess, isError, mutateAsync } = mutation;
+  const { mutateAsync: addContactAsync } = addContactMutation;
 
   const onSubmit = useCallback(async (formValues: AddContact) => {
-    await mutateAsync({
-      broker: true,
-      cellPhone: '',
-      dealSizePreference: undefined,
-      password: 'fay$0FgTx7F8@9RW',
-      title: '',
-      dealTimeframePreference: undefined,
-      interestAreas: [],
-      interestCountryCodes: [],
-      description: '',
-      ...formValues,
-    });
-  }, [mutateAsync]);
+    const response = await createSellerAsync(formValues);
+    await addContactAsync({ userId: response.userId });
+    onContactAdded?.();
+  }, [createSellerAsync, addContactAsync, onContactAdded]);
 
   useImperativeHandle(
     ref,
@@ -82,7 +80,6 @@ export const AddContactForm = forwardRef<
     },
     [handleSubmit, onSubmit, isValid]
   );
-
 
   return (
     <AtlusForm formProps={formProps} onSubmit={onSubmit}>
@@ -119,7 +116,7 @@ export const AddContactForm = forwardRef<
         label='Phone number'
         placeholder='(+1)(123) 456 7890'
         type='tel'
-        {...register('businessPhone')}
+        {...register('phoneNumber')}
       />
     </AtlusForm>
   );

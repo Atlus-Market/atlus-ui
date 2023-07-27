@@ -43,7 +43,7 @@ export const AddContactModal = ({ isOpen, onClose }: AddContactModalProps) => {
           </AtlusModalFooter>
         }>
         <AtlusModalBody className='w-[650px]'>
-          <AddContactForm ref={addContactFormRef} />
+          <AddContactForm ref={addContactFormRef} onContactAdded={onClose} />
         </AtlusModalBody>
       </AtlusModalContainer>
     </AtlusModal>
