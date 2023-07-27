@@ -13,7 +13,10 @@ import { HiOutlineLockClosed } from 'react-icons/hi2';
 import { AtlusTitle } from '@/components/ui/typography/atlus-title';
 import { AtlusFormCheckbox } from '@/components/ui/form/atlus-form-checkbox';
 import { AtlusFormInputWithTags } from '@/components/ui/form/atlus-form-input-with-tags';
-import { ContactsSelector } from '@/app/set-package/(pages)/package-details/contacts/contacts-selector';
+import {
+  ContactsSelector
+} from '@/app/set-package/(pages)/package-details/contacts/contacts-selector';
+import { Controller } from 'react-hook-form';
 
 export interface IPackageDetailsForm {
   title: string;
@@ -24,6 +27,7 @@ export interface IPackageDetailsForm {
   price: number;
   isOpenToLicensing: boolean;
   showPricingPublicly: boolean;
+  sellerId: string;
 }
 
 const schema: ObjectSchema<IPackageDetailsForm> = object({
@@ -34,7 +38,8 @@ const schema: ObjectSchema<IPackageDetailsForm> = object({
   visibility: string().default('').trim().required(RequiredField),
   price: number().min(1).required(RequiredField).typeError('Price must be greater than $1'),
   isOpenToLicensing: boolean().default(false).required(RequiredField),
-  showPricingPublicly: boolean().default(false).required(RequiredField)
+  showPricingPublicly: boolean().default(false).required(RequiredField),
+  sellerId: string().default('').required(RequiredField)
 });
 
 const visibilityOptions: DropdownOption[] = [
@@ -55,7 +60,7 @@ export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
       }
     }
   });
-  const { register, watch, handleSubmit, formState: { errors } } = formProps;
+  const { register, setValue, control, watch, handleSubmit, formState: { errors } } = formProps;
   console.log('Errors:', errors);
 
   const k = watch('isOpenToLicensing');
@@ -66,7 +71,15 @@ export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
       <AtlusForm formProps={formProps} onSubmit={onSubmit}>
         <div className='pb-[44px]'>
 
-          <ContactsSelector />
+          <Controller
+            control={control}
+            name='sellerId'
+            render={({ field: { name } }) => (
+              <ContactsSelector onSellerSelected={(sellerId) => setValue(name, sellerId)} />
+            )}
+          />
+
+
           <AtlusFormInput
             label='Title'
             placeholder='Enter package title'

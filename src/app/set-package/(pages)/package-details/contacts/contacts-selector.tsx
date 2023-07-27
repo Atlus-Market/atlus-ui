@@ -13,14 +13,16 @@ import {
 import { useToggle } from '@uidotdev/usehooks';
 import { useQuery } from '@tanstack/react-query';
 import { getContacts } from '@/api/contacts/get-contacts';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { AtlusContact } from '@/components/ui/contact/atlus-contact';
+import { Contact } from '@/models/contact';
+import { FilterOptionOption } from 'react-select/dist/declarations/src/filters';
 
 interface SellerSelectorProps {
-
+  onSellerSelected: (sellerId: string) => void;
 }
 
-export const ContactsSelector = ({}: SellerSelectorProps) => {
+export const ContactsSelector = ({ onSellerSelected }: SellerSelectorProps) => {
   const [isOpen, setIsOpen] = useToggle(false);
 
   const { refetch, isRefetching, isFetching, data } = useQuery({
@@ -35,6 +37,9 @@ export const ContactsSelector = ({}: SellerSelectorProps) => {
     }
     const contactsOptions = data.contacts.map(c => ({
       value: c.contactId,
+      data: {
+        contact: c
+      },
       label: <AtlusContact contact={c} />
     }));
 
@@ -49,14 +54,24 @@ export const ContactsSelector = ({}: SellerSelectorProps) => {
 
   console.log('data: ', data);
 
+  const customFilter = useCallback((option: FilterOptionOption<DropdownOption>, input: string) => {
+    if (input) {
+      const contact = option.data.data?.contact as Contact;
+      return contact && [contact.firstName, contact.lastName, contact.companyName].some(contactValue => new RegExp(input, 'ig').test(contactValue));
+    }
+    return true; // if not search, then all match
+  }, []);
+
   return (
     <>
       <AddContactModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
       <AtlusDropdownList
+        filterOption={customFilter}
         options={contactOptions}
         groupHeadingHeader={<AddContactOption onClick={() => setIsOpen(true)} />}
         onChange={(value) => {
           console.log(value);
+          onSellerSelected(value);
         }}
       />
     </>

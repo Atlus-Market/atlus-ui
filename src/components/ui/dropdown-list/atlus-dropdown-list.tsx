@@ -6,12 +6,13 @@ import { forwardRef, ReactNode, useEffect, useMemo, useRef, useState } from 'rea
 import { FieldErrors } from 'react-hook-form';
 import { generateID } from '@/utils/id';
 import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
-import { AddContactOption } from '@/app/set-package/(pages)/package-details/contacts/contacts-selector';
+import { FilterOptionOption } from 'react-select/dist/declarations/src/filters';
 
 
 export interface DropdownOption {
   readonly value: string;
   readonly label: ReactNode;
+  readonly data?: Record<string, unknown>;
   options?: Omit<DropdownOption, 'options'>[];
 }
 
@@ -57,6 +58,7 @@ export interface AtlusDropdownListProps {
 
   // Components
   groupHeadingHeader?: ReactNode;
+  filterOption?: (x: FilterOptionOption<DropdownOption>, y: string) => boolean;
 }
 
 export const AtlusDropdownList = forwardRef<
@@ -74,7 +76,8 @@ export const AtlusDropdownList = forwardRef<
       leftIcon,
       label,
       bottomText,
-      groupHeadingHeader
+      groupHeadingHeader,
+      filterOption
     },
     ref
   ) {
@@ -113,6 +116,7 @@ export const AtlusDropdownList = forwardRef<
           options={options}
           placeholder={placeholder}
           classNames={classNames}
+          filterOption={filterOption}
           onChange={(option: DropdownOption | null, actionMeta: ActionMeta<DropdownOption>) => {
             const value = option?.value ?? '';
             onChange?.(value);
