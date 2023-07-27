@@ -31,7 +31,7 @@ const schema: ObjectSchema<IPackageDetailsForm> = object({
   industry: string().default('').trim().required(RequiredField),
   keywords: array().required(RequiredField),
   visibility: string().default('').trim().required(RequiredField),
-  price: number().min(1).required(RequiredField),
+  price: number().min(1).required(RequiredField).typeError('Price must be greater than $1'),
   isOpenToLicensing: boolean().default(false).required(RequiredField),
   showPricingPublicly: boolean().default(false).required(RequiredField)
 });
