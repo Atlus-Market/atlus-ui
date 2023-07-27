@@ -2,7 +2,7 @@
 
 import Select, { ActionMeta, components, GroupBase, SelectInstance } from 'react-select';
 import clsx from 'clsx';
-import { forwardRef, ReactNode, useEffect, useRef, useState } from 'react';
+import { forwardRef, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { FieldErrors } from 'react-hook-form';
 import { generateID } from '@/utils/id';
 import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
@@ -77,6 +77,10 @@ export const AtlusDropdownList = forwardRef<
     const refId = useRef<string>('');
     const [hydrated, setHydrated] = useState(false);
 
+    const memoDefaultValue = useMemo(() => {
+      return options.find(o => o.value === defaultValue);
+    }, [defaultValue, options]);
+
     useEffect(() => {
       setHydrated(true);
     }, []);
@@ -99,7 +103,7 @@ export const AtlusDropdownList = forwardRef<
           menuIsOpen={isOpen}
           unstyled={true}
           isMulti={false}
-          defaultValue={options.find(o => o.value === defaultValue)}
+          defaultValue={memoDefaultValue}
           options={options}
           placeholder={placeholder}
           classNames={classNames}

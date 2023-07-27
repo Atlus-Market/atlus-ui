@@ -1,6 +1,6 @@
 'use client';
 
-import { forwardRef, InputHTMLAttributes, ReactNode } from 'react';
+import { ForwardedRef, forwardRef, InputHTMLAttributes, ReactNode } from 'react';
 import clsx from 'clsx';
 import { ErrorMessage } from '@hookform/error-message';
 import { FieldErrors } from 'react-hook-form';
@@ -10,24 +10,32 @@ export interface AtlusInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   rightLabel?: ReactNode;
   wrapperClassName?: string;
+  inputClassName?:string;
   errors?: FieldErrors;
   rightIcon?: ReactNode;
+  leftCmp?: ReactNode;
 }
 
 export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(
   function AtlusInput(
-    { id, label, name, wrapperClassName, errors, rightIcon, rightLabel, ...rest },
-    ref
+    {
+      id,
+      label,
+      name,
+      wrapperClassName,
+      inputClassName,
+      errors,
+      rightIcon,
+      rightLabel,
+      leftCmp,
+      ...rest
+    },
+    ref: ForwardedRef<HTMLInputElement>
   ) {
     const inputId = id || name;
     return (
       <div className={clsx('mb-4 md:mb-6', wrapperClassName)}>
         <div className='flex justify-between items-center'>
-          {/*<label*/}
-          {/*  htmlFor={inputId}*/}
-          {/*  className='text-xs md:text-sm leading-[17px] font-medium'>*/}
-          {/*  {label}*/}
-          {/*</label>*/}
           <AtlusFormLabel htmlFor={inputId} label={label} />
           {rightLabel}
         </div>
@@ -36,6 +44,7 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(
           'py-[16px] md:py-[19px] px-4',
           'flex justify-start items-center'
         )}>
+          {leftCmp && <div>{leftCmp}</div>}
           <input
             id={inputId}
             name={name}
@@ -43,7 +52,8 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(
               'block w-full',
               'font-normal text-sm md:text-base leading-[17px]',
               'outline-0',
-              'placeholder:text-dark-grey'
+              'placeholder:text-dark-grey',
+              inputClassName
             )}
             ref={ref}
             {...rest}
@@ -54,7 +64,7 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(
             </div>
           }
         </div>
-        {name && (
+        {name && errors && (
           <div className='mt-[5px]'>
             <ErrorMessage
               errors={errors}

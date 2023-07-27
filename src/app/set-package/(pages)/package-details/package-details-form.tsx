@@ -1,6 +1,6 @@
 'use client';
 
-import { boolean, object, ObjectSchema, string } from 'yup';
+import { array, boolean, number, object, ObjectSchema, string } from 'yup';
 import { RequiredField } from '@/constants/form';
 import { useAtlusForm } from '@/components/ui/form/use-atlus-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,25 +12,26 @@ import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-lis
 import { HiOutlineLockClosed } from 'react-icons/hi2';
 import { AtlusTitle } from '@/components/ui/typography/atlus-title';
 import { AtlusFormCheckbox } from '@/components/ui/form/atlus-form-checkbox';
+import { AtlusFormInputWithTags } from '@/components/ui/form/atlus-form-input-with-tags';
 
 export interface IPackageDetailsForm {
   title: string;
   description: string;
   industry: string;
-  keywords: string;
+  keywords: string[];
   visibility: string;
-  price: string;
+  price: number;
   isOpenToLicensing: boolean;
   showPricingPublicly: boolean;
 }
 
 const schema: ObjectSchema<IPackageDetailsForm> = object({
-  title: string().trim().required(RequiredField),
-  description: string().trim().required(RequiredField),
-  industry: string().trim().required(RequiredField),
-  keywords: string().trim().required(RequiredField),
-  visibility: string().trim().required(RequiredField),
-  price: string().trim().required(RequiredField),
+  title: string().default('').trim().required(RequiredField),
+  description: string().default('').trim().required(RequiredField),
+  industry: string().default('').trim().required(RequiredField),
+  keywords: array().required(RequiredField),
+  visibility: string().default('').trim().required(RequiredField),
+  price: number().min(1).required(RequiredField),
   isOpenToLicensing: boolean().default(false).required(RequiredField),
   showPricingPublicly: boolean().default(false).required(RequiredField)
 });
@@ -53,8 +54,11 @@ export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
       }
     }
   });
-  const { register, handleSubmit, formState: { errors } } = formProps;
-  console.log(errors);
+  const { register, watch, handleSubmit, formState: { errors } } = formProps;
+  console.log('Errors:', errors);
+
+  const k = watch('keywords');
+  console.log('keywords: ', k);
 
   return (
     <div>
@@ -82,17 +86,17 @@ export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
             ]}
           />
 
-          <AtlusFormInput
+          <AtlusFormInputWithTags
             label='Keywords'
             placeholder='Type and press Enter to add a keyword'
             type='text'
-            {...register('keywords')}
+            name='keywords'
           />
 
           <AtlusFormDropdownList
             label='Visibility'
             placeholder='Visibility'
-            {...register('visibility')}
+            name='visibility'
             options={visibilityOptions}
             leftIcon={<HiOutlineLockClosed size={16} />}
             bottomText='Only people you share the package with can view it.'
@@ -105,7 +109,7 @@ export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
           <AtlusFormInput
             label='Price (in USD)'
             placeholder='$'
-            type='text'
+            type='number'
             {...register('price')}
           />
 
