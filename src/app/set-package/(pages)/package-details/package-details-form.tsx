@@ -97,26 +97,37 @@ export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
           />
         </div>
 
-        <AtlusTitle text='Pricing' className='!font-normal !text-2xl mb-6' />
+        <div className='pb-[44px]'>
+          <AtlusTitle text='Pricing' className='!font-normal !text-2xl mb-6' />
 
-        <AtlusFormInput
-          label='Price (in USD)'
-          placeholder='$'
-          type='text'
-          {...register('price')}
-        />
+          <AtlusFormInput
+            label='Price (in USD)'
+            placeholder='$'
+            type='text'
+            {...register('price')}
+          />
 
-        <AtlusFormCheckbox
-          {...register('isOpenToLicensing')}
-          wrapperClassName='mb-4 md:mb-6'
-          label='This package is open to licensing.'
-        />
+          <AtlusFormCheckbox
+            {...register('isOpenToLicensing')}
+            wrapperClassName='mb-4 md:mb-6'
+            label='This package is open to licensing.'
+          />
 
-        <AtlusFormCheckbox
-          {...register('showPricingPublicly')}
-          wrapperClassName='mb-4 md:mb-6'
-          label='Show pricing details publicly.'
-        />
+          <AtlusFormCheckbox
+            {...register('showPricingPublicly')}
+            wrapperClassName='mb-4 md:mb-6'
+            label='Show pricing details publicly.'
+          />
+        </div>
+
+        <div>
+          <AtlusTitle text='Seller information' className='!font-normal !text-2xl mb-6' />
+          <div>
+            <span className="text-sm text-black leading-6">
+              Specify which seller you’re representing. This is for your records only and cannot be seen by others.
+            </span>
+          </div>
+        </div>
 
       </AtlusForm>
     </div>

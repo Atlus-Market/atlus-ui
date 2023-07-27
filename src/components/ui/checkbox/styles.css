@@ -1,6 +1,6 @@
 .checkbox-wrapper {
     --atlus-checkbox-border-color: var(--color-dark-grey);
-    display: inline-block;
+    display: block;
 }
 
 .checkbox-wrapper label {
