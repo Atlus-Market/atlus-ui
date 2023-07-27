@@ -1,17 +1,16 @@
 'use client';
 
-import { HiOutlineX } from 'react-icons/hi';
-import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useAppDispatch } from '@/redux/hooks';
 import { hideAddPatentsModal } from '@/redux/features/set-package/set-package';
+import {
+  AtlusCloseModalButton
+} from '@/components/ui/modal/atlus-close-modal-button';
 
-export const CloseModalButton = () => {
+export const CloseAddPatentsModalButton = () => {
   const dispatch = useAppDispatch();
   return (
-    <AtlusButton
+    <AtlusCloseModalButton
       onClick={() => dispatch(hideAddPatentsModal())}
-      variant='clear'>
-      <HiOutlineX size={30} />
-    </AtlusButton>
+    />
   );
 };

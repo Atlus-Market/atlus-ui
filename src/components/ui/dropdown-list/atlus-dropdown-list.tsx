@@ -6,6 +6,7 @@ import { forwardRef, ReactNode, useEffect, useMemo, useRef, useState } from 'rea
 import { FieldErrors } from 'react-hook-form';
 import { generateID } from '@/utils/id';
 import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
+import { AddContactOption } from '@/app/set-package/(pages)/package-details/contacts/contacts-selector';
 
 
 export interface DropdownOption {
@@ -53,6 +54,9 @@ export interface AtlusDropdownListProps {
   leftIcon?: ReactNode;
   label?: string;
   bottomText?: string;
+
+  // Components
+  groupHeadingHeader?: ReactNode;
 }
 
 export const AtlusDropdownList = forwardRef<
@@ -69,13 +73,15 @@ export const AtlusDropdownList = forwardRef<
       wrapperClassName,
       leftIcon,
       label,
-      bottomText
+      bottomText,
+      groupHeadingHeader
     },
     ref
   ) {
 
     const refId = useRef<string>('');
     const [hydrated, setHydrated] = useState(false);
+
 
     const memoDefaultValue = useMemo(() => {
       return options.find(o => o.value === defaultValue);
@@ -117,6 +123,12 @@ export const AtlusDropdownList = forwardRef<
                 {leftIcon && <div className='inline-block mr-3'>{leftIcon}</div>}
                 {children}
               </components.Control>
+            ),
+            GroupHeading: ({ children, ...rest }) => (
+              <components.GroupHeading {...rest}>
+                {groupHeadingHeader}
+                {children}
+              </components.GroupHeading>
             )
           }}
         />

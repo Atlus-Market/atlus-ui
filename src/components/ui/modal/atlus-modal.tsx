@@ -10,18 +10,20 @@ interface AtlusModalProps {
   children: ReactNode;
   onAfterClose?: () => void;
   modalBodyClassName?: string;
+  overlayClassName?: string;
 }
 
 export const AtlusModal = ({
                              isOpen = false,
                              children,
                              onAfterClose,
+                             overlayClassName,
                              modalBodyClassName
                            }: AtlusModalProps) => {
   return (
     <Modal
       isOpen={isOpen}
-      overlayClassName='atlus-modal--overlay'
+      overlayClassName={clsx('atlus-modal--overlay', overlayClassName)}
       onAfterClose={onAfterClose}
       className={clsx('atlus-modal-content', modalBodyClassName)}>
       {children}

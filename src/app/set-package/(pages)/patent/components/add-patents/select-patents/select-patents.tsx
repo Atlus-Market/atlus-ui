@@ -1,7 +1,4 @@
 import { AtlusModalHeader } from '@/components/ui/modal/atlus-modal-header';
-import {
-  CloseModalButton
-} from '@/app/set-package/(pages)/patent/components/add-patents/close-modal-button';
 import { AtlusModalTitle } from '@/components/ui/modal/atlus-modal-title';
 import { AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
@@ -21,6 +18,9 @@ import {
 import {
   SelectPatentsNextButton
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/select-patents-next-button';
+import {
+  CloseAddPatentsModalButton
+} from '@/app/set-package/(pages)/patent/components/add-patents/close-add-patents-modal-button';
 
 export const SelectPatents = () => {
   return (
@@ -28,7 +28,7 @@ export const SelectPatents = () => {
       header={
         <AtlusModalHeader
           leftContent={<BackButtonModal step={AddPatentsStep.EnterPatentsNumber} />}
-          rightContent={<CloseModalButton />}>
+          rightContent={<CloseAddPatentsModalButton />}>
           <AtlusModalTitle text='Select Patents' />
         </AtlusModalHeader>
       }

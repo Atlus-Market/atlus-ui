@@ -13,6 +13,7 @@ import { HiOutlineLockClosed } from 'react-icons/hi2';
 import { AtlusTitle } from '@/components/ui/typography/atlus-title';
 import { AtlusFormCheckbox } from '@/components/ui/form/atlus-form-checkbox';
 import { AtlusFormInputWithTags } from '@/components/ui/form/atlus-form-input-with-tags';
+import { ContactsSelector } from '@/app/set-package/(pages)/package-details/contacts/contacts-selector';
 
 export interface IPackageDetailsForm {
   title: string;
@@ -64,6 +65,8 @@ export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
     <div>
       <AtlusForm formProps={formProps} onSubmit={onSubmit}>
         <div className='pb-[44px]'>
+
+          <ContactsSelector />
           <AtlusFormInput
             label='Title'
             placeholder='Enter package title'
