@@ -26,7 +26,10 @@ export const AtlusForm = <T extends FieldValues>({
   return (
     <FormProvider {...formProps}>
       <form
-        onSubmit={formProps.handleSubmit(onSubmit)}
+        onSubmit={(e) => {
+          e.stopPropagation();
+          return formProps.handleSubmit(onSubmit)(e);
+        }}
         noValidate={true}
         className={className}
         {...htmlFormProps}

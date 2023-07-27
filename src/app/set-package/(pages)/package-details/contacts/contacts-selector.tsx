@@ -35,7 +35,6 @@ export const ContactsSelector = ({}: SellerSelectorProps) => {
     <>
       <AddContactModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
       <AtlusDropdownList
-        isOpen={true}
         options={options}
         groupHeadingHeader={<AddContactOption onClick={() => setIsOpen(true)} />}
         onChange={(value) => {

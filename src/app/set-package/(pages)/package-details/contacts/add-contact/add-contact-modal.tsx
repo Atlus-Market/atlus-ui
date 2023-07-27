@@ -1,15 +1,20 @@
+'use client';
+
 import { AtlusModal } from '@/components/ui/modal/atlus-modal';
 import { AtlusModalContainer } from '@/components/ui/modal/container/atlus-modal-container';
 import { AtlusModalHeader } from '@/components/ui/modal/atlus-modal-header';
-import {
-  AtlusCloseModalButton
-} from '@/components/ui/modal/atlus-close-modal-button';
+import { AtlusCloseModalButton } from '@/components/ui/modal/atlus-close-modal-button';
 import { AtlusModalTitle } from '@/components/ui/modal/atlus-modal-title';
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
 import {
   AddContactSaveButton
 } from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-save-button';
 import { AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
+import {
+  AddContactForm,
+  AddContactRefExposedProps
+} from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-form';
+import { useRef } from 'react';
 
 interface AddContactModalProps {
   isOpen: boolean;
@@ -17,6 +22,8 @@ interface AddContactModalProps {
 }
 
 export const AddContactModal = ({ isOpen, onClose }: AddContactModalProps) => {
+  const addContactFormRef = useRef<AddContactRefExposedProps | null>(null);
+  console.log('addContactFormRef: ', addContactFormRef);
   return (
     <AtlusModal
       isOpen={isOpen}
@@ -30,11 +37,18 @@ export const AddContactModal = ({ isOpen, onClose }: AddContactModalProps) => {
         }
         footer={
           <AtlusModalFooter className='!justify-center'>
-            <AddContactSaveButton />
+            <AddContactSaveButton
+              onClick={() => addContactFormRef.current?.submitForm()}
+              disabled={addContactFormRef.current?.isFormValid}
+            />
           </AtlusModalFooter>
         }>
-        <AtlusModalBody className='w-[650px] !py-0'>
-          body
+        <AtlusModalBody className='w-[650px]'>
+          <AddContactForm
+            ref={addContactFormRef}
+            onSubmit={(formValues) => {
+              console.log('formValues: ', formValues);
+            }} />
         </AtlusModalBody>
       </AtlusModalContainer>
     </AtlusModal>

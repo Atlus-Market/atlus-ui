@@ -7,7 +7,7 @@ import { AtlusColor } from '@/components/ui/theme';
 
 export type HtmlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
-interface ButtonProps extends HtmlButtonProps {
+export interface AtlusButtonProps extends HtmlButtonProps {
   variant?: 'clear' | 'solid' | 'outline';
   size?: 'big' | 'medium';
   children: ReactNode;
@@ -26,7 +26,7 @@ const solidVariant = clsx(
   'bg-orange text-white rounded-[32px]'
 );
 
-const clearVariant = ({ variant, color }: ButtonProps) => {
+const clearVariant = ({ variant, color }: AtlusButtonProps) => {
   const isClearVariant = variant === 'clear';
   return clsx(
     baseButton,
@@ -41,7 +41,7 @@ const outlineVariant = clsx(
   'border border-soft-black rounded-[32px]'
 );
 
-const getButtonSize = (props: ButtonProps): string => {
+const getButtonSize = (props: AtlusButtonProps): string => {
   const { variant, size } = props;
   if (variant === 'clear') {
     return '';
@@ -61,7 +61,7 @@ const getButtonSize = (props: ButtonProps): string => {
   );
 };
 
-export const AtlusButton = (props: ButtonProps) => {
+export const AtlusButton = (props: AtlusButtonProps) => {
   const {
     variant = 'solid',
     size = 'big',

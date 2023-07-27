@@ -2,10 +2,14 @@
 
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 
-export const AddContactSaveButton = () => {
+interface AddContactSaveButtonProps {
+  disabled?: boolean;
+  onClick?: () => void;
+}
 
+export const AddContactSaveButton = ({ disabled, onClick }: AddContactSaveButtonProps) => {
   return (
-    <AtlusButton>
+    <AtlusButton disabled={disabled} onClick={onClick}>
       Save
     </AtlusButton>
   );
