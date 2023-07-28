@@ -21,13 +21,14 @@ import { HiSearch } from 'react-icons/hi';
 
 interface SellerSelectorProps {
   onSellerSelected: (sellerId: string) => void;
+  selectedSellerId: string | undefined;
 }
 
-export const ContactsSelector = ({ onSellerSelected }: SellerSelectorProps) => {
+export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerSelectorProps) => {
   const [isOpen, setIsOpen] = useToggle(false);
   const [isSellerSelected, setIsSellerSelected] = useToggle(false);
 
-  const { refetch, isRefetching, isFetching, data } = useQuery({
+  const { isFetching, data } = useQuery({
     queryKey: ['contacts'],
     queryFn: getContacts,
     refetchOnWindowFocus: true
@@ -54,8 +55,6 @@ export const ContactsSelector = ({ onSellerSelected }: SellerSelectorProps) => {
     ];
   }, [data]);
 
-  console.log('data: ', data);
-
   const customFilter = useCallback((option: FilterOptionOption<DropdownOption>, input: string) => {
     if (input) {
       const contact = option.data.data?.contact as Contact;
@@ -68,13 +67,14 @@ export const ContactsSelector = ({ onSellerSelected }: SellerSelectorProps) => {
     <>
       <AddContactModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
       <AtlusDropdownList
-        label="Contacts"
+        label='Contacts'
         isLoading={isFetching}
         isSearchable={!isSellerSelected}
         placeholder='Search contacts...'
         leftIcon={<HiSearch size={20} color='#A4A2A0' />}
         filterOption={customFilter}
         options={contactOptions}
+        defaultValue={selectedSellerId}
         groupHeadingHeader={<AddContactOption onClick={() => setIsOpen(true)} />}
         onChange={(value) => {
           console.log(value);

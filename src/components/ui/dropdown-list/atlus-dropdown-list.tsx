@@ -97,7 +97,22 @@ export const AtlusDropdownList = forwardRef<
 
 
     const memoDefaultValue = useMemo(() => {
-      return options.find(o => o.value === defaultValue);
+      if (!options) {
+        return undefined;
+      }
+
+      for (let i = 0; i < options.length; i++) {
+        const option = options[i];
+        let optionFound = undefined;
+        if (!option.options) {
+          optionFound = option.value === defaultValue ? option : undefined;
+        } else {
+          optionFound = option.options.find(oo => oo.value === defaultValue);
+        }
+        if (optionFound) {
+          return optionFound;
+        }
+      }
     }, [defaultValue, options]);
 
     useEffect(() => {

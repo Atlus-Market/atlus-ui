@@ -147,8 +147,8 @@ export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
             <Controller
               control={control}
               name='sellerId'
-              render={({ field: { name } }) => (
-                <ContactsSelector onSellerSelected={(sellerId) => setValue(name, sellerId)} />
+              render={({ field: { name, onChange, value } }) => (
+                <ContactsSelector onSellerSelected={onChange} selectedSellerId={value} />
               )}
             />
           </div>
