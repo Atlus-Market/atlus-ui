@@ -18,17 +18,17 @@ export const AtlusCheckbox = forwardRef<HTMLInputElement, AtlusCheckboxProps>(
       indeterminate,
       className = '',
       wrapperClassName,
-      checked,
+      checked = false,
       label,
       ...rest
     }: AtlusCheckboxProps,
     ref
   ) {
 
-    const indeterminateRef = useRef<HTMLInputElement>(null!);
+    const indeterminateRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
-      if (typeof indeterminate === 'boolean') {
+      if (typeof indeterminate === 'boolean' && indeterminateRef.current) {
         indeterminateRef.current.indeterminate = !checked && indeterminate;
       }
     }, [ref, indeterminate, checked]);
@@ -41,12 +41,20 @@ export const AtlusCheckbox = forwardRef<HTMLInputElement, AtlusCheckboxProps>(
         <label className='flex items-center'>
           <input
             {...rest}
-            ref={indeterminateRef}
             checked={checked}
             type='checkbox'
+            ref={e => {
+              indeterminateRef.current = e;
+              if (typeof ref === 'function') {
+                ref(e);
+              } else if (ref) {
+                ref.current = e;
+              }
+            }}
           />
           {label && <span className='inline-block ml-[15px]'>{label}</span>}
         </label>
       </div>
-    );
+    )
+      ;
   });

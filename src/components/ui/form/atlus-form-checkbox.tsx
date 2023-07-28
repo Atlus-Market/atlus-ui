@@ -1,7 +1,7 @@
 'use client';
 
 import { Controller, useFormContext, useFormState } from 'react-hook-form';
-import { forwardRef } from 'react';
+import { forwardRef, useRef } from 'react';
 import { AtlusCheckbox, AtlusCheckboxProps } from '@/components/ui/checkbox/atlus-checkbox';
 
 export interface AtlusFormCheckboxProps extends AtlusCheckboxProps {
@@ -20,12 +20,11 @@ export const AtlusFormCheckbox = forwardRef<HTMLInputElement, AtlusFormCheckboxP
       <Controller
         name={name}
         control={control}
-        render={({field:{onChange}}) => (
+        render={({ field }) => (
           <AtlusCheckbox
             {...rest}
-            name={name}
-            ref={ref}
-            onChange={onChange}
+            {...field}
+            checked={field.value}
             errors={errors}
           />
         )}
