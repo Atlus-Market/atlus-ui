@@ -41,8 +41,8 @@ export type TableData<T extends RowData> = T & {
 export type PatentTableData = TableData<Patent>;
 
 export const PatentsTable = () => {
-  const selectedPatents = useAppSelector(selectFetchedPatents);
-  const groupPatentsByFamily = useGroupPatentsByFamily({ patents: selectedPatents });
+  const fetchedPatents = useAppSelector(selectFetchedPatents);
+  const groupPatentsByFamily = useGroupPatentsByFamily({ patents: fetchedPatents });
   console.log('useGroupPatentsByFamily: ', groupPatentsByFamily);
 
   const [data, setData] = useState(groupPatentsByFamily);
@@ -83,6 +83,15 @@ export const PatentsTable = () => {
     // This grouping is used to render only first row and expand the rest.
     return makeFamilyRowGroups(tableRows);
   }, [tableRows]);
+
+  const hasFetchedPatents = fetchedPatents?.length > 0;
+  if (!hasFetchedPatents) {
+    return (
+      <div className="w-full text-center p-5">
+        <span>No patents were found.</span>
+      </div>
+    )
+  }
 
   return (
     <table>
