@@ -17,6 +17,13 @@ import {
   ContactsSelector
 } from '@/app/set-package/(pages)/package-details/contacts/contacts-selector';
 import { Controller } from 'react-hook-form';
+import { useAppSelector } from '@/redux/hooks';
+import {
+  selectPackageDetailsFormValues
+} from '@/redux/features/set-package/selectors/package-details.selectors';
+import {
+  SetPackageDetailsInStore
+} from '@/app/set-package/(pages)/package-details/set-package-details-in-store';
 
 export interface IPackageDetailsForm {
   title: string;
@@ -52,103 +59,100 @@ export interface PackageDetailsFormProps {
 }
 
 export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
+  const packageDetailsFormValues = useAppSelector(selectPackageDetailsFormValues);
   const formProps = useAtlusForm<IPackageDetailsForm>({
     formOptions: {
       resolver: yupResolver(schema),
-      defaultValues: {
-        industry: 'industry 2'
-      }
+      defaultValues: packageDetailsFormValues
     }
   });
   const { register, setValue, control, watch, handleSubmit, formState: { errors } } = formProps;
   console.log('Errors:', errors);
 
-  const k = watch('isOpenToLicensing');
-  console.log('isOpenToLicensing: ', k);
-
   return (
     <div>
       <AtlusForm formProps={formProps} onSubmit={onSubmit}>
-        <div className='pb-[44px]'>
+        <SetPackageDetailsInStore>
+          <div className='pb-[44px]'>
 
-          <AtlusFormInput
-            label='Title'
-            placeholder='Enter package title'
-            type='text'
-            {...register('title')}
-          />
+            <AtlusFormInput
+              label='Title'
+              placeholder='Enter package title'
+              type='text'
+              {...register('title')}
+            />
 
-          <AtlusFormTextarea
-            label='Description'
-            placeholder='Write a description for your package'
-            {...register('description')}
-          />
+            <AtlusFormTextarea
+              label='Description'
+              placeholder='Write a description for your package'
+              {...register('description')}
+            />
 
-          <AtlusFormDropdownList
-            placeholder='Choose an industry'
-            {...register('industry')}
-            options={[
-              { label: 'Industry 1', value: 'industry 1' },
-              { label: 'Industry 2', value: 'industry 2' }
-            ]}
-          />
+            <AtlusFormDropdownList
+              placeholder='Choose an industry'
+              {...register('industry')}
+              options={[
+                { label: 'Industry 1', value: 'industry 1' },
+                { label: 'Industry 2', value: 'industry 2' }
+              ]}
+            />
 
-          <AtlusFormInputWithTags
-            label='Keywords'
-            placeholder='Type and press Enter to add a keyword'
-            type='text'
-            name='keywords'
-          />
+            <AtlusFormInputWithTags
+              label='Keywords'
+              placeholder='Type and press Enter to add a keyword'
+              type='text'
+              name='keywords'
+            />
 
-          <AtlusFormDropdownList
-            label='Visibility'
-            placeholder='Visibility'
-            name='visibility'
-            options={visibilityOptions}
-            leftIcon={<HiOutlineLockClosed size={16} />}
-            bottomText='Only people you share the package with can view it.'
-          />
-        </div>
+            <AtlusFormDropdownList
+              label='Visibility'
+              placeholder='Visibility'
+              name='visibility'
+              options={visibilityOptions}
+              leftIcon={<HiOutlineLockClosed size={16} />}
+              bottomText='Only people you share the package with can view it.'
+            />
+          </div>
 
-        <div className='pb-[44px]'>
-          <AtlusTitle text='Pricing' className='!font-normal !text-2xl mb-6' />
+          <div className='pb-[44px]'>
+            <AtlusTitle text='Pricing' className='!font-normal !text-2xl mb-6' />
 
-          <AtlusFormInput
-            label='Price (in USD)'
-            placeholder='$'
-            type='number'
-            {...register('price')}
-          />
+            <AtlusFormInput
+              label='Price (in USD)'
+              placeholder='$'
+              type='number'
+              {...register('price')}
+            />
 
-          <AtlusFormCheckbox
-            {...register('isOpenToLicensing')}
-            wrapperClassName='mb-4 md:mb-6'
-            label='This package is open to licensing.'
-          />
+            <AtlusFormCheckbox
+              {...register('isOpenToLicensing')}
+              wrapperClassName='mb-4 md:mb-6'
+              label='This package is open to licensing.'
+            />
 
-          <AtlusFormCheckbox
-            {...register('showPricingPublicly')}
-            wrapperClassName='mb-4 md:mb-6'
-            label='Show pricing details publicly.'
-          />
-        </div>
+            <AtlusFormCheckbox
+              {...register('showPricingPublicly')}
+              wrapperClassName='mb-4 md:mb-6'
+              label='Show pricing details publicly.'
+            />
+          </div>
 
-        <div>
-          <AtlusTitle text='Seller information' className='!font-normal !text-2xl mb-6' />
-          <div className='mb-6'>
+          <div>
+            <AtlusTitle text='Seller information' className='!font-normal !text-2xl mb-6' />
+            <div className='mb-6'>
             <span className='text-sm text-black leading-6'>
               Specify which seller you’re representing. This is for your records only and cannot be seen by others.
             </span>
+            </div>
+            <Controller
+              control={control}
+              name='sellerId'
+              render={({ field: { name } }) => (
+                <ContactsSelector onSellerSelected={(sellerId) => setValue(name, sellerId)} />
+              )}
+            />
           </div>
-          <Controller
-            control={control}
-            name='sellerId'
-            render={({ field: { name } }) => (
-              <ContactsSelector onSellerSelected={(sellerId) => setValue(name, sellerId)} />
-            )}
-          />
-        </div>
-
+        </SetPackageDetailsInStore>
       </AtlusForm>
     </div>
   );
