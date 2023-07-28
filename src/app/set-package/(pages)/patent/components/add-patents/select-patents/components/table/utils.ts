@@ -13,14 +13,14 @@ export interface CheckBoxState {
 
 const isNullOrUndefined = (value: unknown): boolean => value === undefined || value === null;
 
-export const getUpdatedSelectedRowsState = <T>(row: Row<T>, rowSelection: RowSelectionState): RowSelectionState => {
+export const getUpdatedSelectedRowsState = <T>(row: Row<T>, rowSelectionState: RowSelectionState): RowSelectionState => {
   const parentRow = row.getParentRow();
   const isParentRow = !parentRow;
   const id = row.id;
-  const currentCheckedState = rowSelection[id];
+  const currentCheckedState = rowSelectionState[id];
   const checkedStateToSet = isNullOrUndefined(currentCheckedState) ? true : !currentCheckedState;
   const clonedRowSelectionState = {
-    ...rowSelection,
+    ...rowSelectionState,
     [id]: checkedStateToSet
   };
 
@@ -32,7 +32,7 @@ export const getUpdatedSelectedRowsState = <T>(row: Row<T>, rowSelection: RowSel
   }
 
   if (!parentRow) {
-    return rowSelection;
+    return rowSelectionState;
   }
 
   const allChildrenHaveTheSameValue = parentRow.subRows.every(childRow => clonedRowSelectionState[childRow.id] === checkedStateToSet);
@@ -48,15 +48,14 @@ export const getUpdatedSelectedRowsState = <T>(row: Row<T>, rowSelection: RowSel
   return clonedRowSelectionState;
 };
 
-
-export const getCheckboxState2 = <T>(row: Row<T>, rowSelection: RowSelectionState): CheckBoxState => {
+export const getCheckboxState = <T>(row: Row<T>, rowSelectionState: RowSelectionState): CheckBoxState => {
   const { id } = row;
   const parentRow = row.getParentRow();
   const isParentRow = !parentRow;
 
   if (isParentRow) {
-    const checked = row.subRows.every(childRow => rowSelection[childRow.id]);
-    const indeterminate = !checked && row.subRows.some(childRow => rowSelection[childRow.id]);
+    const checked = row.subRows.every(childRow => rowSelectionState[childRow.id]);
+    const indeterminate = !checked && row.subRows.some(childRow => rowSelectionState[childRow.id]);
     return {
       checked,
       indeterminate
@@ -66,28 +65,9 @@ export const getCheckboxState2 = <T>(row: Row<T>, rowSelection: RowSelectionStat
   // is a subRow
   return {
     indeterminate: false,
-    checked: rowSelection[id]
+    checked: rowSelectionState[id]
   };
-
 };
-
-// export const getCheckboxState = <T>(row: Row<T>): CheckBoxState => {
-//   const hasSubRows = row.getCanExpand();
-//
-//   if (hasSubRows) {
-//     const indeterminate = row.getIsSomeSelected();
-//     return {
-//       checked: row.getIsAllSubRowsSelected(),
-//       indeterminate
-//     };
-//   }
-//
-//   // is a subRow
-//   return {
-//     indeterminate: false,
-//     checked: row.getIsSelected()
-//   };
-// };
 
 export const getInitialExpandedState = <T>(tableData: TableData<T>[]): ExpandedState => {
   const numberOfRows = tableData.length;

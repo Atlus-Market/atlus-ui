@@ -31,9 +31,8 @@ import { Patent } from '@/models/patent';
 import {
   useGroupPatentsByFamily
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/use-group-patents-by-family';
-import {
-  patentsMock
-} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/get-patents-mock';
+import { useAppSelector } from '@/redux/hooks';
+import { selectFetchedPatents } from '@/redux/features/set-package/selectors/add-patents-selectors';
 
 export type TableData<T extends RowData> = T & {
   subRows?: TableData<T>[];
@@ -41,16 +40,14 @@ export type TableData<T extends RowData> = T & {
 
 export type PatentTableData = TableData<Patent>;
 
-export type ExpandedCustomState = Record<string, boolean>
-
 export const PatentsTable = () => {
-  const selectedPatents = patentsMock;//useAppSelector(selectFetchedPatents);
+  const selectedPatents = useAppSelector(selectFetchedPatents);
   const groupPatentsByFamily = useGroupPatentsByFamily({ patents: selectedPatents });
   console.log('useGroupPatentsByFamily: ', groupPatentsByFamily);
 
   const [data, setData] = useState(groupPatentsByFamily);
   const [expanded, setExpanded] = useState<ExpandedState>(getInitialExpandedState(groupPatentsByFamily));
-  const [rowSelectionState, setRowSelectionState] = useState<ExpandedCustomState>({});
+  const [rowSelectionState, setRowSelectionState] = useState<RowSelectionState>({});
   const columns = usePatentsColumns({
     rowSelection: rowSelectionState,
     setRowSelection: setRowSelectionState
@@ -60,11 +57,18 @@ export const PatentsTable = () => {
     data,
     columns,
     state: {
-      expanded
-      // rowSelection: rowSelectionState
+      expanded,
+      rowSelection: rowSelectionState // Used so rows can read their selection state
     },
     onExpandedChange: setExpanded,
+
+    // DO NOT USE because parent row state is not updated correctly.
+    // If all children rows are  selected and then one by one are deselected,
+    // parent row remains in a selected (checked) state after all children have
+    // been deselected.
+    // Same bug is happening in @tanstack/react-table selection examples.
     // onRowSelectionChange: setRowSelectionState,
+
     getSubRows: row => row.subRows,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
