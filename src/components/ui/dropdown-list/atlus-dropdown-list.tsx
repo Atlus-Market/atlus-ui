@@ -26,9 +26,9 @@ const classNames = {
       'rounded-lg border border-solid border-light-grey'
     );
   },
-  valueContainer: () => 'text-soft-black text-sm font-normal leading-[15px]',
-  placeholder: () => 'bg-white text-xs font-medium text-middle-grey leading-[15px]',
-  input: () => 'text-xs font-medium text-soft-black leading-[15px]',
+  valueContainer: () => 'text-soft-black text-sm font-normal leading-[16px]',
+  placeholder: () => 'bg-white text-xs font-medium text-middle-grey leading-[16px]',
+  input: () => 'text-xs font-medium text-soft-black leading-[16px]',
   menu: () => clsx(
     'rounded-lg border border-solid border-lightest-grey py-[10px]',
     'bg-white shadow-[0px_2px_6px_0px_rgba(164,162,160,0.25)]',

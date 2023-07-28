@@ -24,6 +24,8 @@ import {
 import {
   SetPackageDetailsInStore
 } from '@/app/set-package/(pages)/package-details/set-package-details-in-store';
+import { InterestArea } from '@/api/interest-areas/interest-area';
+import { useMemo } from 'react';
 
 export interface IPackageDetailsForm {
   title: string;
@@ -56,9 +58,10 @@ const visibilityOptions: DropdownOption[] = [
 
 export interface PackageDetailsFormProps {
   onSubmit: (formValues: IPackageDetailsForm) => void;
+  interestArea: InterestArea[];
 }
 
-export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
+export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFormProps) => {
   const packageDetailsFormValues = useAppSelector(selectPackageDetailsFormValues);
   const formProps = useAtlusForm<IPackageDetailsForm>({
     formOptions: {
@@ -68,6 +71,13 @@ export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
   });
   const { register, setValue, control, watch, handleSubmit, formState: { errors } } = formProps;
   console.log('Errors:', errors);
+
+  const interestAreasOptions = useMemo<DropdownOption[]>(() => {
+    return interestArea.map(ia => ({
+      value: ia.id.toString(),
+      label: ia.name
+    }));
+  }, [interestArea]);
 
   return (
     <div>
@@ -91,10 +101,7 @@ export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
             <AtlusFormDropdownList
               placeholder='Choose an industry'
               {...register('industry')}
-              options={[
-                { label: 'Industry 1', value: 'industry 1' },
-                { label: 'Industry 2', value: 'industry 2' }
-              ]}
+              options={interestAreasOptions}
             />
 
             <AtlusFormInputWithTags
