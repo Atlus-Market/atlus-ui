@@ -1,12 +1,14 @@
 'use client';
 
 import Select, { ActionMeta, components, GroupBase, SelectInstance } from 'react-select';
+import AsyncSelect from 'react-select/async';
 import clsx from 'clsx';
 import { forwardRef, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { FieldErrors } from 'react-hook-form';
 import { generateID } from '@/utils/id';
 import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
 import { FilterOptionOption } from 'react-select/dist/declarations/src/filters';
+import { ControlProps } from 'react-select/dist/declarations/src/components/Control';
 
 
 export interface DropdownOption {
@@ -18,10 +20,12 @@ export interface DropdownOption {
 
 const classNames = {
   container: () => 'rounded-lg',
-  control: () => clsx(
-    'px-4 py-[16px] m-0',
-    'rounded-lg border border-solid border-light-grey'
-  ),
+  control: (props: ControlProps<DropdownOption, false, GroupBase<DropdownOption>>) => {
+    return clsx(
+      'px-4 py-[16px] m-0',
+      'rounded-lg border border-solid border-light-grey'
+    );
+  },
   valueContainer: () => 'text-soft-black text-sm font-normal leading-[15px]',
   placeholder: () => 'bg-white text-xs font-medium text-middle-grey leading-[15px]',
   input: () => 'text-xs font-medium text-soft-black leading-[15px]',
@@ -44,6 +48,9 @@ const classNames = {
 };
 
 export interface AtlusDropdownListProps {
+  isAsync?: boolean;
+  isLoading?: boolean;
+  isSearchable?: boolean;
   wrapperClassName?: string;
   placeholder?: string;
   isOpen?: boolean;
@@ -66,6 +73,7 @@ export const AtlusDropdownList = forwardRef<
 >(
   function AtlusDropdownList(
     {
+      isAsync,
       isOpen,
       placeholder,
       options = [],
@@ -77,7 +85,9 @@ export const AtlusDropdownList = forwardRef<
       label,
       bottomText,
       groupHeadingHeader,
-      filterOption
+      filterOption,
+      isLoading,
+      isSearchable
     },
     ref
   ) {
@@ -101,10 +111,14 @@ export const AtlusDropdownList = forwardRef<
 
     refId.current = refId.current || generateID();
 
+    const Comp = isAsync ? AsyncSelect : Select;
+
     return (
       <div className={clsx('mb-4 md:mb-6', wrapperClassName)}>
         {label && <AtlusFormLabel label={label} />}
-        <Select
+        <Comp
+          isLoading={isLoading}
+          isSearchable={isSearchable}
           id={refId.current}
           instanceId={refId.current}
           ref={ref}

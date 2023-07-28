@@ -17,6 +17,7 @@ import { useCallback, useMemo } from 'react';
 import { AtlusContact } from '@/components/ui/contact/atlus-contact';
 import { Contact } from '@/models/contact';
 import { FilterOptionOption } from 'react-select/dist/declarations/src/filters';
+import { HiSearch } from 'react-icons/hi';
 
 interface SellerSelectorProps {
   onSellerSelected: (sellerId: string) => void;
@@ -24,6 +25,7 @@ interface SellerSelectorProps {
 
 export const ContactsSelector = ({ onSellerSelected }: SellerSelectorProps) => {
   const [isOpen, setIsOpen] = useToggle(false);
+  const [isSellerSelected, setIsSellerSelected] = useToggle(false);
 
   const { refetch, isRefetching, isFetching, data } = useQuery({
     queryKey: ['contacts'],
@@ -66,12 +68,18 @@ export const ContactsSelector = ({ onSellerSelected }: SellerSelectorProps) => {
     <>
       <AddContactModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
       <AtlusDropdownList
+        label="Contacts"
+        isLoading={isFetching}
+        isSearchable={!isSellerSelected}
+        placeholder='Search contacts...'
+        leftIcon={<HiSearch size={20} color='#A4A2A0' />}
         filterOption={customFilter}
         options={contactOptions}
         groupHeadingHeader={<AddContactOption onClick={() => setIsOpen(true)} />}
         onChange={(value) => {
           console.log(value);
           onSellerSelected(value);
+          setIsSellerSelected(true);
         }}
       />
     </>

@@ -71,15 +71,6 @@ export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
       <AtlusForm formProps={formProps} onSubmit={onSubmit}>
         <div className='pb-[44px]'>
 
-          <Controller
-            control={control}
-            name='sellerId'
-            render={({ field: { name } }) => (
-              <ContactsSelector onSellerSelected={(sellerId) => setValue(name, sellerId)} />
-            )}
-          />
-
-
           <AtlusFormInput
             label='Title'
             placeholder='Enter package title'
@@ -144,11 +135,18 @@ export const PackageDetailsForm = ({ onSubmit }: PackageDetailsFormProps) => {
 
         <div>
           <AtlusTitle text='Seller information' className='!font-normal !text-2xl mb-6' />
-          <div>
+          <div className='mb-6'>
             <span className='text-sm text-black leading-6'>
               Specify which seller you’re representing. This is for your records only and cannot be seen by others.
             </span>
           </div>
+          <Controller
+            control={control}
+            name='sellerId'
+            render={({ field: { name } }) => (
+              <ContactsSelector onSellerSelected={(sellerId) => setValue(name, sellerId)} />
+            )}
+          />
         </div>
 
       </AtlusForm>
