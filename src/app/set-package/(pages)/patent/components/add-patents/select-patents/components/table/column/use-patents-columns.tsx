@@ -1,10 +1,11 @@
 import { useMemo } from 'react';
-import { ColumnDef, RowSelectionState } from '@tanstack/react-table';
+import { ColumnDef } from '@tanstack/react-table';
 import {
   HeaderCell
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/header/header-cell';
 import {
-  getCheckboxState
+  getCheckboxState2,
+  getUpdatedSelectedRowsState
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/table/utils';
 import { AtlusCheckbox } from '@/components/ui/checkbox/atlus-checkbox';
 import {
@@ -13,6 +14,7 @@ import {
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
 import format from 'date-fns/format';
 import {
+  ExpandedCustomState,
   PatentTableData
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/patents-table';
 import {
@@ -22,8 +24,8 @@ import { pluralize } from '@/utils/words';
 
 
 interface UsePatentsColumnsProps {
-  rowSelection: RowSelectionState;
-  setRowSelection: (rowSelection: RowSelectionState) => void;
+  rowSelection: ExpandedCustomState;
+  setRowSelection: (rowSelection: ExpandedCustomState) => void;
 }
 
 export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsColumnsProps) => {
@@ -37,7 +39,8 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
         cell: ({ row, getValue }) => {
           // console.log(`&&&& cell:rowSelection ${row.id} &&&&`, rowSelection);
           const Checkbox = () => {
-            const checkboxState = getCheckboxState<PatentTableData>(row);
+            const checkboxState = getCheckboxState2<PatentTableData>(row, rowSelection);
+            // console.log(row.id, checkboxState);
             return <AtlusCheckbox
               checked={checkboxState.checked}
               indeterminate={checkboxState.indeterminate}
@@ -46,19 +49,16 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
 
                 // @ts-ignore
                 const checkboxState = e.target.checked;
+                const newState = rowSelection[row.id] ?? false;
+
+                console.log('--- target value, newState---', checkboxState, newState, rowSelection);
+                row.getToggleSelectedHandler()(e);
+
                 // setRowSelection({ ...rowSelection, [row.id]: checkboxState });
-                console.log('--- target value ---', checkboxState);
 
-                if (row.getCanExpand()) {
-                  console.log('row.getIsSelected: ', row.getIsSelected());
-                  console.log('row.getIsSomeSelected: ', row.getIsSomeSelected());
-                  console.log('row.getIsAllSubRowsSelected: ', row.getIsAllSubRowsSelected());
-                }
-
+                setRowSelection(getUpdatedSelectedRowsState(row, rowSelection));
                 const parentRow = row.getParentRow();
                 if (parentRow) {
-                  row.getToggleSelectedHandler()(e);
-
                   console.log('parentRow.getIsSelected: ', parentRow.getIsSelected());
                   console.log('parentRow.getIsSomeSelected: ', parentRow.getIsSomeSelected());
                   console.log('parentRow.getIsAllSubRowsSelected: ', parentRow.getIsAllSubRowsSelected());
@@ -69,7 +69,7 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
                   // }
                 } else {
                   if (!checkboxState && row.getIsAllSubRowsSelected()) {
-                    row.toggleSelected(false);
+                    // row.toggleSelected(false);
                   }
                   // row.toggleSelected(checkboxState);
                 }
@@ -175,6 +175,6 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
         }
       }
     ],
-    [rowSelection]
+    [rowSelection, setRowSelection]
   );
 };

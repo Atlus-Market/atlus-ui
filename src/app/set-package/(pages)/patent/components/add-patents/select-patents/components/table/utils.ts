@@ -1,4 +1,4 @@
-import { Row } from '@tanstack/react-table';
+import { Row, RowSelectionState } from '@tanstack/react-table';
 import { ExpandedState } from '@tanstack/table-core/src/features/Expanding';
 import {
   PatentTableData,
@@ -11,51 +11,54 @@ export interface CheckBoxState {
   indeterminate: boolean;
 }
 
+const isNullOrUndefined = (value: unknown): boolean => value === undefined || value === null;
 
-export const getCheckboxState2 = <T>(row: Row<T>): CheckBoxState => {
-  const { id } = row;
-  const hasSubRows = row.getCanExpand();
-
-
-  if (hasSubRows) {
-    const checked = row.getIsAllSubRowsSelected();
-    const indeterminate = row.getIsSomeSelected();
-
-    return {
-      checked: row.getIsAllSubRowsSelected(),
-      indeterminate: row.getIsSomeSelected()
-    };
-  }
-
-  const parent = row.getParentRow();
-  if (parent?.getIsSomeSelected()) {
-    return {
-      checked: false,
-      indeterminate: true
-    };
-  }
-
-  if (parent?.getIsAllSubRowsSelected()) {
-    return {
-      checked: true,
-      indeterminate: false
-    };
-  }
-
-  return {
-    checked: false,
-    indeterminate: false
+export const getUpdatedSelectedRowsState = <T>(row: Row<T>, rowSelection: RowSelectionState): RowSelectionState => {
+  const parentRow = row.getParentRow();
+  const isParentRow = !parentRow;
+  const id = row.id;
+  const currentCheckedState = rowSelection[id];
+  const checkedStateToSet = isNullOrUndefined(currentCheckedState) ? true : !currentCheckedState;
+  const clonedRowSelectionState = {
+    ...rowSelection,
+    [id]: checkedStateToSet
   };
 
+  if (isParentRow) {
+    row.subRows.forEach(childRow => {
+      clonedRowSelectionState[childRow.id] = checkedStateToSet;
+    });
+    return clonedRowSelectionState;
+  }
+
+  if (!parentRow) {
+    return rowSelection;
+  }
+
+  const allChildrenHaveTheSameValue = parentRow.subRows.every(childRow => clonedRowSelectionState[childRow.id] === checkedStateToSet);
+
+  if (allChildrenHaveTheSameValue) {
+    // if all children have the same value, then the parent must have the same value too
+    clonedRowSelectionState[parentRow.id] = checkedStateToSet;
+  } else {
+    // If some children are selected, then the parent row is selected
+    clonedRowSelectionState[parentRow.id] = true;
+  }
+
+  return clonedRowSelectionState;
 };
 
-export const getCheckboxState = <T>(row: Row<T>): CheckBoxState => {
-  const hasSubRows = row.getCanExpand();
 
-  if (hasSubRows) {
-    const indeterminate = row.getIsSomeSelected();
+export const getCheckboxState2 = <T>(row: Row<T>, rowSelection: RowSelectionState): CheckBoxState => {
+  const { id } = row;
+  const parentRow = row.getParentRow();
+  const isParentRow = !parentRow;
+
+  if (isParentRow) {
+    const checked = row.subRows.every(childRow => rowSelection[childRow.id]);
+    const indeterminate = !checked && row.subRows.some(childRow => rowSelection[childRow.id]);
     return {
-      checked: row.getIsAllSubRowsSelected(),
+      checked,
       indeterminate
     };
   }
@@ -63,9 +66,28 @@ export const getCheckboxState = <T>(row: Row<T>): CheckBoxState => {
   // is a subRow
   return {
     indeterminate: false,
-    checked: row.getIsSelected()
+    checked: rowSelection[id]
   };
+
 };
+
+// export const getCheckboxState = <T>(row: Row<T>): CheckBoxState => {
+//   const hasSubRows = row.getCanExpand();
+//
+//   if (hasSubRows) {
+//     const indeterminate = row.getIsSomeSelected();
+//     return {
+//       checked: row.getIsAllSubRowsSelected(),
+//       indeterminate
+//     };
+//   }
+//
+//   // is a subRow
+//   return {
+//     indeterminate: false,
+//     checked: row.getIsSelected()
+//   };
+// };
 
 export const getInitialExpandedState = <T>(tableData: TableData<T>[]): ExpandedState => {
   const numberOfRows = tableData.length;

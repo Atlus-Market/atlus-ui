@@ -31,8 +31,9 @@ import { Patent } from '@/models/patent';
 import {
   useGroupPatentsByFamily
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/use-group-patents-by-family';
-import { useAppSelector } from '@/redux/hooks';
-import { selectFetchedPatents } from '@/redux/features/set-package/selectors/add-patents-selectors';
+import {
+  patentsMock
+} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/get-patents-mock';
 
 export type TableData<T extends RowData> = T & {
   subRows?: TableData<T>[];
@@ -40,14 +41,16 @@ export type TableData<T extends RowData> = T & {
 
 export type PatentTableData = TableData<Patent>;
 
+export type ExpandedCustomState = Record<string, boolean>
+
 export const PatentsTable = () => {
-  const selectedPatents = useAppSelector(selectFetchedPatents);
+  const selectedPatents = patentsMock;//useAppSelector(selectFetchedPatents);
   const groupPatentsByFamily = useGroupPatentsByFamily({ patents: selectedPatents });
   console.log('useGroupPatentsByFamily: ', groupPatentsByFamily);
 
   const [data, setData] = useState(groupPatentsByFamily);
   const [expanded, setExpanded] = useState<ExpandedState>(getInitialExpandedState(groupPatentsByFamily));
-  const [rowSelectionState, setRowSelectionState] = useState<RowSelectionState>({});
+  const [rowSelectionState, setRowSelectionState] = useState<ExpandedCustomState>({});
   const columns = usePatentsColumns({
     rowSelection: rowSelectionState,
     setRowSelection: setRowSelectionState
@@ -57,11 +60,11 @@ export const PatentsTable = () => {
     data,
     columns,
     state: {
-      expanded,
-      rowSelection: rowSelectionState
+      expanded
+      // rowSelection: rowSelectionState
     },
     onExpandedChange: setExpanded,
-    onRowSelectionChange: setRowSelectionState,
+    // onRowSelectionChange: setRowSelectionState,
     getSubRows: row => row.subRows,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
