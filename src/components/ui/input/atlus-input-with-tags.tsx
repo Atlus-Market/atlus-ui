@@ -5,11 +5,17 @@ import { AtlusTag } from '@/components/ui/tag/atlus-tag';
 
 export interface AtlusInputWithTagsProps extends AtlusInputProps {
   onTagsChange?: (tags: string[]) => void;
+  initialValue?: string[];
 }
 
 export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTagsProps>(
-  function AtlusInputWithTags({ onTagsChange, name, ...rest }, ref: ForwardedRef<HTMLInputElement>) {
-    const [tags, setTags] = useState<string[]>([]);
+  function AtlusInputWithTags({
+                                onTagsChange,
+                                name,
+                                initialValue = [],
+                                ...rest
+                              }, ref: ForwardedRef<HTMLInputElement>) {
+    const [tags, setTags] = useState<string[]>(initialValue);
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {

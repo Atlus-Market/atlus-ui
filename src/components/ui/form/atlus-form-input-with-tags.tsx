@@ -13,7 +13,7 @@ export interface AtlusFormInputWithTagsProps extends AtlusInputWithTagsProps {
 
 export const AtlusFormInputWithTags = (props: AtlusFormInputWithTagsProps) => {
   const { name } = props;
-  const { control, setValue } = useFormContext();
+  const { control, setValue, getValues } = useFormContext();
 
   const onTagsChange = useCallback((tags: string[]) => {
     setValue(name, tags);
@@ -23,8 +23,8 @@ export const AtlusFormInputWithTags = (props: AtlusFormInputWithTagsProps) => {
     <Controller
       name={name}
       control={control}
-      render={() => (
-        <AtlusInputWithTags{...props} onTagsChange={onTagsChange} />
+      render={({ field }) => (
+        <AtlusInputWithTags {...props} initialValue={field.value} onTagsChange={onTagsChange} />
       )}
     />
   );
