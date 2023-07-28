@@ -44,7 +44,7 @@ export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTag
         return null;
       }
       return (
-        <div className='flex items-center flex-wrap gap-2 mr-2'>
+        <div className='flex items-center flex-wrap gap-2 basis-[100%] mr-2'>
           {tags.map((tag, index) => {
             const onClose = () => {
               setTags(tags.filter(t => t !== tag));

@@ -44,7 +44,7 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(
           'py-[16px] md:py-[19px] px-4',
           'flex justify-start items-center'
         )}>
-          {leftCmp && <div>{leftCmp}</div>}
+          {leftCmp && leftCmp}
           <input
             id={inputId}
             name={name}
