@@ -9,7 +9,7 @@ export const patentIdValidator: Validator<string> = {
 };
 
 // TODO: replace with patentId regex
-const isValidPatentId = (patentId: string): boolean => patentId?.trim().length >= 11;
+const isValidPatentId = (patentId: string): boolean => patentId?.trim().length >= 5;
 
 export const getInvalidPatentsIds = (patentsIds: string): string[] => {
   return patentsIds

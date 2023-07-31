@@ -19,11 +19,11 @@ export const EnterPatentsNextButton = () => {
   const selectedPatentsId = useAppSelector(selectActivePatentsIds);
 
   const getPatentsPayload: GetPatentsPayload = {
-    patentsIds: selectedPatentsId
+    ids: selectedPatentsId
   };
 
   const { refetch, isRefetching, isFetching } = useQuery({
-    queryKey: ['patents', getPatentsPayload],
+    queryKey: ['patents/bulk', getPatentsPayload],
     queryFn: () => getPatents(getPatentsPayload),
     refetchOnWindowFocus: false,
     enabled: false // disable this query from automatically running
@@ -35,9 +35,9 @@ export const EnterPatentsNextButton = () => {
     }
 
     const response = await refetch();
-    console.log('fetchPatents response: ', response.data);
+    console.log('fetchPatents response: ', response);
     // TODO: Handle error case
-    dispatch(setFetchedPatents({ patents: response.data?.patents ?? [] }));
+    dispatch(setFetchedPatents({ patents: response.data ?? [] }));
     dispatch(setAddPatentsStep(AddPatentsStep.SelectPatents));
   };
 

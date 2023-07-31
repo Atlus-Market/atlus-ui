@@ -4,6 +4,8 @@ export interface Patent {
   status: string;
   applicantsOriginal: string[];
   applicationNumber: string;
-  applicationDateEpodoc: string;
+  applicationReferenceEpodoc: {
+    date: string
+  };
   familyId: string;
 }

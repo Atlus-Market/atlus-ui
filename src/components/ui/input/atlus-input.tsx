@@ -10,7 +10,7 @@ export interface AtlusInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   rightLabel?: ReactNode;
   wrapperClassName?: string;
-  inputClassName?:string;
+  inputClassName?: string;
   errors?: FieldErrors;
   rightIcon?: ReactNode;
   leftCmp?: ReactNode;
@@ -60,7 +60,7 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(
             {...rest}
           />
           {rightIcon &&
-            <div>
+            <div className='pr-4'>
               {rightIcon}
             </div>
           }

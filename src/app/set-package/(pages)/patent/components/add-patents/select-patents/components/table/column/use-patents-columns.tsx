@@ -21,6 +21,7 @@ import {
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/use-group-patents-by-family';
 import { pluralize } from '@/utils/words';
 import { RowSelectionState } from '@tanstack/table-core/src/features/RowSelection';
+import { fromUnixTime } from 'date-fns';
 
 
 interface UsePatentsColumnsProps {
@@ -137,13 +138,23 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
       },
       {
         accessorKey: 'applicationDateEpodoc',
+        accessorFn: row => row.applicationReferenceEpodoc.date,
         header: () => <HeaderCell title='Application date' />,
         cell: (cellContext) => {
-          const date = Date.parse(cellContext.getValue().toString());
           if (cellContext.row.getCanExpand()) {
             return null;
           }
-          return <RowCell text={format(date, 'dd  MMM yyyy')} />;
+
+          let dateStr = '-';
+          try {
+            const date = fromUnixTime(Date.parse(cellContext.getValue().toString()) / 1000);
+            dateStr = format(date, 'dd  MMM yyyy');
+          } catch (e) {
+            console.error(`Error parsing date: ${cellContext.getValue().toString()}`);
+            console.error(e);
+          }
+
+          return <RowCell text={dateStr} />;
         }
       }
     ],

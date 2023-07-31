@@ -65,7 +65,7 @@ export const selectActivePatentsIds = createSelector(
   selectEnterPatentsIdsManuallyState,
   (activeTab, selectEnterPatentsIdsManuallyState): string[] => {
     if (activeTab == EnterPatentsNumberTab.EnterManually) {
-      return selectEnterPatentsIdsManuallyState.form?.formValues?.patentsIds?.split(',') || [];
+      return (selectEnterPatentsIdsManuallyState.form?.formValues?.patentsIds?.split(',') || []).map(patentId => patentId.trim());
     }
     // TODO: return import from file patents ids
     return [];

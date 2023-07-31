@@ -33,7 +33,8 @@ export const PatentsRows = ({ rows }: PatentsRowsProps) => {
               }
             </button>
           </td>
-        </tr>}
+        </tr>
+      }
     </>
   );
 };
