@@ -13,11 +13,22 @@ import {
 import { useToggle } from '@uidotdev/usehooks';
 import { useQuery } from '@tanstack/react-query';
 import { getContacts } from '@/api/contacts/get-contacts';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { AtlusContact } from '@/components/ui/contact/atlus-contact';
 import { Contact } from '@/models/contact';
 import { FilterOptionOption } from 'react-select/dist/declarations/src/filters';
-import { HiSearch } from 'react-icons/hi';
+import { HiSearch, HiX } from 'react-icons/hi';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import {
+  hideSetContactModal,
+  setActiveContact, setContacts,
+  showSetContactModal
+} from '@/redux/features/set-package/set-package';
+import {
+  selectActiveContact,
+  selectIsSetContactModalOpen
+} from '@/redux/features/set-package/selectors/package-details.selectors';
+import { HiPencil } from 'react-icons/hi2';
 
 interface SellerSelectorProps {
   onSellerSelected: (sellerId: string) => void;
@@ -25,8 +36,12 @@ interface SellerSelectorProps {
 }
 
 export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerSelectorProps) => {
-  const [isOpen, setIsOpen] = useToggle(false);
-  const [isSellerSelected, setIsSellerSelected] = useToggle(false);
+  const dispatch = useAppDispatch();
+  const isSetContactModalOpen = useAppSelector(selectIsSetContactModalOpen);
+  const activeContact = useAppSelector(selectActiveContact);
+  const isSellerSelected = !!selectedSellerId;
+
+  console.log('activeContact: ', activeContact);
 
   const { isFetching, data } = useQuery({
     queryKey: ['contacts'],
@@ -39,7 +54,7 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
       return [];
     }
     const contactsOptions = data.contacts.map(c => ({
-      value: c.contactId,
+      value: c.id,
       data: {
         contact: c
       },
@@ -63,9 +78,17 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
     return true; // if not search, then all match
   }, []);
 
+  useEffect(() => {
+    dispatch(setContacts({ contacts: data?.contacts ?? [] }));
+  }, [data]);
+
   return (
     <>
-      <AddContactModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <AddContactModal
+        isOpen={isSetContactModalOpen}
+        onClose={() => dispatch(hideSetContactModal())}
+        initialValues={activeContact}
+      />
       <AtlusDropdownList
         label='Contacts'
         isLoading={isFetching}
@@ -74,12 +97,31 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
         leftIcon={<HiSearch size={20} color='#A4A2A0' />}
         filterOption={customFilter}
         options={contactOptions}
+        indicatorsExtraCmp={
+          !isFetching && isSellerSelected &&
+          <button
+            className='mr-2'
+            onMouseDown={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              dispatch(setActiveContact({ contactId: selectedSellerId }));
+              dispatch(showSetContactModal());
+            }}>
+            <HiPencil size={18} color='var(--color-orange)' />
+          </button>
+        }
+        isClearable={isSellerSelected}
+        clearIndicator={isSellerSelected &&
+          <button><HiX size={24} color='var(--color-orange)' /></button>}
+        showDropdownIndicator={!isSellerSelected}
         defaultValue={selectedSellerId}
-        groupHeadingHeader={<AddContactOption onClick={() => setIsOpen(true)} />}
+        groupHeadingHeader={<AddContactOption onClick={() => {
+          dispatch(setActiveContact({ contactId: undefined }));
+          dispatch(showSetContactModal());
+        }} />}
         onChange={(value) => {
-          console.log(value);
           onSellerSelected(value);
-          setIsSellerSelected(true);
+          dispatch(setActiveContact({ contactId: value }));
         }}
       />
     </>

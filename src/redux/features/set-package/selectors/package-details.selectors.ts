@@ -13,3 +13,15 @@ export const selectPackageDetailsFormValues = createSelector(
   selectPackageDetailsState,
   state => state.packageDetailsForm
 );
+
+export const selectIsSetContactModalOpen = createSelector(
+  selectPackageDetailsState,
+  state => state.setContact.isSetContactModalOpen
+);
+
+export const selectActiveContact = createSelector(
+  selectPackageDetailsState,
+  state => {
+    return state.setContact.contacts.find(contact => contact.id === state.setContact.activeContactId);
+  }
+);

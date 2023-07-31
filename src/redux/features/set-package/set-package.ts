@@ -60,5 +60,10 @@ export const {
   setPackagePatents,
   setFetchedPatents,
   setPackageDetails,
+  showSetContactModal,
+  hideSetContactModal,
+  setContact,
+  setActiveContact,
+  setContacts,
 } = setPackage.actions;
 export default setPackage.reducer;

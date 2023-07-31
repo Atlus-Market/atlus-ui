@@ -15,14 +15,25 @@ import {
   AddContactRefExposedProps
 } from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-form';
 import { useRef } from 'react';
+import { Contact } from '@/models/contact';
+import { useAppDispatch } from '@/redux/hooks';
+import { setContact } from '@/redux/features/set-package/set-package';
 
 interface AddContactModalProps {
   isOpen: boolean;
   onClose?: () => void;
+  initialValues?: Contact;
 }
 
-export const AddContactModal = ({ isOpen, onClose }: AddContactModalProps) => {
+export const AddContactModal = ({ isOpen, onClose, initialValues }: AddContactModalProps) => {
   const addContactFormRef = useRef<AddContactRefExposedProps | null>(null);
+  const dispatch = useAppDispatch();
+
+  const onContactAdded = (contact: Contact) => {
+    dispatch(setContact({ contact }));
+    onClose?.();
+  };
+
   return (
     <AtlusModal
       isOpen={isOpen}
@@ -43,7 +54,11 @@ export const AddContactModal = ({ isOpen, onClose }: AddContactModalProps) => {
           </AtlusModalFooter>
         }>
         <AtlusModalBody className='w-[650px]'>
-          <AddContactForm ref={addContactFormRef} onContactAdded={onClose} />
+          <AddContactForm
+            ref={addContactFormRef}
+            onContactAdded={onContactAdded}
+            initialValues={initialValues}
+          />
         </AtlusModalBody>
       </AtlusModalContainer>
     </AtlusModal>

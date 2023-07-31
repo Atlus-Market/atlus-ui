@@ -3,17 +3,47 @@ import {
 } from '@/app/set-package/(pages)/package-details/package-details-form';
 import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { PayloadAction } from '@reduxjs/toolkit';
+import { Contact } from '@/models/contact';
 
 export interface PackageDetailsState {
   packageDetailsForm: IPackageDetailsForm | undefined;
+  setContact: {
+    contacts: Contact[];
+    isSetContactModalOpen: boolean;
+    activeContactId: string | undefined;
+  };
 }
 
 export const packageDetailsInitialState: PackageDetailsState = {
-  packageDetailsForm: undefined
+  packageDetailsForm: undefined,
+  setContact: {
+    contacts: [],
+    isSetContactModalOpen: false,
+    activeContactId: undefined
+  }
 };
 
 export const packageDetailsReducer = {
   setPackageDetails: (state: SetPackageState, action: PayloadAction<IPackageDetailsForm>) => {
     state.packageDetails.packageDetailsForm = action.payload;
+  },
+  showSetContactModal: (state: SetPackageState) => {
+    state.packageDetails.setContact.isSetContactModalOpen = true;
+  },
+  hideSetContactModal: (state: SetPackageState) => {
+    state.packageDetails.setContact.isSetContactModalOpen = false;
+  },
+  setContact: (state: SetPackageState, action: PayloadAction<{ contact: Contact }>) => {
+    const contacts = state.packageDetails.setContact.contacts.filter(c => c.id !== action.payload.contact.id);
+    contacts.push(action.payload.contact);
+    state.packageDetails.setContact.contacts = contacts;
+  },
+  setContacts: (state: SetPackageState, action: PayloadAction<{ contacts: Contact[] }>) => {
+    state.packageDetails.setContact.contacts = [...action.payload.contacts];
+  },
+  setActiveContact: (state: SetPackageState, action: PayloadAction<{
+    contactId: string | undefined
+  }>) => {
+    state.packageDetails.setContact.activeContactId = action.payload.contactId;
   }
 };

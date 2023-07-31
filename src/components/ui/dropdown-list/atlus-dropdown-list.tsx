@@ -51,6 +51,7 @@ export interface AtlusDropdownListProps {
   isAsync?: boolean;
   isLoading?: boolean;
   isSearchable?: boolean;
+  isClearable?: boolean;
   wrapperClassName?: string;
   placeholder?: string;
   isOpen?: boolean;
@@ -62,9 +63,12 @@ export interface AtlusDropdownListProps {
   leftIcon?: ReactNode;
   label?: string;
   bottomText?: string;
+  showDropdownIndicator?: boolean;
 
   // Components
   groupHeadingHeader?: ReactNode;
+  indicatorsExtraCmp?: ReactNode;
+  clearIndicator?: ReactNode;
   filterOption?: (x: FilterOptionOption<DropdownOption>, y: string) => boolean;
 }
 
@@ -85,9 +89,13 @@ export const AtlusDropdownList = forwardRef<
       label,
       bottomText,
       groupHeadingHeader,
+      indicatorsExtraCmp,
+      clearIndicator,
+      showDropdownIndicator,
       filterOption,
       isLoading,
-      isSearchable
+      isSearchable,
+      isClearable
     },
     ref
   ) {
@@ -145,6 +153,7 @@ export const AtlusDropdownList = forwardRef<
           options={options}
           placeholder={placeholder}
           classNames={classNames}
+          isClearable={isClearable}
           filterOption={filterOption}
           onChange={(option: DropdownOption | null, actionMeta: ActionMeta<DropdownOption>) => {
             const value = option?.value ?? '';
@@ -162,13 +171,37 @@ export const AtlusDropdownList = forwardRef<
                 {groupHeadingHeader}
                 {children}
               </components.GroupHeading>
-            )
+            ),
+            IndicatorsContainer: ({ children, ...rest }) => {
+              // Renders CleanIndicator & DropdownIndicator
+              return (
+                <components.IndicatorsContainer {...rest}>
+                  {indicatorsExtraCmp}
+                  {children}
+                </components.IndicatorsContainer>
+              );
+            },
+            DropdownIndicator: ({ children, ...rest }) => {
+              return (
+                <components.DropdownIndicator {...rest}>
+                  {showDropdownIndicator ? children : <div />}
+                </components.DropdownIndicator>
+              );
+            },
+            ClearIndicator: ({ children, ...rest }) => {
+              return (
+                <components.ClearIndicator {...rest}>
+                  {clearIndicator ? clearIndicator : children}
+                </components.ClearIndicator>
+              );
+            },
+            IndicatorSeparator:() => null
           }}
         />
         {bottomText &&
           <span className='text-xs text-dark-grey font-normal inline-block mt-2'>
-            {bottomText}
-          </span>
+          {bottomText}
+      </span>
         }
       </div>
     );

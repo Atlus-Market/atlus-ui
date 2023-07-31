@@ -12,8 +12,10 @@ import { useMutation } from '@tanstack/react-query';
 import { createSeller } from '@/api/seller/create-seller';
 import { addContact } from '@/api/contacts/add-contact';
 import { HiUser } from 'react-icons/hi2';
+import { Contact } from '@/models/contact';
 
 export interface AddContact {
+  id?: string;
   firstName: string;
   lastName: string;
   companyName: string;
@@ -22,6 +24,7 @@ export interface AddContact {
 }
 
 const schema: ObjectSchema<AddContact> = object({
+  id: string().trim(),
   firstName: string().trim().required(RequiredField),
   lastName: string().trim().required(RequiredField),
   companyName: string().trim().required(RequiredField),
@@ -34,7 +37,8 @@ const schema: ObjectSchema<AddContact> = object({
 });
 
 interface AddContactFormProps {
-  onContactAdded?: () => void;
+  onContactAdded?: (contact: Contact) => void;
+  initialValues?: Contact;
 }
 
 export interface AddContactRefExposedProps {
@@ -45,10 +49,11 @@ export interface AddContactRefExposedProps {
 export const AddContactForm = forwardRef<
   AddContactRefExposedProps,
   AddContactFormProps
->(function AddContactForm({ onContactAdded }, ref) {
+>(function AddContactForm({ onContactAdded, initialValues }, ref) {
   const formProps = useAtlusForm<AddContact>({
     formOptions: {
-      resolver: yupResolver(schema)
+      resolver: yupResolver(schema),
+      defaultValues: initialValues
     }
   });
   const { register, handleSubmit, formState: { errors, isValid } } = formProps;
@@ -59,8 +64,6 @@ export const AddContactForm = forwardRef<
   });
   const {
     isLoading: isLoadingMutation,
-    isSuccess,
-    isError,
     mutateAsync: createSellerAsync
   } = createSellerMutation;
 
@@ -73,7 +76,10 @@ export const AddContactForm = forwardRef<
   const onSubmit = useCallback(async (formValues: AddContact) => {
     const response = await createSellerAsync(formValues);
     await addContactAsync({ userId: response.userId });
-    onContactAdded?.();
+    onContactAdded?.({
+      id: response.userId,
+      ...formValues
+    });
   }, [createSellerAsync, addContactAsync, onContactAdded]);
 
   useImperativeHandle(
