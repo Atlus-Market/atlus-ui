@@ -11,6 +11,7 @@ import { forwardRef, useCallback, useImperativeHandle } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { createSeller } from '@/api/seller/create-seller';
 import { addContact } from '@/api/contacts/add-contact';
+import { HiUser } from 'react-icons/hi2';
 
 export interface AddContact {
   firstName: string;
@@ -56,7 +57,12 @@ export const AddContactForm = forwardRef<
   const createSellerMutation = useMutation({
     mutationFn: createSeller
   });
-  const { isLoading: isLoadingMutation, isSuccess, isError, mutateAsync: createSellerAsync } = createSellerMutation;
+  const {
+    isLoading: isLoadingMutation,
+    isSuccess,
+    isError,
+    mutateAsync: createSellerAsync
+  } = createSellerMutation;
 
   const addContactMutation = useMutation({
     mutationFn: addContact
@@ -83,6 +89,12 @@ export const AddContactForm = forwardRef<
 
   return (
     <AtlusForm formProps={formProps} onSubmit={onSubmit}>
+      <div className='w-full text-center mb-4'>
+        <div className='bg-lightest-grey rounded-[50%] p-5 inline-block'>
+          <HiUser color='var(--color-white)' size={46} />
+        </div>
+      </div>
+
       <AtlusFormInput
         label='First name'
         placeholder='John'
@@ -90,8 +102,7 @@ export const AddContactForm = forwardRef<
         {...register('firstName')}
       />
 
-      <
-        AtlusFormInput
+      <AtlusFormInput
         label='Last name'
         placeholder='Doe'
         type='text'
