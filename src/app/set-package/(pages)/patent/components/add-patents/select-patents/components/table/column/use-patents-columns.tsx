@@ -115,15 +115,20 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
       },
       {
         accessorKey: 'applicantsOriginal',
+        accessorFn: row => row.applicantsOriginal ?? [],
         header: () => <HeaderCell title='Assignee' />,
         cell: (cellContext) => {
           if (cellContext.row.getCanExpand()) {
             return null;
           }
-          return <RowCell
-            className='whitespace-break-spaces inline-block !w-[187px]'
-            text={(cellContext.getValue() as string[]).join(' &\n')}
-          />;
+
+          const applicants = (cellContext.getValue() as string[]) ?? [];
+          return (
+            <RowCell
+              className='whitespace-break-spaces inline-block !w-[187px]'
+              text={applicants.join(' &\n')}
+            />
+          );
         }
       },
       {
@@ -137,8 +142,8 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
         }
       },
       {
-        accessorKey: 'applicationDateEpodoc',
-        accessorFn: row => row.applicationReferenceEpodoc.date,
+        accessorKey: 'applicationReferenceEpodoc',
+        accessorFn: row => row?.applicationReferenceEpodoc?.date,
         header: () => <HeaderCell title='Application date' />,
         cell: (cellContext) => {
           if (cellContext.row.getCanExpand()) {
@@ -147,8 +152,10 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
 
           let dateStr = '-';
           try {
-            const date = fromUnixTime(Date.parse(cellContext.getValue().toString()) / 1000);
-            dateStr = format(date, 'dd  MMM yyyy');
+            const date = Date.parse(cellContext.getValue() as string);
+            if (!Number.isNaN(date)) {
+              dateStr = format(fromUnixTime(date / 1000), 'dd  MMM yyyy');
+            }
           } catch (e) {
             console.error(`Error parsing date: ${cellContext.getValue().toString()}`);
             console.error(e);

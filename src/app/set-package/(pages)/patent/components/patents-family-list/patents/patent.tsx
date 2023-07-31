@@ -10,7 +10,8 @@ export const Patent = ({ patent }: PatentProps) => {
   return (
     <div className='flex item-start px-6 py-4'>
       <div className='inline-block mr-[43px] flex-shrink-0'>
-        <Image src={DocumentSVG} alt='Document' width={126} height={126} className='h-full max-h-[126px]' />
+        <Image src={DocumentSVG} alt='Document' width={126} height={126}
+               className='h-full max-h-[126px]' />
       </div>
       <div>
         <div className='mb-1'>
@@ -24,7 +25,7 @@ export const Patent = ({ patent }: PatentProps) => {
         </div>
         <div>
           <span className='text-soft-black text-sm leading-5'>
-            {patent.applicantsOriginal.join(' & ')}
+            {(patent.applicantsOriginal ?? []).join(' & ')}
           </span>
         </div>
       </div>
