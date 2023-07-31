@@ -22,7 +22,7 @@ const classNames = {
   container: () => 'rounded-lg',
   control: (props: ControlProps<DropdownOption, false, GroupBase<DropdownOption>>) => {
     return clsx(
-      'px-4 py-[16px] m-0',
+      'px-4 !min-h-[53px] m-0',
       'rounded-lg border border-solid border-light-grey'
     );
   },
@@ -195,7 +195,7 @@ export const AtlusDropdownList = forwardRef<
                 </components.ClearIndicator>
               );
             },
-            IndicatorSeparator:() => null
+            IndicatorSeparator: () => null
           }}
         />
         {bottomText &&

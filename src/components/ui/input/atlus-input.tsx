@@ -41,7 +41,8 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(
         </div>
         <div className={clsx(
           'border border-light-grey rounded-lg',
-          'flex justify-start items-center'
+          'flex justify-start items-center',
+          'overflow-hidden'
         )}>
           {leftCmp && leftCmp}
           <input
@@ -49,10 +50,10 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(
             name={name}
             className={clsx(
               'block w-full',
-              'font-normal text-sm md:text-base leading-[17px]',
+              'font-normal text-sm leading-[17px]',
               'outline-0',
               'placeholder:text-dark-grey',
-              'py-[16px] md:py-[19px] px-4',
+              'py-[17px] px-4',
               inputClassName
             )}
             ref={ref}
