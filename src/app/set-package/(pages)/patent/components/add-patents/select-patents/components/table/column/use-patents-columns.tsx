@@ -21,7 +21,7 @@ import {
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/use-group-patents-by-family';
 import { pluralize } from '@/utils/words';
 import { RowSelectionState } from '@tanstack/table-core/src/features/RowSelection';
-import { fromUnixTime } from 'date-fns';
+import { parseGMTDate } from '@/utils/date';
 
 
 interface UsePatentsColumnsProps {
@@ -151,10 +151,11 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
           }
 
           let dateStr = '-';
+          const cellValue = cellContext.getValue() as string;
           try {
-            const date = Date.parse(cellContext.getValue() as string);
-            if (!Number.isNaN(date)) {
-              dateStr = format(fromUnixTime(date / 1000), 'dd  MMM yyyy');
+            const date = parseGMTDate(cellValue);
+            if (date) {
+              dateStr = format(date, 'dd  MMM yyyy');
             }
           } catch (e) {
             console.error(`Error parsing date: ${cellContext.getValue().toString()}`);
