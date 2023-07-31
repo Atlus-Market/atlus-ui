@@ -29,6 +29,7 @@ import {
   selectIsSetContactModalOpen
 } from '@/redux/features/set-package/selectors/package-details.selectors';
 import { HiPencil } from 'react-icons/hi2';
+import { ActiveContact } from '@/app/set-package/(pages)/package-details/contacts/active-contact';
 
 interface SellerSelectorProps {
   onSellerSelected: (sellerId: string) => void;
@@ -124,6 +125,7 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
           dispatch(setActiveContact({ contactId: value }));
         }}
       />
+      {activeContact && <ActiveContact contact={activeContact} />}
     </>
 
   );

@@ -14,14 +14,16 @@ export const getContacts = async (): Promise<GetContactsResponse> => {
         firstName: 'Contact',
         lastName: 'Number 1',
         companyName: 'Company 1',
-        email: ''
+        email: 'contact.1@email.com',
+        phoneNumber: '+11112223334'
       },
       {
         id: '2',
         firstName: 'Contact',
         lastName: 'Number 2',
         companyName: 'Company 2',
-        email: ''
+        email: 'contact.2@email.com',
+        phoneNumber: '+15558897894'
       }
     ]
   };
