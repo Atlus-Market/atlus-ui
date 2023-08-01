@@ -6,7 +6,9 @@ import { useAtlusForm } from '@/components/ui/form/use-atlus-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { object, ObjectSchema, string } from 'yup';
 import { RequiredField } from '@/constants/form';
-import { phoneNumberValidator } from '@/components/ui/form/validators/phone-number-validator';
+import {
+  optionalPhoneNumberValidator
+} from '@/components/ui/form/validators/phone-number-validator';
 import { passwordValidator } from '@/components/ui/form/validators/password-validator';
 import { forwardRef, useImperativeHandle } from 'react';
 import {
@@ -27,7 +29,7 @@ const schema: ObjectSchema<UserAccountForm> = object({
     .trim()
     .optional()
     .default('')
-    .test(phoneNumberValidator),
+    .test(optionalPhoneNumberValidator),
   email: string().trim().email().required(RequiredField),
   password: string().trim().required(RequiredField).test(passwordValidator)
 });
@@ -37,11 +39,11 @@ export const CreateBuyerAccountForm = forwardRef<
 >(function CreateUserAccountForm({ onSubmit }, ref) {
   const formProps = useAtlusForm<UserAccountForm>({
     formOptions: {
-      resolver: yupResolver(schema),
+      resolver: yupResolver(schema)
     }
   });
-  const { register, handleSubmit, formState: { errors }, } = formProps;
-  console.log(errors)
+  const { register, handleSubmit, formState: { errors } } = formProps;
+  console.log(errors);
 
   useImperativeHandle(
     ref,
