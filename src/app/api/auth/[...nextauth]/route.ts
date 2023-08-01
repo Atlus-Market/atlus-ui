@@ -31,7 +31,8 @@ const providers = [
         return {
           id: credentials.email,
           email: credentials.email,
-          accessToken: loginResponse.accessToken
+          accessToken: loginResponse.accessToken,
+          accessTokenCookie: loginResponse.accessTokenCookie,
         };
       } catch (e) {
         console.log('--------------------------- Auth Provider:authorize ERROR ---------------------------');
