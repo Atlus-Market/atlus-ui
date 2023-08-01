@@ -14,6 +14,7 @@ export enum ProtectedEndpoint {
 const setAuthHeader = (headers: Record<string, string>, isProtected: ProtectedEndpoint): Record<string, string> => {
   if (isProtected === ProtectedEndpoint.True) {
     headers['Authorization'] = `Bearer ${AtlusSessionManager.accessToken}`;
+    headers['X-CSRF-TOKEN'] = AtlusSessionManager.csrfToken ?? '';
   }
   return headers;
 };

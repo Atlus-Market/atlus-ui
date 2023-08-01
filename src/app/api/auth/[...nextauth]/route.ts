@@ -33,6 +33,7 @@ const providers = [
           email: credentials.email,
           accessToken: loginResponse.accessToken,
           accessTokenCookie: loginResponse.accessTokenCookie,
+          csrfToken: loginResponse.csrfAccessToken,
         };
       } catch (e) {
         console.log('--------------------------- Auth Provider:authorize ERROR ---------------------------');

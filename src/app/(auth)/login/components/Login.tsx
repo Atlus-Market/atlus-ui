@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { StatusCodes } from 'http-status-codes';
 import { SignInResponse } from '@/api/auth/login';
-import { saveOnboardingEmail } from '@/services/auth-service';
+import { saveOnboardingEmail } from '@/services/auth.service';
 import { DashboardRoute, VerifyEmailRoute } from '@/constants/routes';
 
 export const Login = () => {

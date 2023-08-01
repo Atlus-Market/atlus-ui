@@ -6,7 +6,7 @@ import { UserType } from '@/models/user-type';
 import { HiCheckCircle } from 'react-icons/hi2';
 import { useMutation } from '@tanstack/react-query';
 import { resendConfirmationEmail } from '@/api/auth/resend-confirmation-email';
-import { getOnboardingEmail } from '@/services/auth-service';
+import { getOnboardingEmail } from '@/services/auth.service';
 import { defaultErrorMessage } from '@/constants/api';
 import { AtlusSubTitle } from '@/components/ui/typography/atlus-subtitle';
 import { useEffect } from 'react';

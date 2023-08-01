@@ -14,7 +14,7 @@ import {
 import {
   CreateBuyerAccountForm
 } from '@/app/onboarding/buyer/create-account/components/create-buyer-account-form';
-import { saveOnboardingEmail } from '@/services/auth-service';
+import { saveOnboardingEmail } from '@/services/auth.service';
 
 
 export interface UserAccountForm {
