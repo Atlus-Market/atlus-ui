@@ -9,7 +9,6 @@ interface AtlusTokenHandlerProps {
   children: ReactNode;
 }
 
-
 type ParsedAccessTokenCookie = {
   [accessTokenCookieName]: string;
   Path: string;
