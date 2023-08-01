@@ -26,6 +26,7 @@ import {
 } from '@/redux/features/set-package/set-package';
 import {
   selectActiveContact,
+  selectContacts,
   selectIsSetContactModalOpen
 } from '@/redux/features/set-package/selectors/package-details.selectors';
 import { HiPencil } from 'react-icons/hi2';
@@ -38,6 +39,7 @@ interface SellerSelectorProps {
 
 export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerSelectorProps) => {
   const dispatch = useAppDispatch();
+  const contacts = useAppSelector(selectContacts);
   const isSetContactModalOpen = useAppSelector(selectIsSetContactModalOpen);
   const activeContact = useAppSelector(selectActiveContact);
   const isSellerSelected = !!selectedSellerId;
@@ -51,11 +53,11 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
   });
 
   const contactOptions = useMemo<DropdownOption[]>(() => {
-    if (!data) {
+    if (!contacts) {
       return [];
     }
 
-    const contactsOptions = data.contacts.map(c => ({
+    const contactsOptions = contacts.map(c => ({
       value: c.id,
       data: {
         contact: c
@@ -70,7 +72,7 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
         value: 'contacts'
       }
     ];
-  }, [data]);
+  }, [contacts]);
 
   const customFilter = useCallback((option: FilterOptionOption<DropdownOption>, input: string) => {
     if (input) {
@@ -81,10 +83,8 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
   }, []);
 
   useEffect(() => {
-    dispatch(setContacts({ contacts: [] }));
+    dispatch(setContacts({ contacts: data?.contacts ?? [] }));
   }, [data]);
-
-  console.log('options: ', contactOptions);
 
   const addContactElement = <AddContactOption onClick={() => {
     dispatch(setActiveContact({ contactId: undefined }));

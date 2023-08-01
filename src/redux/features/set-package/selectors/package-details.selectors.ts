@@ -25,3 +25,10 @@ export const selectActiveContact = createSelector(
     return state.setContact.contacts.find(contact => contact.id === state.setContact.activeContactId);
   }
 );
+
+export const selectContacts = createSelector(
+  selectPackageDetailsState,
+  state => {
+    return state.setContact.contacts;
+  }
+);

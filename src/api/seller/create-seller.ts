@@ -1,12 +1,7 @@
 import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { Contact } from '@/models/contact';
 
-export interface CreateSellerPayload {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  companyName: string;
-}
+export type CreateSellerPayload = Omit<Contact, 'id'>
 
 export interface CreateSellerResponse {
   userId: string;

@@ -13,8 +13,9 @@ import { createSeller } from '@/api/seller/create-seller';
 import { addContact } from '@/api/contacts/add-contact';
 import { HiUser } from 'react-icons/hi2';
 import { Contact } from '@/models/contact';
+import { updateSeller, UpdateSellerPayload } from '@/api/seller/update-seller';
 
-export interface AddContact {
+export interface AddSeller {
   id?: string;
   firstName: string;
   lastName: string;
@@ -23,7 +24,7 @@ export interface AddContact {
   phoneNumber: string;
 }
 
-const schema: ObjectSchema<AddContact> = object({
+const schema: ObjectSchema<AddSeller> = object({
   id: string().trim(),
   firstName: string().trim().required(RequiredField),
   lastName: string().trim().required(RequiredField),
@@ -50,7 +51,7 @@ export const AddContactForm = forwardRef<
   AddContactRefExposedProps,
   AddContactFormProps
 >(function AddContactForm({ onContactAdded, initialValues }, ref) {
-  const formProps = useAtlusForm<AddContact>({
+  const formProps = useAtlusForm<AddSeller>({
     formOptions: {
       resolver: yupResolver(schema),
       defaultValues: initialValues
@@ -60,7 +61,20 @@ export const AddContactForm = forwardRef<
   console.log(errors);
 
   const createSellerMutation = useMutation({
-    mutationFn: createSeller
+    mutationFn: async (sellerPayload: UpdateSellerPayload): Promise<{
+      sellerId: string
+    }> => {
+      const response = {
+        sellerId: sellerPayload.id
+      };
+      if (sellerPayload.id) {
+        await updateSeller(sellerPayload);
+      } else {
+        const res = await createSeller(sellerPayload);
+        response.sellerId = res.userId;
+      }
+      return response;
+    }
   });
   const {
     isLoading: isLoadingMutation,
@@ -73,11 +87,15 @@ export const AddContactForm = forwardRef<
 
   const { mutateAsync: addContactAsync } = addContactMutation;
 
-  const onSubmit = useCallback(async (formValues: AddContact) => {
-    const response = await createSellerAsync(formValues);
-    await addContactAsync({ userId: response.userId });
+  const onSubmit = useCallback(async (formValues: AddSeller) => {
+    const sellerPayload: UpdateSellerPayload = {
+      ...formValues,
+      id: formValues.id ?? ''
+    };
+    const response = await createSellerAsync(sellerPayload);
+    await addContactAsync({ userId: response.sellerId });
     onContactAdded?.({
-      id: response.userId,
+      id: response.sellerId,
       ...formValues
     });
   }, [createSellerAsync, addContactAsync, onContactAdded]);
