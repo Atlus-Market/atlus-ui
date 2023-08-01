@@ -5,7 +5,7 @@ export interface Patent {
   applicantsOriginal: string[];
   applicationNumber: string;
   applicationReferenceEpodoc: {
-    date: string
+    date: string; // GMT date string
   };
   familyId: string;
 }

@@ -5,6 +5,9 @@ import {
 import {
   selectSetPackageState
 } from '@/redux/features/set-package/selectors/set-package.selectors';
+import {
+  mapPatentsIdsToPatentIdsArray
+} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-ids/patent-id-validator';
 
 
 // Add patents
@@ -65,7 +68,7 @@ export const selectActivePatentsIds = createSelector(
   selectEnterPatentsIdsManuallyState,
   (activeTab, selectEnterPatentsIdsManuallyState): string[] => {
     if (activeTab == EnterPatentsNumberTab.EnterManually) {
-      return (selectEnterPatentsIdsManuallyState.form?.formValues?.patentsIds?.split(',') || []).map(patentId => patentId.trim());
+      return mapPatentsIdsToPatentIdsArray(selectEnterPatentsIdsManuallyState.form?.formValues?.patentsIds);
     }
     // TODO: return import from file patents ids
     return [];

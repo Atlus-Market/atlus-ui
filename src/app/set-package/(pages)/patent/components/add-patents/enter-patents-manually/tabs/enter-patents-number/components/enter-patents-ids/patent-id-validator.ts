@@ -5,11 +5,16 @@ export const patentIdValidator: Validator<string> = {
   name: 'is-valid-patent-id',
   message:
     'Invalid patentId',
-  test: (patentsIds: string, context): boolean => patentsIds.split(',').every(isValidPatentId)
+  test: (patentsIds: string, context): boolean => mapPatentsIdsToPatentIdsArray(patentsIds).every(isValidPatentId)
 };
 
-// TODO: replace with patentId regex
-const isValidPatentId = (patentId: string): boolean => patentId?.trim().length >= 5;
+const isValidPatentId = (patentId: string): boolean => {
+  console.log('testing: ', patentId);
+  return new RegExp(/^[a-zA-Z]{2}[0-9]{1,12}[a-zA-Z0-9 ]{1,2}$/).test(patentId.trim());
+};
+
+export const mapPatentsIdsToPatentIdsArray = (patentsIds: string): string[] =>
+  ((patentsIds ?? '').split(',') || []).map(patentId => patentId.trim());
 
 export const getInvalidPatentsIds = (patentsIds: string): string[] => {
   return patentsIds

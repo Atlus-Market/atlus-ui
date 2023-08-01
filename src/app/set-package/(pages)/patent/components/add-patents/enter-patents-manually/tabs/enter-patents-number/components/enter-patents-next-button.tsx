@@ -26,7 +26,7 @@ export const EnterPatentsNextButton = () => {
     queryKey: ['patents/bulk', getPatentsPayload],
     queryFn: () => getPatents(getPatentsPayload),
     refetchOnWindowFocus: false,
-    enabled: false // disable this query from automatically running
+    enabled: false, // disable this query from automatically running,
   });
 
   const onNext = async () => {
@@ -36,8 +36,7 @@ export const EnterPatentsNextButton = () => {
 
     const response = await refetch();
     console.log('fetchPatents response: ', response);
-    // TODO: Handle error case
-    dispatch(setFetchedPatents({ patents: response.data ?? [] }));
+    dispatch(setFetchedPatents({ patents: response.data?.patents ?? [] }));
     dispatch(setAddPatentsStep(AddPatentsStep.SelectPatents));
   };
 
