@@ -10,7 +10,6 @@ import {
 import {
   AddContactModal
 } from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-modal';
-import { useToggle } from '@uidotdev/usehooks';
 import { useQuery } from '@tanstack/react-query';
 import { getContacts } from '@/api/contacts/get-contacts';
 import { useCallback, useEffect, useMemo } from 'react';
@@ -21,7 +20,8 @@ import { HiSearch, HiX } from 'react-icons/hi';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   hideSetContactModal,
-  setActiveContact, setContacts,
+  setActiveContact,
+  setContacts,
   showSetContactModal
 } from '@/redux/features/set-package/set-package';
 import {
@@ -54,6 +54,7 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
     if (!data) {
       return [];
     }
+
     const contactsOptions = data.contacts.map(c => ({
       value: c.id,
       data: {
@@ -80,8 +81,15 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
   }, []);
 
   useEffect(() => {
-    dispatch(setContacts({ contacts: data?.contacts ?? [] }));
+    dispatch(setContacts({ contacts: [] }));
   }, [data]);
+
+  console.log('options: ', contactOptions);
+
+  const addContactElement = <AddContactOption onClick={() => {
+    dispatch(setActiveContact({ contactId: undefined }));
+    dispatch(showSetContactModal());
+  }} />;
 
   return (
     <>
@@ -116,10 +124,8 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
           <button><HiX size={24} color='var(--color-orange)' /></button>}
         showDropdownIndicator={!isSellerSelected}
         defaultValue={selectedSellerId}
-        groupHeadingHeader={<AddContactOption onClick={() => {
-          dispatch(setActiveContact({ contactId: undefined }));
-          dispatch(showSetContactModal());
-        }} />}
+        groupHeadingHeader={<div className='pt-[10px] pb-5'>{addContactElement}</div>}
+        noOptionsMessage={<div className='px-4 py-[10px]'>{addContactElement}</div>}
         onChange={(value) => {
           onSellerSelected(value);
           dispatch(setActiveContact({ contactId: value }));

@@ -69,6 +69,7 @@ export interface AtlusDropdownListProps {
   groupHeadingHeader?: ReactNode;
   indicatorsExtraCmp?: ReactNode;
   clearIndicator?: ReactNode;
+  noOptionsMessage?: ReactNode;
   filterOption?: (x: FilterOptionOption<DropdownOption>, y: string) => boolean;
 }
 
@@ -95,7 +96,8 @@ export const AtlusDropdownList = forwardRef<
       filterOption,
       isLoading,
       isSearchable,
-      isClearable
+      isClearable,
+      noOptionsMessage
     },
     ref
   ) {
@@ -193,6 +195,13 @@ export const AtlusDropdownList = forwardRef<
                 <components.ClearIndicator {...rest}>
                   {clearIndicator ? clearIndicator : children}
                 </components.ClearIndicator>
+              );
+            },
+            NoOptionsMessage: ({ children, ...rest }) => {
+              return (
+                <components.NoOptionsMessage {...rest}>
+                  {noOptionsMessage ? noOptionsMessage : children}
+                </components.NoOptionsMessage>
               );
             },
             IndicatorSeparator: () => null

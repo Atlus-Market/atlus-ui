@@ -33,7 +33,6 @@ export const login = (loginPayload: LoginPayload): Promise<LoginResponse> => {
     url: createUrl('/login'),
     data: loginPayload
   }).then(response => {
-    console.log(response);
     const cookies: string[] = response.headers?.['set-cookie'] as string[] ?? [];
 
     const accessTokenCookie = cookies.find(cookie => cookie.includes(`${accessTokenCookieName}=`));
