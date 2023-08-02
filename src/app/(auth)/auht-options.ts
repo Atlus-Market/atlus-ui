@@ -73,7 +73,11 @@ const callbacks: Partial<CallbacksOptions> = {
 
 const events: Partial<EventCallbacks> = {
   signOut: async (params: { session: Session; token: JWT }) => {
-    console.log('Signing OUT..............');
+    try {
+      console.log('Signing OUT..............');
+    } catch (e) {
+      console.log('SIGN OUT ERROR: ', e);
+    }
   }
 };
 
@@ -89,5 +93,5 @@ export const authOptions: NextAuthOptions = {
     signOut: LoginRoute,
     error: `${LoginRoute}?error=true`// Changing the error redirect page to our custom login page
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET
 };
