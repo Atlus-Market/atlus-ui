@@ -13,7 +13,7 @@ import { LoginRoute } from '@/constants/routes';
 export const ConfirmAccount = () => {
   const router = useRouter();
   const params = useParams();
-  const confirmationToken = params['confirmation-token'];
+  const confirmationToken = params['confirmation-token'] as string;
 
   const mutation = useMutation({
     mutationFn: confirmEmail
@@ -32,7 +32,7 @@ export const ConfirmAccount = () => {
     };
 
     executeConfirmEmail();
-  }, []);
+  }, [confirmationToken, mutateAsync]);
 
   const dataError = isAxiosError(error) && error?.response?.data?.msg;
   if (isError && dataError) {

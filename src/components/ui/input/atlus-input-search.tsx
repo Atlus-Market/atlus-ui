@@ -15,6 +15,7 @@ export const AtlusInputSearch = ({
   onChange,
   searchResults,
 }: AtlusInputProps) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceFn = useCallback(debounce(onChange, 200), [onChange]);
 
   const updateValue = useCallback(

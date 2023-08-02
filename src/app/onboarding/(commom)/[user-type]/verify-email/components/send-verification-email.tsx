@@ -39,7 +39,7 @@ export const SendVerificationEmail = () => {
     if (!email) {
       router.replace(LoginRoute);
     }
-  }, []);
+  }, [router]);
 
   return (
     <>

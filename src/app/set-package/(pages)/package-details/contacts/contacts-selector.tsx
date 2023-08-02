@@ -12,7 +12,7 @@ import {
 } from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-modal';
 import { useQuery } from '@tanstack/react-query';
 import { getContacts } from '@/api/contacts/get-contacts';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { AtlusContact } from '@/components/ui/contact/atlus-contact';
 import { Contact } from '@/models/contact';
 import { FilterOptionOption } from 'react-select/dist/declarations/src/filters';
@@ -40,6 +40,7 @@ interface SellerSelectorProps {
 
 export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerSelectorProps) => {
   const dispatch = useAppDispatch();
+  const dispatchRef = useRef<{ dispatch: typeof dispatch }>({ dispatch });
   const contacts = useAppSelector(selectContacts);
   const isSetContactModalOpen = useAppSelector(selectIsSetContactModalOpen);
   const activeContact = useAppSelector(selectActiveContact);
@@ -84,7 +85,7 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
   }, []);
 
   useEffect(() => {
-    dispatch(setContacts({ contacts: data?.contacts ?? [] }));
+    dispatchRef.current.dispatch(setContacts({ contacts: data?.contacts ?? [] }));
   }, [data]);
 
   const addContactElement = <AddContactOption onClick={() => {

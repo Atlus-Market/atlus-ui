@@ -37,6 +37,7 @@ interface CreateUserAccountProps {
 
 export const CreateUserAccount = ({ formCmp: FormCmp }: CreateUserAccountProps) => {
   const formRef = useRef<CreateAccountRefExposedProps | null>(null);
+
   const onboardingContext = useOnboardingContext();
   const router = useRouter();
   const [formValues, setFormValues] = useState<UserAccountForm | undefined>(undefined);
@@ -48,6 +49,8 @@ export const CreateUserAccount = ({ formCmp: FormCmp }: CreateUserAccountProps) 
   const { isLoading: isLoadingMutation, isSuccess, isError } = mutation;
   const { isCreatingAccount, updateContext, createAccountFormSubmitter } =
     onboardingContext;
+  const updateContextRef = useRef<typeof updateContext>(updateContext);
+
 
   useEffect(() => {
     if (isCreatingAccount === isLoadingMutation) {
@@ -82,7 +85,7 @@ export const CreateUserAccount = ({ formCmp: FormCmp }: CreateUserAccountProps) 
   }, [isSuccess, isError, router, formValues]);
 
   useEffect(() => {
-    updateContext({
+    updateContextRef.current({
       createAccountFormSubmitter: () => {
         formRef.current?.submitForm();
       }
