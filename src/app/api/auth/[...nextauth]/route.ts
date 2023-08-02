@@ -4,7 +4,6 @@ import { CallbacksOptions, DefaultSession, EventCallbacks } from 'next-auth/src/
 import { login, SignInResponse } from '@/api/auth/login';
 import { JWT } from 'next-auth/jwt';
 import { JWTCallback, SessionCallback } from '@/auth';
-import { logout } from '@/api/auth/logout';
 import { isAxiosError } from 'axios';
 import { LoginRoute } from '@/constants/routes';
 
@@ -33,7 +32,7 @@ const providers = [
           email: credentials.email,
           accessToken: loginResponse.accessToken,
           accessTokenCookie: loginResponse.accessTokenCookie,
-          csrfToken: loginResponse.csrfAccessToken,
+          csrfToken: loginResponse.csrfAccessToken
         };
       } catch (e) {
         console.log('--------------------------- Auth Provider:authorize ERROR ---------------------------');
@@ -75,7 +74,6 @@ const callbacks: Partial<CallbacksOptions> = {
 const events: Partial<EventCallbacks> = {
   signOut: async (params: { session: Session; token: JWT }) => {
     console.log('Signing OUT..............');
-    await logout();
   }
 };
 
