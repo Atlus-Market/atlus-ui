@@ -1,4 +1,4 @@
-import { createUrl } from '@/api/api';
+import { createServerUrl } from '@/api/api';
 import { StatusCodes } from 'http-status-codes';
 import axios, { AxiosResponse } from 'axios';
 import { accessTokenCookieName, csrfAccessTokenName } from '@/constants/api';
@@ -30,7 +30,7 @@ type ParsedCookie = {
 export const login = (loginPayload: LoginPayload): Promise<LoginResponse> => {
   return axios<LoginPayload, AxiosResponse<LoginResponse>>({
     method: 'POST',
-    url: createUrl('/login'),
+    url: createServerUrl('/login'),
     data: loginPayload
   }).then(response => {
     const cookies: string[] = response.headers?.['set-cookie'] as string[] ?? [];
