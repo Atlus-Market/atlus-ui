@@ -1,7 +1,8 @@
 import LogRocket from 'logrocket';
+import { isRunningProd } from '@/utils/env';
 
 export const initLogRocket = () => {
-  if (process.env.NEXT_PUBLIC_MODE === 'prod') {
+  if (isRunningProd) {
     console.log('starting LOG ROCKET');
     LogRocket.init(process.env.NEXT_PUBLIC_LOG_ROCKET_TOKEN ?? '');
   }
