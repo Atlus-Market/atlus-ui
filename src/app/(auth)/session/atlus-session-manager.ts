@@ -1,3 +1,5 @@
+import { Session, SessionUser } from 'next-auth';
+
 /**
  * Use this static class to get/set the accessToken for hitting the API.
  */
@@ -6,22 +8,25 @@ export class AtlusSessionManager {
   private constructor() {
   }
 
-  private static atlusAccessToken: string | undefined;
-  private static atlusCsrfToken: string | undefined;
+  private static atlusSession: Session | null;
 
   static get accessToken() {
-    return AtlusSessionManager.atlusAccessToken;
-  }
-
-  static set accessToken(accessToken: string | undefined) {
-    AtlusSessionManager.atlusAccessToken = accessToken;
+    return AtlusSessionManager.atlusSession?.user?.accessToken;
   }
 
   static get csrfToken() {
-    return AtlusSessionManager.atlusCsrfToken;
+    return AtlusSessionManager.atlusSession?.user?.csrfToken;
   }
 
-  static set csrfToken(csrfToken: string | undefined) {
-    AtlusSessionManager.atlusCsrfToken = csrfToken;
+  static get user(): SessionUser | undefined {
+    return AtlusSessionManager.atlusSession?.user;
+  }
+
+  static set session(session: Session | null) {
+    AtlusSessionManager.atlusSession = session;
+  }
+
+  static get session(): Session | null {
+    return AtlusSessionManager.atlusSession;
   }
 }
