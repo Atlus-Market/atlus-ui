@@ -56,6 +56,7 @@ export interface AtlusDropdownListProps {
   placeholder?: string;
   isOpen?: boolean;
   options: DropdownOption[];
+  value?: DropdownOption;
   defaultValue?: DropdownOption['value'];
   name?: string;
   errors?: FieldErrors;
@@ -82,6 +83,7 @@ export const AtlusDropdownList = forwardRef<
       isOpen,
       placeholder,
       options = [],
+      value,
       defaultValue,
       name,
       onChange,
@@ -104,7 +106,6 @@ export const AtlusDropdownList = forwardRef<
 
     const refId = useRef<string>('');
     const [hydrated, setHydrated] = useState(false);
-
 
     const memoDefaultValue = useMemo(() => {
       if (!options) {
@@ -142,6 +143,7 @@ export const AtlusDropdownList = forwardRef<
       <div className={clsx('mb-4 md:mb-6', wrapperClassName)}>
         {label && <AtlusFormLabel label={label} />}
         <Comp
+          value={value}
           isLoading={isLoading}
           isSearchable={isSearchable}
           id={refId.current}

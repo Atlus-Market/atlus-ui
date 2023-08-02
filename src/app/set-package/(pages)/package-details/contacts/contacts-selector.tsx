@@ -21,6 +21,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   hideSetContactModal,
   setActiveContact,
+  setContact,
   setContacts,
   showSetContactModal
 } from '@/redux/features/set-package/set-package';
@@ -91,12 +92,26 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
     dispatch(showSetContactModal());
   }} />;
 
+  const dropdownValue = useMemo(() => {
+    const options = contactOptions[0]?.options ?? [];
+    return options.find(option => option.value === selectedSellerId);
+  }, [selectedSellerId, contactOptions]);
+  console.log('Value: ', dropdownValue);
+
+  const onContactAddedOk = (contact: Contact) => {
+    onSellerSelected(contact.id);
+    dispatch(setContact({ contact }));
+    dispatch(setActiveContact({ contactId: contact.id }));
+    dispatch(hideSetContactModal());
+  };
+
   return (
     <>
       <AddContactModal
         isOpen={isSetContactModalOpen}
         onClose={() => dispatch(hideSetContactModal())}
         initialValues={activeContact}
+        onContactAdded={onContactAddedOk}
       />
       <AtlusDropdownList
         label='Contacts'
@@ -106,6 +121,7 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
         leftIcon={<HiSearch size={20} color='#A4A2A0' />}
         filterOption={customFilter}
         options={contactOptions}
+        value={dropdownValue}
         indicatorsExtraCmp={
           !isFetching && isSellerSelected &&
           <button
@@ -126,9 +142,9 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
         defaultValue={selectedSellerId}
         groupHeadingHeader={<div className='pt-[10px] pb-5'>{addContactElement}</div>}
         noOptionsMessage={<div className='px-4 py-[10px]'>{addContactElement}</div>}
-        onChange={(value) => {
-          onSellerSelected(value);
-          dispatch(setActiveContact({ contactId: value }));
+        onChange={(contactId) => {
+          onSellerSelected(contactId);
+          dispatch(setActiveContact({ contactId: contactId }));
         }}
       />
       {activeContact && <ActiveContact contact={activeContact} />}

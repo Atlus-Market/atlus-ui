@@ -1,28 +1,18 @@
-'use client';
-
+import { useAtlusForm } from '@/components/ui/form/use-atlus-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import {
+  AddSeller
+} from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-form-fields';
+import { AtlusForm } from '@/components/ui/form/atlus-form';
 import { object, ObjectSchema, string } from 'yup';
 import { RequiredField } from '@/constants/form';
 import { phoneNumberValidator } from '@/components/ui/form/validators/phone-number-validator';
-import { useAtlusForm } from '@/components/ui/form/use-atlus-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { AtlusForm } from '@/components/ui/form/atlus-form';
-import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
-import { forwardRef, useCallback, useImperativeHandle } from 'react';
+import { forwardRef, ReactNode, useCallback, useImperativeHandle } from 'react';
+import { Contact } from '@/models/contact';
 import { useMutation } from '@tanstack/react-query';
+import { updateSeller, UpdateSellerPayload } from '@/api/seller/update-seller';
 import { createSeller } from '@/api/seller/create-seller';
 import { addContact } from '@/api/contacts/add-contact';
-import { HiUser } from 'react-icons/hi2';
-import { Contact } from '@/models/contact';
-import { updateSeller, UpdateSellerPayload } from '@/api/seller/update-seller';
-
-export interface AddSeller {
-  id?: string;
-  firstName: string;
-  lastName: string;
-  companyName: string;
-  email: string;
-  phoneNumber: string;
-}
 
 const schema: ObjectSchema<AddSeller> = object({
   id: string().trim(),
@@ -37,28 +27,29 @@ const schema: ObjectSchema<AddSeller> = object({
   email: string().trim().email().required(RequiredField)
 });
 
-interface AddContactFormProps {
-  onContactAdded?: (contact: Contact) => void;
+interface AddContactForm {
+  children: ReactNode;
   initialValues?: Contact;
+  onContactAdded?: (contact: Contact) => void;
 }
 
 export interface AddContactRefExposedProps {
   submitForm: () => Promise<void>;
-  isFormValid: boolean;
 }
 
 export const AddContactForm = forwardRef<
   AddContactRefExposedProps,
-  AddContactFormProps
->(function AddContactForm({ onContactAdded, initialValues }, ref) {
+  AddContactForm
+>(function AddContactForm({ initialValues, children, onContactAdded }, ref) {
+
   const formProps = useAtlusForm<AddSeller>({
     formOptions: {
       resolver: yupResolver(schema),
       defaultValues: initialValues
     }
   });
-  const { register, handleSubmit, formState: { errors, isValid } } = formProps;
-  console.log(errors);
+
+  const { handleSubmit } = formProps;
 
   const createSellerMutation = useMutation({
     mutationFn: async (sellerPayload: UpdateSellerPayload): Promise<{
@@ -71,6 +62,7 @@ export const AddContactForm = forwardRef<
         await updateSeller(sellerPayload);
       } else {
         const res = await createSeller(sellerPayload);
+        await addContactAsync({ userId: res.userId });
         response.sellerId = res.userId;
       }
       return response;
@@ -88,71 +80,34 @@ export const AddContactForm = forwardRef<
   const { mutateAsync: addContactAsync } = addContactMutation;
 
   const onSubmit = useCallback(async (formValues: AddSeller) => {
-    const sellerPayload: UpdateSellerPayload = {
-      ...formValues,
-      id: formValues.id ?? ''
-    };
-    const response = await createSellerAsync(sellerPayload);
-    await addContactAsync({ userId: response.sellerId });
-    onContactAdded?.({
-      id: response.sellerId,
-      ...formValues
-    });
-  }, [createSellerAsync, addContactAsync, onContactAdded]);
+    try {
+      const sellerPayload: UpdateSellerPayload = {
+        ...formValues,
+        id: formValues.id ?? ''
+      };
+      const response = await createSellerAsync(sellerPayload);
+      onContactAdded?.({
+        id: response.sellerId,
+        ...formValues
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }, [createSellerAsync, onContactAdded]);
 
   useImperativeHandle(
     ref,
     () => {
       return {
-        submitForm: handleSubmit(onSubmit),
-        isFormValid: isValid
+        submitForm: handleSubmit(onSubmit)
       };
     },
-    [handleSubmit, onSubmit, isValid]
+    [handleSubmit, onSubmit]
   );
 
   return (
     <AtlusForm formProps={formProps} onSubmit={onSubmit}>
-      <div className='w-full text-center mb-4'>
-        <div className='bg-lightest-grey rounded-[50%] p-5 inline-block'>
-          <HiUser color='var(--color-white)' size={46} />
-        </div>
-      </div>
-
-      <AtlusFormInput
-        label='First name'
-        placeholder='John'
-        type='text'
-        {...register('firstName')}
-      />
-
-      <AtlusFormInput
-        label='Last name'
-        placeholder='Doe'
-        type='text'
-        {...register('lastName')}
-      />
-
-      <AtlusFormInput
-        label='Company'
-        placeholder='Vista Technologies'
-        type='text'
-        {...register('companyName')}
-      />
-
-      <AtlusFormInput
-        label='Work email'
-        placeholder='johndoe@vistatech.com'
-        type='email'
-        {...register('email')}
-      />
-
-      <AtlusFormInput
-        label='Phone number'
-        placeholder='(+1)(123) 456 7890'
-        type='tel'
-        {...register('phoneNumber')}
-      />
+      {children}
     </AtlusForm>
   );
 });

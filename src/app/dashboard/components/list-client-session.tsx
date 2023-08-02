@@ -17,12 +17,17 @@ export const ListClientSession = () => {
       <AtlusButton
         isLoading={isLoggingOut}
         onClick={async () => {
-          setIsLoggingOut(true);
-          await mutation.mutateAsync();
-          signOut({
-            callbackUrl: LoginRoute,
-            redirect: true
-          });
+          try {
+            // Call logout from client because the call requires auth.
+            setIsLoggingOut(true);
+            await mutation.mutateAsync();
+          } catch (e) {
+          } finally {
+            signOut({
+              callbackUrl: LoginRoute,
+              redirect: true
+            });
+          }
         }}>
         Logout
       </AtlusButton>
