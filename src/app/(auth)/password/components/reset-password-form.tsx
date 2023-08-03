@@ -41,7 +41,7 @@ export const ResetPasswordForm = ({
       <AtlusFormInput
         label='New password'
         placeholder='Set a password'
-        type='email'
+        type='password'
         {...register('password')}
       />
 
