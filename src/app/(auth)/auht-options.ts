@@ -6,6 +6,8 @@ import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { login, SignInResponse } from '@/api/auth/login';
 import { isAxiosError } from 'axios';
+import { cookies } from 'next/headers';
+import { accessTokenCookieName } from '@/constants/api';
 
 
 const providers = [
@@ -27,11 +29,12 @@ const providers = [
           password: credentials.password
         });
 
+        cookies().set(accessTokenCookieName, loginResponse.accessTokenCookie, { httpOnly: true, secure: true });
+
         return {
           id: credentials.email,
           email: credentials.email,
           accessToken: loginResponse.accessToken,
-          accessTokenCookie: loginResponse.accessTokenCookie,
           csrfToken: loginResponse.csrfAccessToken
         };
       } catch (e) {
@@ -74,6 +77,7 @@ const callbacks: Partial<CallbacksOptions> = {
 const events: Partial<EventCallbacks> = {
   signOut: async (params: { session: Session; token: JWT }) => {
     try {
+      cookies().delete(accessTokenCookieName);
       console.log('Signing OUT..............');
     } catch (e) {
       console.log('SIGN OUT ERROR: ', e);

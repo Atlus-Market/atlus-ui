@@ -2,8 +2,7 @@
 
 import { SessionProvider } from 'next-auth/react';
 import { ReactNode } from 'react';
-import { AtlusTokenHandler } from '@/app/(auth)/session/atlus-token-handler';
-import { CookiesProvider } from 'react-cookie';
+import { AtlusSessionHandler } from '@/app/(auth)/session/atlus-session-handler';
 
 /**
  * Wrapper for the next-auth session provider
@@ -12,12 +11,10 @@ import { CookiesProvider } from 'react-cookie';
  */
 export const AtlusSessionProvider = ({ children }: { children: ReactNode }) => {
   return (
-    <CookiesProvider>
-      <SessionProvider>
-        <AtlusTokenHandler>
-          {children}
-        </AtlusTokenHandler>
-      </SessionProvider>
-    </CookiesProvider>
+    <SessionProvider>
+      <AtlusSessionHandler>
+        {children}
+      </AtlusSessionHandler>
+    </SessionProvider>
   );
 };

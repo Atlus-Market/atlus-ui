@@ -10,7 +10,6 @@ declare module 'next-auth' {
 
   type SessionUser = DefaultSession['user'] & {
     accessToken?: string;
-    accessTokenCookie?: string;
     csrfToken?: string;
   }
 

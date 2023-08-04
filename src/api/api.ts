@@ -1,17 +1,10 @@
 import axios, { AxiosResponse, Method } from 'axios';
 import { AtlusSessionManager } from '@/app/(auth)/session/atlus-session-manager';
 
-const createUrl = (host: string, endpoint: string): string => {
+
+export const createUrl = (endpoint: string): string => {
   const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-  return `${host}:${process.env.NEXT_PUBLIC_API_ENDPOINT_PORT}${cleanEndpoint}`;
-};
-
-export const createServerUrl = (endpoint: string): string => {
-  return createUrl(process.env.API_ENDPOINT ?? '', endpoint);
-};
-
-export const createClientUrl = (endpoint: string): string => {
-  return createUrl(process.env.NEXT_PUBLIC_API_ENDPOINT ?? '', endpoint);
+  return `${process.env.NEXT_PUBLIC_API_ENDPOINT}:${process.env.NEXT_PUBLIC_API_ENDPOINT_PORT}${cleanEndpoint}`;
 };
 
 export enum ProtectedEndpoint {
@@ -37,7 +30,7 @@ export const createRequest = <Payload, Response>(
   setAuthHeader(headers, isProtected);
   return axios<Payload, AxiosResponse<Response>>({
     method,
-    url: createClientUrl(endpoint),
+    url: createUrl(endpoint),
     headers,
     data: payload,
     withCredentials: isProtected === ProtectedEndpoint.True
