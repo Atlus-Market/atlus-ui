@@ -2,9 +2,6 @@ import { ConfirmAccount } from '@/app/user/confirm/[confirmation-token]/componen
 
 export default async function UserConfirmPage() {
   return (
-    <div>
-      Confirm email
-      <ConfirmAccount />
-    </div>
+    <ConfirmAccount />
   );
 }
