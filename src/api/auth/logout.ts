@@ -1,4 +1,8 @@
-import { createUrl, mapServerSessionToAuthHeadersProvider, setAuthHeaders } from '@/api/api';
+import {
+  createUrl,
+  mapServerSessionToAuthHeadersProvider,
+  setAuthHeaders,
+} from '@/api/api';
 import axios, { AxiosResponse } from 'axios';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/(auth)/auht-options';
@@ -12,7 +16,8 @@ export const logout = async (): Promise<void> => {
     throw new Error('No server session found');
   }
 
-  const authHeadersProvider = mapServerSessionToAuthHeadersProvider(serverSession);
+  const authHeadersProvider =
+    mapServerSessionToAuthHeadersProvider(serverSession);
   const headers: Record<string, string> = {};
   setAuthHeaders(headers, authHeadersProvider);
 
@@ -23,7 +28,6 @@ export const logout = async (): Promise<void> => {
     method: 'GET',
     url: createUrl('/logout'),
     headers,
-    withCredentials: true
+    withCredentials: true,
   });
 };
-
