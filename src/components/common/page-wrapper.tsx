@@ -9,7 +9,7 @@ interface PageWrapperProps {
 export const PageWrapper = ({ children, className }: PageWrapperProps) => {
   return (
     <div className={clsx(
-      'w-full p-[24px] md:p-[40px]',
+      'w-full p-[24px] md:p-[40px] mb-10',
       className
     )}>
       {children}
