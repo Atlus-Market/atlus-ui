@@ -11,7 +11,7 @@ import { PasswordResetRoute } from '@/constants/routes';
 
 export const ResetPassword = () => {
   const params = useParams();
-  const resetPasswordToken = params['reset-password-token'];
+  const resetPasswordToken = params['reset-password-token'] as string;
   const router = useRouter();
 
   const mutation = useMutation({
