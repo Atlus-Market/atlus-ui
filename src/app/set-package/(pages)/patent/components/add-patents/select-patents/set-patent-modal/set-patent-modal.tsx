@@ -13,6 +13,7 @@ import { AtlusModal } from '@/components/ui/modal/atlus-modal';
 
 interface SetPatentModalProps {
   isOpen: boolean;
+  closeModal: () => void;
 }
 
 export const SetPatentModal = ({ isOpen }: SetPatentModalProps) => {

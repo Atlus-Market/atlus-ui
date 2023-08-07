@@ -8,7 +8,8 @@ import clsx from 'clsx';
 interface AtlusModalProps {
   isOpen?: boolean;
   children: ReactNode;
-  onAfterClose?: () => void;
+  onRequestClose?: () => void;
+  onAfterClose?: () => void; // should call the close modal function
   modalBodyClassName?: string;
   overlayClassName?: string;
 }
@@ -18,13 +19,16 @@ export const AtlusModal = ({
                              children,
                              onAfterClose,
                              overlayClassName,
-                             modalBodyClassName
+                             modalBodyClassName,
+                             onRequestClose
                            }: AtlusModalProps) => {
   return (
     <Modal
       isOpen={isOpen}
       overlayClassName={clsx('atlus-modal--overlay', overlayClassName)}
       onAfterClose={onAfterClose}
+      shouldCloseOnOverlayClick={true}
+      onRequestClose={onAfterClose}
       className={clsx('atlus-modal-content', modalBodyClassName)}>
       {children}
     </Modal>

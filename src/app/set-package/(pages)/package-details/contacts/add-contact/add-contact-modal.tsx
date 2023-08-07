@@ -12,7 +12,6 @@ import {
 } from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-form-fields';
 import { useRef } from 'react';
 import { Contact } from '@/models/contact';
-import { useAppDispatch } from '@/redux/hooks';
 import {
   AddContactForm,
   AddContactRefExposedProps
@@ -39,6 +38,7 @@ export const AddContactModal = ({
   return (
     <AtlusModal
       isOpen={isOpen}
+      onAfterClose={onClose}
       overlayClassName='z-[2]'
       modalBodyClassName='max-h-[80%]'>
       <AddContactForm
