@@ -8,6 +8,7 @@ import { login, SignInResponse } from '@/api/auth/login';
 import { isAxiosError } from 'axios';
 import { cookies } from 'next/headers';
 import { accessTokenCookieName } from '@/constants/api';
+import { logout } from '@/api/auth/logout';
 
 
 const providers = [
@@ -29,7 +30,10 @@ const providers = [
           password: credentials.password
         });
 
-        cookies().set(accessTokenCookieName, loginResponse.accessTokenCookie, { httpOnly: true, secure: true });
+        cookies().set(accessTokenCookieName, loginResponse.accessTokenCookie, {
+          httpOnly: true,
+          secure: true
+        });
 
         return {
           id: credentials.email,
@@ -58,17 +62,14 @@ const providers = [
 
 const callbacks: Partial<CallbacksOptions> = {
   async jwt({ token, user }: JWTCallback): Promise<JWT> {
-    console.log('JWT callback...');
     if (user) {
       token.user = user;
     }
-
     return token;
   },
 
   // called from client
   async session({ session, token, user }: SessionCallback): Promise<Session | DefaultSession> {
-    console.log('session callback...');
     session.user = token.user;
     return session;
   }
@@ -77,10 +78,12 @@ const callbacks: Partial<CallbacksOptions> = {
 const events: Partial<EventCallbacks> = {
   signOut: async (params: { session: Session; token: JWT }) => {
     try {
-      cookies().delete(accessTokenCookieName);
-      console.log('Signing OUT..............');
+      await logout();
+      console.log('Signed OUT SUCCESSFULLY!!!!');
     } catch (e) {
       console.log('SIGN OUT ERROR: ', e);
+    } finally {
+      cookies().delete(accessTokenCookieName);
     }
   }
 };

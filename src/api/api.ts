@@ -1,5 +1,6 @@
 import axios, { AxiosResponse, Method } from 'axios';
 import { AtlusSessionManager } from '@/app/(auth)/session/atlus-session-manager';
+import { Session } from 'next-auth';
 
 
 export const createUrl = (endpoint: string): string => {
@@ -12,11 +13,21 @@ export enum ProtectedEndpoint {
   False = 0
 }
 
-const setAuthHeader = (headers: Record<string, string>, isProtected: ProtectedEndpoint): Record<string, string> => {
-  if (isProtected === ProtectedEndpoint.True) {
-    headers['Authorization'] = `Bearer ${AtlusSessionManager.accessToken}`;
-    headers['X-CSRF-TOKEN'] = AtlusSessionManager.csrfToken ?? '';
-  }
+interface AuthHeadersProvider {
+  accessToken: string | undefined;
+  csrfToken: string | undefined;
+}
+
+export const mapServerSessionToAuthHeadersProvider = (serverSession: Session): AuthHeadersProvider => {
+  return {
+    accessToken: serverSession.user?.accessToken,
+    csrfToken: serverSession.user?.csrfToken
+  };
+};
+
+export const setAuthHeaders = (headers: Record<string, string>, provider: AuthHeadersProvider): Record<string, string> => {
+  headers['Authorization'] = `Bearer ${provider.accessToken}`;
+  headers['X-CSRF-TOKEN'] = provider.csrfToken ?? '';
   return headers;
 };
 
@@ -26,8 +37,12 @@ export const createRequest = <Payload, Response>(
   isProtected: ProtectedEndpoint = ProtectedEndpoint.False,
   payload?: Payload | undefined
 ): Promise<Response> => {
+
   const headers = {};
-  setAuthHeader(headers, isProtected);
+  if (isProtected === ProtectedEndpoint.True) {
+    setAuthHeaders(headers, AtlusSessionManager);
+  }
+
   return axios<Payload, AxiosResponse<Response>>({
     method,
     url: createUrl(endpoint),
