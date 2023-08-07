@@ -15,7 +15,9 @@ export const logout = async (): Promise<void> => {
   const authHeadersProvider = mapServerSessionToAuthHeadersProvider(serverSession);
   const headers: Record<string, string> = {};
   setAuthHeaders(headers, authHeadersProvider);
-  headers['Cookie'] = cookies().get(accessTokenCookieName)?.value ?? '';
+
+  const accessTokenCookie = cookies().get(accessTokenCookieName)?.value ?? '';
+  headers['Cookie'] = `${accessTokenCookieName}=${accessTokenCookie}`;
 
   await axios<void, AxiosResponse<Response>>({
     method: 'GET',

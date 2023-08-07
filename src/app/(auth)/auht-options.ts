@@ -9,7 +9,9 @@ import { isAxiosError } from 'axios';
 import { cookies } from 'next/headers';
 import { accessTokenCookieName } from '@/constants/api';
 import { logout } from '@/api/auth/logout';
+import { isSecureProtocol } from '@/utils/platform';
 
+const usingSecureDomain = isSecureProtocol(process.env.NEXTAUTH_URL as string);
 
 const providers = [
   CredentialsProvider({
@@ -32,7 +34,7 @@ const providers = [
 
         cookies().set(accessTokenCookieName, loginResponse.accessTokenCookie, {
           httpOnly: true,
-          secure: true
+          secure: usingSecureDomain
         });
 
         return {
