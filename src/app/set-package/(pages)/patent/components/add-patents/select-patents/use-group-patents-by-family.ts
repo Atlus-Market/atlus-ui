@@ -22,7 +22,9 @@ export const useGroupPatentsByFamily = ({ patents }: UseGroupPatentsByFamilyProp
     return Object.keys(groupedPatents).map(familyIdKey => ({
       familyId: familyIdKey,
       publicationNumber: `publicationNumber:familyId: ${familyIdKey}`,
-      applicationDateEpodoc: 'applicationDateEpodoc',
+      applicationReferenceEpodoc: {
+        date: 'applicationReferenceEpodoc'
+      },
       applicantsOriginal: [],
       title: 'title',
       status: 'status',
