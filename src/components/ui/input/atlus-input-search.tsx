@@ -11,10 +11,10 @@ interface AtlusInputProps {
 }
 
 export const AtlusInputSearch = ({
-  placeholder = 'Search',
-  onChange,
-  searchResults,
-}: AtlusInputProps) => {
+                                   placeholder = 'Search',
+                                   onChange,
+                                   searchResults
+                                 }: AtlusInputProps) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceFn = useCallback(debounce(onChange, 200), [onChange]);
 
@@ -26,15 +26,18 @@ export const AtlusInputSearch = ({
   );
 
   return (
-    <div className="flex items-center border border-lightest-grey bg-white rounded-lg px-[18px] min-h-[57px]">
-      <HiSearch className="text-middle-grey flex-shrink-0" />
-      <div className="ml-3 mr-1">{searchResults}</div>
-      <input
-        type="text"
-        placeholder={placeholder}
-        className="outline-none text-dark-grey placeholder:text-dark-grey placeholder:text-base w-full"
-        onChange={updateValue}
-      />
+    <div
+      className='flex items-center border border-lightest-grey bg-white rounded-lg px-[18px] min-h-[57px]'>
+      <HiSearch className='text-middle-grey flex-shrink-0' />
+      <div className='flex items-center basis-[100%]'>
+        <div className='ml-3 mr-1'>{searchResults}</div>
+        <input
+          type='text'
+          placeholder={placeholder}
+          className='outline-none text-dark-grey placeholder:text-dark-grey placeholder:text-base w-full'
+          onChange={updateValue}
+        />
+      </div>
     </div>
   );
 };
