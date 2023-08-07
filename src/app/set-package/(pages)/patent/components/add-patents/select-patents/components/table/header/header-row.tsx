@@ -9,7 +9,7 @@ interface HeaderRowProps {
 
 export const HeaderRow = ({ header }: HeaderRowProps) => {
   return (
-    <th colSpan={header.colSpan} className='px-4'>
+    <th colSpan={header.colSpan} className='pl-[30px] pr-4 [&:first-child]:pl-[65px]'>
       {header.isPlaceholder ? null : (
         <div>
           {flexRender(
