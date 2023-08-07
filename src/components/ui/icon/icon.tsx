@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { AtlusColor } from '@/components/ui/theme';
-import Image from 'next/image';
-import { StaticImageData } from 'next/dist/client/image';
+import Image, { StaticImageData } from 'next/image';
 import clsx from 'clsx';
 
 type IconSize = 20 | 22;
