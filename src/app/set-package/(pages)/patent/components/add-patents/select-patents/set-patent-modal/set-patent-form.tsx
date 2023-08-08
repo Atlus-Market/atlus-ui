@@ -8,7 +8,7 @@ import { Patent } from '@/models/patent';
 import { plainDateValidator } from '@/components/ui/form/validators/plain-date-validator';
 
 const schema: ObjectSchema<Patent> = object({
-  familyId: string().trim().required(RequiredField),
+  familyId: string().default('a').trim().required(RequiredField),
   publicationNumber: string().trim().required(RequiredField),
   title: string().trim().required(RequiredField),
   status: string().trim().required(RequiredField),
@@ -41,7 +41,9 @@ export const SetPatentForm = forwardRef<
     }
   });
 
-  const { handleSubmit } = formProps;
+  const { handleSubmit, formState: { isValid } } = formProps;
+
+  console.log('isFormValid: ', isValid);
 
   const onSubmit = useCallback((formValues: Patent) => {
     onPatentSet?.(formValues);

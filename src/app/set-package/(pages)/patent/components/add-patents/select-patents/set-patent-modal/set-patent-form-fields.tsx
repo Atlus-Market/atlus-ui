@@ -58,7 +58,7 @@ export const SetPatentFormFields = () => {
         placeholder='Select status'
         name='status'
         options={statusOptions}
-        showDropdownIndicator={true}
+        showDropdownIndicator
       />
 
       <Controller

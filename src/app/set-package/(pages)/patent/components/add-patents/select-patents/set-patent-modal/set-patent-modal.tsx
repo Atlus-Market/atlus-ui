@@ -5,9 +5,6 @@ import {
 } from '@/app/set-package/(pages)/patent/components/add-patents/close-add-patents-modal-button';
 import { AtlusModalTitle } from '@/components/ui/modal/atlus-modal-title';
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
-import {
-  EnterPatentsNextButton
-} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-next-button';
 import { AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
 import { AtlusModal } from '@/components/ui/modal/atlus-modal';
 import {
@@ -16,6 +13,9 @@ import {
 import {
   SetPatentFormFields
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/set-patent-modal/set-patent-form-fields';
+import {
+  SetPatentSaveButton
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/set-patent-modal/set-patent-save-button';
 
 interface SetPatentModalProps {
   isOpen: boolean;
@@ -39,7 +39,7 @@ export const SetPatentModal = ({ isOpen }: SetPatentModalProps) => {
           }
           footer={
             <AtlusModalFooter>
-              <EnterPatentsNextButton />
+              <SetPatentSaveButton />
             </AtlusModalFooter>
           }>
           <AtlusModalBody className='w-[650px] !py-0'>
