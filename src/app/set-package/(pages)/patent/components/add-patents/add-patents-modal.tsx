@@ -41,7 +41,7 @@ export const AddPatentsModal = () => {
 
   return (
     <>
-      <SetPatentModal isOpen={true} closeModal={noop} />
+      {/*<SetPatentModal isOpen={true} closeModal={noop} />*/}
 
       <AtlusModal
         isOpen={isAddPatentsModalOpen}

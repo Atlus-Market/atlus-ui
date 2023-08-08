@@ -73,7 +73,8 @@ export const SetPatentFormFields = () => {
             value={field.value?.join('') ?? ''}
             errors={errors}
             onChange={e => {
-              setValue('applicantsOriginal', [e.target.value]);
+              const value = e.target.value;
+              setValue('applicantsOriginal', value ? [value] : []);
             }}
           />
         )}

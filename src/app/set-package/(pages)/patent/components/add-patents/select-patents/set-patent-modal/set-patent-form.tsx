@@ -13,7 +13,7 @@ const schema: ObjectSchema<Patent> = object({
   title: string().trim().required(RequiredField),
   status: string().trim().required(RequiredField),
   applicationNumber: string().trim().required(RequiredField),
-  applicantsOriginal: array().required(RequiredField),
+  applicantsOriginal: array().min(1,'Enter at least one assignee').required(RequiredField),
   applicationReferenceEpodoc: object({
     date: string().trim().required(RequiredField)
   }).required(RequiredField).test(plainDateValidator)
