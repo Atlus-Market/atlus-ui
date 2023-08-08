@@ -16,6 +16,10 @@ import { hideAddPatentsModal, resetAddPatents } from '@/redux/features/set-packa
 import {
   selectSetPackageState
 } from '@/redux/features/set-package/selectors/set-package.selectors';
+import {
+  SetPatentModal
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/set-patent-modal/set-patent-modal';
+import { noop } from '@/utils/noop';
 
 export const AddPatentsModal = () => {
   const dispatch = useAppDispatch();
@@ -36,13 +40,17 @@ export const AddPatentsModal = () => {
   }
 
   return (
-    <AtlusModal
-      isOpen={isAddPatentsModalOpen}
-      onRequestClose={() => dispatch(hideAddPatentsModal())}
-      onAfterClose={() => dispatch(resetAddPatents())}
-      modalBodyClassName='max-h-[80%]'
-    >
-      {step}
-    </AtlusModal>
+    <>
+      <SetPatentModal isOpen={true} closeModal={noop} />
+
+      <AtlusModal
+        isOpen={isAddPatentsModalOpen}
+        onRequestClose={() => dispatch(hideAddPatentsModal())}
+        onAfterClose={() => dispatch(resetAddPatents())}
+        modalBodyClassName='max-h-[80%]'
+      >
+        {step}
+      </AtlusModal>
+    </>
   );
 };
