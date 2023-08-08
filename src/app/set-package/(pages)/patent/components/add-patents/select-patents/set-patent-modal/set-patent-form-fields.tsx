@@ -2,6 +2,17 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
 import { Patent } from '@/models/patent';
 import { AtlusInput } from '@/components/ui/input/atlus-input';
+import { AtlusFormDropdownList } from '@/components/ui/form/atlus-form-dropdown';
+import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
+
+
+const statusOptions: DropdownOption[] = [
+  { value: 'pending', label: 'Pending' },
+  { value: 'expired', label: 'Expired' },
+  { value: 'issued', label: 'Issued' },
+  { value: 'abandoned', label: 'Abandoned' },
+  { value: 'lapsed', label: 'Lapsed' }
+];
 
 export const SetPatentFormFields = () => {
   const formProps = useFormContext<Patent>();
@@ -42,9 +53,13 @@ export const SetPatentFormFields = () => {
         />
       </div>
 
-      <div>
-        Status
-      </div>
+      <AtlusFormDropdownList
+        label='Status'
+        placeholder='Select status'
+        name='status'
+        options={statusOptions}
+        showDropdownIndicator={true}
+      />
 
       <Controller
         name='applicantsOriginal'
@@ -52,7 +67,7 @@ export const SetPatentFormFields = () => {
         render={({ field }) => (
           <AtlusInput
             {...field}
-            label='Application number'
+            label='Assignee'
             placeholder='Enter current assignee'
             type='text'
             value={field.value?.join('') ?? ''}

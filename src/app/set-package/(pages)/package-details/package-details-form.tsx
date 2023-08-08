@@ -102,6 +102,7 @@ export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFor
               placeholder='Choose an industry'
               {...register('industry')}
               options={interestAreasOptions}
+              showDropdownIndicator={true}
             />
 
             <AtlusFormInputWithTags
@@ -118,6 +119,7 @@ export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFor
               options={visibilityOptions}
               leftIcon={<HiOutlineLockClosed size={16} />}
               bottomText='Only people you share the package with can view it.'
+              showDropdownIndicator={true}
             />
           </div>
 
