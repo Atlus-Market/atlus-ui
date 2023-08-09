@@ -1,6 +1,14 @@
 'use client';
 
-import Select, { ActionMeta, components, GroupBase, SelectInstance } from 'react-select';
+import Select, {
+  ActionMeta,
+  components,
+  GroupBase,
+  MultiValue,
+  SelectInstance,
+  SingleValue,
+  ValueContainerProps
+} from 'react-select';
 import AsyncSelect from 'react-select/async';
 import clsx from 'clsx';
 import { forwardRef, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
@@ -9,6 +17,9 @@ import { generateID } from '@/utils/id';
 import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
 import { FilterOptionOption } from 'react-select/dist/declarations/src/filters';
 import { ControlProps } from 'react-select/dist/declarations/src/components/Control';
+import { AtlusTag } from '@/components/ui/tag/atlus-tag';
+import { AtlusTagRemoveButton } from '@/components/ui/tag/atlus-tag-remove-button';
+import { getDropdownOptions } from '@/components/ui/dropdown-list/dropdown.utils';
 
 
 export interface DropdownOption {
@@ -20,13 +31,16 @@ export interface DropdownOption {
 
 const classNames = {
   container: () => 'rounded-lg',
-  control: (props: ControlProps<DropdownOption, false, GroupBase<DropdownOption>>) => {
+  control: (props: ControlProps<DropdownOption, boolean, GroupBase<DropdownOption>>) => {
     return clsx(
       'px-4 !min-h-[53px] m-0',
       'rounded-lg border border-solid border-light-grey'
     );
   },
-  valueContainer: () => 'text-soft-black text-sm font-normal leading-[16px]',
+  valueContainer: (props: ValueContainerProps<DropdownOption, boolean, GroupBase<DropdownOption>>) => clsx(
+    'text-soft-black text-sm font-normal leading-[16px]',
+    props.isMulti ? 'gap-2' : ''
+  ),
   placeholder: () => 'bg-white text-xs font-medium text-middle-grey leading-[16px]',
   input: () => 'text-xs font-medium text-soft-black leading-[16px]',
   menu: () => clsx(
@@ -60,11 +74,12 @@ export interface AtlusDropdownListProps {
   defaultValue?: DropdownOption['value'];
   name?: string;
   errors?: FieldErrors;
-  onChange?: (value: string) => void;
+  onChange?: (value: string | string[]) => void;
   leftIcon?: ReactNode;
   label?: string;
   bottomText?: string;
   showDropdownIndicator?: boolean;
+  isMulti?: boolean;
 
   // Components
   groupHeadingHeader?: ReactNode;
@@ -75,7 +90,7 @@ export interface AtlusDropdownListProps {
 }
 
 export const AtlusDropdownList = forwardRef<
-  SelectInstance<DropdownOption, false, GroupBase<DropdownOption>>, AtlusDropdownListProps
+  SelectInstance<DropdownOption, true | false, GroupBase<DropdownOption>>, AtlusDropdownListProps
 >(
   function AtlusDropdownList(
     {
@@ -99,7 +114,8 @@ export const AtlusDropdownList = forwardRef<
       isLoading,
       isSearchable,
       isClearable,
-      noOptionsMessage
+      noOptionsMessage,
+      isMulti = false
     },
     ref
   ) {
@@ -108,22 +124,7 @@ export const AtlusDropdownList = forwardRef<
     const [hydrated, setHydrated] = useState(false);
 
     const memoDefaultValue = useMemo(() => {
-      if (!options) {
-        return undefined;
-      }
-
-      for (let i = 0; i < options.length; i++) {
-        const option = options[i];
-        let optionFound = undefined;
-        if (!option.options) {
-          optionFound = option.value === defaultValue ? option : undefined;
-        } else {
-          optionFound = option.options.find(oo => oo.value === defaultValue);
-        }
-        if (optionFound) {
-          return optionFound;
-        }
-      }
+      return getDropdownOptions(options, defaultValue);
     }, [defaultValue, options]);
 
     useEffect(() => {
@@ -152,16 +153,22 @@ export const AtlusDropdownList = forwardRef<
           name={name}
           menuIsOpen={isOpen}
           unstyled={true}
-          isMulti={false}
+          isMulti={isMulti}
           defaultValue={memoDefaultValue}
           options={options}
           placeholder={placeholder}
           classNames={classNames}
           isClearable={isClearable}
           filterOption={filterOption}
-          onChange={(option: DropdownOption | null, actionMeta: ActionMeta<DropdownOption>) => {
-            const value = option?.value ?? '';
-            onChange?.(value);
+          onChange={(option: MultiValue<DropdownOption> | SingleValue<DropdownOption> | null, actionMeta: ActionMeta<DropdownOption>) => {
+            if (isMulti) {
+              console.log('isMulti onChange: ', option);
+              const values = (option as MultiValue<DropdownOption>).map(o => o.value);
+              onChange?.(values);
+            } else {
+              const value = (option as SingleValue<DropdownOption>)?.value ?? '';
+              onChange?.(value);
+            }
           }}
           components={{
             Control: ({ children, ...rest }) => (
@@ -193,6 +200,9 @@ export const AtlusDropdownList = forwardRef<
               );
             },
             ClearIndicator: ({ children, ...rest }) => {
+              if (isMulti) {
+                return null;
+              }
               return (
                 <components.ClearIndicator {...rest}>
                   {clearIndicator ? clearIndicator : children}
@@ -206,7 +216,21 @@ export const AtlusDropdownList = forwardRef<
                 </components.NoOptionsMessage>
               );
             },
-            IndicatorSeparator: () => null
+            IndicatorSeparator: () => null,
+            MultiValue: ({ children, ...rest }) => {
+              return (
+                <components.MultiValue {...rest}>
+                  <AtlusTag text={children as string} className='!pr-0 !rounded-r-[0]' />
+                </components.MultiValue>
+              );
+            },
+            MultiValueRemove: ({ children, ...rest }) => {
+              return (
+                <components.MultiValueRemove {...rest}>
+                  <AtlusTagRemoveButton classNames='!rounded-l-[0] pr-[12px] h-full' />
+                </components.MultiValueRemove>
+              );
+            }
           }}
         />
         {bottomText &&

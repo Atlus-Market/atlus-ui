@@ -4,15 +4,14 @@ import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useFormContext } from 'react-hook-form';
 
 interface AddContactSaveButtonProps {
-  disabled?: boolean;
   onClick?: () => void;
 }
 
-export const AddContactSaveButton = ({ disabled, onClick }: AddContactSaveButtonProps) => {
+export const AddContactSaveButton = (props: AddContactSaveButtonProps) => {
   const formContext = useFormContext();
   const { formState: { isValid, isSubmitting } } = formContext;
   return (
-    <AtlusButton disabled={!isValid} onClick={onClick} isLoading={isSubmitting}>
+    <AtlusButton disabled={!isValid} onClick={props?.onClick} isLoading={isSubmitting}>
       Save
     </AtlusButton>
   );

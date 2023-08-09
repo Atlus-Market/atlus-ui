@@ -32,7 +32,7 @@ export const AtlusFormDropdownList = forwardRef<SelectInstance, AtlusFormDropdow
             errors={errors}
             defaultValue={value}
             {...rest}
-            onChange={(value) => {
+            onChange={(value: string | string[]) => {
               onChange(value);
             }}
           />

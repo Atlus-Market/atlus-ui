@@ -30,7 +30,7 @@ import { useMemo } from 'react';
 export interface IPackageDetailsForm {
   title: string;
   description: string;
-  industry: string;
+  industry: string[];
   keywords: string[];
   visibility: string;
   price: number;
@@ -42,7 +42,7 @@ export interface IPackageDetailsForm {
 const schema: ObjectSchema<IPackageDetailsForm> = object({
   title: string().default('').trim().required(RequiredField),
   description: string().default('').trim().required(RequiredField),
-  industry: string().default('').trim().required(RequiredField),
+  industry: array().min(1).required(RequiredField),
   keywords: array().required(RequiredField),
   visibility: string().default('').trim().required(RequiredField),
   price: number().min(1).required(RequiredField).typeError('Price must be greater than $1'),
@@ -103,6 +103,7 @@ export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFor
               {...register('industry')}
               options={interestAreasOptions}
               showDropdownIndicator={true}
+              isMulti={true}
             />
 
             <AtlusFormInputWithTags
