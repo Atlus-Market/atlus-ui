@@ -50,7 +50,7 @@ export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTag
               setTags(tags.filter(t => t !== tag));
             };
             return (
-              <AtlusTag key={`${index}-${tag}`} text={tag} onClose={onClose} />
+              <AtlusTag key={`${index}-${tag}`} text={tag} onClose={onClose} size='small' />
             );
           })}
         </div>
