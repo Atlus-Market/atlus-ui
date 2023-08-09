@@ -42,7 +42,8 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(
         <div className={clsx(
           'border border-light-grey rounded-lg',
           'flex justify-start items-center',
-          'overflow-hidden'
+          'overflow-hidden',
+          '[&:has(input:focus)]:border-orange'
         )}>
           {leftCmp && leftCmp}
           <input

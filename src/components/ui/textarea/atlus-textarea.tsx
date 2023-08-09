@@ -33,7 +33,8 @@ export const AtlusTextarea = forwardRef<HTMLTextAreaElement, AtlusTextareaProps>
         <div className={clsx(
           'border border-light-grey rounded-lg',
           'py-[18px] pl-4 pr-[27px]',
-          'flex justify-start items-center'
+          'flex justify-start items-center',
+          '[&:has(textarea:focus)]:border-orange'
         )}>
           <textarea
             id={textareaId}

@@ -31,12 +31,7 @@ export interface DropdownOption {
 
 const classNames = {
   container: () => 'rounded-lg',
-  control: (props: ControlProps<DropdownOption, boolean, GroupBase<DropdownOption>>) => {
-    return clsx(
-      'px-4 !min-h-[53px] m-0',
-      'rounded-lg border border-solid border-light-grey'
-    );
-  },
+
   valueContainer: (props: ValueContainerProps<DropdownOption, boolean, GroupBase<DropdownOption>>) => clsx(
     'text-soft-black text-sm font-normal leading-[16px]',
     props.isMulti ? 'gap-2' : ''
@@ -122,6 +117,7 @@ export const AtlusDropdownList = forwardRef<
 
     const refId = useRef<string>('');
     const [hydrated, setHydrated] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
 
     const memoDefaultValue = useMemo(() => {
       return getDropdownOptions(options, defaultValue);
@@ -130,6 +126,19 @@ export const AtlusDropdownList = forwardRef<
     useEffect(() => {
       setHydrated(true);
     }, []);
+
+    const dynamicClassNames = useMemo(() => {
+      return {
+        ...classNames,
+        control: (props: ControlProps<DropdownOption, boolean, GroupBase<DropdownOption>>) => {
+          return clsx(
+            'px-4 !min-h-[53px] m-0',
+            'rounded-lg border border-solid',
+            isFocused ? 'border-orange' : 'border-light-grey'
+          );
+        }
+      };
+    }, [isFocused]);
 
     if (!hydrated) {
       // Returns null on first render, so the client and server match
@@ -157,12 +166,14 @@ export const AtlusDropdownList = forwardRef<
           defaultValue={memoDefaultValue}
           options={options}
           placeholder={placeholder}
-          classNames={classNames}
+          classNames={dynamicClassNames}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          onMenuClose={() => setIsFocused(false)} // onBlur is not called when selecting an option
           isClearable={isClearable}
           filterOption={filterOption}
           onChange={(option: MultiValue<DropdownOption> | SingleValue<DropdownOption> | null, actionMeta: ActionMeta<DropdownOption>) => {
             if (isMulti) {
-              console.log('isMulti onChange: ', option);
               const values = (option as MultiValue<DropdownOption>).map(o => o.value);
               onChange?.(values);
             } else {
