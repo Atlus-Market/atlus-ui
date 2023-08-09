@@ -150,9 +150,6 @@ export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFor
           <div>
             <AtlusTitle text='Seller information' className='!font-normal !text-2xl mb-6' />
             <div className='mb-6'>
-            <span className='text-sm text-black leading-6'>
-              Specify which seller you’re representing. This is for your records only and cannot be seen by others.
-            </span>
             </div>
             <Controller
               control={control}

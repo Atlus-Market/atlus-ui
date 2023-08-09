@@ -115,10 +115,10 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
         onContactAdded={onContactAddedOk}
       />
       <AtlusDropdownList
-        label='Contacts'
+        label='Contact Name'
         isLoading={isFetching}
         isSearchable={!isSellerSelected}
-        placeholder='Search contacts...'
+        placeholder='Select a contact'
         leftIcon={<HiSearch size={20} color='#A4A2A0' />}
         filterOption={customFilter}
         options={contactOptions}
@@ -144,9 +144,10 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
         groupHeadingHeader={<div className='pt-[10px] pb-5'>{addContactElement}</div>}
         noOptionsMessage={<div className='px-4 py-[10px]'>{addContactElement}</div>}
         onChange={(contactId) => {
-          onSellerSelected(contactId);
-          dispatch(setActiveContact({ contactId: contactId }));
+          onSellerSelected(contactId as string);
+          dispatch(setActiveContact({ contactId: contactId as string }));
         }}
+        bottomText='Specify which seller you’re representing. This is for your records only and cannot be seen by others.'
       />
       {activeContact && <ActiveContact contact={activeContact} />}
     </>

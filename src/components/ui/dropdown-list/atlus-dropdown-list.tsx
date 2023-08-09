@@ -234,7 +234,7 @@ export const AtlusDropdownList = forwardRef<
           }}
         />
         {bottomText &&
-          <span className='text-xs text-dark-grey font-normal inline-block mt-2'>
+          <span className='text-xs text-dark-grey font-semibold inline-block mt-2 pl-2'>
           {bottomText}
       </span>
         }
