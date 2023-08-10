@@ -22,7 +22,7 @@ const schema: ObjectSchema<Patent> = object({
 interface SetPatentForm {
   children: ReactNode;
   initialValues?: Patent;
-  onPatentSet?: (patent: Patent) => void;
+  onSubmit?: (patent: Patent) => void;
 }
 
 export interface SetPatentRefExposedProps {
@@ -32,7 +32,7 @@ export interface SetPatentRefExposedProps {
 export const SetPatentForm = forwardRef<
   SetPatentRefExposedProps,
   SetPatentForm
->(function SetPatentForm({ initialValues, children, onPatentSet }, ref) {
+>(function SetPatentForm({ initialValues, children, onSubmit }, ref) {
 
   const formProps = useAtlusForm<Patent>({
     formOptions: {
@@ -43,24 +43,22 @@ export const SetPatentForm = forwardRef<
 
   const { handleSubmit, formState: { isValid } } = formProps;
 
-  console.log('isFormValid: ', isValid);
-
-  const onSubmit = useCallback((formValues: Patent) => {
-    onPatentSet?.(formValues);
-  }, [onPatentSet]);
+  const onFormSubmit = useCallback((formValues: Patent) => {
+    onSubmit?.(formValues);
+  }, [onSubmit]);
 
   useImperativeHandle(
     ref,
     () => {
       return {
-        submitForm: handleSubmit(onSubmit)
+        submitForm: handleSubmit(onFormSubmit)
       };
     },
-    [handleSubmit, onSubmit]
+    [handleSubmit, onFormSubmit]
   );
 
   return (
-    <AtlusForm formProps={formProps} onSubmit={onSubmit}>
+    <AtlusForm formProps={formProps} onSubmit={onFormSubmit}>
       {children}
     </AtlusForm>
   );

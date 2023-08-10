@@ -12,6 +12,9 @@ export const plainDateValidator: Validator<{ date: string }> = {
 
 
 const isValidDate = (date: string): boolean => {
+  if (!date) {
+    return false;
+  }
   const parsedDate = parse(date, 'MM/dd/yyyy', new Date());
   console.log('parsedDate: ', parsedDate);
   console.log('parsedDate.getTime: ', parsedDate.getTime());

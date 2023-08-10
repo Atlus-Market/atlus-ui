@@ -34,13 +34,15 @@ export interface AddPatents {
     }
   };
   selectPatents: {
+    isSetPatentModalOpen: boolean;
+    editingPublicationNumber: string | undefined;
     familyPatents: FamilyPatents;
   }
 }
 
 export const addPatentsInitialState: AddPatents = {
   isAddPatentsModalOpen: false,
-  currentStep: AddPatentsStep.EnterPatentsNumber,
+  currentStep: AddPatentsStep.SelectPatents,
   activeTab: EnterPatentsNumberTab.EnterManually,
   patents: [],
   enterPatents: {
@@ -59,6 +61,8 @@ export const addPatentsInitialState: AddPatents = {
     }
   },
   selectPatents: {
+    isSetPatentModalOpen: false,
+    editingPublicationNumber: undefined,
     familyPatents: {}
   }
 };
@@ -94,6 +98,18 @@ export const addPatentesReducer = {
     state.addPatents.selectPatents.familyPatents = familyPatents;
   },
 
+  showSetPatentModal: (state: SetPackageState) => {
+    state.addPatents.selectPatents.isSetPatentModalOpen = true;
+  },
+  hideSetPatentModal: (state: SetPackageState) => {
+    state.addPatents.selectPatents.isSetPatentModalOpen = false;
+  },
+  setEditingPublicationNumber: (state: SetPackageState, action: PayloadAction<{
+    publicationNumber: string
+  }>) => {
+    state.addPatents.selectPatents.editingPublicationNumber = action.payload.publicationNumber;
+  },
+
   // After finishing selecting patents from the table
   setPackagePatents: (state: SetPackageState) => {
     const stateFamilyPatents = state.addPatents.selectPatents.familyPatents;
@@ -110,5 +126,14 @@ export const addPatentesReducer = {
       });
       state.familyPatents[familyId] = [...familyPatents, ...patentsToAdd];
     });
+  },
+
+  // Patent
+  updatePatent: (state: SetPackageState, action: PayloadAction<{ patent: Patent }>) => {
+    const patents = state.addPatents.patents.filter(patent => patent.publicationNumber !== action.payload.patent.publicationNumber);
+    state.addPatents.patents = [
+      ...patents,
+      action.payload.patent
+    ];
   }
 };

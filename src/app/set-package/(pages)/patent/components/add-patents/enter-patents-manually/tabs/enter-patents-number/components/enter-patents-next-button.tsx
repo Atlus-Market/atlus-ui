@@ -42,7 +42,7 @@ export const EnterPatentsNextButton = () => {
 
   return (
     <AtlusButton
-      disabled={!isActiveFormValid}
+      disabled={!isActiveFormValid || isRefetching || isFetching}
       isLoading={isRefetching || isFetching}
       onClick={onNext}>
       Next

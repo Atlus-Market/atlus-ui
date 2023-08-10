@@ -7,7 +7,7 @@ import {
   RowSelectionState,
   useReactTable
 } from '@tanstack/react-table';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { RowData } from '@tanstack/table-core/src/types';
 
 import './styles.css';
@@ -29,10 +29,12 @@ import {
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/use-set-selected-patents';
 import { Patent } from '@/models/patent';
 import {
+  NO_FAMILY_GROUP_ID,
   useGroupPatentsByFamily
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/use-group-patents-by-family';
-import { useAppSelector } from '@/redux/hooks';
 import { selectFetchedPatents } from '@/redux/features/set-package/selectors/add-patents-selectors';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { setFetchedPatents } from '@/redux/features/set-package/set-package';
 
 export type TableData<T extends RowData> = T & {
   subRows?: TableData<T>[];
@@ -42,6 +44,9 @@ export type PatentTableData = TableData<Patent>;
 
 export const PatentsTable = () => {
   const fetchedPatents = useAppSelector(selectFetchedPatents);
+  // const notFoundPatentsInAPI = useAppSelector(selectNotFoundPatentsInAPI);
+  // console.log('notFoundPatentsInAPI: ', notFoundPatentsInAPI);
+
   const groupPatentsByFamily = useGroupPatentsByFamily({ patents: fetchedPatents });
   console.log('useGroupPatentsByFamily: ', groupPatentsByFamily);
 
@@ -53,6 +58,30 @@ export const PatentsTable = () => {
     setRowSelection: setRowSelectionState
   });
 
+  useEffect(() => {
+    setData(groupPatentsByFamily);
+  }, [groupPatentsByFamily]);
+
+  console.log('data: ', data);
+
+  // const dispatch = useAppDispatch();
+  // useEffect(() => {
+  //   dispatch(setFetchedPatents({
+  //     patents: [
+  //       {
+  //         title: '',
+  //         publicationNumber: 'US123456789',
+  //         familyId: NO_FAMILY_GROUP_ID,
+  //         applicantsOriginal: [],
+  //         applicationNumber: '',
+  //         status: '',
+  //         applicationReferenceEpodoc: {
+  //           date: ''
+  //         }
+  //       }
+  //     ]
+  //   }));
+  // }, []);
   const table = useReactTable({
     data,
     columns,
@@ -62,11 +91,13 @@ export const PatentsTable = () => {
     },
     onExpandedChange: setExpanded,
 
-    // DO NOT USE because parent row state is not updated correctly.
-    // If all children rows are  selected and then one by one are deselected,
-    // parent row remains in a selected (checked) state after all children have
-    // been deselected.
-    // Same bug is happening in @tanstack/react-table selection examples.
+    /**
+     * DO NOT USE because parent row state is not updated correctly.
+     * If all children rows are  selected and then one by one are deselected,
+     * parent row remains in a selected (checked) state after all children have
+     * been deselected.
+     * Same bug is happening in @tanstack/react-table selection examples.
+     */
     // onRowSelectionChange: setRowSelectionState,
 
     getSubRows: row => row.subRows,
@@ -87,10 +118,10 @@ export const PatentsTable = () => {
   const hasFetchedPatents = fetchedPatents?.length > 0;
   if (!hasFetchedPatents) {
     return (
-      <div className="w-full text-center p-5">
+      <div className='w-full text-center p-5'>
         <span>No patents were found.</span>
       </div>
-    )
+    );
   }
 
   return (

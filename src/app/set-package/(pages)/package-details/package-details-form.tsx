@@ -26,6 +26,7 @@ import {
 } from '@/app/set-package/(pages)/package-details/set-package-details-in-store';
 import { InterestArea } from '@/api/interest-areas/interest-area';
 import { useMemo } from 'react';
+import { BiDollar } from 'react-icons/bi';
 
 export interface IPackageDetailsForm {
   title: string;
@@ -104,6 +105,7 @@ export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFor
               options={interestAreasOptions}
               showDropdownIndicator={true}
               isMulti={true}
+              isSearchable={false}
             />
 
             <AtlusFormInputWithTags
@@ -121,6 +123,7 @@ export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFor
               leftIcon={<HiOutlineLockClosed size={16} />}
               bottomText='Only people you share the package with can view it.'
               showDropdownIndicator={true}
+              isSearchable={false}
             />
           </div>
 
@@ -132,6 +135,7 @@ export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFor
               placeholder='$'
               type='number'
               {...register('price')}
+              leftCmp={<BiDollar size={16} />}
             />
 
             <AtlusFormCheckbox

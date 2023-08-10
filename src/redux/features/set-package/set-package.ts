@@ -51,6 +51,7 @@ export const setPackage = createSlice({
 export const {
   reset,
   resetAddPatents,
+  updatePatent,
   showAddPatentsModal,
   hideAddPatentsModal,
   setAddPatentsStep,
@@ -65,5 +66,8 @@ export const {
   setContact,
   setActiveContact,
   setContacts,
+  showSetPatentModal,
+  hideSetPatentModal,
+  setEditingPublicationNumber
 } = setPackage.actions;
 export default setPackage.reducer;

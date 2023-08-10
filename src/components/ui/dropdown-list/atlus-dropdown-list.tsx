@@ -36,7 +36,7 @@ const classNames = {
     'text-soft-black text-sm font-normal leading-[16px]',
     props.isMulti ? 'gap-2' : ''
   ),
-  placeholder: () => 'bg-white text-xs font-medium text-middle-grey leading-[16px]',
+  placeholder: () => 'bg-white text-sm font-normal text-dark-grey leading-[16px]',
   input: () => 'text-xs font-medium text-soft-black leading-[16px]',
   menu: () => clsx(
     'rounded-lg border border-solid border-lightest-grey py-[10px]',

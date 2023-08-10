@@ -16,11 +16,14 @@ import {
   SelectedPatents
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/selected-patents';
 import {
-  SelectPatentsNextButton
-} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/select-patents-next-button';
-import {
   CloseAddPatentsModalButton
 } from '@/app/set-package/(pages)/patent/components/add-patents/close-add-patents-modal-button';
+import {
+  SetPatentHandler
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/set-patent-handler';
+import {
+  SelectPatentsNextButton
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/select-patents-next-button';
 
 export const SelectPatents = () => {
   return (
@@ -34,12 +37,13 @@ export const SelectPatents = () => {
       }
       footer={
         <AtlusModalFooter>
-          <SelectedPatents />
+            <SelectedPatents />
           <SelectPatentsNextButton />
         </AtlusModalFooter>
       }>
       <AtlusModalBody className='w-[1240px] bg-[#FCFCFC] !py-0'>
         <PatentsTable />
+        <SetPatentHandler />
       </AtlusModalBody>
     </AtlusModalContainer>
   );

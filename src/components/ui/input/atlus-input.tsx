@@ -45,7 +45,7 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(
           'overflow-hidden',
           '[&:has(input:focus)]:border-orange'
         )}>
-          {leftCmp && leftCmp}
+          {leftCmp && <div className='ml-4'>{leftCmp}</div>}
           <input
             id={inputId}
             name={name}

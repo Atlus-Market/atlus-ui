@@ -1,5 +1,8 @@
+'use client';
+
 import { configureStore } from '@reduxjs/toolkit';
 import setPackageReducer from '@/redux/features/set-package/set-package';
+
 
 export const store = configureStore({
   reducer: {

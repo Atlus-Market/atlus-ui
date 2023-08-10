@@ -1,5 +1,4 @@
 import { ListClientSession } from '@/app/dashboard/components/list-client-session';
-import { GetContactsCmp } from '@/app/dashboard/get-contacts-cmp';
 
 export default async function DashboardPage() {
   return (
@@ -12,7 +11,6 @@ export default async function DashboardPage() {
         </a>
       </div>
 
-      <GetContactsCmp />
       <ListClientSession />
     </div>
   );

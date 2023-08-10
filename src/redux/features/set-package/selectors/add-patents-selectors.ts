@@ -86,3 +86,25 @@ export const selectSelectedFamilyPatents = createSelector(
   selectSelectPatentsState,
   state => state.familyPatents
 );
+
+export const selectNotFoundPatentsInAPI = createSelector(
+  selectActivePatentsIds,
+  selectFetchedPatents,
+  (activePatentsIds, fetchedPatentsIds) => {
+    // return activePatentsIds.filter(patentId => fetchedPatentsIds.find(patent => patent.applicationNumber !== patentId));
+    return ['US99988877744'];
+  }
+);
+
+export const selectIsSetPatentModalOpen = createSelector(
+  selectSelectPatentsState,
+  state => state.isSetPatentModalOpen
+);
+
+export const selectEditingPatent = createSelector(
+  selectSelectPatentsState,
+  selectFetchedPatents,
+  (selectPatentsState, patents) => {
+    return patents.find(patent => patent.publicationNumber === selectPatentsState.editingPublicationNumber);
+  }
+);

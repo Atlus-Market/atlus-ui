@@ -18,13 +18,10 @@ export const SetPatentFormFields = () => {
   const formProps = useFormContext<Patent>();
   const {
     register,
-    watch,
     setValue, control, formState: { errors }
   }
     = formProps;
   console.log('SetPatentForm Errors: ', errors);
-
-  console.log(watch());
 
   return (
     <div>
@@ -59,6 +56,7 @@ export const SetPatentFormFields = () => {
         name='status'
         options={statusOptions}
         showDropdownIndicator
+        isSearchable={false}
       />
 
       <Controller

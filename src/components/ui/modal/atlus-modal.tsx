@@ -28,7 +28,7 @@ export const AtlusModal = ({
       overlayClassName={clsx('atlus-modal--overlay', overlayClassName)}
       onAfterClose={onAfterClose}
       shouldCloseOnOverlayClick={true}
-      onRequestClose={onAfterClose}
+      onRequestClose={onRequestClose}
       className={clsx('atlus-modal-content', modalBodyClassName)}>
       {children}
     </Modal>
