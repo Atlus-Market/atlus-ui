@@ -7,7 +7,7 @@ import { AtlusForm } from '@/components/ui/form/atlus-form';
 import { object, ObjectSchema, string } from 'yup';
 import { RequiredField } from '@/constants/form';
 import { phoneNumberValidator } from '@/components/ui/form/validators/phone-number-validator';
-import { forwardRef, ReactNode, useCallback, useImperativeHandle } from 'react';
+import { ReactNode, useCallback } from 'react';
 import { Contact } from '@/models/contact';
 import { useMutation } from '@tanstack/react-query';
 import { updateSeller, UpdateSellerPayload } from '@/api/seller/update-seller';
@@ -33,23 +33,13 @@ interface AddContactForm {
   onContactAdded?: (contact: Contact) => void;
 }
 
-export interface AddContactRefExposedProps {
-  submitForm: () => Promise<void>;
-}
-
-export const AddContactForm = forwardRef<
-  AddContactRefExposedProps,
-  AddContactForm
->(function AddContactForm({ initialValues, children, onContactAdded }, ref) {
-
+export const AddContactForm = ({ initialValues, children, onContactAdded }: AddContactForm) => {
   const formProps = useAtlusForm<AddSeller>({
     formOptions: {
       resolver: yupResolver(schema),
       defaultValues: initialValues
     }
   });
-
-  const { handleSubmit } = formProps;
 
   const createSellerMutation = useMutation({
     mutationFn: async (sellerPayload: UpdateSellerPayload): Promise<{
@@ -68,10 +58,7 @@ export const AddContactForm = forwardRef<
       return response;
     }
   });
-  const {
-    isLoading: isLoadingMutation,
-    mutateAsync: createSellerAsync
-  } = createSellerMutation;
+  const { mutateAsync: createSellerAsync } = createSellerMutation;
 
   const addContactMutation = useMutation({
     mutationFn: addContact
@@ -95,19 +82,9 @@ export const AddContactForm = forwardRef<
     }
   }, [createSellerAsync, onContactAdded]);
 
-  useImperativeHandle(
-    ref,
-    () => {
-      return {
-        submitForm: handleSubmit(onSubmit)
-      };
-    },
-    [handleSubmit, onSubmit]
-  );
-
   return (
     <AtlusForm formProps={formProps} onSubmit={onSubmit}>
       {children}
     </AtlusForm>
   );
-});
+};

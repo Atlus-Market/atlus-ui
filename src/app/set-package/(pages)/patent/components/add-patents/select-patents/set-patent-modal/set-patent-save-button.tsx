@@ -3,18 +3,12 @@
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useFormContext } from 'react-hook-form';
 
-interface SetPatentSaveButtonProps {
-  onClick?: () => void;
-}
-
-export const SetPatentSaveButton = (props: SetPatentSaveButtonProps) => {
-  const formContext = useFormContext();
-  const { formState: { isValid, isSubmitting } } = formContext;
-
+export const SetPatentSaveButton = () => {
+  const { formState: { isValid } } = useFormContext();
   return (
     <AtlusButton
       disabled={!isValid}
-      onClick={props?.onClick}>
+      type='submit'>
       Save
     </AtlusButton>
   );

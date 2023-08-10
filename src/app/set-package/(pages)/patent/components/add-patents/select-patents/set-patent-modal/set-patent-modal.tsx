@@ -7,8 +7,7 @@ import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
 import { AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
 import { AtlusModal } from '@/components/ui/modal/atlus-modal';
 import {
-  SetPatentForm,
-  SetPatentRefExposedProps
+  SetPatentForm
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/set-patent-modal/set-patent-form';
 import {
   SetPatentFormFields
@@ -18,7 +17,6 @@ import {
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/set-patent-modal/set-patent-save-button';
 import { AtlusCloseModalButton } from '@/components/ui/modal/atlus-close-modal-button';
 import { Patent } from '@/models/patent';
-import { useRef } from 'react';
 import { useAppDispatch } from '@/redux/hooks';
 import { updatePatent } from '@/redux/features/set-package/set-package';
 
@@ -29,7 +27,6 @@ interface SetPatentModalProps {
 }
 
 export const SetPatentModal = ({ isOpen, closeModal, editingPatent }: SetPatentModalProps) => {
-  const formRef = useRef<SetPatentRefExposedProps | null>(null);
   const dispatch = useAppDispatch();
   return (
     <AtlusModal
@@ -37,7 +34,6 @@ export const SetPatentModal = ({ isOpen, closeModal, editingPatent }: SetPatentM
       onRequestClose={closeModal}
       modalBodyClassName='max-h-[80%]'>
       <SetPatentForm
-        ref={formRef}
         initialValues={editingPatent}
         onSubmit={(patent) => {
           dispatch(updatePatent({ patent }));
@@ -51,7 +47,7 @@ export const SetPatentModal = ({ isOpen, closeModal, editingPatent }: SetPatentM
           }
           footer={
             <AtlusModalFooter>
-              <SetPatentSaveButton onClick={() => formRef.current?.submitForm()} />
+              <SetPatentSaveButton />
             </AtlusModalFooter>
           }>
           <AtlusModalBody className='w-[650px] !py-0'>

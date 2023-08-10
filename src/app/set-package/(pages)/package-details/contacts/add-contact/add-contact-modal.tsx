@@ -10,11 +10,9 @@ import { AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
 import {
   AddContactFormFields
 } from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-form-fields';
-import { useRef } from 'react';
 import { Contact } from '@/models/contact';
 import {
-  AddContactForm,
-  AddContactRefExposedProps
+  AddContactForm
 } from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-form';
 import {
   AddContactSaveButton
@@ -33,8 +31,6 @@ export const AddContactModal = ({
                                   initialValues,
                                   onContactAdded
                                 }: AddContactModalProps) => {
-  const addContactFormRef = useRef<AddContactRefExposedProps | null>(null);
-
   return (
     <AtlusModal
       isOpen={isOpen}
@@ -43,8 +39,7 @@ export const AddContactModal = ({
       modalBodyClassName='max-h-[80%]'>
       <AddContactForm
         initialValues={initialValues}
-        onContactAdded={onContactAdded}
-        ref={addContactFormRef}>
+        onContactAdded={onContactAdded}>
         <AtlusModalContainer
           header={
             <AtlusModalHeader leftContent={<AtlusCloseModalButton onClick={onClose} />}>
@@ -53,11 +48,7 @@ export const AddContactModal = ({
           }
           footer={
             <AtlusModalFooter className='!justify-center'>
-              <AddContactSaveButton
-                onClick={() => {
-                  addContactFormRef.current?.submitForm();
-                }}
-              />
+              <AddContactSaveButton />
             </AtlusModalFooter>
           }>
           <AtlusModalBody className='w-[650px]'>
