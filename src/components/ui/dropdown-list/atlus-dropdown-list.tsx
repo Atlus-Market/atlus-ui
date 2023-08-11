@@ -20,6 +20,7 @@ import { ControlProps } from 'react-select/dist/declarations/src/components/Cont
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
 import { AtlusTagRemoveButton } from '@/components/ui/tag/atlus-tag-remove-button';
 import { getDropdownOptions } from '@/components/ui/dropdown-list/dropdown.utils';
+import { ErrorMessage } from '@hookform/error-message';
 
 
 export interface DropdownOption {
@@ -70,6 +71,7 @@ export interface AtlusDropdownListProps {
   name?: string;
   errors?: FieldErrors;
   onChange?: (value: string | string[]) => void;
+  onBlur?: () => void;
   leftIcon?: ReactNode;
   label?: string;
   bottomText?: string;
@@ -97,6 +99,7 @@ export const AtlusDropdownList = forwardRef<
       defaultValue,
       name,
       onChange,
+      onBlur,
       wrapperClassName,
       leftIcon,
       label,
@@ -110,11 +113,11 @@ export const AtlusDropdownList = forwardRef<
       isSearchable,
       isClearable,
       noOptionsMessage,
-      isMulti = false
+      isMulti = false,
+      errors
     },
     ref
   ) {
-
     const refId = useRef<string>('');
     const [hydrated, setHydrated] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
@@ -168,7 +171,10 @@ export const AtlusDropdownList = forwardRef<
           placeholder={placeholder}
           classNames={dynamicClassNames}
           onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          onBlur={() => {
+            setIsFocused(false);
+            onBlur?.();
+          }}
           onMenuClose={() => setIsFocused(false)} // onBlur is not called when selecting an option
           isClearable={isClearable}
           filterOption={filterOption}
@@ -244,10 +250,21 @@ export const AtlusDropdownList = forwardRef<
             }
           }}
         />
+        {name && errors && (
+          <div className='mt-[5px]'>
+            <ErrorMessage
+              errors={errors}
+              name={name}
+              render={({ message }) => (
+                <p className='text-red text-xs pl-3'>{message}</p>
+              )}
+            />
+          </div>
+        )}
         {bottomText &&
           <span className='text-xs text-dark-grey font-semibold inline-block mt-2 pl-2'>
           {bottomText}
-      </span>
+          </span>
         }
       </div>
     );

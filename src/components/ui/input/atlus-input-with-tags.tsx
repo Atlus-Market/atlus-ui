@@ -1,7 +1,8 @@
-import { AtlusInput, AtlusInputProps } from '@/components/ui/input/atlus-input';
+import { AtlusInputProps } from '@/components/ui/input/atlus-input';
 import { ForwardedRef, forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import { isArray } from 'lodash';
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
+import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
 
 export interface AtlusInputWithTagsProps extends AtlusInputProps {
   onTagsChange?: (tags: string[]) => void;
@@ -58,7 +59,7 @@ export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTag
     }, [tags]);
 
     return (
-      <AtlusInput
+      <AtlusFormInput
         {...rest}
         name={name}
         ref={inputRef}
