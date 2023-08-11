@@ -46,8 +46,6 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
   const activeContact = useAppSelector(selectActiveContact);
   const isSellerSelected = !!selectedSellerId;
 
-  console.log('activeContact: ', activeContact);
-
   const { isFetching, data } = useQuery({
     queryKey: ['contacts'],
     queryFn: getContacts,
@@ -97,7 +95,6 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
     const options = contactOptions[0]?.options ?? [];
     return options.find(option => option.value === selectedSellerId);
   }, [selectedSellerId, contactOptions]);
-  console.log('Value: ', dropdownValue);
 
   const onContactAddedOk = (contact: Contact) => {
     onSellerSelected(contact.id);
@@ -151,6 +148,5 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
       />
       {activeContact && <ActiveContact contact={activeContact} />}
     </>
-
   );
 };

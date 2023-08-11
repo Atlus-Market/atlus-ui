@@ -13,13 +13,9 @@ export interface AddSeller {
   phoneNumber: string;
 }
 
-interface AddContactFormProps {
-}
-
 export const AddContactFormFields = () => {
   const formProps = useFormContext();
   const { register, formState: { errors } } = formProps;
-  console.log(errors);
 
   return (
     <div>

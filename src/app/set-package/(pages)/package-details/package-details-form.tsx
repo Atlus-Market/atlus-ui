@@ -132,7 +132,7 @@ export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFor
 
             <AtlusFormInput
               label='Price (in USD)'
-              placeholder='$'
+              placeholder='Enter price'
               type='number'
               {...register('price')}
               leftCmp={<BiDollar size={16} />}
