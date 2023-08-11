@@ -71,7 +71,7 @@ export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFor
     }
   });
   const { register, setValue, control, watch, handleSubmit, formState: { errors } } = formProps;
-  console.log('Errors:', errors);
+  console.log('Package Details form errors:', errors);
 
   const interestAreasOptions = useMemo<DropdownOption[]>(() => {
     return interestArea.map(ia => ({

@@ -1,5 +1,5 @@
-import { ReactNode, useEffect, useRef } from 'react';
-import { useWatch } from 'react-hook-form';
+import { ReactNode, useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { useAppDispatch } from '@/redux/hooks';
 import { setPackageDetails } from '@/redux/features/set-package/set-package';
 import {
@@ -12,14 +12,13 @@ interface UpdateFormInStoreProps {
 
 export const SetPackageDetailsInStore = ({ children }: UpdateFormInStoreProps) => {
   const dispatch = useAppDispatch();
-  const dispatchRef = useRef<{ dispatch: typeof dispatch }>({ dispatch });
-  dispatchRef.current = { dispatch };
-
-  const formValues = useWatch<IPackageDetailsForm>();
+  const { getValues } = useFormContext();
 
   useEffect(() => {
-    dispatchRef.current.dispatch(setPackageDetails(formValues as IPackageDetailsForm));
-  }, [formValues]);
+    return () => {
+      dispatch(setPackageDetails(getValues() as IPackageDetailsForm));
+    };
+  }, [dispatch, getValues]);
 
   return <>{children}</>;
 };

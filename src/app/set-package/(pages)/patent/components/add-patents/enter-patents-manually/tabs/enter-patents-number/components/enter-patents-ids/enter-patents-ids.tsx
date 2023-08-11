@@ -11,9 +11,11 @@ import { useAppDispatch } from '@/redux/hooks';
 import { useMemo, useRef } from 'react';
 import { debounce } from 'lodash';
 import {
-  EnterPatentsIdsManuallyForm,
   updateEnterPatentsIdsManuallyForm
 } from '@/redux/features/set-package/set-package';
+import {
+  EnterPatentsIdsManuallyForm
+} from '@/redux/features/set-package/slices/add-patents/slices/enter-patents';
 
 interface InputPatentsIdsProps {
 }
