@@ -17,6 +17,6 @@ export interface LogRocketUserData {
 export const identifyUser = ({ id, name, email }: LogRocketUserData) => {
   LogRocket.identify(id, {
     name,
-    email
+    email,
   });
 };
