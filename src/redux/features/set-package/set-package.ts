@@ -4,15 +4,15 @@ import {
 } from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
 import { Patent } from '@/models/patent';
 import {
-  addPatentesReducer,
-  AddPatents,
-  addPatentsInitialState
-} from '@/redux/features/set-package/add-patents';
-import {
   packageDetailsInitialState,
   packageDetailsReducer,
   PackageDetailsState
-} from '@/redux/features/set-package/package-details';
+} from '@/redux/features/set-package/slices/package-details';
+import {
+  addPatentesReducer,
+  AddPatentsState,
+  addPatentsInitialState
+} from '@/redux/features/set-package/slices/add-patents/add-patents';
 
 export type FamilyPatents = {
   [familyId: string]: Patent[];
@@ -20,7 +20,7 @@ export type FamilyPatents = {
 
 export interface SetPackageState {
   familyPatents: FamilyPatents;
-  addPatents: AddPatents;
+  addPatents: AddPatentsState;
   packageDetails: PackageDetailsState;
 }
 
@@ -37,10 +37,10 @@ export const setPackage = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
-    showAddPatentsModal: state => {
+    showAddPatentsModal: (state: SetPackageState) => {
       state.addPatents.isAddPatentsModalOpen = true;
     },
-    hideAddPatentsModal: state => {
+    hideAddPatentsModal: (state: SetPackageState) => {
       state.addPatents.isAddPatentsModalOpen = false;
     },
     ...addPatentesReducer,

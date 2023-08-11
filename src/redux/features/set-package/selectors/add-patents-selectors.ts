@@ -8,18 +8,14 @@ import {
 import {
   mapPatentsIdsToPatentIdsArray
 } from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-ids/patent-id-validator';
+import { AddPatentsState } from '@/redux/features/set-package/slices/add-patents/add-patents';
 
 
 // Add patents
 
 const selectAddPatentsState = createSelector(
   selectSetPackageState,
-  state => state.addPatents
-);
-
-export const selectAddPatentsActiveTab = createSelector(
-  selectAddPatentsState,
-  (state) => state.activeTab
+  (state): AddPatentsState => state.addPatents
 );
 
 const selectEnterPatentsState = createSelector(
@@ -34,6 +30,10 @@ const selectSelectPatentsState = createSelector(
 
 
 // Enter Patents State
+export const selectAddPatentsActiveTab = createSelector(
+  selectEnterPatentsState,
+  (state):EnterPatentsNumberTab => state.activeTab
+);
 
 export const selectEnterPatentsIdsManuallyState = createSelector(
   selectEnterPatentsState,
