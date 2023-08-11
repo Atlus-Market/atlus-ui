@@ -47,6 +47,7 @@ export const SetPatentFormFields = () => {
           type='text'
           {...register('publicationNumber')}
           wrapperClassName='grow'
+          disabled={true}
         />
       </div>
 
@@ -57,6 +58,7 @@ export const SetPatentFormFields = () => {
         options={statusOptions}
         showDropdownIndicator
         isSearchable={false}
+        wrapperClassName='w-[50%] pr-4'
       />
 
       <Controller

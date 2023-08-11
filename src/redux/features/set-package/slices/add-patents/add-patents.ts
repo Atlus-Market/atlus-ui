@@ -26,7 +26,7 @@ export interface AddPatentsState {
 
 export const addPatentsInitialState: AddPatentsState = {
   isAddPatentsModalOpen: false,
-  currentStep: AddPatentsStep.SelectPatents,
+  currentStep: AddPatentsStep.EnterPatentsNumber,
   patents: [],
   enterPatents: enterPatentsInitialState,
   selectPatents: selectPatentsInitialState

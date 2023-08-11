@@ -12,6 +12,24 @@ import { setAddPatentsStep, setPatents } from '@/redux/features/set-package/set-
 import {
   AddPatentsStep
 } from '@/app/set-package/(pages)/patent/components/add-patents/add-patents-step';
+import { Patent } from '@/models/patent';
+import {
+  NO_FAMILY_GROUP_ID
+} from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/use-group-patents-by-family';
+
+
+const createPatentManually = (patentData: Partial<Patent>): Patent => ({
+  publicationNumber: '',
+  status: '',
+  applicationReferenceEpodoc: {
+    date: ''
+  },
+  applicationNumber: '',
+  applicantsOriginal: [],
+  familyId: NO_FAMILY_GROUP_ID,
+  title: '',
+  ...patentData
+});
 
 export const EnterPatentsNextButton = () => {
   const dispatch = useAppDispatch();
@@ -26,7 +44,7 @@ export const EnterPatentsNextButton = () => {
     queryKey: ['patents/bulk', getPatentsPayload],
     queryFn: () => getPatents(getPatentsPayload),
     refetchOnWindowFocus: false,
-    enabled: false, // disable this query from automatically running,
+    enabled: false // disable this query from automatically running,
   });
 
   const onNext = async () => {
@@ -35,8 +53,24 @@ export const EnterPatentsNextButton = () => {
     }
 
     const response = await refetch();
-    console.log('fetchPatents response: ', response);
-    dispatch(setPatents({ patents: response.data?.patents ?? [] }));
+    const fetchedPatents = response.data?.patents ?? [];
+    const fetchedPatentsIds = fetchedPatents.map(patent => patent.publicationNumber);
+    console.log('selectedPatentsId: ', selectedPatentsId);
+    console.log('fetchedPatents: ', fetchedPatents);
+    console.log('fetchedPatentsIds: ', fetchedPatentsIds);
+
+    const notFoundPatents = selectedPatentsId
+      .filter(patentId => !fetchedPatentsIds.includes(patentId))
+      .map((patentId): Patent => createPatentManually({ publicationNumber: patentId }));
+
+    console.log('notFoundPatents: ', notFoundPatents);
+
+    const patents = [
+      ...fetchedPatents,
+      ...notFoundPatents
+    ];
+
+    dispatch(setPatents({ patents }));
     dispatch(setAddPatentsStep(AddPatentsStep.SelectPatents));
   };
 

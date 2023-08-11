@@ -13,22 +13,18 @@ export const NO_FAMILY_GROUP_ID = 'NO_FAMILY_GROUP_ID';
 
 export const useGroupPatentsByFamily = ({ patents }: UseGroupPatentsByFamilyProps): PatentTableData[] => {
   return useMemo(() => {
-    const m = patents.map(patent => ({
-      ...patent,
-      familyId: patent.familyId || NO_FAMILY_GROUP_ID
-    }));
-    const groupedPatents = groupBy(m, (patent: Patent) => patent.familyId);
+    const groupedPatents = groupBy(patents, (patent: Patent) => patent.familyId);
 
     return Object.keys(groupedPatents).map(familyIdKey => ({
       familyId: familyIdKey,
-      publicationNumber: `publicationNumber:familyId: ${familyIdKey}`,
+      publicationNumber: '',
       applicationReferenceEpodoc: {
-        date: 'applicationReferenceEpodoc'
+        date: ''
       },
       applicantsOriginal: [],
-      title: 'title',
-      status: 'status',
-      applicationNumber: `applicationNumber:familyId: ${familyIdKey}`,
+      title: '',
+      status: '',
+      applicationNumber: '',
       subRows: groupedPatents[familyIdKey]
     }));
   }, [patents]);
