@@ -36,9 +36,12 @@ const providers = [
           password: credentials.password,
         });
 
+        console.log(loginResponse);
         cookies().set(accessTokenCookieName, loginResponse.accessTokenCookie, {
           httpOnly: true,
           secure: usingSecureDomain,
+          domain: process.env.COOKIE_DOMAIN,
+          path: '/',
         });
 
         return {
