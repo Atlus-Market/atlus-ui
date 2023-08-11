@@ -1,7 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {
-  EnterPatentsNumberTab
-} from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
 import { Patent } from '@/models/patent';
 import {
   packageDetailsInitialState,
@@ -10,8 +7,8 @@ import {
 } from '@/redux/features/set-package/slices/package-details';
 import {
   addPatentesReducer,
-  AddPatentsState,
-  addPatentsInitialState
+  addPatentsInitialState,
+  AddPatentsState
 } from '@/redux/features/set-package/slices/add-patents/add-patents';
 
 export type FamilyPatents = {
@@ -23,8 +20,6 @@ export interface SetPackageState {
   addPatents: AddPatentsState;
   packageDetails: PackageDetailsState;
 }
-
-export type EnterPatentsIdsManuallyForm = SetPackageState['addPatents']['enterPatents'][EnterPatentsNumberTab.EnterManually]['form'];
 
 const initialState: SetPackageState = {
   familyPatents: {},
@@ -59,7 +54,7 @@ export const {
   updateEnterPatentsIdsManuallyForm,
   selectPatents,
   setPackagePatents,
-  setFetchedPatents,
+  setPatents,
   setPackageDetails,
   showSetContactModal,
   hideSetContactModal,
@@ -68,6 +63,6 @@ export const {
   setContacts,
   showSetPatentModal,
   hideSetPatentModal,
-  setEditingPublicationNumber
+  setEditingPatent
 } = setPackage.actions;
 export default setPackage.reducer;

@@ -4,11 +4,11 @@ import {
 import {
   PatentsIdsForm
 } from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-ids/patents-ids-form';
-import {
-  EnterPatentsIdsManuallyForm,
-  SetPackageState
-} from '@/redux/features/set-package/set-package';
+import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { PayloadAction } from '@reduxjs/toolkit';
+
+export type EnterPatentsIdsManuallyForm = EnterPatentsState[EnterPatentsNumberTab.EnterManually]['form'];
+
 
 export interface EnterPatentsState {
   activeTab: EnterPatentsNumberTab;
@@ -43,7 +43,6 @@ export const enterPatentsInitialState: EnterPatentsState = {
 };
 
 export const enterPatentsReducer = {
-  // Enter Patents Page
   setAddPatentsActiveTab: (state: SetPackageState, action: PayloadAction<EnterPatentsNumberTab>) => {
     state.addPatents.enterPatents.activeTab = action.payload;
   },

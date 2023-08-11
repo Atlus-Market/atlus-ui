@@ -25,7 +25,7 @@ import { parseGMTDate } from '@/utils/date';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useAppDispatch } from '@/redux/hooks';
 import {
-  setEditingPublicationNumber,
+  setEditingPatent,
   showSetPatentModal
 } from '@/redux/features/set-package/set-package';
 
@@ -115,7 +115,7 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
                   variant='outline'
                   size='medium'
                   onClick={() => {
-                    dispatch(setEditingPublicationNumber({ publicationNumber: cellContext.row.original.publicationNumber }));
+                    dispatch(setEditingPatent({ publicationNumber: cellContext.row.original.publicationNumber }));
                     dispatch(showSetPatentModal());
                   }}
                 >

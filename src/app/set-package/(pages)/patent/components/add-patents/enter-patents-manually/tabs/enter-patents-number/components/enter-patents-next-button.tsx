@@ -8,7 +8,7 @@ import {
 } from '@/redux/features/set-package/selectors/add-patents-selectors';
 import { useQuery } from '@tanstack/react-query';
 import { getPatents, GetPatentsPayload } from '@/api/patents/get-patents';
-import { setAddPatentsStep, setFetchedPatents } from '@/redux/features/set-package/set-package';
+import { setAddPatentsStep, setPatents } from '@/redux/features/set-package/set-package';
 import {
   AddPatentsStep
 } from '@/app/set-package/(pages)/patent/components/add-patents/add-patents-step';
@@ -36,7 +36,7 @@ export const EnterPatentsNextButton = () => {
 
     const response = await refetch();
     console.log('fetchPatents response: ', response);
-    dispatch(setFetchedPatents({ patents: response.data?.patents ?? [] }));
+    dispatch(setPatents({ patents: response.data?.patents ?? [] }));
     dispatch(setAddPatentsStep(AddPatentsStep.SelectPatents));
   };
 

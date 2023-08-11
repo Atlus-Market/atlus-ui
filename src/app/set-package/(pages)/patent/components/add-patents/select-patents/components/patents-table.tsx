@@ -29,12 +29,10 @@ import {
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/components/use-set-selected-patents';
 import { Patent } from '@/models/patent';
 import {
-  NO_FAMILY_GROUP_ID,
   useGroupPatentsByFamily
 } from '@/app/set-package/(pages)/patent/components/add-patents/select-patents/use-group-patents-by-family';
 import { selectFetchedPatents } from '@/redux/features/set-package/selectors/add-patents-selectors';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { setFetchedPatents } from '@/redux/features/set-package/set-package';
+import { useAppSelector } from '@/redux/hooks';
 
 export type TableData<T extends RowData> = T & {
   subRows?: TableData<T>[];

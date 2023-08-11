@@ -24,14 +24,13 @@ export const selectPatentesReducer = {
     });
     state.addPatents.selectPatents.familyPatents = familyPatents;
   },
-
   showSetPatentModal: (state: SetPackageState) => {
     state.addPatents.selectPatents.isSetPatentModalOpen = true;
   },
   hideSetPatentModal: (state: SetPackageState) => {
     state.addPatents.selectPatents.isSetPatentModalOpen = false;
   },
-  setEditingPublicationNumber: (state: SetPackageState, action: PayloadAction<{
+  setEditingPatent: (state: SetPackageState, action: PayloadAction<{
     publicationNumber: string
   }>) => {
     state.addPatents.selectPatents.editingPublicationNumber = action.payload.publicationNumber;

@@ -8,12 +8,12 @@ import {
   enterPatentsInitialState,
   enterPatentsReducer,
   EnterPatentsState
-} from '@/redux/features/set-package/slices/add-patents/enter-patents';
+} from '@/redux/features/set-package/slices/add-patents/slices/enter-patents';
 import {
   selectPatentesReducer,
   selectPatentsInitialState,
   SelectPatentsState
-} from '@/redux/features/set-package/slices/add-patents/select-patents';
+} from '@/redux/features/set-package/slices/add-patents/slices/select-patents';
 
 export interface AddPatentsState {
   isAddPatentsModalOpen: boolean;
@@ -39,8 +39,7 @@ export const addPatentesReducer = {
   setAddPatentsStep: (state: SetPackageState, action: PayloadAction<AddPatentsStep>) => {
     state.addPatents.currentStep = action.payload;
   },
-
-  setFetchedPatents: (state: SetPackageState, action: PayloadAction<{ patents: Patent[] }>) => {
+  setPatents: (state: SetPackageState, action: PayloadAction<{ patents: Patent[] }>) => {
     state.addPatents.patents = action.payload.patents;
   },
 

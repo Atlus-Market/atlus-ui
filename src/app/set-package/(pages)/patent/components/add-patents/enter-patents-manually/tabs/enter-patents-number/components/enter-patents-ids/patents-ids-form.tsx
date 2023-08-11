@@ -8,12 +8,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import Highlighter, { Chunk, FindChunks } from 'react-highlight-words';
-import { EnterPatentsIdsManuallyForm } from '@/redux/features/set-package/set-package';
 import {
   findChunks,
   getInvalidPatentsIds,
   patentIdValidator
 } from '@/app/set-package/(pages)/patent/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-ids/patent-id-validator';
+import {
+  EnterPatentsIdsManuallyForm
+} from '@/redux/features/set-package/slices/add-patents/slices/enter-patents';
 
 export interface PatentsIdsForm {
   patentsIds: string;
