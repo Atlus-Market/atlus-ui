@@ -16,6 +16,6 @@ export const OnboardingBuyerInterestAreas = '/onboarding/buyer/areas-of-interest
 
 // Set Package
 const SetPackageBaseRoute = 'set-package';
-export const SetPackagePatent = `/${SetPackageBaseRoute}/patent`;
+export const SetPackagePatent = `/${SetPackageBaseRoute}/patents`;
 export const SetPackagePackageDetails = `/${SetPackageBaseRoute}/package-details`;
 export const SetPackageDocuments = `/${SetPackageBaseRoute}/documents`;
