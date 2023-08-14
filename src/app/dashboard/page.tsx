@@ -6,7 +6,7 @@ export default async function DashboardPage() {
       <h1 className='text-3xl mb-4'>Atlus Dashboard</h1>
 
       <div className='my-6'>
-        <a href='/set-package/patent' className='text-orange underline'>
+        <a href='/set-package/patents' className='text-orange underline'>
           Create new package
         </a>
       </div>

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Patent } from '@/models/patent';
 import {
   packageDetailsInitialState,
@@ -17,12 +17,22 @@ export type FamilyPatents = {
 
 export interface SetPackageState {
   familyPatents: FamilyPatents;
+
+  // Edit Patent
+  isEditPatentModalOpen: boolean;
+  editingPatentId: string | undefined;
+
   addPatents: AddPatentsState;
   packageDetails: PackageDetailsState;
 }
 
 const initialState: SetPackageState = {
   familyPatents: {},
+
+  // Edit Patent
+  isEditPatentModalOpen: false,
+  editingPatentId: undefined,
+
   addPatents: addPatentsInitialState,
   packageDetails: packageDetailsInitialState
 };
@@ -38,6 +48,37 @@ export const setPackage = createSlice({
     hideAddPatentsModal: (state: SetPackageState) => {
       state.addPatents.isAddPatentsModalOpen = false;
     },
+
+
+    // Edit Patent
+    showEditPatentModal: (state: SetPackageState, action: PayloadAction<{ patentId: string }>) => {
+      state.isEditPatentModalOpen = true;
+      state.editingPatentId = action.payload.patentId;
+    },
+    hideEditPatentModal: (state: SetPackageState) => {
+      state.isEditPatentModalOpen = false;
+    },
+    updateSelectedPatent: (state: SetPackageState, action: PayloadAction<{ patent: Patent }>) => {
+      const { patent } = action.payload;
+      const familyPatents = state.familyPatents[patent.familyId] || [];
+      const filteredPatents = familyPatents.filter(p => p.publicationNumber !== patent.publicationNumber);
+      filteredPatents.push(patent);
+      state.familyPatents[patent.familyId] = filteredPatents;
+    },
+    deletePatent: (
+      state: SetPackageState, action: PayloadAction<{ patentId: string }>
+    ) => {
+      const { patentId } = action.payload;
+      const familyId = Object.keys(state.familyPatents).find(familyId => state.familyPatents[familyId].find(patent => patent.publicationNumber === patentId));
+      if (!familyId) {
+        return state;
+      }
+      state.familyPatents[familyId] = state.familyPatents[familyId].filter(patent => patent.publicationNumber !== patentId);
+      if (state.familyPatents[familyId].length === 0) {
+        delete state.familyPatents[familyId];
+      }
+    },
+
     ...addPatentesReducer,
     ...packageDetailsReducer
   }
@@ -46,6 +87,10 @@ export const setPackage = createSlice({
 export const {
   reset,
   resetAddPatents,
+  showEditPatentModal,
+  hideEditPatentModal,
+  updateSelectedPatent,
+  deletePatent,
   updatePatent,
   showAddPatentsModal,
   hideAddPatentsModal,
@@ -64,6 +109,6 @@ export const {
   showSetPatentModal,
   hideSetPatentModal,
   setEditingPatent,
-  setEditedPatent,
+  setEditedPatent
 } = setPackage.actions;
 export default setPackage.reducer;

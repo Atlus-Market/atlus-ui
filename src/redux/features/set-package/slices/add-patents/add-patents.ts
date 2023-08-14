@@ -1,6 +1,6 @@
 import {
   AddPatentsStep
-} from '@/app/set-package/(pages)/patent/components/add-patents/add-patents-step';
+} from '@/app/set-package/(pages)/patents/components/add-patents/add-patents-step';
 import { Patent } from '@/models/patent';
 import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -18,7 +18,6 @@ import {
 export interface AddPatentsState {
   isAddPatentsModalOpen: boolean;
   currentStep: AddPatentsStep;
-
   patents: Patent[], // Fetched from the API
   enterPatents: EnterPatentsState;
   selectPatents: SelectPatentsState;
