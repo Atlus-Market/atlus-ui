@@ -47,7 +47,6 @@ export const SetPatentFormFields = () => {
           type='text'
           {...register('publicationNumber')}
           wrapperClassName='grow'
-          disabled={true}
         />
       </div>
 

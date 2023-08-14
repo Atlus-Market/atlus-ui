@@ -42,9 +42,6 @@ export type PatentTableData = TableData<Patent>;
 
 export const PatentsTable = () => {
   const fetchedPatents = useAppSelector(selectFetchedPatents);
-  // const notFoundPatentsInAPI = useAppSelector(selectNotFoundPatentsInAPI);
-  // console.log('notFoundPatentsInAPI: ', notFoundPatentsInAPI);
-
   const groupPatentsByFamily = useGroupPatentsByFamily({ patents: fetchedPatents });
   console.log('useGroupPatentsByFamily: ', groupPatentsByFamily);
 
@@ -62,24 +59,6 @@ export const PatentsTable = () => {
 
   console.log('data: ', data);
 
-  // const dispatch = useAppDispatch();
-  // useEffect(() => {
-  //   dispatch(setFetchedPatents({
-  //     patents: [
-  //       {
-  //         title: '',
-  //         publicationNumber: 'US123456789',
-  //         familyId: NO_FAMILY_GROUP_ID,
-  //         applicantsOriginal: [],
-  //         applicationNumber: '',
-  //         status: '',
-  //         applicationReferenceEpodoc: {
-  //           date: ''
-  //         }
-  //       }
-  //     ]
-  //   }));
-  // }, []);
   const table = useReactTable({
     data,
     columns,

@@ -32,7 +32,7 @@ const selectSelectPatentsState = createSelector(
 // Enter Patents State
 export const selectAddPatentsActiveTab = createSelector(
   selectEnterPatentsState,
-  (state):EnterPatentsNumberTab => state.activeTab
+  (state): EnterPatentsNumberTab => state.activeTab
 );
 
 export const selectEnterPatentsIdsManuallyState = createSelector(
@@ -84,17 +84,14 @@ export const selectFetchedPatents = createSelector(
 
 export const selectSelectedFamilyPatents = createSelector(
   selectSelectPatentsState,
-  state => state.familyPatents
+  state => state.selectedFamilyPatents
 );
 
-export const selectNotFoundPatentsInAPI = createSelector(
-  selectActivePatentsIds,
-  selectFetchedPatents,
-  (activePatentsIds, fetchedPatentsIds) => {
-    // return activePatentsIds.filter(patentId => fetchedPatentsIds.find(patent => patent.applicationNumber !== patentId));
-    return ['US99988877744'];
-  }
+export const selectEditedPatentsIds = createSelector(
+  selectSelectPatentsState,
+  state => state.editedPatentsIds
 );
+
 
 export const selectIsSetPatentModalOpen = createSelector(
   selectSelectPatentsState,

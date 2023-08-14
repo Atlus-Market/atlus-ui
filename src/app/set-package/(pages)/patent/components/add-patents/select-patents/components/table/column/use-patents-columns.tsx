@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import {
   HeaderCell
@@ -23,11 +23,11 @@ import { pluralize } from '@/utils/words';
 import { RowSelectionState } from '@tanstack/table-core/src/features/RowSelection';
 import { parseGMTDate } from '@/utils/date';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
-import { useAppDispatch } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { setEditingPatent, showSetPatentModal } from '@/redux/features/set-package/set-package';
 import {
-  setEditingPatent,
-  showSetPatentModal
-} from '@/redux/features/set-package/set-package';
+  selectEditedPatentsIds
+} from '@/redux/features/set-package/selectors/add-patents-selectors';
 
 
 interface UsePatentsColumnsProps {
@@ -35,12 +35,23 @@ interface UsePatentsColumnsProps {
   setRowSelection: (rowSelection: RowSelectionState) => void;
 }
 
-const isOriginalRow = (row: Row<PatentTableData>): boolean => {
+const rowHasFamilyId = (row: Row<PatentTableData>): boolean => {
   return row.original.familyId !== NO_FAMILY_GROUP_ID;
+};
+
+const hasRowBeenEdited = (row: Row<PatentTableData>, editedPatentsIds: string[]): boolean => {
+  return editedPatentsIds.includes(row.original.publicationNumber);
 };
 
 export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsColumnsProps) => {
   const dispatch = useAppDispatch();
+  const editedPatents = useAppSelector(selectEditedPatentsIds);
+
+  const editPatent = useCallback((patentId: string) => {
+    dispatch(setEditingPatent({ publicationNumber: patentId }));
+    dispatch(showSetPatentModal());
+  }, []);
+
   return useMemo<ColumnDef<PatentTableData, string | string[]>[]>(
     () => [
       {
@@ -61,10 +72,10 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
             />;
           };
 
-          const isNoFamilyGroup = !isOriginalRow(row);
+          const hasFamilyId = rowHasFamilyId(row);
 
           if (row.getCanExpand()) {
-            if (isNoFamilyGroup) {
+            if (!hasFamilyId) {
               const noPatentsCount = row.subRows.length;
               return (
                 <div className='select-family-cell'>
@@ -74,6 +85,7 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
                 </div>
               );
             }
+
             const selectedRowsCount = row.subRows.filter(childRow => rowSelection[childRow.id]).length;
             return (
               <div className='select-family-cell'>
@@ -92,40 +104,48 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
             );
           }
 
+          const isEditedRow = hasRowBeenEdited(row, editedPatents);
           return (
             <div className='flex items-center gap-5'>
-              {!isNoFamilyGroup && <Checkbox />}
-              <RowCell text={getValue().toString()} />
+              {(hasFamilyId || isEditedRow) && <Checkbox />}
+              <div className='flex flex-col items-start'>
+                <RowCell text={getValue().toString()} />
+                {isEditedRow &&
+                  <AtlusButton
+                    variant='clear'
+                    color='orange'
+                    className='text-xs mt-2 font-medium'
+                    onClick={() => editPatent(row.original.publicationNumber)}>
+                    Edit details
+                  </AtlusButton>}
+              </div>
             </div>
           );
         }
       },
       {
         accessorKey: 'title',
-        cell: cellContext => {
-          if (cellContext.row.getCanExpand()) {
+        cell: ({ row, getValue }) => {
+          if (row.getCanExpand()) {
             return <div className='select-family-cell' />;
           }
 
-          const isNoFamilyGroup = !isOriginalRow(cellContext.row);
-          if (isNoFamilyGroup) {
+          const hasNoFamilyId = !rowHasFamilyId(row);
+          const isEditedRow = hasRowBeenEdited(row, editedPatents);
+          if (hasNoFamilyId && !isEditedRow) {
             return (
               <div>
                 <AtlusButton
                   variant='outline'
                   size='medium'
-                  onClick={() => {
-                    dispatch(setEditingPatent({ publicationNumber: cellContext.row.original.publicationNumber }));
-                    dispatch(showSetPatentModal());
-                  }}
-                >
+                  onClick={() => editPatent(row.original.publicationNumber)}>
                   Add Details
                 </AtlusButton>
               </div>
             );
           }
 
-          return <RowCell text={cellContext.getValue().toString()}
+          return <RowCell text={getValue().toString()}
                           className='inline-block !w-[248px]' />;
         },
         header: () => <HeaderCell title='Title' />
@@ -133,16 +153,17 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
       {
         accessorKey: 'status',
         header: () => <HeaderCell title='Status' />,
-        cell: (cellContext) => {
-          const isNoFamilyGroup = !isOriginalRow(cellContext.row);
+        cell: ({ row, getValue }) => {
+          const hasNoFamilyId = !rowHasFamilyId(row);
+          const isEditedRow = hasRowBeenEdited(row, editedPatents);
 
-          if (cellContext.row.getCanExpand() || isNoFamilyGroup) {
+          if (row.getCanExpand() || (hasNoFamilyId && !isEditedRow)) {
             return null;
           }
 
           return <AtlusTag
             className='!text-xs !px-2 !py-[6px]'
-            text={cellContext.getValue().toString()}
+            text={getValue().toString()}
           />;
         }
       },
@@ -150,14 +171,15 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
         accessorKey: 'applicantsOriginal',
         accessorFn: row => row.applicantsOriginal ?? [],
         header: () => <HeaderCell title='Assignee' />,
-        cell: (cellContext) => {
-          const isNoFamilyGroup = !isOriginalRow(cellContext.row);
+        cell: ({ row, getValue }) => {
+          const hasNoFamilyId = !rowHasFamilyId(row);
+          const isEditedRow = hasRowBeenEdited(row, editedPatents);
 
-          if (cellContext.row.getCanExpand() || isNoFamilyGroup) {
+          if (row.getCanExpand() || (hasNoFamilyId && !isEditedRow)) {
             return null;
           }
 
-          const applicants = (cellContext.getValue() as string[]) ?? [];
+          const applicants = (getValue() as string[]) ?? [];
           return (
             <RowCell
               className='whitespace-break-spaces inline-block !w-[187px]'
@@ -169,36 +191,38 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
       {
         accessorKey: 'applicationNumber',
         header: () => <HeaderCell title='Application No.' />,
-        cell: (cellContext) => {
-          const isNoFamilyGroup = !isOriginalRow(cellContext.row);
+        cell: ({ row, getValue }) => {
+          const hasNoFamilyId = !rowHasFamilyId(row);
+          const isEditedRow = hasRowBeenEdited(row, editedPatents);
 
-          if (cellContext.row.getCanExpand() || isNoFamilyGroup) {
+          if (row.getCanExpand() || (hasNoFamilyId && !isEditedRow)) {
             return null;
           }
 
-          return <RowCell text={cellContext.getValue().toString()} />;
+          return <RowCell text={getValue().toString()} />;
         }
       },
       {
         accessorKey: 'applicationReferenceEpodoc',
         accessorFn: row => row?.applicationReferenceEpodoc?.date,
         header: () => <HeaderCell title='Application date' />,
-        cell: (cellContext) => {
-          const isNoFamilyGroup = !isOriginalRow(cellContext.row);
+        cell: ({ row, getValue }) => {
+          const hasNoFamilyId = !rowHasFamilyId(row);
+          const isEditedRow = hasRowBeenEdited(row, editedPatents);
 
-          if (cellContext.row.getCanExpand() || isNoFamilyGroup) {
+          if (row.getCanExpand() || (hasNoFamilyId && !isEditedRow)) {
             return null;
           }
 
           let dateStr = '-';
-          const cellValue = cellContext.getValue() as string;
+          const cellValue = getValue() as string;
           try {
             const date = parseGMTDate(cellValue);
             if (date) {
               dateStr = format(date, 'dd  MMM yyyy');
             }
           } catch (e) {
-            console.error(`Error parsing date: ${cellContext.getValue().toString()}`);
+            console.error(`Error parsing date: ${getValue().toString()}`);
             console.error(e);
           }
 
@@ -206,6 +230,6 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
         }
       }
     ],
-    [rowSelection, setRowSelection]
+    [rowSelection, setRowSelection, editedPatents, editPatent]
   );
 };

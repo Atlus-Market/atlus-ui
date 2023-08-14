@@ -5,13 +5,15 @@ import { PayloadAction } from '@reduxjs/toolkit';
 export interface SelectPatentsState {
   isSetPatentModalOpen: boolean;
   editingPublicationNumber: string | undefined;
-  familyPatents: FamilyPatents;
+  selectedFamilyPatents: FamilyPatents;
+  editedPatentsIds: string[]; // Patents IDs that were edited manually
 }
 
 export const selectPatentsInitialState: SelectPatentsState = {
   isSetPatentModalOpen: false,
   editingPublicationNumber: undefined,
-  familyPatents: {}
+  selectedFamilyPatents: {},
+  editedPatentsIds: []
 };
 
 export const selectPatentesReducer = {
@@ -22,7 +24,7 @@ export const selectPatentesReducer = {
       const currentPatents = familyPatents[patent.familyId] || [];
       familyPatents[patent.familyId] = [...currentPatents, patent];
     });
-    state.addPatents.selectPatents.familyPatents = familyPatents;
+    state.addPatents.selectPatents.selectedFamilyPatents = familyPatents;
   },
   showSetPatentModal: (state: SetPackageState) => {
     state.addPatents.selectPatents.isSetPatentModalOpen = true;
@@ -34,5 +36,14 @@ export const selectPatentesReducer = {
     publicationNumber: string
   }>) => {
     state.addPatents.selectPatents.editingPublicationNumber = action.payload.publicationNumber;
+  },
+  setEditedPatent: (state: SetPackageState, action: PayloadAction<{ patentId: string }>) => {
+    if (state.addPatents.selectPatents.editedPatentsIds.includes(action.payload.patentId)) {
+      return state;
+    }
+    state.addPatents.selectPatents.editedPatentsIds = [
+      ...state.addPatents.selectPatents.editedPatentsIds,
+      action.payload.patentId
+    ];
   }
 };

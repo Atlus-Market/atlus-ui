@@ -18,7 +18,7 @@ import {
 import { AtlusCloseModalButton } from '@/components/ui/modal/atlus-close-modal-button';
 import { Patent } from '@/models/patent';
 import { useAppDispatch } from '@/redux/hooks';
-import { updatePatent } from '@/redux/features/set-package/set-package';
+import { setEditedPatent, updatePatent } from '@/redux/features/set-package/set-package';
 
 interface SetPatentModalProps {
   isOpen: boolean;
@@ -37,6 +37,7 @@ export const SetPatentModal = ({ isOpen, closeModal, editingPatent }: SetPatentM
         initialValues={editingPatent}
         onSubmit={(patent) => {
           dispatch(updatePatent({ patent }));
+          dispatch(setEditedPatent({ patentId: patent.publicationNumber }));
           closeModal();
         }}>
         <AtlusModalContainer

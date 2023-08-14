@@ -45,7 +45,7 @@ export const addPatentesReducer = {
 
   // After finishing selecting patents from the table
   setPackagePatents: (state: SetPackageState) => {
-    const stateFamilyPatents = state.addPatents.selectPatents.familyPatents;
+    const stateFamilyPatents = state.addPatents.selectPatents.selectedFamilyPatents;
 
     Object.keys(stateFamilyPatents).forEach(familyId => {
       const familyPatents = stateFamilyPatents[familyId] || [];
