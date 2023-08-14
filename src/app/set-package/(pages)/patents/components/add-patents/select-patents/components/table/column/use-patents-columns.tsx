@@ -28,6 +28,9 @@ import { setEditingPatent, showSetPatentModal } from '@/redux/features/set-packa
 import {
   selectEditedPatentsIds
 } from '@/redux/features/set-package/selectors/add-patents-selectors';
+import {
+  EditingPatent
+} from '@/redux/features/set-package/slices/add-patents/slices/select-patents';
 
 
 interface UsePatentsColumnsProps {
@@ -43,12 +46,15 @@ const hasRowBeenEdited = (row: Row<PatentTableData>, editedPatentsIds: string[])
   return editedPatentsIds.includes(row.original.publicationNumber);
 };
 
-export const usePatentsColumns = ({ rowSelectionState, setRowSelection }: UsePatentsColumnsProps) => {
+export const usePatentsColumns = ({
+                                    rowSelectionState,
+                                    setRowSelection
+                                  }: UsePatentsColumnsProps) => {
   const dispatch = useAppDispatch();
   const editedPatents = useAppSelector(selectEditedPatentsIds);
 
-  const editPatent = useCallback((patentId: string) => {
-    dispatch(setEditingPatent({ publicationNumber: patentId }));
+  const editPatent = useCallback((editingPatent: EditingPatent) => {
+    dispatch(setEditingPatent(editingPatent));
     dispatch(showSetPatentModal());
   }, []);
 
@@ -115,7 +121,10 @@ export const usePatentsColumns = ({ rowSelectionState, setRowSelection }: UsePat
                     variant='clear'
                     color='orange'
                     className='text-xs mt-2 font-medium'
-                    onClick={() => editPatent(row.original.publicationNumber)}>
+                    onClick={() => editPatent({
+                      publicationNumber: row.original.publicationNumber,
+                      rowId: row.id
+                    })}>
                     Edit details
                   </AtlusButton>}
               </div>
@@ -138,7 +147,10 @@ export const usePatentsColumns = ({ rowSelectionState, setRowSelection }: UsePat
                 <AtlusButton
                   variant='outline'
                   size='medium'
-                  onClick={() => editPatent(row.original.publicationNumber)}>
+                  onClick={() => editPatent({
+                    publicationNumber: row.original.publicationNumber,
+                    rowId: row.id
+                  })}>
                   Add Details
                 </AtlusButton>
               </div>

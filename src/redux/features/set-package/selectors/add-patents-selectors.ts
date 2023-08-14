@@ -96,16 +96,20 @@ export const selectRowSelectionState = createSelector(
   state => state.rowSelectionState
 );
 
-
 export const selectIsSetPatentModalOpen = createSelector(
   selectSelectPatentsState,
   state => state.isSetPatentModalOpen
+);
+
+export const selectEditingPatentInfo = createSelector(
+  selectSelectPatentsState,
+  (selectPatentsState) => selectPatentsState.editingPatent
 );
 
 export const selectEditingPatent = createSelector(
   selectSelectPatentsState,
   selectFetchedPatents,
   (selectPatentsState, patents) => {
-    return patents.find(patent => patent.publicationNumber === selectPatentsState.editingPublicationNumber);
+    return patents.find(patent => patent.publicationNumber === selectPatentsState.editingPatent?.publicationNumber);
   }
 );
