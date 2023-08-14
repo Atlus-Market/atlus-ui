@@ -21,9 +21,10 @@ const baseButton = clsx(
   'active:opacity-95'
 );
 
-const solidVariant = clsx(
+const solidOrangeVariant = clsx(
   baseButton,
-  'bg-orange text-white rounded-[32px]'
+  'bg-orange text-white rounded-[32px]',
+  'hover:bg-[#F15F4C] active:bg-[#DC422D]'
 );
 
 const clearVariant = ({ variant, color }: AtlusButtonProps) => {
@@ -31,14 +32,16 @@ const clearVariant = ({ variant, color }: AtlusButtonProps) => {
   return clsx(
     baseButton,
     'text-dark-grey',
-    isClearVariant && color === 'orange' ? 'bg-none text-orange' : ''
+    isClearVariant && color === 'orange' ? 'bg-none text-orange' : '',
+    'hover:text-[#F15F4C] active:text-[#DC422D]'
   );
 };
 
-const outlineVariant = clsx(
+const outlineWhiteVariant = clsx(
   baseButton,
   'bg-white',
-  'border border-soft-black rounded-[32px]'
+  'border border-soft-black rounded-[32px]',
+  'hover:bg-[#FCFCFC] active:bg-[#F5F5F5]'
 );
 
 const getButtonSize = (props: AtlusButtonProps): string => {
@@ -74,7 +77,7 @@ export const AtlusButton = (props: AtlusButtonProps) => {
     ...restProps
   } = props;
   const isClearVariant = variant === 'clear';
-  const classVariant = isClearVariant ? clearVariant(props) : variant === 'solid' ? solidVariant : outlineVariant;
+  const classVariant = isClearVariant ? clearVariant(props) : variant === 'solid' ? solidOrangeVariant : outlineWhiteVariant;
   return (
     <button
       type={type}
