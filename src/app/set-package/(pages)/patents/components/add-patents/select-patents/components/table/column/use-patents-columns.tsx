@@ -31,7 +31,7 @@ import {
 
 
 interface UsePatentsColumnsProps {
-  rowSelection: RowSelectionState;
+  rowSelectionState: RowSelectionState;
   setRowSelection: (rowSelection: RowSelectionState) => void;
 }
 
@@ -43,7 +43,7 @@ const hasRowBeenEdited = (row: Row<PatentTableData>, editedPatentsIds: string[])
   return editedPatentsIds.includes(row.original.publicationNumber);
 };
 
-export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsColumnsProps) => {
+export const usePatentsColumns = ({ rowSelectionState, setRowSelection }: UsePatentsColumnsProps) => {
   const dispatch = useAppDispatch();
   const editedPatents = useAppSelector(selectEditedPatentsIds);
 
@@ -61,13 +61,13 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
         ),
         cell: ({ row, getValue }) => {
           const Checkbox = () => {
-            const checkboxState = getCheckboxState<PatentTableData>(row, rowSelection);
+            const checkboxState = getCheckboxState<PatentTableData>(row, rowSelectionState);
             return <AtlusCheckbox
               checked={checkboxState.checked}
               indeterminate={checkboxState.indeterminate}
               onChange={e => {
                 row.getToggleSelectedHandler()(e);
-                setRowSelection(getUpdatedSelectedRowsState(row, rowSelection));
+                setRowSelection(getUpdatedSelectedRowsState(row, rowSelectionState));
               }}
             />;
           };
@@ -86,7 +86,7 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
               );
             }
 
-            const selectedRowsCount = row.subRows.filter(childRow => rowSelection[childRow.id]).length;
+            const selectedRowsCount = row.subRows.filter(childRow => rowSelectionState[childRow.id]).length;
             return (
               <div className='select-family-cell'>
                 <Checkbox />
@@ -230,6 +230,6 @@ export const usePatentsColumns = ({ rowSelection, setRowSelection }: UsePatentsC
         }
       }
     ],
-    [rowSelection, setRowSelection, editedPatents, editPatent]
+    [rowSelectionState, setRowSelection, editedPatents, editPatent]
   );
 };

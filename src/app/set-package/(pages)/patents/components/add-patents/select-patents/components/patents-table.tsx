@@ -4,10 +4,9 @@ import {
   getExpandedRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
-  RowSelectionState,
   useReactTable
 } from '@tanstack/react-table';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { RowData } from '@tanstack/table-core/src/types';
 
 import './styles.css';
@@ -24,15 +23,22 @@ import {
 import {
   usePatentsColumns
 } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/table/column/use-patents-columns';
-import {
-  useSetSelectedPatents
-} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/use-set-selected-patents';
 import { Patent } from '@/models/patent';
 import {
   useGroupPatentsByFamily
 } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-group-patents-by-family';
-import { selectFetchedPatents } from '@/redux/features/set-package/selectors/add-patents-selectors';
-import { useAppSelector } from '@/redux/hooks';
+import {
+  selectFetchedPatents,
+  selectRowSelectionState
+} from '@/redux/features/set-package/selectors/add-patents-selectors';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import {
+  PatentsRowSelectionState
+} from '@/redux/features/set-package/slices/add-patents/slices/select-patents';
+import { setRowSelectionState } from '@/redux/features/set-package/set-package';
+import {
+  useSetSelectedPatents
+} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/use-set-selected-patents';
 
 export type TableData<T extends RowData> = T & {
   subRows?: TableData<T>[];
@@ -42,15 +48,20 @@ export type PatentTableData = TableData<Patent>;
 
 export const PatentsTable = () => {
   const fetchedPatents = useAppSelector(selectFetchedPatents);
+  const rowSelectionState = useAppSelector(selectRowSelectionState);
   const groupPatentsByFamily = useGroupPatentsByFamily({ patents: fetchedPatents });
+  const dispatch = useAppDispatch();
   console.log('useGroupPatentsByFamily: ', groupPatentsByFamily);
+
+  const updateRowSelectionState = useCallback(
+    (rowSelectionState: PatentsRowSelectionState) => dispatch(setRowSelectionState({ rowSelectionState }))
+    , []);
 
   const [data, setData] = useState(groupPatentsByFamily);
   const [expanded, setExpanded] = useState<ExpandedState>(getInitialExpandedState(groupPatentsByFamily));
-  const [rowSelectionState, setRowSelectionState] = useState<RowSelectionState>({});
   const columns = usePatentsColumns({
-    rowSelection: rowSelectionState,
-    setRowSelection: setRowSelectionState
+    rowSelectionState: rowSelectionState,
+    setRowSelection: updateRowSelectionState
   });
 
   useEffect(() => {
@@ -84,13 +95,13 @@ export const PatentsTable = () => {
     getExpandedRowModel: getExpandedRowModel()
   });
 
-  useSetSelectedPatents({ table });
-
   const tableRows = table.getRowModel().rows;
   const patentsFamilyGroups = useMemo(() => {
     // This grouping is used to render only first row and expand the rest.
     return makeFamilyRowGroups(tableRows);
   }, [tableRows]);
+
+  useSetSelectedPatents({ table });
 
   const hasFetchedPatents = fetchedPatents?.length > 0;
   if (!hasFetchedPatents) {

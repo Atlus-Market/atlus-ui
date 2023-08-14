@@ -100,6 +100,7 @@ export const {
   selectPatents,
   setPackagePatents,
   setPatents,
+  setRowSelectionState,
   setPackageDetails,
   showSetContactModal,
   hideSetContactModal,

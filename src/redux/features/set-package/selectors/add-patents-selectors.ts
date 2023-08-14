@@ -91,6 +91,11 @@ export const selectEditedPatentsIds = createSelector(
   state => state.editedPatentsIds
 );
 
+export const selectRowSelectionState = createSelector(
+  selectSelectPatentsState,
+  state => state.rowSelectionState
+);
+
 
 export const selectIsSetPatentModalOpen = createSelector(
   selectSelectPatentsState,
