@@ -15,7 +15,9 @@ import { accessTokenCookieName } from '@/constants/api';
 import { logout } from '@/api/auth/logout';
 import { isSecureProtocol } from '@/utils/platform';
 
-const usingSecureDomain = isSecureProtocol(process.env.NEXTAUTH_URL as string);
+const usingSecureDomain = isSecureProtocol(
+  process.env.NEXT_PUBLIC_API_ENDPOINT as string
+);
 
 const providers = [
   CredentialsProvider({
