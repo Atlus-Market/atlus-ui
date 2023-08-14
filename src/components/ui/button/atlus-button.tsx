@@ -18,7 +18,6 @@ export interface AtlusButtonProps extends HtmlButtonProps {
 
 const baseButton = clsx(
   'inline-flex justify-center items-center',
-  'active:opacity-95'
 );
 
 const solidOrangeVariant = clsx(
