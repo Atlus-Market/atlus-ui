@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   selectActivePatentsIds,
   selectIsActiveTabValid
-} from '@/redux/features/set-package/selectors/add-patents-selectors';
+} from '@/redux/features/set-package/selectors/add-patents.selectors';
 import { useQuery } from '@tanstack/react-query';
 import { getPatents, GetPatentsPayload } from '@/api/patents/get-patents';
 import { setAddPatentsStep, setPatents } from '@/redux/features/set-package/set-package';

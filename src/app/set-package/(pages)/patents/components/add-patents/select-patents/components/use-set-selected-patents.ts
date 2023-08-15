@@ -7,7 +7,7 @@ import {
 import { selectPatents } from '@/redux/features/set-package/set-package';
 import {
   selectRowSelectionState
-} from '@/redux/features/set-package/selectors/add-patents-selectors';
+} from '@/redux/features/set-package/selectors/add-patents.selectors';
 
 
 interface UseSetSelectedPatentsProps {

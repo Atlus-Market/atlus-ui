@@ -27,7 +27,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setEditingPatent, showSetPatentModal } from '@/redux/features/set-package/set-package';
 import {
   selectEditedPatentsIds
-} from '@/redux/features/set-package/selectors/add-patents-selectors';
+} from '@/redux/features/set-package/selectors/add-patents.selectors';
 import {
   EditingPatent
 } from '@/redux/features/set-package/slices/add-patents/slices/select-patents';

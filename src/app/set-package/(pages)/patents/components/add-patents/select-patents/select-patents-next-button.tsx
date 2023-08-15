@@ -9,7 +9,7 @@ import {
 import { useSelector } from 'react-redux';
 import {
   selectSelectedFamilyPatents
-} from '@/redux/features/set-package/selectors/add-patents-selectors';
+} from '@/redux/features/set-package/selectors/add-patents.selectors';
 
 export const SelectPatentsNextButton = () => {
   const dispatch = useAppDispatch();

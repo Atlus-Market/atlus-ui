@@ -3,7 +3,7 @@
 import { useSelector } from 'react-redux';
 import {
   selectSelectedFamilyPatents
-} from '@/redux/features/set-package/selectors/add-patents-selectors';
+} from '@/redux/features/set-package/selectors/add-patents.selectors';
 import { pluralize } from '@/utils/words';
 import {
   useFamilyPatentsHelper

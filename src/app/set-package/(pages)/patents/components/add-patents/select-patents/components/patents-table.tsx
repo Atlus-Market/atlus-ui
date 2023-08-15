@@ -30,7 +30,7 @@ import {
 import {
   selectFetchedPatents,
   selectRowSelectionState
-} from '@/redux/features/set-package/selectors/add-patents-selectors';
+} from '@/redux/features/set-package/selectors/add-patents.selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   PatentsRowSelectionState

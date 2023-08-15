@@ -11,6 +11,12 @@ import {
   AddPatentsState
 } from '@/redux/features/set-package/slices/add-patents/add-patents';
 import { Package } from '@/models/package';
+import {
+  createDocumentsExtraReducers,
+  documentsInitialState,
+  documentsReducer,
+  DocumentsState
+} from '@/redux/features/set-package/slices/documents';
 
 export type FamilyPatents = {
   [familyId: string]: Patent[];
@@ -25,6 +31,7 @@ export interface SetPackageState {
 
   addPatents: AddPatentsState;
   packageDetails: PackageDetailsState;
+  documents: DocumentsState;
 
   package: Package | undefined;
 }
@@ -38,6 +45,7 @@ const initialState: SetPackageState = {
 
   addPatents: addPatentsInitialState,
   packageDetails: packageDetailsInitialState,
+  documents: documentsInitialState,
 
   // TODO: Delete this after finishing the feature
   package: {
@@ -98,7 +106,12 @@ export const setPackage = createSlice({
     },
 
     ...addPatentesReducer,
-    ...packageDetailsReducer
+    ...packageDetailsReducer,
+    ...documentsReducer
+  },
+
+  extraReducers: (builder) => {
+    createDocumentsExtraReducers(builder);
   }
 });
 
@@ -128,6 +141,9 @@ export const {
   showSetPatentModal,
   hideSetPatentModal,
   setEditingPatent,
-  setEditedPatent
+  setEditedPatent,
+
+  // Documents
+  setDataroom
 } = setPackage.actions;
 export default setPackage.reducer;

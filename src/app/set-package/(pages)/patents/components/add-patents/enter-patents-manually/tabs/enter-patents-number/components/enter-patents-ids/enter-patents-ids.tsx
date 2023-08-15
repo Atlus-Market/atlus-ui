@@ -6,7 +6,7 @@ import {
 import { useSelector } from 'react-redux';
 import {
   selectEnterPatentsIdsManuallyState
-} from '@/redux/features/set-package/selectors/add-patents-selectors';
+} from '@/redux/features/set-package/selectors/add-patents.selectors';
 import { useAppDispatch } from '@/redux/hooks';
 import { useMemo, useRef } from 'react';
 import { debounce } from 'lodash';
