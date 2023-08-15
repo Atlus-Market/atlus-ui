@@ -12,6 +12,9 @@ RUN \
   else echo "Lockfile not found." && exit 1; \
   fi
 
+ARG NEXTAUTH_SECRET
+ARG NEXT_PUBLIC_API_ENDPOINT
+ARG NEXTAUTH_URL
 RUN npm i
 
 # Stage 2: Build the application
