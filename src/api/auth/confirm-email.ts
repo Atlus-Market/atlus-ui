@@ -5,5 +5,8 @@ interface ConfirmEmailPayload {
 }
 
 export const confirmEmail = ({ confirmationToken }: ConfirmEmailPayload): Promise<void> => {
-  return createRequest<void, void>(`/user/confirm/${confirmationToken}`, 'GET');
+  return createRequest<void, void>({
+    url: `/user/confirm/${confirmationToken}`,
+    method: 'GET'
+  });
 };

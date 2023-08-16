@@ -6,5 +6,9 @@ export interface GetContactsResponse {
 }
 
 export const getContacts = async (): Promise<GetContactsResponse> => {
-  return createRequest<void, GetContactsResponse>('/user/contacts?q=', 'GET', ProtectedEndpoint.True);
+  return createRequest<void, GetContactsResponse>({
+    url: '/user/contacts?q=',
+    method: 'GET',
+    isProtected: ProtectedEndpoint.True
+  });
 };

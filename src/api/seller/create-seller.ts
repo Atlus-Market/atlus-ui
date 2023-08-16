@@ -8,5 +8,10 @@ export interface CreateSellerResponse {
 }
 
 export const createSeller = (userPayload: CreateSellerPayload): Promise<CreateSellerResponse> => {
-  return createRequest<CreateSellerPayload, CreateSellerResponse>('/user/seller', 'POST', ProtectedEndpoint.True, userPayload);
+  return createRequest<CreateSellerPayload, CreateSellerResponse>({
+    url: '/user/seller',
+    method: 'POST',
+    isProtected: ProtectedEndpoint.True,
+    payload: userPayload
+  });
 };

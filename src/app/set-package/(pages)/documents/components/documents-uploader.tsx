@@ -50,6 +50,7 @@ export const DocumentsUploader = () => {
   // Cancel all uploads on unmount
   useEffect(() => {
     return () => {
+      // TODO: delete uploadingFiles in state
       Object.values(uploadingFilesExtraOptions).forEach(extraOptions => extraOptions.abort());
     };
   }, []);

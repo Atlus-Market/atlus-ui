@@ -5,5 +5,10 @@ interface ResendConfirmationEmailPayload {
 }
 
 export const resendConfirmationEmail = (resendConfirmationEmailPayload: ResendConfirmationEmailPayload): Promise<void> => {
-  return createRequest<ResendConfirmationEmailPayload, void>('/user/resend-confirmation', 'POST', ProtectedEndpoint.False, resendConfirmationEmailPayload);
+  return createRequest<ResendConfirmationEmailPayload, void>({
+    url: '/user/resend-confirmation',
+    method: 'POST',
+    isProtected: ProtectedEndpoint.False,
+    payload: resendConfirmationEmailPayload
+  });
 };

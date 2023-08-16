@@ -11,5 +11,10 @@ export interface GetPatentsResponse {
 }
 
 export const getPatents = async (getPatentsPayload: GetPatentsPayload): Promise<GetPatentsResponse> => {
-  return createRequest<GetPatentsPayload, GetPatentsResponse>('/patents/bulk', 'POST', ProtectedEndpoint.True, getPatentsPayload);
+  return createRequest<GetPatentsPayload, GetPatentsResponse>({
+    url: '/patents/bulk',
+    method: 'POST',
+    isProtected: ProtectedEndpoint.True,
+    payload: getPatentsPayload
+  });
 };

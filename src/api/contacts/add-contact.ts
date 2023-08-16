@@ -5,5 +5,9 @@ export interface AddContactPayload {
 }
 
 export const addContact = (addContactPayload: AddContactPayload): Promise<void> => {
-  return createRequest<void, void>(`/user/${addContactPayload.userId}/contacts`, 'POST', ProtectedEndpoint.True);
+  return createRequest<void, void>({
+    url: `/user/${addContactPayload.userId}/contacts`,
+    method: 'POST',
+    isProtected: ProtectedEndpoint.True
+  });
 };

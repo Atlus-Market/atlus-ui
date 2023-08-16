@@ -5,5 +5,10 @@ export type UpdateSellerPayload = Contact
 
 export const updateSeller = (updateSellerPayload: UpdateSellerPayload): Promise<void> => {
   const { id: sellerId } = updateSellerPayload;
-  return createRequest<UpdateSellerPayload, void>(`/user/seller/${sellerId}`, 'PUT', ProtectedEndpoint.True, updateSellerPayload);
+  return createRequest<UpdateSellerPayload, void>({
+    url: `/user/seller/${sellerId}`,
+    method: 'PUT',
+    isProtected: ProtectedEndpoint.True,
+    payload: updateSellerPayload
+  });
 };

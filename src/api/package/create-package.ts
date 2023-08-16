@@ -5,10 +5,11 @@ interface CreatePackagePayload {
 }
 
 export const createPackage = (data: CreatePackagePayload) => {
-  return createRequest<CreatePackagePayload, void>(
-    '/package',
-    'POST',
-    ProtectedEndpoint.True,
-    data
+  return createRequest<CreatePackagePayload, void>({
+      url: '/package',
+      method: 'POST',
+      isProtected: ProtectedEndpoint.True,
+      payload: data
+    }
   );
 };
