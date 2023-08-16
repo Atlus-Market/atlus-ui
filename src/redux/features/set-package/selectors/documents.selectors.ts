@@ -17,3 +17,25 @@ export const selectDataroom = createSelector(
   selectDocumentsState,
   state => state.dataroom
 );
+
+const MAX_CONCURRENT_UPLOADS = 2;
+
+export const selectDocumentsToUpload = createSelector(
+  selectDocumentsState,
+  state => {
+    const { uploadFilesQueue, uploadingFiles } = state;
+    const uploadingFilesCount = Object.keys(uploadingFiles).length;
+
+    if (uploadingFilesCount < MAX_CONCURRENT_UPLOADS) {
+      const availableUploadsCount = MAX_CONCURRENT_UPLOADS - uploadingFilesCount;
+      return uploadFilesQueue.slice(0, availableUploadsCount);
+    }
+
+    return [];
+  }
+);
+
+export const selectUploadingFilesRequestIds = createSelector(
+  selectDocumentsState,
+  state => Object.keys(state.uploadingFiles)
+);

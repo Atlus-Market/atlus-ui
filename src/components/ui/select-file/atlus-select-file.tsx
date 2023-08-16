@@ -1,10 +1,33 @@
+'use client';
+
 import Image from 'next/image';
 import UploadFileImageSvg from '@/public/assets/images/upload-file.svg';
+import { useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
+import clsx from 'clsx';
 
-export const AtlusSelectFile = () => {
+interface AtlusSelectFileProps {
+  onFilesSelected?: (selectedFiles: File[]) => void;
+  // maxFiles ????
+}
+
+export const AtlusSelectFile = ({ onFilesSelected }: AtlusSelectFileProps) => {
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    console.log('acceptedFiles: ', acceptedFiles);
+    onFilesSelected?.(acceptedFiles);
+  }, [onFilesSelected]);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <div className='rounded-2xl border border-dashed border-light-grey py-12'>
+    <div
+      className={clsx(
+        'rounded-2xl border border-dashed py-12',
+        isDragActive ? 'bg-[#FFFBF9] border-peach' : 'bg-white border-light-grey',
+        'hover:cursor-pointer'
+      )}
+      {...getRootProps()}>
+      <input {...getInputProps()} />
       <div className='flex justify-center flex-col items-center'>
         <Image src={UploadFileImageSvg} alt='upload-file' className='mb-6' />
         <div className='mb-2 leading-none'>

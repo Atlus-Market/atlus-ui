@@ -144,6 +144,8 @@ export const {
   setEditedPatent,
 
   // Documents
-  setDataroom
+  setDataroom,
+  updateFileUploadState,
+  addFileToUpload
 } = setPackage.actions;
 export default setPackage.reducer;

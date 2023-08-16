@@ -10,7 +10,6 @@ import {
   selectDocumentsState
 } from '@/redux/features/set-package/selectors/documents.selectors';
 import { setDataroom } from '@/redux/features/set-package/set-package';
-import { uploadPackageFile } from '@/redux/features/set-package/thunks/upload-file';
 
 interface DocumentsProviderProps {
   children: ReactNode;
@@ -20,7 +19,6 @@ export const DocumentsProvider = ({ children }: DocumentsProviderProps) => {
   const dataroomId = useAppSelector(selectActiveDataroom) ?? '';
   const dispatch = useAppDispatch();
   const dataroom = useAppSelector(selectDataroom);
-
 
   const docsState = useAppSelector(selectDocumentsState);
   console.log('DocumentsState: ', docsState);
@@ -52,16 +50,8 @@ export const DocumentsProvider = ({ children }: DocumentsProviderProps) => {
   }
 
   console.log('Dataroom: ', dataroom);
-
   return (
     <>
-      <button onClick={() => {
-        const a = dispatch(uploadPackageFile());
-        setTimeout(() => {
-          a.abort();
-        }, 1000);
-      }}>Fetch
-      </button>
       {children}
     </>
   );

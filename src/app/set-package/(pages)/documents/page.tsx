@@ -1,9 +1,14 @@
-import { AtlusSelectFile } from '@/components/ui/select-file/atlus-select-file';
 import { AtlusTitle } from '@/components/ui/typography/atlus-title';
 import { AtlusSubTitle } from '@/components/ui/typography/atlus-subtitle';
 import {
   DocumentsProvider
 } from '@/app/set-package/(pages)/documents/components/documents-provider';
+import {
+  DocumentsSelector
+} from '@/app/set-package/(pages)/documents/components/documents-selector';
+import {
+  DocumentsUploader
+} from '@/app/set-package/(pages)/documents/components/documents-uploader';
 
 export default async function DocumentsPage() {
   return (
@@ -14,7 +19,8 @@ export default async function DocumentsPage() {
         className='!text-base !font-normal !leading-6 mb-6'
       />
       <DocumentsProvider>
-        <AtlusSelectFile />
+        <DocumentsSelector />
+        <DocumentsUploader />
       </DocumentsProvider>
     </div>
   );
