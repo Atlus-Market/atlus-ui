@@ -39,7 +39,7 @@ export const documentsReducer = {
   // File Upload
   addFileToUpload: (
     state: SetPackageState,
-    action: PayloadAction<SerializedFileUpload>
+    action: PayloadAction<SerializedFile>
   ) => {
     state.documents.uploadFilesQueue.push(action.payload);
   },
@@ -142,7 +142,7 @@ export const createDocumentsExtraReducers = (
 
 const removeUploadingFileFromState = (
   state: SetPackageState,
-  serializedFile: SerializedFileUpload,
+  serializedFile: SerializedFile,
   uploadId: string
 ) => {
   delete state.documents.uploadingFiles[uploadId];
