@@ -14,6 +14,7 @@ export const AtlusProgressBar = ({ progress }: AtlusProgressBarProps) => {
         height='8px'
         borderRadius={progress === 0 ? '0' : '8px'}
         className='w-full'
+        isLabelVisible={false}
       />
       <span className='text-xs text-soft-black'>{progress}%</span>
     </div>

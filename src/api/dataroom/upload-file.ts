@@ -1,15 +1,20 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getProgressPercent, ProtectedEndpoint } from '@/api/api';
+import { AxiosProgressEvent } from 'axios';
 
 interface UploadPackageDocumentPayload {
   dataroomId: string;
   file: File;
   folder?: string;
+  onProgress?: (progressCompleted: number) => void;
+  abortSignal?: AbortSignal;
 }
 
 export const uploadPackageDocumentFile = ({
                                             dataroomId,
                                             file,
-                                            folder = ''
+                                            folder = '',
+                                            onProgress,
+                                            abortSignal
                                           }: UploadPackageDocumentPayload) => {
   const headers = {
     'content-type': 'multipart/form-data'
@@ -18,18 +23,23 @@ export const uploadPackageDocumentFile = ({
   formData.append('file', file);
   formData.append('folder', folder);
 
-  const config = {
-    onUploadProgress: function(progressEvent: { loaded: number; total: number; }) {
-      var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-      console.log(percentCompleted);
-    }
-  };
+
+  let updateProgress = onProgress;
+  if (onProgress) {
+    // updateProgress = debounce(onProgress, 500);
+  }
 
   return createRequest({
     url: `/dataroom/${dataroomId}/upload`,
     method: 'POST',
     isProtected: ProtectedEndpoint.True,
     payload: formData,
-    headers
+    headers,
+    onUploadProgress: function(progressEvent: AxiosProgressEvent) {
+      const percentCompleted = getProgressPercent(progressEvent);
+      console.log('uploadPackageDocumentFile::percentCompleted: ', progressEvent);
+      updateProgress?.(percentCompleted);
+    },
+    signal: abortSignal
   });
 };

@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, CreateAxiosDefaults } from 'axios';
+import axios, { AxiosProgressEvent, AxiosResponse, CreateAxiosDefaults } from 'axios';
 import { AtlusSessionManager } from '@/app/(auth)/session/atlus-session-manager';
 import { Session } from 'next-auth';
 
@@ -61,14 +61,13 @@ export const createRequest = <Payload, Response>({
     headers,
     data: payload,
     withCredentials: isProtected === ProtectedEndpoint.True,
-    onUploadProgress: (progressEvent) => {
-      console.log('progressEvent: ', progressEvent);
-      // @ts-ignore
-      const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-      console.log('onUploadProgress', percentCompleted);
-    },
     ...restConfig
   }).then(response => {
     return response.data;
   });
+};
+
+export const getProgressPercent = (progressEvent: AxiosProgressEvent): number => {
+  // @ts-ignore
+  return Math.round((progressEvent.loaded * 100) / progressEvent.total);
 };

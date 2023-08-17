@@ -3,10 +3,9 @@ import { SerializedFileUpload } from '@/redux/features/set-package/slices/docume
 import { createFileFromSerializedFileUpload } from '@/utils/file';
 import { uploadPackageDocumentFile } from '@/api/dataroom/upload-file';
 import { RootState } from '@/redux/store';
+import { updateFileUploadState } from '@/redux/features/set-package/set-package';
 
 
-// TODO: handle cancel
-// TODO: dispatch rejected state
 export const uploadPackageDocument = createAsyncThunk(
   'package/documents/uploadFile',
   async (serializedFileUpload: SerializedFileUpload, thunkAPI) => {
@@ -16,23 +15,23 @@ export const uploadPackageDocument = createAsyncThunk(
       const res = await uploadPackageDocumentFile({
         file,
         folder: '',
-        dataroomId
+        dataroomId,
+        onProgress: (progressCompleted => {
+          if (thunkAPI.signal.aborted) {
+            return;
+          }
+          thunkAPI.dispatch(updateFileUploadState({
+            progress: progressCompleted,
+            serializedFile: serializedFileUpload,
+            requestId: thunkAPI.requestId
+          }));
+        }),
+        abortSignal: thunkAPI.signal
       });
       console.log('File Upload Response: ', res);
-      // await fetch('https://hub.dummyapis.com/delay?seconds=3600', {
-      //   signal: thunkAPI.signal
-      // });
     } catch (e) {
       console.error(e);
       console.log('thunkAPI.signal: ', thunkAPI.signal);
     }
-
-    return { result: 123 };
   }
-  // , {
-  //   condition(arg: File, { getState }): boolean {
-  //     console.log('getState: ', getState());
-  //     return false;
-  //   }
-  // }
 );

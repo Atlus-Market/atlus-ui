@@ -56,7 +56,6 @@ export const DocumentsUploader = () => {
   // Cancel all uploads on unmount
   useEffect(() => {
     return () => {
-      // TODO: delete uploadingFiles in state
       Object.values(uploadingFilesExtraOptions).forEach(extraOptions => extraOptions.abort());
     };
   }, [uploadingFilesExtraOptions]);
@@ -68,12 +67,14 @@ export const DocumentsUploader = () => {
   }
 
   return (
-    <div className="mt-3">
+    <div className='mt-3'>
       {uploadingFilesState.map(uploadingFileState => (
         <UploadingDocumentStatus
           key={uploadingFileState.requestId}
           uploadingFileState={uploadingFileState}
-          onCancelUpload={() => uploadingFilesExtraOptions[uploadingFileState.requestId].abort()}
+          onCancelUpload={() => {
+            uploadingFilesExtraOptions[uploadingFileState.requestId].abort();
+          }}
         />
       ))}
     </div>
