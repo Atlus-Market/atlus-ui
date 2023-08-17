@@ -55,6 +55,12 @@ export const DocumentsUploader = () => {
     };
   }, []);
 
+  const isUploadingFiles = uploadingFilesRequestIds.length > 0;
+
+  if (!isUploadingFiles) {
+    return null;
+  }
+
   return (
     <div>
       Uploading files...

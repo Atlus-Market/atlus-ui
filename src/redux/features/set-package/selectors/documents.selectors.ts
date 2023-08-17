@@ -39,3 +39,8 @@ export const selectUploadingFilesRequestIds = createSelector(
   selectDocumentsState,
   state => Object.keys(state.uploadingFiles)
 );
+
+export const selectPackageDocuments = createSelector(
+  selectDocumentsState,
+  state => state.dataroom?.directoryTree.children ?? []
+);

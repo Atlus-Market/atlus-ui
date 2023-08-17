@@ -9,6 +9,9 @@ import {
 import {
   DocumentsUploader
 } from '@/app/set-package/(pages)/documents/components/documents-uploader';
+import {
+  DocumentsList
+} from '@/app/set-package/(pages)/documents/components/documents-list/documents-list';
 
 export default async function DocumentsPage() {
   return (
@@ -21,6 +24,7 @@ export default async function DocumentsPage() {
       <DocumentsProvider>
         <DocumentsSelector />
         <DocumentsUploader />
+        <DocumentsList />
       </DocumentsProvider>
     </div>
   );

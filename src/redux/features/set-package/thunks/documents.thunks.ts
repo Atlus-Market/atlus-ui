@@ -4,6 +4,9 @@ import { createFileFromSerializedFileUpload } from '@/utils/file';
 import { uploadPackageDocumentFile } from '@/api/dataroom/upload-file';
 import { RootState } from '@/redux/store';
 
+
+// TODO: handle cancel
+// TODO: dispatch rejected state
 export const uploadPackageDocument = createAsyncThunk(
   'package/documents/uploadFile',
   async (serializedFileUpload: SerializedFileUpload, thunkAPI) => {

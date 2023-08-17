@@ -5,7 +5,7 @@ import { AtlusColor } from '@/components/ui/theme';
 import Image, { StaticImageData } from 'next/image';
 import clsx from 'clsx';
 
-type IconSize = 20 | 22;
+export type IconSize = 20 | 22 | 40;
 
 interface IconProps {
   name: string;
@@ -16,6 +16,7 @@ interface IconProps {
 const iconContainerSize: Readonly<Record<IconSize, string>> = {
   20: 'w-[20px] h-[20px]',
   22: 'w-[22px] h-[22px]',
+  40: 'w-[40px] h-[40px]'
 };
 
 export const Icon = ({ name, size = 20, color = 'orange' }: IconProps) => {
