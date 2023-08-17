@@ -6,7 +6,7 @@ interface FileIconProps {
 }
 
 const supportedFileExtensions = [
-  'doc', 'pdf', 'xls', 'ppt', 'zip'
+  'doc', 'docx', 'pdf', 'xls', 'xlsx', 'ppt', 'pptx', 'zip'
 ];
 
 export const FileIcon = ({ extension, size = 40 }: FileIconProps) => {

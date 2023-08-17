@@ -15,8 +15,8 @@ export interface SerializedFileUpload {
 
 export interface UploadingFileState {
   serializedFile: SerializedFileUpload;
-  uploadId: string;
-  percentage: 0;
+  requestId: string;
+  progress: 0;
 }
 
 export interface DocumentsState {
@@ -41,7 +41,7 @@ export const documentsReducer = {
     state.documents.uploadFilesQueue.push(action.payload);
   },
   updateFileUploadState: (state: SetPackageState, action: PayloadAction<UploadingFileState>) => {
-    state.documents.uploadingFiles[action.payload.uploadId] = action.payload;
+    state.documents.uploadingFiles[action.payload.requestId] = action.payload;
   }
 };
 
@@ -53,8 +53,8 @@ export const createDocumentsExtraReducers = (builder: ActionReducerMapBuilder<Se
     state.documents.uploadFilesQueue = state.documents.uploadFilesQueue.filter(serializedFile => serializedFile.id !== payload.id);
 
     state.documents.uploadingFiles[meta.requestId] = {
-      percentage: 0,
-      uploadId: meta.requestId,
+      progress: 0,
+      requestId: meta.requestId,
       serializedFile: payload
     };
   });
@@ -63,12 +63,12 @@ export const createDocumentsExtraReducers = (builder: ActionReducerMapBuilder<Se
   builder.addCase(uploadPackageDocument.fulfilled, (state: SetPackageState, action) => {
     console.log('uploadPackageFile.fulfilled:action ', action);
     const { meta } = action;
-    removeUploadingFileFromState(state, meta.arg, meta.requestId);
+    // removeUploadingFileFromState(state, meta.arg, meta.requestId);
   });
   builder.addCase(uploadPackageDocument.rejected, (state: SetPackageState, action) => {
     console.log('uploadPackageFile.rejected:action ', action);
     const { meta } = action;
-    removeUploadingFileFromState(state, meta.arg, meta.requestId);
+    // removeUploadingFileFromState(state, meta.arg, meta.requestId);
   });
 };
 

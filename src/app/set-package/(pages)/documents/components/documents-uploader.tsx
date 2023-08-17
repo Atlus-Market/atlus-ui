@@ -3,11 +3,15 @@
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   selectDocumentsToUpload,
+  selectUploadingFiles,
   selectUploadingFilesRequestIds
 } from '@/redux/features/set-package/selectors/documents.selectors';
 import { useEffect } from 'react';
 import { useConst } from '@/hooks/use-const';
 import { uploadPackageDocument } from '@/redux/features/set-package/thunks/documents.thunks';
+import {
+  UploadingDocumentStatus
+} from '@/app/set-package/(pages)/documents/components/uploading-document/uploading-document-status';
 
 
 type Abort = (reason?: string) => void;
@@ -18,11 +22,13 @@ interface UploadingFilesExtraOption {
 
 export const DocumentsUploader = () => {
   const dispatch = useAppDispatch();
+  const uploadingFilesState = useAppSelector(selectUploadingFiles);
   const filesToUpload = useAppSelector(selectDocumentsToUpload);
   const uploadingFilesRequestIds = useAppSelector(selectUploadingFilesRequestIds);
   const uploadingFilesExtraOptions = useConst<UploadingFilesExtraOption>({});
 
   console.group('Documents Uploader');
+  console.log('uploadingFiles: ', uploadingFilesState);
   console.log('uploadingFilesExtraOptions: ', uploadingFilesExtraOptions);
   console.log('filesToUpload: ', filesToUpload);
   console.log('uploadingFilesRequestIds: ', uploadingFilesRequestIds);
@@ -33,7 +39,7 @@ export const DocumentsUploader = () => {
       const thunkValue = dispatch(uploadPackageDocument(serializedFileUpload));
       uploadingFilesExtraOptions[thunkValue.requestId] = { abort: thunkValue.abort };
     });
-  }, [filesToUpload]);
+  }, [dispatch, filesToUpload, uploadingFilesExtraOptions]);
 
   // Clean up requestsIds that are no longer running
   useEffect(() => {
@@ -53,7 +59,7 @@ export const DocumentsUploader = () => {
       // TODO: delete uploadingFiles in state
       Object.values(uploadingFilesExtraOptions).forEach(extraOptions => extraOptions.abort());
     };
-  }, []);
+  }, [uploadingFilesExtraOptions]);
 
   const isUploadingFiles = uploadingFilesRequestIds.length > 0;
 
@@ -62,8 +68,14 @@ export const DocumentsUploader = () => {
   }
 
   return (
-    <div>
-      Uploading files...
+    <div className="mt-3">
+      {uploadingFilesState.map(uploadingFileState => (
+        <UploadingDocumentStatus
+          key={uploadingFileState.requestId}
+          uploadingFileState={uploadingFileState}
+          onCancelUpload={() => uploadingFilesExtraOptions[uploadingFileState.requestId].abort()}
+        />
+      ))}
     </div>
   );
 };
