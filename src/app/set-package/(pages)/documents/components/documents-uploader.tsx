@@ -3,8 +3,8 @@
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   selectDocumentsToUpload,
-  selectUploadFilesQueue,
   selectUploadingFiles,
+  selectUploadingFilesRequestIds,
 } from '@/redux/features/set-package/selectors/documents.selectors';
 import { useEffect } from 'react';
 import { useConst } from '@/hooks/use-const';
@@ -22,7 +22,10 @@ export const DocumentsUploader = () => {
   const uploadingFilesState = useAppSelector(selectUploadingFiles);
   const uploadFilesQueue = useAppSelector(selectUploadFilesQueue);
   const filesToUpload = useAppSelector(selectDocumentsToUpload);
-  const uploadingFilesLocalState = useConst<UploadingFilesExtraOption>({});
+  const uploadingFilesRequestIds = useAppSelector(
+    selectUploadingFilesRequestIds
+  );
+  const uploadingFilesExtraOptions = useConst<UploadingFilesExtraOption>({});
 
   console.group('Documents Uploader');
   console.log('uploadingFiles: ', uploadingFilesState);
@@ -35,7 +38,7 @@ export const DocumentsUploader = () => {
     filesToUpload.forEach(serializedFileUpload => {
       // @ts-ignore
       const thunkValue = dispatch(uploadPackageDocument(serializedFileUpload));
-      uploadingFilesLocalState[thunkValue.requestId] = {
+      uploadingFilesExtraOptions[thunkValue.requestId] = {
         abort: thunkValue.abort,
       };
     });
