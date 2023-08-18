@@ -3,7 +3,10 @@ import { DirectoryTree } from '@/models/dataroom';
 import { Fragment } from 'react';
 import { FileName } from '@/app/set-package/(pages)/documents/components/documents-list/file-name';
 import { HiOutlineX } from 'react-icons/hi';
-import { visibilityOptions } from '@/components/common/dropdown/visibility-options';
+import {
+  dropdownPrivateOption,
+  visibilityOptions
+} from '@/components/common/dropdown/visibility-options';
 import { HiOutlineLockClosed } from 'react-icons/hi2';
 import { AtlusDropdownList } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 
@@ -33,10 +36,10 @@ export const DocumentsTable = ({ dataroom }: DocumentsTableProps) => {
                 placeholder='Visibility'
                 name='visibility'
                 options={visibilityOptions}
-                leftIcon={<HiOutlineLockClosed size={16} />}
                 showDropdownIndicator={true}
                 isSearchable={false}
                 size="small"
+                defaultValue={dropdownPrivateOption.value}
               />
             </div>
             <div className='grid-entry flex'>

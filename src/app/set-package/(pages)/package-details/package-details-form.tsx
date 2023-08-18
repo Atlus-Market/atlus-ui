@@ -9,7 +9,6 @@ import { AtlusForm } from '@/components/ui/form/atlus-form';
 import { AtlusFormTextarea } from '@/components/ui/form/atlus-form-textarea';
 import { AtlusFormDropdownList } from '@/components/ui/form/atlus-form-dropdown';
 import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
-import { HiOutlineLockClosed } from 'react-icons/hi2';
 import { AtlusTitle } from '@/components/ui/typography/atlus-title';
 import { AtlusFormCheckbox } from '@/components/ui/form/atlus-form-checkbox';
 import { AtlusFormInputWithTags } from '@/components/ui/form/atlus-form-input-with-tags';
@@ -27,7 +26,10 @@ import {
 import { InterestArea } from '@/api/interest-areas/interest-area';
 import { useMemo } from 'react';
 import { BiDollar } from 'react-icons/bi';
-import { visibilityOptions } from '@/components/common/dropdown/visibility-options';
+import {
+  dropdownPrivateOption,
+  visibilityOptions
+} from '@/components/common/dropdown/visibility-options';
 
 export interface IPackageDetailsForm {
   title: string;
@@ -117,10 +119,10 @@ export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFor
               placeholder='Visibility'
               name='visibility'
               options={visibilityOptions}
-              leftIcon={<HiOutlineLockClosed size={16} />}
               bottomText='Only people you share the package with can view it.'
               showDropdownIndicator={true}
               isSearchable={false}
+              defaultValue={dropdownPrivateOption.value}
             />
           </div>
 
