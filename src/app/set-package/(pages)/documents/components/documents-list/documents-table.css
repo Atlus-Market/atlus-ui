@@ -32,5 +32,5 @@
 
 .grid-entry {
     border-bottom: 1px solid var(--color-lightest-grey);
-    padding: 26px var(--padding-x);
+    padding: 24px var(--padding-x);
 }
