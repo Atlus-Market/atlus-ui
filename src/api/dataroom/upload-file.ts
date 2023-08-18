@@ -1,5 +1,7 @@
 import { createRequest, getProgressPercent, ProtectedEndpoint } from '@/api/api';
 import { AxiosProgressEvent } from 'axios';
+import { throttle } from 'lodash';
+import { noop } from '@/utils/noop';
 
 interface UploadPackageDocumentPayload {
   dataroomId: string;
@@ -19,14 +21,18 @@ export const uploadPackageDocumentFile = ({
   const headers = {
     'content-type': 'multipart/form-data'
   };
+
   const formData = new FormData();
   formData.append('file', file);
   formData.append('folder', folder);
 
-
-  let updateProgress = onProgress;
+  let updateProgress: (progressEvent: AxiosProgressEvent) => void = noop()
   if (onProgress) {
-    // updateProgress = debounce(onProgress, 500);
+    updateProgress = throttle(function(progressEvent: AxiosProgressEvent) {
+      const percentCompleted = getProgressPercent(progressEvent);
+      console.log('uploadPackageDocumentFile::percentCompleted: ', progressEvent);
+      onProgress?.(percentCompleted);
+    }, 1000);
   }
 
   return createRequest({
@@ -35,11 +41,7 @@ export const uploadPackageDocumentFile = ({
     isProtected: ProtectedEndpoint.True,
     payload: formData,
     headers,
-    onUploadProgress: function(progressEvent: AxiosProgressEvent) {
-      const percentCompleted = getProgressPercent(progressEvent);
-      console.log('uploadPackageDocumentFile::percentCompleted: ', progressEvent);
-      updateProgress?.(percentCompleted);
-    },
+    onUploadProgress: updateProgress,
     signal: abortSignal
   });
 };
