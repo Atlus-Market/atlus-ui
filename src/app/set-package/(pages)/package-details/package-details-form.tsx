@@ -27,6 +27,7 @@ import {
 import { InterestArea } from '@/api/interest-areas/interest-area';
 import { useMemo } from 'react';
 import { BiDollar } from 'react-icons/bi';
+import { visibilityOptions } from '@/components/common/dropdown/visibility-options';
 
 export interface IPackageDetailsForm {
   title: string;
@@ -52,10 +53,6 @@ const schema: ObjectSchema<IPackageDetailsForm> = object({
   sellerId: string().default('').required(RequiredField)
 });
 
-const visibilityOptions: DropdownOption[] = [
-  { label: 'Private', value: 'private' },
-  { label: 'Public', value: 'public' }
-];
 
 export interface PackageDetailsFormProps {
   onSubmit: (formValues: IPackageDetailsForm) => void;

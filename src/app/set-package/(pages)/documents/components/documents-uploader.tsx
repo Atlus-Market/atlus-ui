@@ -75,6 +75,7 @@ export const DocumentsUploader = () => {
           onCancelUpload={() => {
             uploadingFilesExtraOptions[uploadingFileState.requestId].abort();
           }}
+          classNames='[&:not(:last-child)]:mb-2'
         />
       ))}
     </div>

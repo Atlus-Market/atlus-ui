@@ -1,7 +1,7 @@
 import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 import { isArray } from 'lodash';
 
-export const searchDropdownOption = (options: DropdownOption[], value: string): DropdownOption | undefined => {
+export const searchDropdownOption = (options: Readonly<DropdownOption[]>, value: string): DropdownOption | undefined => {
   for (let i = 0; i < options.length; i++) {
     const option = options[i];
     let optionFound = undefined;
@@ -17,7 +17,7 @@ export const searchDropdownOption = (options: DropdownOption[], value: string): 
 };
 
 
-export const getDropdownOptions = (options: DropdownOption[], value: string | string[] | undefined): DropdownOption[] => {
+export const getDropdownOptions = (options: Readonly<DropdownOption[]>, value: string | string[] | undefined): DropdownOption[] => {
   if (!options || !value) {
     return [];
   }

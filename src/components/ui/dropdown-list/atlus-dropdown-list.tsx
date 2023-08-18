@@ -62,10 +62,9 @@ export interface AtlusDropdownListProps {
   isLoading?: boolean;
   isSearchable?: boolean;
   isClearable?: boolean;
-  wrapperClassName?: string;
   placeholder?: string;
   isOpen?: boolean;
-  options: DropdownOption[];
+  options: Readonly<DropdownOption[]>;
   value?: DropdownOption;
   defaultValue?: DropdownOption['value'];
   name?: string;
@@ -84,6 +83,10 @@ export interface AtlusDropdownListProps {
   clearIndicator?: ReactNode;
   noOptionsMessage?: ReactNode;
   filterOption?: (x: FilterOptionOption<DropdownOption>, y: string) => boolean;
+
+  // Styles
+  size?: 'big' | 'small';
+  wrapperClassName?: string;
 }
 
 export const AtlusDropdownList = forwardRef<
@@ -114,7 +117,8 @@ export const AtlusDropdownList = forwardRef<
       isClearable,
       noOptionsMessage,
       isMulti = false,
-      errors
+      errors,
+      size = 'big'
     },
     ref
   ) {
@@ -135,7 +139,8 @@ export const AtlusDropdownList = forwardRef<
         ...classNames,
         control: (props: ControlProps<DropdownOption, boolean, GroupBase<DropdownOption>>) => {
           return clsx(
-            'px-4 !min-h-[53px] m-0',
+            'px-4 m-0',
+            size === 'big' ? '!min-h-[53px]' : '!min-h-[48px]',
             'rounded-lg border border-solid',
             isFocused ? 'border-orange' : 'border-light-grey'
           );
@@ -153,7 +158,7 @@ export const AtlusDropdownList = forwardRef<
     const Comp = isAsync ? AsyncSelect : Select;
 
     return (
-      <div className={clsx('mb-4 md:mb-6', wrapperClassName)}>
+      <div className={clsx(wrapperClassName)}>
         {label && <AtlusFormLabel label={label} />}
         <Comp
           value={value}

@@ -25,7 +25,7 @@ export const AtlusFormDropdownList = forwardRef<SelectInstance, AtlusFormDropdow
       <Controller
         control={control}
         name={name}
-        render={({ field: { onChange,  value, ref, name: name } }) => (
+        render={({ field: { onChange, value, ref, name: name } }) => (
           <AtlusDropdownList
             name={name}
             ref={ref}
@@ -36,6 +36,7 @@ export const AtlusFormDropdownList = forwardRef<SelectInstance, AtlusFormDropdow
               onChange(value);
             }}
             onBlur={() => trigger(name)}
+            wrapperClassName='mb-4 md:mb-6'
           />
         )}
       />
