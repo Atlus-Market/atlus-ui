@@ -14,7 +14,7 @@ export const Sidebar = () => {
     <div className='pt-[99px] p-4 [&>*:not(:last-child)]:mb-4'>
       <SidebarItem
         itemNumber={1}
-        text='Patent'
+        text='Patents'
         href={SetPackagePatent}
         isActive={pathname === SetPackagePatent}
       />

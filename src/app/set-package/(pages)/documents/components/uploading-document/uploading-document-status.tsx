@@ -22,7 +22,9 @@ export const UploadingDocumentStatus = ({
       'border border-light-grey rounded-2xl',
       classNames
     )}>
-      <FileName fileName={uploadingFileState.serializedFile.name} />
+      <div className='w-[50%]'>
+        <FileName fileName={uploadingFileState.serializedFile.name} />
+      </div>
       <div className='flex items-center w-full gap-6'>
         <AtlusProgressBar progress={uploadingFileState.progress} />
         <AtlusButton onClick={onCancelUpload} variant='clear'>
