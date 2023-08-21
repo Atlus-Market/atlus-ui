@@ -19,6 +19,9 @@ axios.interceptors.response.use(function(response) {
     const errorMessage = 'Invalid session. Please login again';
     showErrorNotification({ text: errorMessage, toastId: 'invalid-session-toast-id' });
     (window as Window).location = '/logout';
+  } else if (error.response.data) {
+    const errorMessage = error.response.data.error || error.response.data.msg;
+    showErrorNotification({ text: errorMessage, toastId: 'api-error-id' });
   }
   return Promise.reject(error);
 });
