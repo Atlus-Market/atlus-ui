@@ -1,14 +1,20 @@
 'use client';
-
-import { useAtlusNotification } from '@/components/ui/notification/use-atlus-notification';
+import {
+  showErrorNotification,
+  showSuccessNotification
+} from '@/components/ui/notification/atlus-notification';
 
 export const TestComponentsHelper = () => {
 
-  const { showSuccessNotification } = useAtlusNotification();
 
   return (
     <div>
-      <button onClick={showSuccessNotification}>Show Notification</button>
+      <button onClick={() => showSuccessNotification({ text: 'Success' })}>Show Success
+        Notification
+      </button>
+      <button onClick={() => showErrorNotification({ text: 'Invalid session' })}>Show Error
+        Notification
+      </button>
       {/*<button onClick={() => {*/}
       {/*  createPackage({*/}
       {/*    'seller_user_id': '1',*/}
