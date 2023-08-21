@@ -1,0 +1,20 @@
+.Toastify__toast-container {
+    width: auto;
+}
+
+.Toastify__toast-body {
+    margin: 0 !important;
+}
+
+.Toastify__toast {
+    --toastify-toast-min-height: 50px;
+    --toastify-toast-width: 100px;
+    margin: 0 0 10px 0 !important;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.08);
+}
+
+.Toastify__toast-icon {
+    margin-right: 6px;
+}
