@@ -21,7 +21,7 @@ axios.interceptors.response.use(function(response) {
     (window as Window).location = '/logout';
   } else if (error.response.data) {
     const errorMessage = error.response.data.error || error.response.data.msg;
-    showErrorNotification({ text: errorMessage, toastId: 'api-error-id' });
+    showErrorNotification({ text: errorMessage, toastId: error.config.url });
   }
   return Promise.reject(error);
 });

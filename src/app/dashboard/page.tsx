@@ -1,4 +1,6 @@
 import { ListClientSession } from '@/app/dashboard/components/list-client-session';
+import { PackagesListProvider } from '@/app/dashboard/packages/packages-list-provider';
+import { PackagesList } from '@/app/dashboard/packages/packages-list';
 
 export default async function DashboardPage() {
   return (
@@ -11,6 +13,11 @@ export default async function DashboardPage() {
         </a>
       </div>
       {/*<TestComponentsHelper />*/}
+
+      <PackagesListProvider>
+        <PackagesList />
+      </PackagesListProvider>
+
       <ListClientSession />
     </div>
   );
