@@ -6,14 +6,21 @@ import { persistPackage } from '@/redux/features/set-package/thunks/set-package.
 import {
   selectIsPersistingPackage
 } from '@/redux/features/set-package/selectors/set-package.selectors';
+import {
+  selectIsPackageValid
+} from '@/redux/features/set-package/selectors/package-validility.selectors';
 
 export const SetPackageButton = () => {
   const dispatch = useAppDispatch();
   const isPersistingPackage = useAppSelector(selectIsPersistingPackage);
+  const isPackageValid = useAppSelector(selectIsPackageValid);
+
   return (
     <AtlusButton
       onClick={() => dispatch(persistPackage())}
       isLoading={isPersistingPackage}
-    >Save</AtlusButton>
+      disabled={!isPackageValid}>
+      Save
+    </AtlusButton>
   );
 };

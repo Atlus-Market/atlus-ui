@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import {
   selectSetPackageState
 } from '@/redux/features/set-package/selectors/set-package.selectors';
+import { dropdownPrivateOption } from '@/components/common/dropdown/visibility-options';
 
 
 const selectPackageDetailsState = createSelector(
@@ -11,7 +12,10 @@ const selectPackageDetailsState = createSelector(
 
 export const selectPackageDetailsFormValues = createSelector(
   selectPackageDetailsState,
-  state => state.packageDetailsForm
+  state => ({
+    ...state.packageDetailsForm,
+    visibility: state.packageDetailsForm?.visibility || dropdownPrivateOption.value
+  })
 );
 
 export const selectIsSetContactModalOpen = createSelector(

@@ -16,7 +16,6 @@ export const searchDropdownOption = (options: Readonly<DropdownOption[]>, value:
   }
 };
 
-
 export const getDropdownOptions = (options: Readonly<DropdownOption[]>, value: string | string[] | undefined): DropdownOption[] => {
   if (!options || !value) {
     return [];

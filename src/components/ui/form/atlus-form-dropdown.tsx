@@ -14,7 +14,7 @@ export interface AtlusFormDropdownListProps extends Omit<AtlusDropdownListProps,
 }
 
 export const AtlusFormDropdownList = forwardRef<SelectInstance, AtlusFormDropdownListProps>(
-  function AtlusFormInput({ name, ...rest }, ref) {
+  function AtlusFormInput({ name, defaultValue, ...rest }, ref) {
     const { control, trigger } = useFormContext();
     const { errors } = useFormState({
       name: name,
@@ -30,7 +30,7 @@ export const AtlusFormDropdownList = forwardRef<SelectInstance, AtlusFormDropdow
             name={name}
             ref={ref}
             errors={errors}
-            defaultValue={value}
+            defaultValue={value || defaultValue}
             {...rest}
             onChange={(value: string | string[]) => {
               onChange(value);

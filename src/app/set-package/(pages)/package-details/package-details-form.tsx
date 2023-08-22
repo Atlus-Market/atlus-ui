@@ -26,10 +26,7 @@ import {
 import { InterestArea } from '@/api/interest-areas/interest-area';
 import { useMemo } from 'react';
 import { BiDollar } from 'react-icons/bi';
-import {
-  dropdownPrivateOption,
-  visibilityOptions
-} from '@/components/common/dropdown/visibility-options';
+import { visibilityOptions } from '@/components/common/dropdown/visibility-options';
 
 export interface IPackageDetailsForm {
   title: string;
@@ -43,18 +40,17 @@ export interface IPackageDetailsForm {
   sellerId: string;
 }
 
-const schema: ObjectSchema<IPackageDetailsForm> = object({
+export const packageDetailsSchema: ObjectSchema<IPackageDetailsForm> = object({
   title: string().default('').trim().required(RequiredField),
   description: string().default('').trim().required(RequiredField),
   industry: array().min(1).required(RequiredField),
   keywords: array().min(1).required(RequiredField).typeError('Enter at least one keyword'),
-  visibility: string().default('').trim().required(RequiredField),
+  visibility: string().required(RequiredField),
   price: number().min(1).required(RequiredField).typeError('Price must be greater than $1'),
   isOpenToLicensing: boolean().default(false).required(RequiredField),
   showPricingPublicly: boolean().default(false).required(RequiredField),
   sellerId: string().default('').required(RequiredField)
 });
-
 
 export interface PackageDetailsFormProps {
   onSubmit: (formValues: IPackageDetailsForm) => void;
@@ -65,7 +61,7 @@ export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFor
   const packageDetailsFormValues = useAppSelector(selectPackageDetailsFormValues);
   const formProps = useAtlusForm<IPackageDetailsForm>({
     formOptions: {
-      resolver: yupResolver(schema),
+      resolver: yupResolver(packageDetailsSchema),
       defaultValues: packageDetailsFormValues
     }
   });
@@ -99,8 +95,9 @@ export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFor
             />
 
             <AtlusFormDropdownList
+              label='Industry'
               placeholder='Choose an industry'
-              {...register('industry')}
+              name='industry'
               options={interestAreasOptions}
               showDropdownIndicator={true}
               isMulti={true}
@@ -122,7 +119,6 @@ export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFor
               bottomText='Only people you share the package with can view it.'
               showDropdownIndicator={true}
               isSearchable={false}
-              defaultValue={dropdownPrivateOption.value}
             />
           </div>
 
