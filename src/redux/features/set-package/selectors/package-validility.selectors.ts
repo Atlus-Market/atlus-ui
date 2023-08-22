@@ -17,7 +17,7 @@ export const selectIsPackageValid = createSelector(
   }
 );
 
-const isPackageDetailsFormValid = (packageDetailsValues: IPackageDetailsForm | undefined): boolean => {
+const isPackageDetailsFormValid = (packageDetailsValues: Partial<IPackageDetailsForm> | undefined): boolean => {
   try {
     packageDetailsSchema.validateSync(packageDetailsValues);
     return true;

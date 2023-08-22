@@ -34,12 +34,12 @@ export const DocumentsUploader = () => {
   console.log('uploadingFilesRequestIds: ', uploadingFilesRequestIds);
   console.groupEnd();
 
-  // useEffect(() => {
-  //   filesToUpload.forEach((serializedFileUpload) => {
-  //     const thunkValue = dispatch(uploadPackageDocument(serializedFileUpload));
-  //     uploadingFilesExtraOptions[thunkValue.requestId] = { abort: thunkValue.abort };
-  //   });
-  // }, [dispatch, filesToUpload, uploadingFilesExtraOptions]);
+  useEffect(() => {
+    filesToUpload.forEach((serializedFileUpload) => {
+      const thunkValue = dispatch(uploadPackageDocument(serializedFileUpload));
+      uploadingFilesExtraOptions[thunkValue.requestId] = { abort: thunkValue.abort };
+    });
+  }, [dispatch, filesToUpload, uploadingFilesExtraOptions]);
 
   // Clean up requestsIds that are no longer running
   useEffect(() => {

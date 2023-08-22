@@ -13,7 +13,9 @@ import {
   DocumentsList
 } from '@/app/set-package/(pages)/documents/components/documents-list/documents-list';
 import { SetPackageFooter } from '@/app/set-package/components/set-package-footer';
-import { SetPackageButton } from '@/app/set-package/components/set-package-button';
+import Link from 'next/link';
+import { DashboardRoute } from '@/constants/routes';
+import { AtlusButton } from '@/components/ui/button/atlus-button';
 
 export default async function DocumentsPage() {
   return (
@@ -29,7 +31,9 @@ export default async function DocumentsPage() {
         <DocumentsList />
       </DocumentsProvider>
       <SetPackageFooter>
-        <SetPackageButton />
+        <Link href={DashboardRoute}>
+          <AtlusButton>View Package</AtlusButton>
+        </Link>
       </SetPackageFooter>
     </div>
   );
