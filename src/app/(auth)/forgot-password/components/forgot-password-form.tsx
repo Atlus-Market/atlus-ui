@@ -10,13 +10,14 @@ import { AtlusButton } from '@/components/ui/button/atlus-button';
 import Link from 'next/link';
 import { AtlusErrorMessage } from '@/components/ui/error-message/atlus-error-message';
 import { LoginRoute } from '@/constants/routes';
+import { emailField } from '@/components/ui/form/validators/email-field';
 
 export interface ForgotPasswordFormSchema {
   email: string;
 }
 
 const schema: ObjectSchema<ForgotPasswordFormSchema> = object({
-  email: string().trim().email().required(RequiredField)
+  email: emailField,
 });
 
 interface ForgotFormProps {

@@ -13,6 +13,7 @@ import { useMutation } from '@tanstack/react-query';
 import { updateSeller, UpdateSellerPayload } from '@/api/seller/update-seller';
 import { createSeller } from '@/api/seller/create-seller';
 import { addContact } from '@/api/contacts/add-contact';
+import { emailField } from '@/components/ui/form/validators/email-field';
 
 const schema: ObjectSchema<AddSeller> = object({
   id: string().trim(),
@@ -24,7 +25,7 @@ const schema: ObjectSchema<AddSeller> = object({
     .optional()
     .default('')
     .test(phoneNumberValidator),
-  email: string().trim().email().required(RequiredField)
+  email: emailField
 });
 
 interface AddContactForm {

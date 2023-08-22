@@ -5,7 +5,7 @@ import { AtlusForm } from '@/components/ui/form/atlus-form';
 import { useAtlusForm } from '@/components/ui/form/use-atlus-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { object, ObjectSchema, string } from 'yup';
-import { RequiredField } from '@/constants/form';
+import { PhoneNumberPlaceholder, RequiredField } from '@/constants/form';
 import {
   optionalPhoneNumberValidator
 } from '@/components/ui/form/validators/phone-number-validator';
@@ -15,6 +15,7 @@ import {
   CreateAccountRefExposedProps,
   UserAccountForm
 } from '@/app/onboarding/components/create-user-account';
+import { emailField } from '@/components/ui/form/validators/email-field';
 
 
 export type BrokerAccountForm = Omit<UserAccountForm, 'title'>;
@@ -32,7 +33,7 @@ const schema: ObjectSchema<BrokerAccountForm> = object({
     .optional()
     .default('')
     .test(optionalPhoneNumberValidator),
-  email: string().trim().email().required(RequiredField),
+  email: emailField,
   password: string().trim().required(RequiredField).test(passwordValidator)
 });
 export const CreateBrokerAccountForm = forwardRef<
@@ -81,7 +82,7 @@ export const CreateBrokerAccountForm = forwardRef<
 
       <AtlusFormInput
         label='Business phone (Optional)'
-        placeholder='(+1)(123) 456 7890'
+        placeholder={PhoneNumberPlaceholder}
         type='tel'
         {...register('businessPhone')}
       />

@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { AtlusFormInputPassword } from '@/components/ui/form/atlus-form-input-password';
 import { AtlusErrorMessage } from '@/components/ui/error-message/atlus-error-message';
 import { ForgotPassword, OnboardingSelectUser } from '@/constants/routes';
+import { emailField } from '@/components/ui/form/validators/email-field';
 
 export interface LoginFormSchema {
   email: string;
@@ -18,7 +19,7 @@ export interface LoginFormSchema {
 }
 
 const schema: ObjectSchema<LoginFormSchema> = object({
-  email: string().trim().email().required(RequiredField),
+  email: emailField,
   password: string().trim().required(RequiredField)
 });
 

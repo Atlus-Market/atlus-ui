@@ -3,6 +3,7 @@
 import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
 import { HiUser } from 'react-icons/hi2';
 import { useFormContext } from 'react-hook-form';
+import { PhoneNumberPlaceholder } from '@/constants/form';
 
 export interface AddSeller {
   id?: string;
@@ -55,7 +56,7 @@ export const AddContactFormFields = () => {
 
       <AtlusFormInput
         label='Phone number'
-        placeholder='(+1)(123) 456 7890'
+        placeholder={PhoneNumberPlaceholder}
         type='tel'
         {...register('phoneNumber')}
       />
