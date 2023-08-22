@@ -55,7 +55,7 @@ export const CountryCodesList = ({ countryCodes }: CountryCodesListProps) => {
   if (!existsCountries) {
     return (
       <div className="text-center text-lg leading-[22px] font-normal mt-[50px] w-full">
-        This jurisdictions isn’t available or can’t be found
+        This jurisdiction isn’t available or can’t be found
       </div>
     );
   }
