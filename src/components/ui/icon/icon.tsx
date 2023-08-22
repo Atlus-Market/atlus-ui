@@ -19,8 +19,15 @@ const iconContainerSize: Readonly<Record<IconSize, string>> = {
   40: 'w-[40px] h-[40px]'
 };
 
+const DefaultIconName = 'default_icon.svg';
+
 export const Icon = ({ name, size = 20, color = 'orange' }: IconProps) => {
+  const [iconName, setIconName] = useState<string>(name);
   const [imageData, setImageData] = useState<StaticImageData | null>(null);
+
+  useEffect(() => {
+    setIconName(name);
+  }, [name]);
 
   useEffect((): (() => void) => {
     let mounted = true;
@@ -28,7 +35,7 @@ export const Icon = ({ name, size = 20, color = 'orange' }: IconProps) => {
     const importIcon = async (): Promise<void> => {
       try {
         setImageData(null);
-        const icon = (await import(`@/public/assets/icons/${name}`)).default;
+        const icon = (await import(`@/public/assets/icons/${iconName}`)).default;
 
         // If the component is unmounted while loading,
         // then don't update the state.
@@ -36,7 +43,10 @@ export const Icon = ({ name, size = 20, color = 'orange' }: IconProps) => {
           setImageData(icon);
         }
       } catch (err) {
-        console.error(`Error loading icon "${name}"`);
+        console.error(`Error loading icon "${iconName}"`);
+        if (iconName !== DefaultIconName) {
+          setIconName(DefaultIconName);
+        }
       }
     };
 
@@ -45,7 +55,7 @@ export const Icon = ({ name, size = 20, color = 'orange' }: IconProps) => {
     return () => {
       mounted = false;
     };
-  }, [name]);
+  }, [iconName]);
 
   return (
     <div
