@@ -1,5 +1,5 @@
 import { AtlusInputProps } from '@/components/ui/input/atlus-input';
-import { ForwardedRef, forwardRef, useEffect, useMemo, useRef, useState } from 'react';
+import { ForwardedRef, forwardRef, Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { isArray } from 'lodash';
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
 import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
@@ -45,7 +45,7 @@ export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTag
         return null;
       }
       return (
-        <div className='flex items-center flex-wrap gap-2 basis-[100%] mr-2 pr-4 py-[9px]'>
+        <>
           {tags.map((tag, index) => {
             const onClose = () => {
               setTags(tags.filter(t => t !== tag));
@@ -54,7 +54,7 @@ export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTag
               <AtlusTag key={`${index}-${tag}`} text={tag} onClose={onClose} size='small' />
             );
           })}
-        </div>
+        </>
       );
     }, [tags]);
 
@@ -65,7 +65,7 @@ export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTag
         ref={inputRef}
         leftCmp={tagsList}
         onKeyDown={handleKeyDown}
-        inputClassName='min-w-[310px]'
+        inputClassName='min-w-[260px]'
       />
     );
   });
