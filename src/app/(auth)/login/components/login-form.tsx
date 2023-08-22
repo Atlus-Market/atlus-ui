@@ -39,7 +39,7 @@ export const LoginForm = ({ onSubmit, errorMessage }: LoginFormProps) => {
     <AtlusForm formProps={formProps} onSubmit={onSubmit}>
       <AtlusFormInput
         label='Email'
-        placeholder='email'
+        placeholder='Enter email'
         type='email'
         wrapperClassName='mb-[18px] md:mb-8'
         tabIndex={1}
@@ -47,7 +47,7 @@ export const LoginForm = ({ onSubmit, errorMessage }: LoginFormProps) => {
       />
       <AtlusFormInputPassword
         label='Password'
-        placeholder='password'
+        placeholder='Enter password'
         type='password'
         tabIndex={2}
         rightLabel={

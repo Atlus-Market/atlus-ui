@@ -8,7 +8,7 @@ export const AtlusErrorMessage = ({ errorMessage }: AtlusErrorMessageProps) => {
   }
 
   return (
-    <div className='text-base text-orange text-center'>
+    <div className='text-base text-red text-center'>
       {errorMessage}
     </div>
   );

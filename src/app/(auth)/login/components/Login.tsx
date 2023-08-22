@@ -30,7 +30,7 @@ export const Login = () => {
           router.replace(VerifyEmailRoute);
           setErrorMessage(signInResponse.data.msg);
         } else {
-          setErrorMessage('Invalid credentials');
+          setErrorMessage('Your username or password is incorrect');
         }
       } catch (localError) {
         console.error('Error trying to parse error response: ', localError);
