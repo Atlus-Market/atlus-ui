@@ -1,5 +1,4 @@
 import './globals.css';
-import { Inter } from 'next/font/google';
 import { ApiClientProvider } from '@/api/api-client-provider';
 import { ReactNode } from 'react';
 import { AtlusSessionProvider } from '@/app/(auth)/session/atlus-session-provider';
@@ -8,8 +7,8 @@ import { LogRocketProvider } from '@/app/log-rocket-provider';
 import {
   AtlusNotificationProvider
 } from '@/components/ui/notification/atlus-notification-provider';
+import { inter } from '@/components/ui/theme/fonts';
 
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'Atlus',

@@ -1,11 +1,10 @@
-import { Geologica } from 'next/font/google';
+import { geologica } from '@/components/ui/theme/fonts';
 
 interface TitleProps {
   text: string;
   className?: string;
 }
 
-const geologica = Geologica({ subsets: ['latin'], fallback: ['sans-serif'] });
 
 export const AtlusTitle = ({ text, className }: TitleProps) => {
   return (

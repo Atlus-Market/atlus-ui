@@ -1,17 +1,14 @@
-import { Geologica } from 'next/font/google';
+import { geologica } from '@/components/ui/theme/fonts';
 
 interface TitleProps {
   text: string;
   className?: string;
 }
 
-const geologica = Geologica({ subsets: ['latin'], fallback: ['sans-serif'] });
 
 export const AtlusSubTitle = ({ text, className }: TitleProps) => {
   return (
-    <h3
-      className={`${geologica.className} ${className} text-[13px] md:text-[18px]`}
-    >
+    <h3 className={`${geologica.className} ${className} text-[13px] md:text-[18px]`}>
       {text}
     </h3>
   );
