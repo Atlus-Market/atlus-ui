@@ -14,6 +14,7 @@ import { updateSeller, UpdateSellerPayload } from '@/api/seller/update-seller';
 import { createSeller } from '@/api/seller/create-seller';
 import { addContact } from '@/api/contacts/add-contact';
 import { emailField } from '@/components/ui/form/validators/email-field';
+import { showSuccessNotification } from '@/components/ui/notification/atlus-notification';
 
 const schema: ObjectSchema<AddSeller> = object({
   id: string().trim(),
@@ -42,7 +43,7 @@ export const AddContactForm = ({ initialValues, children, onContactAdded }: AddC
     }
   });
 
-  const createSellerMutation = useMutation({
+  const setSellerMutation = useMutation({
     mutationFn: async (sellerPayload: UpdateSellerPayload): Promise<{
       sellerId: string
     }> => {
@@ -51,15 +52,17 @@ export const AddContactForm = ({ initialValues, children, onContactAdded }: AddC
       };
       if (sellerPayload.id) {
         await updateSeller(sellerPayload);
+        showSuccessNotification({ text: 'Contact updated successfully.' });
       } else {
         const res = await createSeller(sellerPayload);
         await addContactAsync({ userId: res.userId });
         response.sellerId = res.userId;
+        showSuccessNotification({ text: 'Contact created successfully.' });
       }
       return response;
     }
   });
-  const { mutateAsync: createSellerAsync } = createSellerMutation;
+  const { mutateAsync: createSellerAsync } = setSellerMutation;
 
   const addContactMutation = useMutation({
     mutationFn: addContact
