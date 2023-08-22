@@ -8,7 +8,7 @@ interface TitleProps {
 
 export const AtlusSubTitle = ({ text, className }: TitleProps) => {
   return (
-    <h3 className={`${geologica.className} ${className} text-[13px] md:text-[18px]`}>
+    <h3 className={`text-[13px] md:text-[18px] ${className} ${geologica.className}`}>
       {text}
     </h3>
   );

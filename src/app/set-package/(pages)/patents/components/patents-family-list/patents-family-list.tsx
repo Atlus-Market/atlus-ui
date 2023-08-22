@@ -13,6 +13,7 @@ import {
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import Link from 'next/link';
 import { SetPackagePackageDetails } from '@/constants/routes';
+import { SetPackageFooter } from '@/app/set-package/components/set-package-footer';
 
 export const PatentsFamilyList = () => {
   const familyPatents = useAppSelector(selectPatents);
@@ -30,11 +31,11 @@ export const PatentsFamilyList = () => {
           <PatentsFamily key={familyId} familyId={familyId} patents={familyPatents[familyId]} />
         ))}
       </div>
-      <div className='flex justify-end w-full p-5'>
+      <SetPackageFooter>
         <Link href={SetPackagePackageDetails} className='block'>
-          <AtlusButton variant='solid' size='medium'>Next</AtlusButton>
+          <AtlusButton variant='solid'>Next</AtlusButton>
         </Link>
-      </div>
+      </SetPackageFooter>
     </div>
   );
 };

@@ -7,6 +7,7 @@ import {
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import Link from 'next/link';
 import { SetPackageDocuments } from '@/constants/routes';
+import { SetPackageFooter } from '@/app/set-package/components/set-package-footer';
 
 export default async function PackageDetailsPage() {
   const interestAreasResponse: GetInterestAreasResponse = await getInterestAreas();
@@ -14,11 +15,11 @@ export default async function PackageDetailsPage() {
     <div>
       <AtlusTitle text='Package Details' className='!font-normal !text-2xl mb-6' />
       <PackageDetails interestArea={interestAreasResponse.interestArea} />
-      <div className='flex justify-end mt-[60px]'>
+      <SetPackageFooter>
         <Link href={SetPackageDocuments}>
-          <AtlusButton size='medium'>Next</AtlusButton>
+          <AtlusButton>Next</AtlusButton>
         </Link>
-      </div>
+      </SetPackageFooter>
     </div>
   );
 }

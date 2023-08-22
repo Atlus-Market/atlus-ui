@@ -23,29 +23,28 @@ export const DocumentsProvider = ({ children }: DocumentsProviderProps) => {
   const docsState = useAppSelector(selectDocumentsState);
   console.log('DocumentsState: ', docsState);
 
-  const { isLoading, data, error } = useQuery({
+  const { isLoading, data, error, ...rest } = useQuery({
     queryKey: ['dataroom', dataroomId],
     queryFn: () => getDataroom(dataroomId),
     refetchOnWindowFocus: true,
     enabled: !!dataroomId // disable this query from automatically running if no dataroomId
   });
 
+  console.log('rest: ', rest);
+
   useEffect(() => {
     if (data) {
       dispatch(setDataroom(data));
     }
-  }, [data]);
-
-  if (!dataroomId) {
-    return <div>You have to create a package in order to upload documents</div>;
-  }
+  }, [data, dispatch]);
 
   if (error) {
     console.log(error);
     return <div>Error while loading dataroom id: {dataroomId}</div>;
   }
 
-  if (isLoading || !dataroom) {
+  const isFetching = rest.fetchStatus === 'fetching';
+  if (isFetching) {
     return <div>Loading dataroom...</div>;
   }
 

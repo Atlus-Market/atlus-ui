@@ -5,6 +5,8 @@ import Image from 'next/image';
 import {
   OpenAddPatentsModalButton
 } from '@/app/set-package/(pages)/patents/components/open-add-patents-modal-button';
+import clsx from 'clsx';
+import { inter } from '@/components/ui/theme/fonts';
 
 export const NoPatents = () => {
   return (
@@ -21,7 +23,10 @@ export const NoPatents = () => {
       />
       <AtlusSubTitle
         text='You don’t have any patents in your package'
-        className='mb-9 text-center !text-base'
+        className={clsx(
+          'mb-9 text-center !text-base !font-normal text-soft-black',
+          inter.className
+        )}
       />
       <OpenAddPatentsModalButton />
     </div>

@@ -12,6 +12,8 @@ import {
 import {
   DocumentsList
 } from '@/app/set-package/(pages)/documents/components/documents-list/documents-list';
+import { SetPackageFooter } from '@/app/set-package/components/set-package-footer';
+import { SetPackageButton } from '@/app/set-package/components/set-package-button';
 
 export default async function DocumentsPage() {
   return (
@@ -26,6 +28,9 @@ export default async function DocumentsPage() {
         <DocumentsUploader />
         <DocumentsList />
       </DocumentsProvider>
+      <SetPackageFooter>
+        <SetPackageButton />
+      </SetPackageFooter>
     </div>
   );
 }

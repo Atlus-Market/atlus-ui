@@ -23,3 +23,8 @@ export const selectPatentsListEditingPatent = createSelector(
     return patents.find(patent => patent.publicationNumber === state.editingPatentId);
   }
 );
+
+export const selectIsPersistingPackage = createSelector(
+  selectSetPackageState,
+  state => state.isPersistingPackage
+);
