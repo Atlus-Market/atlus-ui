@@ -135,7 +135,8 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
         }
         isClearable={isSellerSelected}
         clearIndicator={isSellerSelected &&
-          <button><HiX size={24} color='var(--color-orange)' /></button>}
+          <button><HiX size={24} color='var(--color-orange)' /></button>
+        }
         showDropdownIndicator={!isSellerSelected}
         defaultValue={selectedSellerId}
         groupHeadingHeader={<div className='pt-[10px] pb-5'>{addContactElement}</div>}
@@ -146,7 +147,7 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
         }}
         bottomText='Specify which seller you’re representing. This is for your records only and cannot be seen by others.'
       />
-      {activeContact && <ActiveContact contact={activeContact} />}
+      {activeContact && <div className='mt-6'><ActiveContact contact={activeContact} /></div>}
     </>
   );
 };
