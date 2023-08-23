@@ -18,16 +18,19 @@ interface AtlusTooltipProps {
  * because it has performance issues.
  */
 export const AtlusTooltip = ({
-  tooltipId,
-  place = 'top',
-}: AtlusTooltipProps) => {
+                               tooltipId,
+                               place = 'top'
+                             }: AtlusTooltipProps) => {
   return (
-    <Tooltip
-      id={tooltipId}
-      place={place}
-      className="!bg-dark-grey !text-white !font-medium !text-xs !py-2 !px-3 z-[1]"
-      noArrow={true}
-      render={({ content, activeAnchor }) => <span>{content}</span>}
-    />
+    // Hide tooltip pn small screens (mobile)
+    <div className="hidden md:block">
+      <Tooltip
+        id={tooltipId}
+        place={place}
+        className='!bg-dark-grey !text-white !font-medium !text-xs !py-2 !px-3 z-[1]'
+        noArrow={true}
+        render={({ content, activeAnchor }) => <span>{content}</span>}
+      />
+    </div>
   );
 };
