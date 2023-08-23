@@ -19,7 +19,7 @@ export const ForgotPassword = () => {
     <ForgotPasswordForm
       isLoading={mutation.isLoading}
       onSubmit={mutation.mutateAsync}
-      errorMessage={mutation.error?.toString()}
+      errorMessage={mutation.error ? 'Couldn\'t find an account with this email' : undefined}
     />
   );
 };

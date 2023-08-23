@@ -15,7 +15,6 @@ export const AtlusFormInputPassword = forwardRef<HTMLInputElement, AtlusFormInpu
       <AtlusFormInput
         ref={ref}
         type={isShowingPassword ? 'text' : type}
-        inputClassName="flex-grow"
         rightIcon={
           isShowingPassword ?
             <HiEyeOff

@@ -55,7 +55,7 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(
               'font-normal text-sm leading-[17px]',
               'outline-0',
               'placeholder:text-dark-grey',
-              'py-[5px]',
+              'py-[5px] flex-grow',
               inputClassName
             )}
             ref={ref}
