@@ -15,7 +15,7 @@ export const InterestAreasList = ({
   const { interestAreasIds } = useOnboardingContext();
 
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-6">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-3 md:gap-6">
       {interestAreas.map(interestArea => {
         const Icon = InterestAreaIconsMap[interestArea.id];
         return (

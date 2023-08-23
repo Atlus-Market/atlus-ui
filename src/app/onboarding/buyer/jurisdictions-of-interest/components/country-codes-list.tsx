@@ -61,7 +61,7 @@ export const CountryCodesList = ({ countryCodes }: CountryCodesListProps) => {
   }
 
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(216px,1fr))] gap-6">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(216px,1fr))] gap-3 md:gap-6">
       {countriesListMap}
       <AtlusTooltip tooltipId={tooltipId} />
     </div>
