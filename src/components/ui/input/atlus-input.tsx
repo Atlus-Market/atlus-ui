@@ -44,7 +44,8 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(
           'flex justify-start items-center flex-wrap gap-2',
           'overflow-hidden',
           'p-3',
-          '[&:has(input:focus)]:border-orange'
+          '[&:has(input:focus)]:border-orange',
+          '[&:has(input[disabled])]:bg-lightest-grey'
         )}>
           {leftCmp}
           <input
@@ -56,6 +57,7 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(
               'outline-0',
               'placeholder:text-dark-grey',
               'py-[5px] flex-grow',
+              'disabled:bg-lightest-grey',
               inputClassName
             )}
             ref={ref}
