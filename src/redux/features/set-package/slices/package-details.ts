@@ -4,9 +4,10 @@ import {
 import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Contact } from '@/models/contact';
+import { dropdownPrivateOption } from '@/components/common/dropdown/visibility-options';
 
 export interface PackageDetailsState {
-  packageDetailsForm: IPackageDetailsForm | undefined;
+  packageDetailsForm: IPackageDetailsForm;
   setContact: {
     contacts: Contact[];
     isSetContactModalOpen: boolean;
@@ -15,7 +16,18 @@ export interface PackageDetailsState {
 }
 
 export const packageDetailsInitialState: PackageDetailsState = {
-  packageDetailsForm: undefined,
+  packageDetailsForm: {
+    sellerId: '',
+    title: '',
+    industry: [],
+    description: '',
+    visibility: dropdownPrivateOption.value,
+    isOpenToLicensing: false,
+    keywords: [],
+    // @ts-ignore
+    price: null,
+    showPricingPublicly: false
+  },
   setContact: {
     contacts: [],
     isSetContactModalOpen: false,

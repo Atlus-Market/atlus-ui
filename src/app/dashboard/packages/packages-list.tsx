@@ -2,6 +2,7 @@
 
 import { useAppSelector } from '@/redux/hooks';
 import { selectPackagesList } from '@/redux/features/packages/selectors/packages.selectors';
+import { AtlusTitle } from '@/components/ui/typography/atlus-title';
 
 export const PackagesList = () => {
   const packagesList = useAppSelector(selectPackagesList);
@@ -13,11 +14,19 @@ export const PackagesList = () => {
   }
 
   return (
-    <div>
+    <div className='p-4'>
+      <AtlusTitle text='Packages' />
       {packagesList.map(packageListItem => {
-        return (<div key={packageListItem.id}>{packageListItem.title}</div>);
-      })
-      }
+        return (
+          <div
+            className='cursor-pointer select-none'
+            key={packageListItem.id}
+            onClick={() => {
+            }}>
+            {packageListItem.title}
+          </div>
+        );
+      })}
     </div>
   );
 };

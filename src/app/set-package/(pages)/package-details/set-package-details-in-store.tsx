@@ -1,10 +1,11 @@
-import { ReactNode, useEffect } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { ReactNode, useEffect, useMemo } from 'react';
+import { useWatch } from 'react-hook-form';
 import { useAppDispatch } from '@/redux/hooks';
 import { setPackageDetails } from '@/redux/features/set-package/set-package';
 import {
   IPackageDetailsForm
 } from '@/app/set-package/(pages)/package-details/package-details-form';
+import { debounce } from 'lodash';
 
 interface UpdateFormInStoreProps {
   children: ReactNode;
@@ -12,13 +13,15 @@ interface UpdateFormInStoreProps {
 
 export const SetPackageDetailsInStore = ({ children }: UpdateFormInStoreProps) => {
   const dispatch = useAppDispatch();
-  const { getValues } = useFormContext();
+  const formValues = useWatch();
+
+  const saveFormValues = useMemo(() => debounce((formValues: IPackageDetailsForm) => {
+    dispatch(setPackageDetails(formValues));
+  }, 250), [dispatch]);
 
   useEffect(() => {
-    return () => {
-      dispatch(setPackageDetails(getValues() as IPackageDetailsForm));
-    };
-  }, [dispatch, getValues]);
+    saveFormValues(formValues as IPackageDetailsForm);
+  }, [saveFormValues, formValues]);
 
   return <>{children}</>;
 };
