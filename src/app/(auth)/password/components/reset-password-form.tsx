@@ -9,6 +9,7 @@ import { AtlusForm } from '@/components/ui/form/atlus-form';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { passwordValidator } from '@/components/ui/form/validators/password-validator';
 import { AtlusErrorMessage } from '@/components/ui/error-message/atlus-error-message';
+import { AtlusFormInputPassword } from '@/components/ui/form/atlus-form-input-password';
 
 export interface ResetPasswordFormSchema {
   password: string;
@@ -38,7 +39,7 @@ export const ResetPasswordForm = ({
 
   return (
     <AtlusForm formProps={formProps} onSubmit={onSubmit}>
-      <AtlusFormInput
+      <AtlusFormInputPassword
         label='New password'
         placeholder='Set a password'
         type='password'
