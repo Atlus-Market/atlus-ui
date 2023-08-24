@@ -10,10 +10,12 @@ import { saveOnboardingEmail } from '@/services/auth.service';
 import { DashboardRoute, VerifyEmailRoute } from '@/constants/routes';
 
 export const Login = () => {
+  const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const router = useRouter();
   const onSubmit = async ({ email, password }: LoginFormSchema) => {
     setErrorMessage(undefined);
+    setIsLoggingIn(true);
     const signInResult = await signIn('credentials',
       {
         email,
@@ -23,6 +25,7 @@ export const Login = () => {
     );
 
     if (signInResult?.error) {
+      setIsLoggingIn(false);
       try {
         const signInResponse = JSON.parse(signInResult?.error) as SignInResponse;
         if (signInResponse.status === StatusCodes.FORBIDDEN) {
@@ -41,6 +44,6 @@ export const Login = () => {
     router.replace(DashboardRoute);
   };
   return (
-    <LoginForm onSubmit={onSubmit} errorMessage={errorMessage} />
+    <LoginForm onSubmit={onSubmit} errorMessage={errorMessage} isSubmitting={isLoggingIn} />
   );
 };

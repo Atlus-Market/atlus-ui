@@ -26,15 +26,16 @@ const schema: ObjectSchema<LoginFormSchema> = object({
 interface LoginFormProps {
   onSubmit: (formValues: LoginFormSchema) => void;
   errorMessage?: string;
+  isSubmitting: boolean;
 }
 
-export const LoginForm = ({ onSubmit, errorMessage }: LoginFormProps) => {
+export const LoginForm = ({ onSubmit, errorMessage , isSubmitting}: LoginFormProps) => {
   const formProps = useAtlusForm<LoginFormSchema>({
     formOptions: {
       resolver: yupResolver(schema),
     }
   });
-  const { register, formState: { isSubmitting } } = formProps;
+  const { register } = formProps;
 
   return (
     <AtlusForm formProps={formProps} onSubmit={onSubmit}>
