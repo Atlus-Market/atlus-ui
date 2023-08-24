@@ -1,5 +1,7 @@
 .Toastify__toast-container {
-    width: auto;
+    width: fit-content;
+    right: 0;
+    left: unset;
 }
 
 .Toastify__toast-body {
@@ -18,3 +20,12 @@
 .Toastify__toast-icon {
     margin-right: 6px;
 }
+
+@media only screen and (max-width: 480px) {
+    .Toastify__toast-container--top-left,
+    .Toastify__toast-container--top-center,
+    .Toastify__toast-container--top-right {
+        top: 20px;
+    }
+}
+
