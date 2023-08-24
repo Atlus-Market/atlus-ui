@@ -27,7 +27,10 @@ export const UploadingDocumentStatus = ({
       )}
     >
       <div className="w-[50%]">
-        <FileName fileName={uploadingFileState.serializedFile.name} />
+        <FileName
+          fileName={uploadingFileState.serializedFile.name}
+          fileSize={uploadingFileState.serializedFile.size}
+        />
       </div>
       <div className="flex items-center w-full gap-6">
         <AtlusProgressBar progress={uploadingFileState.progress} />

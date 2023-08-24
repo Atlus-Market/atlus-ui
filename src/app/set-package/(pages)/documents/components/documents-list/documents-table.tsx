@@ -5,13 +5,12 @@ import { parseGMTDate } from '@/utils/date';
 import format from 'date-fns/format';
 import { FileName } from '@/components/common/file/file-name';
 import {
-  DocumentVisibility
-} from '@/app/set-package/(pages)/documents/components/documents-list/document-visibility';
-import {
-  RemoveDocumentButton
-} from '@/app/set-package/(pages)/documents/components/documents-list/remove-document-button';
-import { AtlusTooltip } from '@/components/ui/tooltip/atlus-tooltip';
-import { sortDocumentsByUploadedDate } from '@/utils/dataroom';
+  dropdownPrivateOption,
+  visibilityOptions
+} from '@/components/common/dropdown/visibility-options';
+import { AtlusDropdownList } from '@/components/ui/dropdown-list/atlus-dropdown-list';
+import { parseGMTDate } from '@/utils/date';
+import format from 'date-fns/format';
 
 interface DocumentsTableProps {
   dataroom: Dataroom;
@@ -23,53 +22,41 @@ const formatUploadedDate = (gmtString: string): string => {
   return uploadedDate ? format(uploadedDate, 'LLL dd, yyyy') : '-';
 };
 
-export const DocumentsTable = ({ dataroom, onDocumentChanged }: DocumentsTableProps) => {
-  const tooltipId = dataroom.id;
-
-  const sortedDocuments = useMemo(() => {
-    const documents = dataroom.directoryTree.children.filter(directory => directory.type === 'file');
-    return sortDocumentsByUploadedDate(documents);
-  }, [dataroom]);
-
+export const DocumentsTable = ({ dataroom }: DocumentsTableProps) => {
   return (
-    <>
-      <AtlusTooltip tooltipId={tooltipId} />
-      <div className='documents-grid-scroller'>
-        <div className='documents-grid'>
-          <div className='grid-header grid-first-header-col'>Name</div>
-          <div className='grid-header'>Date uploaded</div>
-          <div className='grid-header'>Visibility</div>
-          <div className='grid-header grid-last-header-col'>{' '}</div>
-          {sortedDocuments.map(document => (
-            <Fragment key={document.id}>
-              <div className='grid-entry'>
-                <FileName
-                  fileName={document.name}
-                  fileSize={document.size}
-                  showTooltip={false}
-                  tooltipId={tooltipId} />
-              </div>
-              <div className='grid-entry'>
+    <div className='documents-grid-scroller'>
+      <div className='documents-grid'>
+        <div className='grid-header grid-first-header-col'>Name</div>
+        <div className='grid-header'>Date uploaded</div>
+        <div className='grid-header'>Visibility</div>
+        <div className='grid-header grid-last-header-col'>{' '}</div>
+        {dataroom.map(document => (
+          <Fragment key={document.name}>
+            <div className='grid-entry'>
+              <FileName fileName={document.name} fileSize={document.size} />
+            </div>
+            <div className='grid-entry'>
               <span
                 className='text-soft-black text-sm'>{formatUploadedDate(document.dateUploaded)}</span>
-              </div>
-              <div className='grid-entry'>
-                <DocumentVisibility
-                  dataroomId={dataroom.id}
-                  documentId={document.id}
-                  isPrivate={document.private}
-                  onDocumentVisibilityChanged={() => onDocumentChanged?.(document.id)}
-                />
-              </div>
-              <div className='grid-entry flex'>
-                <RemoveDocumentButton
-                  dataroomId={dataroom.id}
-                  documentId={document.id}
-                />
-              </div>
-            </Fragment>
-          ))}
-        </div>
+            </div>
+            <div className='grid-entry'>
+              <AtlusDropdownList
+                placeholder='Visibility'
+                name='visibility'
+                options={visibilityOptions}
+                showDropdownIndicator={true}
+                isSearchable={false}
+                size='small'
+                defaultValue={dropdownPrivateOption.value}
+              />
+            </div>
+            <div className='grid-entry flex'>
+              <button>
+                <HiOutlineX />
+              </button>
+            </div>
+          </Fragment>
+        ))}
       </div>
     </>
   );
