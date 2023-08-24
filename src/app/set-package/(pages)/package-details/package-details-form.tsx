@@ -34,9 +34,9 @@ export interface IPackageDetailsForm {
   industryIds: string[];
   keywords: string[];
   visibility: string;
-  price: number;
-  isOpenToLicensing: boolean;
-  showPricingPublicly: boolean;
+  priceUsd: number;
+  openToLicensing: boolean;
+  showPublicPricing: boolean;
   sellerUserId: string;
 }
 
@@ -46,9 +46,9 @@ export const packageDetailsSchema: ObjectSchema<IPackageDetailsForm> = object({
   industryIds: array().min(1).required(RequiredField),
   keywords: array().min(1).required(RequiredField).typeError('Enter at least one keyword'),
   visibility: string().required(RequiredField),
-  price: number().min(1).required(RequiredField).typeError('Price must be greater than $1'),
-  isOpenToLicensing: boolean().default(false).required(RequiredField),
-  showPricingPublicly: boolean().default(false).required(RequiredField),
+  priceUsd: number().min(1).required(RequiredField).typeError('Price must be greater than $1'),
+  openToLicensing: boolean().default(false).required(RequiredField),
+  showPublicPricing: boolean().default(false).required(RequiredField),
   sellerUserId: string().default('').required(RequiredField)
 });
 
@@ -129,18 +129,18 @@ export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFor
               label='Price (in USD)'
               placeholder='Enter price'
               type='number'
-              {...register('price')}
+              {...register('priceUsd', { valueAsNumber: true })}
               leftCmp={<BiDollar size={16} />}
             />
 
             <AtlusFormCheckbox
-              {...register('isOpenToLicensing')}
+              {...register('openToLicensing')}
               wrapperClassName='mb-4 md:mb-6'
               label='This package is open to licensing.'
             />
 
             <AtlusFormCheckbox
-              {...register('showPricingPublicly')}
+              {...register('showPublicPricing')}
               wrapperClassName='mb-4 md:mb-6'
               label='Show pricing details publicly.'
             />

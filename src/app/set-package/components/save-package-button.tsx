@@ -10,8 +10,10 @@ import {
   selectIsPackageValid
 } from '@/redux/features/set-package/selectors/package-validility.selectors';
 import { showSuccessNotification } from '@/components/ui/notification/atlus-notification';
+import { setActivePackage } from '@/redux/features/set-package/set-package';
+import { Package } from '@/models/package';
 
-export const SetPackageButton = () => {
+export const SavePackageButton = () => {
   const dispatch = useAppDispatch();
   const isPersistingPackage = useAppSelector(selectIsPersistingPackage);
   const isPackageValid = useAppSelector(selectIsPackageValid);
@@ -22,6 +24,7 @@ export const SetPackageButton = () => {
         const res = await dispatch(persistPackage());
         if (res.payload) {
           showSuccessNotification({ text: 'Package saved successfully!' });
+          dispatch(setActivePackage(res.payload as Package));
         }
       }}
       isLoading={isPersistingPackage}

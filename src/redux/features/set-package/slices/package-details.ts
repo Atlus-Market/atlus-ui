@@ -22,11 +22,11 @@ export const packageDetailsInitialState: PackageDetailsState = {
     industryIds: [],
     description: '',
     visibility: dropdownPrivateOption.value,
-    isOpenToLicensing: false,
+    openToLicensing: false,
     keywords: [],
     // @ts-ignore
-    price: null,
-    showPricingPublicly: false
+    priceUsd: null,
+    showPublicPricing: false
   },
   setContact: {
     contacts: [],

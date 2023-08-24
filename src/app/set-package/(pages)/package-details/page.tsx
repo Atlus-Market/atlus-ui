@@ -5,7 +5,7 @@ import {
   GetInterestAreasResponse
 } from '@/api/interest-areas/get-interest-areas';
 import { SetPackageFooter } from '@/app/set-package/components/set-package-footer';
-import { SetPackageButton } from '@/app/set-package/components/set-package-button';
+import { SavePackageButton } from '@/app/set-package/components/save-package-button';
 
 export default async function PackageDetailsPage() {
   const interestAreasResponse: GetInterestAreasResponse = await getInterestAreas();
@@ -14,7 +14,7 @@ export default async function PackageDetailsPage() {
       <AtlusTitle text='Package Details' className='!font-normal !text-2xl mb-6' />
       <PackageDetails interestArea={interestAreasResponse.interestArea} />
       <SetPackageFooter>
-        <SetPackageButton />
+        <SavePackageButton />
       </SetPackageFooter>
     </div>
   );
