@@ -17,7 +17,7 @@ export const SelectPatentsNextButton = () => {
     <AtlusButton
       disabled={!hasSelectedPatents}
       onClick={() => {
-        dispatch(setPackagePatents([]));
+        dispatch(setPackagePatents());
         dispatch(hideAddPatentsModal());
       }}>
       Add to package

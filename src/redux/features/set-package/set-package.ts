@@ -87,7 +87,7 @@ export const setPackage = createSlice({
     },
 
     // After finishing selecting patents from the table
-    setPackagePatents: (state: SetPackageState, action: PayloadAction<Patent[]>) => {
+    setPackagePatents: (state: SetPackageState, action: PayloadAction<Patent[] | undefined>) => {
       const { tableSelectedPatentIds } = state.addPatents.selectPatentsState;
       const patents = state.addPatents.fetchedPatents.filter(patent => tableSelectedPatentIds.includes(patent.publicationNumber));
       state.patents = mergeArrays(
