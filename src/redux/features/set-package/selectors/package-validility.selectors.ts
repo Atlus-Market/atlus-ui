@@ -6,13 +6,13 @@ import {
   IPackageDetailsForm,
   packageDetailsSchema
 } from '@/app/set-package/(pages)/package-details/package-details-form';
-import { selectPatents } from '@/redux/features/set-package/selectors/set-package.selectors';
+import { selectPackagePatents } from '@/redux/features/set-package/selectors/set-package.selectors';
 
 export const selectIsPackageValid = createSelector(
-  selectPatents,
+  selectPackagePatents,
   selectPackageDetailsFormValues,
   (patents, packageDetails) => {
-    const hasPatents = Object.keys(patents).length > 0;
+    const hasPatents = patents.length > 0;
     return hasPatents && isPackageDetailsFormValid(packageDetails);
   }
 );

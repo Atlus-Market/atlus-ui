@@ -4,7 +4,7 @@ import { getPackage } from '@/api/package/get-package';
 import { Package } from '@/models/package';
 
 export const fetchPackage = createAsyncThunk<
-  Package | undefined,
+  Package,
   string,
   { state: RootState }
 >(

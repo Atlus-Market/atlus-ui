@@ -14,21 +14,22 @@ import {
   selectPatentsInitialState,
   SelectPatentsState
 } from '@/redux/features/set-package/slices/add-patents/slices/select-patents';
+import { mergeArrays } from '@/utils/patents';
 
 export interface AddPatentsState {
   isAddPatentsModalOpen: boolean;
   currentStep: AddPatentsStep;
   patents: Patent[], // Fetched from the API
-  enterPatents: EnterPatentsState;
-  selectPatents: SelectPatentsState;
+  enterPatentsState: EnterPatentsState;
+  selectPatentsState: SelectPatentsState;
 }
 
 export const addPatentsInitialState: AddPatentsState = {
   isAddPatentsModalOpen: false,
   currentStep: AddPatentsStep.EnterPatentsNumber,
   patents: [],
-  enterPatents: enterPatentsInitialState,
-  selectPatents: selectPatentsInitialState
+  enterPatentsState: enterPatentsInitialState,
+  selectPatentsState: selectPatentsInitialState
 };
 
 export const addPatentesReducer = {
@@ -44,20 +45,12 @@ export const addPatentesReducer = {
 
   // After finishing selecting patents from the table
   setPackagePatents: (state: SetPackageState) => {
-    const stateFamilyPatents = state.addPatents.selectPatents.selectedFamilyPatents;
-
-    Object.keys(stateFamilyPatents).forEach(familyId => {
-      const familyPatents = stateFamilyPatents[familyId] || [];
-      const patentsToAdd: Patent[] = [];
-
-      familyPatents.forEach((patent: Patent) => {
-        const hasPatent = familyPatents.find((p: Patent) => p.applicationNumber === patent.applicationNumber);
-        if (!hasPatent) {
-          patentsToAdd.push(patent);
-        }
-      });
-      state.familyPatents[familyId] = [...familyPatents, ...patentsToAdd];
-    });
+    const { tableSelectedPatentIds } = state.addPatents.selectPatentsState;
+    const patents = state.addPatents.patents.filter(patent => tableSelectedPatentIds.includes(patent.publicationNumber));
+    state.patents = mergeArrays(
+      state.patents,
+      patents,
+      (patent: Patent) => patent.publicationNumber);
   },
 
   // Replaces a Patent
@@ -72,3 +65,5 @@ export const addPatentesReducer = {
   ...enterPatentsReducer,
   ...selectPatentesReducer
 };
+
+

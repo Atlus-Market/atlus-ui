@@ -20,12 +20,12 @@ const selectAddPatentsState = createSelector(
 
 const selectEnterPatentsState = createSelector(
   selectAddPatentsState,
-  state => state.enterPatents
+  state => state.enterPatentsState
 );
 
-const selectSelectPatentsState = createSelector(
+const selectSelectedPatentsState = createSelector(
   selectAddPatentsState,
-  state => state.selectPatents
+  state => state.selectPatentsState
 );
 
 // Enter Patents State
@@ -81,33 +81,33 @@ export const selectFetchedPatents = createSelector(
 
 // Select Patents State
 
-export const selectSelectedFamilyPatents = createSelector(
-  selectSelectPatentsState,
-  state => state.selectedFamilyPatents
+export const selectTableSelectedPatentIds = createSelector(
+  selectSelectedPatentsState,
+  state => state.tableSelectedPatentIds
 );
 
 export const selectEditedPatentsIds = createSelector(
-  selectSelectPatentsState,
+  selectSelectedPatentsState,
   state => state.editedPatentsIds
 );
 
 export const selectRowSelectionState = createSelector(
-  selectSelectPatentsState,
+  selectSelectedPatentsState,
   state => state.rowSelectionState
 );
 
 export const selectIsSetPatentModalOpen = createSelector(
-  selectSelectPatentsState,
+  selectSelectedPatentsState,
   state => state.isSetPatentModalOpen
 );
 
 export const selectEditingPatentInfo = createSelector(
-  selectSelectPatentsState,
+  selectSelectedPatentsState,
   (selectPatentsState) => selectPatentsState.editingPatent
 );
 
 export const selectEditingPatent = createSelector(
-  selectSelectPatentsState,
+  selectSelectedPatentsState,
   selectFetchedPatents,
   (selectPatentsState, patents) => {
     return patents.find(patent => patent.publicationNumber === selectPatentsState.editingPatent?.publicationNumber);

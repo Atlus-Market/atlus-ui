@@ -23,14 +23,12 @@ export const DocumentsProvider = ({ children }: DocumentsProviderProps) => {
   const docsState = useAppSelector(selectDocumentsState);
   console.log('DocumentsState: ', docsState);
 
-  const { isLoading, data, error, ...rest } = useQuery({
+  const { fetchStatus, data, error, ...rest } = useQuery({
     queryKey: ['dataroom', dataroomId],
     queryFn: () => getDataroom(dataroomId),
     refetchOnWindowFocus: true,
     enabled: !!dataroomId // disable this query from automatically running if no dataroomId
   });
-
-  console.log('rest: ', rest);
 
   useEffect(() => {
     if (data) {
@@ -43,7 +41,7 @@ export const DocumentsProvider = ({ children }: DocumentsProviderProps) => {
     return <div>Error while loading dataroom id: {dataroomId}</div>;
   }
 
-  const isFetching = rest.fetchStatus === 'fetching';
+  const isFetching = fetchStatus === 'fetching';
   if (isFetching) {
     return <div>Loading dataroom...</div>;
   }

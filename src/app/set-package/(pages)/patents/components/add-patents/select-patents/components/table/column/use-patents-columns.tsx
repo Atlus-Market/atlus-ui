@@ -18,7 +18,7 @@ import {
 } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/patents-table';
 import {
   NO_FAMILY_GROUP_ID
-} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-group-patents-by-family';
+} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
 import { pluralize } from '@/utils/words';
 import { RowSelectionState } from '@tanstack/table-core/src/features/RowSelection';
 import { parseGMTDate } from '@/utils/date';

@@ -25,8 +25,8 @@ import {
 } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/table/column/use-patents-columns';
 import { Patent } from '@/models/patent';
 import {
-  useGroupPatentsByFamily
-} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-group-patents-by-family';
+  useTableGroupPatentsByFamily
+} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
 import {
   selectFetchedPatents,
   selectRowSelectionState
@@ -49,7 +49,7 @@ export type PatentTableData = TableData<Patent>;
 export const PatentsTable = () => {
   const fetchedPatents = useAppSelector(selectFetchedPatents);
   const rowSelectionState = useAppSelector(selectRowSelectionState);
-  const groupPatentsByFamily = useGroupPatentsByFamily({ patents: fetchedPatents });
+  const groupPatentsByFamily = useTableGroupPatentsByFamily({ patents: fetchedPatents });
   const dispatch = useAppDispatch();
   console.log('useGroupPatentsByFamily: ', groupPatentsByFamily);
 

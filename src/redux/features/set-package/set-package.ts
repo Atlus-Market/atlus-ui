@@ -21,12 +21,9 @@ import {
   createSetPackageExtraReducers
 } from '@/redux/features/set-package/set-package-extra-reducers';
 
-export type FamilyPatents = {
-  [familyId: string]: Patent[];
-}
 
 export interface SetPackageState {
-  familyPatents: FamilyPatents;
+  patents: Patent[];
 
   // Edit Patent
   isEditPatentModalOpen: boolean;
@@ -42,7 +39,7 @@ export interface SetPackageState {
 }
 
 const initialState: SetPackageState = {
-  familyPatents: {},
+  patents: [],
 
   // Edit Patent
   isEditPatentModalOpen: false,
@@ -68,7 +65,6 @@ export const setPackage = createSlice({
       state.addPatents.isAddPatentsModalOpen = false;
     },
 
-
     // Edit Patent
     showEditPatentModal: (state: SetPackageState, action: PayloadAction<{ patentId: string }>) => {
       state.isEditPatentModalOpen = true;
@@ -79,23 +75,14 @@ export const setPackage = createSlice({
     },
     updateSelectedPatent: (state: SetPackageState, action: PayloadAction<{ patent: Patent }>) => {
       const { patent } = action.payload;
-      const familyPatents = state.familyPatents[patent.familyId] || [];
-      const filteredPatents = familyPatents.filter(p => p.publicationNumber !== patent.publicationNumber);
-      filteredPatents.push(patent);
-      state.familyPatents[patent.familyId] = filteredPatents;
+      state.patents = state.patents.filter(p => p.publicationNumber !== patent.publicationNumber);
+      state.patents.push(patent);
     },
     deletePatent: (
       state: SetPackageState, action: PayloadAction<{ patentId: string }>
     ) => {
       const { patentId } = action.payload;
-      const familyId = Object.keys(state.familyPatents).find(familyId => state.familyPatents[familyId].find(patent => patent.publicationNumber === patentId));
-      if (!familyId) {
-        return state;
-      }
-      state.familyPatents[familyId] = state.familyPatents[familyId].filter(patent => patent.publicationNumber !== patentId);
-      if (state.familyPatents[familyId].length === 0) {
-        delete state.familyPatents[familyId];
-      }
+      state.patents = state.patents.filter(p => p.publicationNumber !== patentId);
     },
 
     // set active package
@@ -129,7 +116,7 @@ export const {
   setAddPatentsStep,
   setAddPatentsActiveTab,
   updateEnterPatentsIdsManuallyForm,
-  selectPatents,
+  setSelectedTablePatentIds,
   setPackagePatents,
   setPatents,
   setRowSelectionState,

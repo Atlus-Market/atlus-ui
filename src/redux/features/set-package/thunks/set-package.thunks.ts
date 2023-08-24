@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '@/redux/store';
-import { selectPatents } from '@/redux/features/set-package/selectors/set-package.selectors';
-import { FamilyPatents } from '@/redux/features/set-package/set-package';
 import {
   selectPackageDetailsFormValues
 } from '@/redux/features/set-package/selectors/package-details.selectors';
 import { createPackage, CreatePackagePayload } from '@/api/package/create-package';
 import { Package } from '@/models/package';
+import { Patent } from '@/models/patent';
+import { selectPackagePatents } from '@/redux/features/set-package/selectors/set-package.selectors';
 
 export const persistPackage = createAsyncThunk<
   Package,
@@ -16,9 +16,9 @@ export const persistPackage = createAsyncThunk<
   async (args, thunkAPI) => {
     try {
       const { getState } = thunkAPI;
-      const familyPatents: FamilyPatents = selectPatents(getState());
-      const patentsIds = getPatentsIds(familyPatents);
-      console.log('familyPatents: ', familyPatents);
+      const patents: Patent[] = selectPackagePatents(getState());
+      const patentsIds = patents.map(p => p.publicationNumber);
+      console.log('patents: ', patents);
       console.log('getPatentsIds: ', patentsIds);
 
       const packageDetails = selectPackageDetailsFormValues(getState());
@@ -41,7 +41,3 @@ export const persistPackage = createAsyncThunk<
     }
   }
 );
-
-const getPatentsIds = (familyPatents: FamilyPatents): string[] => {
-  return Object.values(familyPatents).flatMap(patents => patents.map(patent => patent.publicationNumber));
-};

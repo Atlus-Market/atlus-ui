@@ -15,7 +15,7 @@ import {
 import { Patent } from '@/models/patent';
 import {
   NO_FAMILY_GROUP_ID
-} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-group-patents-by-family';
+} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
 
 
 const createPatentManually = (patentData: Partial<Patent>): Patent => ({

@@ -9,7 +9,6 @@ import { PayloadAction } from '@reduxjs/toolkit';
 
 export type EnterPatentsIdsManuallyForm = EnterPatentsState[EnterPatentsNumberTab.EnterManually]['form'];
 
-
 export interface EnterPatentsState {
   activeTab: EnterPatentsNumberTab;
   [EnterPatentsNumberTab.EnterManually]: {
@@ -44,9 +43,9 @@ export const enterPatentsInitialState: EnterPatentsState = {
 
 export const enterPatentsReducer = {
   setAddPatentsActiveTab: (state: SetPackageState, action: PayloadAction<EnterPatentsNumberTab>) => {
-    state.addPatents.enterPatents.activeTab = action.payload;
+    state.addPatents.enterPatentsState.activeTab = action.payload;
   },
   updateEnterPatentsIdsManuallyForm: (state: SetPackageState, action: PayloadAction<EnterPatentsIdsManuallyForm>) => {
-    state.addPatents.enterPatents[EnterPatentsNumberTab.EnterManually].form = action.payload;
+    state.addPatents.enterPatentsState[EnterPatentsNumberTab.EnterManually].form = action.payload;
   }
 };

@@ -1,7 +1,6 @@
 'use client';
 
 import { useAppSelector } from '@/redux/hooks';
-import { selectPatents } from '@/redux/features/set-package/selectors/set-package.selectors';
 import { NoPatents } from '@/app/set-package/(pages)/patents/components/no-patents';
 import {
   useFamilyPatentsHelper
@@ -14,10 +13,15 @@ import { AtlusButton } from '@/components/ui/button/atlus-button';
 import Link from 'next/link';
 import { SetPackagePackageDetails } from '@/constants/routes';
 import { SetPackageFooter } from '@/app/set-package/components/set-package-footer';
+import { selectPackagePatents } from '@/redux/features/set-package/selectors/set-package.selectors';
+import {
+  useGroupPatentsByFamilyId
+} from '@/app/set-package/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
 
 export const PatentsFamilyList = () => {
-  const familyPatents = useAppSelector(selectPatents);
-  const { familiesCount, patentsCount, familyIds } = useFamilyPatentsHelper(familyPatents);
+  const patents = useAppSelector(selectPackagePatents);
+  const familyIdPatentsGroup = useGroupPatentsByFamilyId({ patents });
+  const { familiesCount, patentsCount, familyIds } = useFamilyPatentsHelper(patents);
 
   if (!familiesCount) {
     return <NoPatents />;
@@ -28,7 +32,8 @@ export const PatentsFamilyList = () => {
       <Header familiesCount={familiesCount} patentsCount={patentsCount} />
       <div>
         {familyIds.map(familyId => (
-          <PatentsFamily key={familyId} familyId={familyId} patents={familyPatents[familyId]} />
+          <PatentsFamily key={familyId} familyId={familyId}
+                         patents={familyIdPatentsGroup[familyId]} />
         ))}
       </div>
       <SetPackageFooter>

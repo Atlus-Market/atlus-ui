@@ -1,17 +1,14 @@
 'use client';
 
 import { useSelector } from 'react-redux';
-import {
-  selectSelectedFamilyPatents
-} from '@/redux/features/set-package/selectors/add-patents.selectors';
 import { pluralize } from '@/utils/words';
 import {
-  useFamilyPatentsHelper
-} from '@/app/set-package/(pages)/patents/hooks/use-family-patents-helper';
+  selectTableSelectedPatentIds
+} from '@/redux/features/set-package/selectors/add-patents.selectors';
 
 export const SelectedPatents = () => {
-  const selectedFamilyPatents = useSelector(selectSelectedFamilyPatents);
-  const { patentsCount } = useFamilyPatentsHelper(selectedFamilyPatents);
+  const selectedPatentIds = useSelector(selectTableSelectedPatentIds);
+  const patentsCount = selectedPatentIds.length;
 
   if (!patentsCount) {
     return null;

@@ -1,5 +1,4 @@
-import { Patent } from '@/models/patent';
-import { FamilyPatents, SetPackageState } from '@/redux/features/set-package/set-package';
+import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 export type PatentsRowSelectionState = Record<string, boolean>
@@ -12,7 +11,7 @@ export interface EditingPatent {
 export interface SelectPatentsState {
   isSetPatentModalOpen: boolean;
   editingPatent: EditingPatent | undefined;
-  selectedFamilyPatents: FamilyPatents;
+  tableSelectedPatentIds: string[];
   editedPatentsIds: string[]; // Patents IDs that were edited manually
   rowSelectionState: PatentsRowSelectionState;
 }
@@ -20,42 +19,37 @@ export interface SelectPatentsState {
 export const selectPatentsInitialState: SelectPatentsState = {
   isSetPatentModalOpen: false,
   editingPatent: undefined,
-  selectedFamilyPatents: {},
+  tableSelectedPatentIds: [],
   editedPatentsIds: [],
   rowSelectionState: {}
 };
 
 export const selectPatentesReducer = {
   // Set Patents from the table
-  selectPatents: (state: SetPackageState, action: PayloadAction<{ patents: Patent[] }>) => {
-    const familyPatents: FamilyPatents = {};
-    action.payload.patents.forEach(patent => {
-      const currentPatents = familyPatents[patent.familyId] || [];
-      familyPatents[patent.familyId] = [...currentPatents, patent];
-    });
-    state.addPatents.selectPatents.selectedFamilyPatents = familyPatents;
+  setSelectedTablePatentIds: (state: SetPackageState, action: PayloadAction<{ patentIds: string[] }>) => {
+    state.addPatents.selectPatentsState.tableSelectedPatentIds = action.payload.patentIds;
   },
   showSetPatentModal: (state: SetPackageState) => {
-    state.addPatents.selectPatents.isSetPatentModalOpen = true;
+    state.addPatents.selectPatentsState.isSetPatentModalOpen = true;
   },
   hideSetPatentModal: (state: SetPackageState) => {
-    state.addPatents.selectPatents.isSetPatentModalOpen = false;
+    state.addPatents.selectPatentsState.isSetPatentModalOpen = false;
   },
   setEditingPatent: (state: SetPackageState, action: PayloadAction<EditingPatent>) => {
-    state.addPatents.selectPatents.editingPatent = action.payload;
+    state.addPatents.selectPatentsState.editingPatent = action.payload;
   },
   setEditedPatent: (state: SetPackageState, action: PayloadAction<{ patentId: string }>) => {
-    if (state.addPatents.selectPatents.editedPatentsIds.includes(action.payload.patentId)) {
+    if (state.addPatents.selectPatentsState.editedPatentsIds.includes(action.payload.patentId)) {
       return state;
     }
-    state.addPatents.selectPatents.editedPatentsIds = [
-      ...state.addPatents.selectPatents.editedPatentsIds,
+    state.addPatents.selectPatentsState.editedPatentsIds = [
+      ...state.addPatents.selectPatentsState.editedPatentsIds,
       action.payload.patentId
     ];
   },
   setRowSelectionState: (
     state: SetPackageState,
     action: PayloadAction<{ rowSelectionState: PatentsRowSelectionState }>) => {
-    state.addPatents.selectPatents.rowSelectionState = action.payload.rowSelectionState;
+    state.addPatents.selectPatentsState.rowSelectionState = action.payload.rowSelectionState;
   }
 };

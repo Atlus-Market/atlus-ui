@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   PatentTableData
 } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/patents-table';
-import { selectPatents } from '@/redux/features/set-package/set-package';
+import { setSelectedTablePatentIds } from '@/redux/features/set-package/set-package';
 import {
   selectRowSelectionState
 } from '@/redux/features/set-package/selectors/add-patents.selectors';
@@ -20,12 +20,12 @@ export const useSetSelectedPatents = ({ table }: UseSetSelectedPatentsProps) => 
   const rowsById = table.getRowModel().rowsById;
 
   useEffect(() => {
-    const patents = Object.keys(rowSelectionState)
+    const patentIds = Object.keys(rowSelectionState)
       .filter(rowId => rowSelectionState[rowId]) // Keep rows with true selection value
       .map(rowId => rowsById[rowId])// get the rows
       .filter(row => !!row.getParentRow()) // filter parent Rows
-      .map(row => row.original); // get original patent from child row
+      .map(row => row.original.publicationNumber); // get original patent from child row
 
-    dispatch(selectPatents({ patents }));
+    dispatch(setSelectedTablePatentIds({ patentIds }));
   }, [dispatch, rowsById, rowSelectionState]);
 };

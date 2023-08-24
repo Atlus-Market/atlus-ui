@@ -6,7 +6,7 @@ import {
 } from '@/app/set-package/(pages)/patents/components/patents-family-list/patents/patent';
 import {
   NO_FAMILY_GROUP_ID
-} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-group-patents-by-family';
+} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
 import { useState } from 'react';
 import { HiChevronDown, HiChevronUp } from 'react-icons/hi2';
 import { HiOutlineDotsVertical } from 'react-icons/hi';

@@ -3,8 +3,9 @@ import {
   PatentTableData
 } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/patents-table';
 import { useMemo } from 'react';
-import { groupBy } from 'lodash';
-import { sortPatentsByPublicationNumber } from '@/utils/patents';
+import {
+  useGroupPatentsByFamilyId
+} from '@/app/set-package/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
 
 interface UseGroupPatentsByFamilyProps {
   patents: Patent[];
@@ -12,14 +13,11 @@ interface UseGroupPatentsByFamilyProps {
 
 export const NO_FAMILY_GROUP_ID = 'NO_FAMILY_GROUP_ID';
 
-export const useGroupPatentsByFamily = ({ patents }: UseGroupPatentsByFamilyProps): PatentTableData[] => {
-  return useMemo(() => {
-    const groupedPatents = groupBy(patents, (patent: Patent) => patent.familyId);
-    const familyIdKeys = Object.keys(groupedPatents);
+export const useTableGroupPatentsByFamily = ({ patents }: UseGroupPatentsByFamilyProps): PatentTableData[] => {
+  const groupedPatents = useGroupPatentsByFamilyId({ patents });
 
-    familyIdKeys.forEach(familyIdKey => {
-      groupedPatents[familyIdKey] = sortPatentsByPublicationNumber(groupedPatents[familyIdKey]);
-    });
+  return useMemo(() => {
+    const familyIdKeys = Object.keys(groupedPatents);
 
     return familyIdKeys.map(familyIdKey => ({
       familyId: familyIdKey,
@@ -33,5 +31,5 @@ export const useGroupPatentsByFamily = ({ patents }: UseGroupPatentsByFamilyProp
       applicationNumber: '',
       subRows: groupedPatents[familyIdKey]
     }));
-  }, [patents]);
+  }, [groupedPatents]);
 };

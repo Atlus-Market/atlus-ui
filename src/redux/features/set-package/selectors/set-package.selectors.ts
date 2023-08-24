@@ -1,12 +1,11 @@
 import { createSelector } from 'reselect';
 import { RootState } from '@/redux/store';
-import { Patent } from '@/models/patent';
 
 export const selectSetPackageState = (state: RootState) => state.setPackageReducer;
 
-export const selectPatents = createSelector(
+export const selectPackagePatents = createSelector(
   selectSetPackageState,
-  state => state.familyPatents
+  state => state.patents
 );
 
 // Edit Patent
@@ -19,7 +18,7 @@ export const selectIsEditPatentModalOpen = createSelector(
 export const selectPatentsListEditingPatent = createSelector(
   selectSetPackageState,
   state => {
-    const patents = Object.values(state.familyPatents).flatMap((patents: Patent[]) => patents);
+    const patents = state.patents;
     return patents.find(patent => patent.publicationNumber === state.editingPatentId);
   }
 );
@@ -27,4 +26,9 @@ export const selectPatentsListEditingPatent = createSelector(
 export const selectIsPersistingPackage = createSelector(
   selectSetPackageState,
   state => state.isPersistingPackage
+);
+
+export const selectPackage = createSelector(
+  selectSetPackageState,
+  state => state.package
 );

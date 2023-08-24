@@ -1,11 +1,16 @@
-import { FamilyPatents } from '@/redux/features/set-package/set-package';
 import { useMemo } from 'react';
+import { Patent } from '@/models/patent';
+import {
+  useGroupPatentsByFamilyId
+} from '@/app/set-package/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
 
-export const useFamilyPatentsHelper = (familyPatents: FamilyPatents) => {
+export const useFamilyPatentsHelper = (patents: Patent[]) => {
+  const groupedPatents = useGroupPatentsByFamilyId({ patents });
+
   return useMemo(() => {
-    const familyIds = Object.keys(familyPatents);
+    const familyIds = Object.keys(groupedPatents);
     const familiesCount = familyIds.length;
-    const patentsCount = Object.values(familyPatents).reduce((count, patents) => {
+    const patentsCount = Object.values(groupedPatents).reduce((count, patents) => {
       return count + patents.length;
     }, 0);
 
@@ -14,5 +19,5 @@ export const useFamilyPatentsHelper = (familyPatents: FamilyPatents) => {
       familiesCount,
       patentsCount
     };
-  }, [familyPatents]);
+  }, [groupedPatents]);
 };

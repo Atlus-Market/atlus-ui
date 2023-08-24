@@ -4,7 +4,7 @@ import { Patent as PatentModel } from '@/models/patent';
 import { HiPencil, HiTrash } from 'react-icons/hi2';
 import {
   NO_FAMILY_GROUP_ID
-} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-group-patents-by-family';
+} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
 import { useAppDispatch } from '@/redux/hooks';
 import { deletePatent, showEditPatentModal } from '@/redux/features/set-package/set-package';
 
