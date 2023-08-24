@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { PackageListItem } from '@/models/package-list-item';
+import { getPackageExtraReducers } from '@/redux/features/packages/packages-extra-reducers';
 
 
 export interface PackagesState {
@@ -21,6 +22,7 @@ export const packages = createSlice({
   },
 
   extraReducers: (builder) => {
+    getPackageExtraReducers(builder);
   }
 });
 

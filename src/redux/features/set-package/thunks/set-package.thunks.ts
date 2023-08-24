@@ -6,9 +6,10 @@ import {
   selectPackageDetailsFormValues
 } from '@/redux/features/set-package/selectors/package-details.selectors';
 import { createPackage, CreatePackagePayload } from '@/api/package/create-package';
+import { Package } from '@/models/package';
 
 export const persistPackage = createAsyncThunk<
-  void,
+  Package,
   void,
   { state: RootState }>(
   'setPackage/persist',
@@ -24,23 +25,22 @@ export const persistPackage = createAsyncThunk<
       console.log('packageDetails: ', packageDetails);
 
       const payload: CreatePackagePayload = {
-        seller_user_id: packageDetails.sellerId,
-        title: packageDetails.title,
-        description: packageDetails.description,
+        ...packageDetails,
         keywords: packageDetails.keywords.join(','),
-        industry_id: parseInt(packageDetails.industry[0], 10),
+        industryIds: packageDetails.industryIds.map(id => parseInt(id, 10)),
         visibility: packageDetails.visibility ? 1 : 0,
         patents: patentsIds,
         custom_patents: []
       };
       const res = await createPackage(payload);
       console.log('Set package Response: ', res);
+      return res.package;
     } catch (e) {
       console.error(e);
+      throw e;
     }
   }
 );
-
 
 const getPatentsIds = (familyPatents: FamilyPatents): string[] => {
   return Object.values(familyPatents).flatMap(patents => patents.map(patent => patent.publicationNumber));

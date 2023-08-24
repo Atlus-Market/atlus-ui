@@ -31,25 +31,25 @@ import { visibilityOptions } from '@/components/common/dropdown/visibility-optio
 export interface IPackageDetailsForm {
   title: string;
   description: string;
-  industry: string[];
+  industryIds: string[];
   keywords: string[];
   visibility: string;
   price: number;
   isOpenToLicensing: boolean;
   showPricingPublicly: boolean;
-  sellerId: string;
+  sellerUserId: string;
 }
 
 export const packageDetailsSchema: ObjectSchema<IPackageDetailsForm> = object({
   title: string().default('').trim().required(RequiredField),
   description: string().default('').trim().required(RequiredField),
-  industry: array().min(1).required(RequiredField),
+  industryIds: array().min(1).required(RequiredField),
   keywords: array().min(1).required(RequiredField).typeError('Enter at least one keyword'),
   visibility: string().required(RequiredField),
   price: number().min(1).required(RequiredField).typeError('Price must be greater than $1'),
   isOpenToLicensing: boolean().default(false).required(RequiredField),
   showPricingPublicly: boolean().default(false).required(RequiredField),
-  sellerId: string().default('').required(RequiredField)
+  sellerUserId: string().default('').required(RequiredField)
 });
 
 export interface PackageDetailsFormProps {
@@ -95,9 +95,9 @@ export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFor
             />
 
             <AtlusFormDropdownList
-              label='Industry'
+              label='Industries'
               placeholder='Choose an industry'
-              name='industry'
+              name='industryIds'
               options={interestAreasOptions}
               showDropdownIndicator={true}
               isMulti={true}
@@ -152,7 +152,7 @@ export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFor
             </div>
             <Controller
               control={control}
-              name='sellerId'
+              name='sellerUserId'
               render={({ field: { name, onChange, value } }) => (
                 <ContactsSelector onSellerSelected={onChange} selectedSellerId={value} />
               )}

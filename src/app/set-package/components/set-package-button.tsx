@@ -9,6 +9,7 @@ import {
 import {
   selectIsPackageValid
 } from '@/redux/features/set-package/selectors/package-validility.selectors';
+import { showSuccessNotification } from '@/components/ui/notification/atlus-notification';
 
 export const SetPackageButton = () => {
   const dispatch = useAppDispatch();
@@ -17,7 +18,12 @@ export const SetPackageButton = () => {
 
   return (
     <AtlusButton
-      onClick={() => dispatch(persistPackage())}
+      onClick={async () => {
+        const res = await dispatch(persistPackage());
+        if (res.payload) {
+          showSuccessNotification({ text: 'Package created successfully' });
+        }
+      }}
       isLoading={isPersistingPackage}
       disabled={!isPackageValid}>
       Save

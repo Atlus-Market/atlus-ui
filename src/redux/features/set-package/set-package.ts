@@ -98,6 +98,11 @@ export const setPackage = createSlice({
       }
     },
 
+    // set active package
+    setActivePackage: (state: SetPackageState, action: PayloadAction<Package>) => {
+      state.package = action.payload;
+    },
+
     ...addPatentesReducer,
     ...packageDetailsReducer,
     ...documentsReducer
@@ -113,6 +118,7 @@ export const setPackage = createSlice({
 export const {
   reset,
   resetAddPatents,
+  setActivePackage,
   showEditPatentModal,
   hideEditPatentModal,
   updateSelectedPatent,

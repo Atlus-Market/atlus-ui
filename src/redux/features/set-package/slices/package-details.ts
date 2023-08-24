@@ -17,9 +17,9 @@ export interface PackageDetailsState {
 
 export const packageDetailsInitialState: PackageDetailsState = {
   packageDetailsForm: {
-    sellerId: '',
+    sellerUserId: '',
     title: '',
-    industry: [],
+    industryIds: [],
     description: '',
     visibility: dropdownPrivateOption.value,
     isOpenToLicensing: false,

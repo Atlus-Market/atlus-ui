@@ -31,7 +31,6 @@ export const uploadPackageDocument = createAsyncThunk(
       console.log('File Upload Response: ', res);
     } catch (e) {
       console.error(e);
-      console.log('thunkAPI.signal: ', thunkAPI.signal);
     }
   }
 );

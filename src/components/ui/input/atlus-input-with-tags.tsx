@@ -27,14 +27,14 @@ export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTag
       if (event.key === 'Enter') {
         event.preventDefault();
         event.stopPropagation();
-        const value = (event.target as HTMLInputElement).value;
-        if (value?.trim().length > 0) {
+        const value = (event.target as HTMLInputElement).value?.trim();
+        if (value?.length > 0) {
           if (inputRef.current) {
             inputRef.current.value = '';
           }
           setTags([
             ...tags,
-            value
+            value.replace(/[^a-z0-9]/gi, '')
           ]);
         }
       }
