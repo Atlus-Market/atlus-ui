@@ -29,12 +29,12 @@ export default async function DocumentsPage() {
         <DocumentsSelector />
         <DocumentsUploader />
         <DocumentsList />
+        <SetPackageFooter>
+          <Link href={DashboardRoute}>
+            <AtlusButton>View Package</AtlusButton>
+          </Link>
+        </SetPackageFooter>
       </DocumentsProvider>
-      <SetPackageFooter>
-        <Link href={DashboardRoute}>
-          <AtlusButton>View Package</AtlusButton>
-        </Link>
-      </SetPackageFooter>
     </div>
   );
 }

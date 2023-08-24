@@ -7,9 +7,12 @@ import {
   SetPackagePackageDetails,
   SetPackagePatent
 } from '@/constants/routes';
+import { useAppSelector } from '@/redux/hooks';
+import { selectPackage } from '@/redux/features/set-package/selectors/set-package.selectors';
 
 export const Sidebar = () => {
   const pathname = usePathname();
+  const activePackage = useAppSelector(selectPackage);
   return (
     <div className='pt-[99px] p-4 [&>*:not(:last-child)]:mb-4'>
       <SidebarItem
@@ -29,6 +32,7 @@ export const Sidebar = () => {
         text='Documents'
         href={SetPackageDocuments}
         isActive={pathname === SetPackageDocuments}
+        disabled={!activePackage}
       />
     </div>
   );

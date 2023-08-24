@@ -2,7 +2,7 @@ import { createRequest, ProtectedEndpoint } from '@/api/api';
 import { Package } from '@/models/package';
 
 export interface CustomPatent {
-  patentNumber: string;
+  patent_number: string;
   application_number: string;
   title: string;
   status: string;
@@ -18,7 +18,7 @@ export interface CreatePackageRequestPayload {
   industryIds: number[];
   visibility: 0 | 1; // true|false
   patents: string[]; // patents IDs
-  custom_patents: CustomPatent[];
+  customPatents: CustomPatent[];
 }
 
 interface CreatePackageResponsePayload {

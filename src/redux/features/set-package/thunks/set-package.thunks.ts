@@ -3,7 +3,11 @@ import { RootState } from '@/redux/store';
 import {
   selectPackageDetailsFormValues
 } from '@/redux/features/set-package/selectors/package-details.selectors';
-import { createPackage, CreatePackageRequestPayload } from '@/api/package/create-package';
+import {
+  createPackage,
+  CreatePackageRequestPayload,
+  CustomPatent
+} from '@/api/package/create-package';
 import { Package } from '@/models/package';
 import { Patent } from '@/models/patent';
 import {
@@ -11,6 +15,9 @@ import {
   selectPackagePatents
 } from '@/redux/features/set-package/selectors/set-package.selectors';
 import { updatePackage } from '@/api/package/update-package';
+import {
+  NO_FAMILY_GROUP_ID
+} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
 
 export const persistPackage = createAsyncThunk<
   Package,
@@ -35,7 +42,7 @@ export const persistPackage = createAsyncThunk<
         industryIds: packageDetails.industryIds.map(id => parseInt(id, 10)),
         visibility: packageDetails.visibility ? 1 : 0,
         patents: patentsIds,
-        custom_patents: []
+        customPatents: getCustomPatents(patents)
       };
 
       if (activePackage) {
@@ -57,3 +64,16 @@ export const persistPackage = createAsyncThunk<
     }
   }
 );
+
+
+const getCustomPatents = (patents: Patent[]): CustomPatent[] => {
+  return patents.filter(p => p.familyId === NO_FAMILY_GROUP_ID)
+    .map(patent => ({
+      patent_number: patent.publicationNumber,
+      application_date: patent.applicationReferenceEpodoc.date,
+      application_number: patent.applicationNumber,
+      assignee: patent.applicantsOriginal.join(','),
+      status: patent.status,
+      title: patent.title
+    }));
+};

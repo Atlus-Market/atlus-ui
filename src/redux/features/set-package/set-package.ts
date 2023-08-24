@@ -75,11 +75,11 @@ export const setPackage = createSlice({
     hideEditPatentModal: (state: SetPackageState) => {
       state.isEditPatentModalOpen = false;
     },
-    // updateSelectedPatent: (state: SetPackageState, action: PayloadAction<{ patent: Patent }>) => {
-    //   const { patent } = action.payload;
-    //   state.patents = state.patents.filter(p => p.publicationNumber !== patent.publicationNumber);
-    //   state.patents.push(patent);
-    // },
+    updateSelectedPatent: (state: SetPackageState, action: PayloadAction<{ patent: Patent }>) => {
+      const { patent } = action.payload;
+      state.patents = state.patents.filter(p => p.publicationNumber !== patent.publicationNumber);
+      state.patents.push(patent);
+    },
     deletePatent: (
       state: SetPackageState, action: PayloadAction<{ patentId: string }>
     ) => {
@@ -126,7 +126,7 @@ export const {
   setActivePackage,
   showEditPatentModal,
   hideEditPatentModal,
-  // updateSelectedPatent,
+  updateSelectedPatent,
   deletePatent,
   updatePatent,
   showAddPatentsModal,

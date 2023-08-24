@@ -36,6 +36,10 @@ export const DocumentsProvider = ({ children }: DocumentsProviderProps) => {
     }
   }, [data, dispatch]);
 
+  if (!dataroomId) {
+    return (<div>You must create a package first to upload files.</div>);
+  }
+
   if (error) {
     console.log(error);
     return <div>Error while loading dataroom id: {dataroomId}</div>;
