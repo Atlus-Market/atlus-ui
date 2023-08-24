@@ -1,4 +1,4 @@
-import { geologica } from '@/components/ui/theme/fonts';
+import { inter } from '@/components/ui/theme/fonts';
 
 interface TitleProps {
   text: string;
@@ -8,7 +8,7 @@ interface TitleProps {
 
 export const AtlusSubTitle = ({ text, className }: TitleProps) => {
   return (
-    <h3 className={`text-[13px] md:text-[18px] ${className} ${geologica.className}`}>
+    <h3 className={`text-[13px] md:text-[18px] ${className} ${inter.className}`}>
       {text}
     </h3>
   );
