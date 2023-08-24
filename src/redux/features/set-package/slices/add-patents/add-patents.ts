@@ -19,7 +19,7 @@ import { mergeArrays } from '@/utils/patents';
 export interface AddPatentsState {
   isAddPatentsModalOpen: boolean;
   currentStep: AddPatentsStep;
-  patents: Patent[], // Fetched from the API
+  fetchedPatents: Patent[], // Fetched from the API
   enterPatentsState: EnterPatentsState;
   selectPatentsState: SelectPatentsState;
 }
@@ -27,7 +27,7 @@ export interface AddPatentsState {
 export const addPatentsInitialState: AddPatentsState = {
   isAddPatentsModalOpen: false,
   currentStep: AddPatentsStep.EnterPatentsNumber,
-  patents: [],
+  fetchedPatents: [],
   enterPatentsState: enterPatentsInitialState,
   selectPatentsState: selectPatentsInitialState
 };
@@ -40,13 +40,13 @@ export const addPatentesReducer = {
     state.addPatents.currentStep = action.payload;
   },
   setPatents: (state: SetPackageState, action: PayloadAction<{ patents: Patent[] }>) => {
-    state.addPatents.patents = action.payload.patents;
+    state.addPatents.fetchedPatents = action.payload.patents;
   },
 
   // After finishing selecting patents from the table
   setPackagePatents: (state: SetPackageState) => {
     const { tableSelectedPatentIds } = state.addPatents.selectPatentsState;
-    const patents = state.addPatents.patents.filter(patent => tableSelectedPatentIds.includes(patent.publicationNumber));
+    const patents = state.addPatents.fetchedPatents.filter(patent => tableSelectedPatentIds.includes(patent.publicationNumber));
     state.patents = mergeArrays(
       state.patents,
       patents,
@@ -55,8 +55,8 @@ export const addPatentesReducer = {
 
   // Replaces a Patent
   updatePatent: (state: SetPackageState, action: PayloadAction<{ patent: Patent }>) => {
-    const patents = state.addPatents.patents.filter((patent: Patent) => patent.publicationNumber !== action.payload.patent.publicationNumber);
-    state.addPatents.patents = [
+    const patents = state.addPatents.fetchedPatents.filter((patent: Patent) => patent.publicationNumber !== action.payload.patent.publicationNumber);
+    state.addPatents.fetchedPatents = [
       ...patents,
       action.payload.patent
     ];

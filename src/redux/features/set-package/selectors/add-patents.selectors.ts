@@ -76,7 +76,7 @@ export const selectActivePatentsIds = createSelector(
 
 export const selectFetchedPatents = createSelector(
   selectAddPatentsState,
-  (state) => state.patents
+  (state) => state.fetchedPatents
 );
 
 // Select Patents State
