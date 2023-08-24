@@ -16,15 +16,12 @@ export const ManageEditedPatent = ({ patent }: ManageEditedPatentProps) => {
   const isCreatedManually = patent.familyId === NO_FAMILY_GROUP_ID;
   const dispatch = useAppDispatch();
 
-  if (!isCreatedManually) {
-    return null;
-  }
   return (
     <div className='flex items-start gap-2'>
-      <button
+      {isCreatedManually && <button
         onClick={() => dispatch(showEditPatentModal({ patentId: patent.publicationNumber }))}>
         <HiPencil className='text-middle-grey' />
-      </button>
+      </button>}
       <button
         onClick={() => dispatch(deletePatent({ patentId: patent.publicationNumber }))}>
         <HiTrash className='text-middle-grey' />

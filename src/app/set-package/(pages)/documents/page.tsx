@@ -16,10 +16,13 @@ import { SetPackageFooter } from '@/app/set-package/components/set-package-foote
 import Link from 'next/link';
 import { DashboardRoute } from '@/constants/routes';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
+import {
+  DocumentsPageValidator
+} from '@/app/set-package/(pages)/documents/documents-page-validator';
 
 export default async function DocumentsPage() {
   return (
-    <div>
+    <DocumentsPageValidator>
       <AtlusTitle text='Documents' className='!font-normal !text-2xl mb-3' />
       <AtlusSubTitle
         text='Include files and attachments in your package'
@@ -35,6 +38,6 @@ export default async function DocumentsPage() {
           </Link>
         </SetPackageFooter>
       </DocumentsProvider>
-    </div>
+    </DocumentsPageValidator>
   );
 }

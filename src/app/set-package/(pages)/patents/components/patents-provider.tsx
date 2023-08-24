@@ -32,7 +32,8 @@ export const PatentsProvider = ({ children }: PatentsProviderProps) => {
   const { isLoading, data, error } = useQuery({
     queryKey: ['patents', patentsToFetch],
     queryFn: () => getPatents({ ids: patentsToFetch }),
-    enabled: hasPatentsToFetch
+    enabled: hasPatentsToFetch,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
