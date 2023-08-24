@@ -1,6 +1,8 @@
 import { ListClientSession } from '@/app/dashboard/components/list-client-session';
 import { PackagesListProvider } from '@/app/dashboard/packages/packages-list-provider';
 import { PackagesList } from '@/app/dashboard/packages/packages-list';
+import Link from 'next/link';
+import { SetPackagePatent } from '@/constants/routes';
 
 export default async function DashboardPage() {
   return (
@@ -8,9 +10,9 @@ export default async function DashboardPage() {
       <h1 className='text-3xl mb-4'>Atlus Dashboard</h1>
 
       <div className='my-6'>
-        <a href='/set-package/patents' className='text-orange underline'>
+        <Link href={SetPackagePatent} className='text-orange underline'>
           Create new package
-        </a>
+        </Link>
       </div>
       {/*<TestComponentsHelper />*/}
 

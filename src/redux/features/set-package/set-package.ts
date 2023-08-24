@@ -59,7 +59,7 @@ export const setPackage = createSlice({
   name: 'setPackage',
   initialState,
   reducers: {
-    reset: () => initialState,
+    resetSetPackageState: () => initialState,
     showAddPatentsModal: (state: SetPackageState) => {
       state.addPatents.isAddPatentsModalOpen = true;
     },
@@ -121,7 +121,7 @@ export const setPackage = createSlice({
 
 
 export const {
-  reset,
+  resetSetPackageState,
   resetAddPatents,
   setActivePackage,
   showEditPatentModal,
