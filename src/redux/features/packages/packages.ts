@@ -5,10 +5,12 @@ import { getPackageExtraReducers } from '@/redux/features/packages/packages-extr
 
 export interface PackagesState {
   packagesList: PackageListItem[];
+  fetchingPackage: Record<string, boolean>;
 }
 
 const initialState: PackagesState = {
-  packagesList: []
+  packagesList: [],
+  fetchingPackage: {}
 };
 
 export const packages = createSlice({

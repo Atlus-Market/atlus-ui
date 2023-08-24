@@ -1,18 +1,24 @@
 'use client';
 
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { selectPackagesList } from '@/redux/features/packages/selectors/packages.selectors';
+import {
+  selectIsFetchingPackage,
+  selectPackagesList
+} from '@/redux/features/packages/selectors/packages.selectors';
 import { AtlusTitle } from '@/components/ui/typography/atlus-title';
 import { fetchPackage } from '@/redux/features/packages/thunks/get-package.thunks';
 import { useRouter } from 'next/navigation';
 import { SetPackagePatent } from '@/constants/routes';
 import { setActivePackage } from '@/redux/features/set-package/set-package';
 import { Package } from '@/models/package';
+import { useState } from 'react';
 
 export const PackagesList = () => {
+  const [activePackageId, setActivePackageId] = useState<string>('');
   const router = useRouter();
   const dispatch = useAppDispatch();
   const packagesList = useAppSelector(selectPackagesList);
+  const isFetchingPackage = useAppSelector(selectIsFetchingPackage(activePackageId));
 
   if (!packagesList.length) {
     return (
@@ -30,6 +36,7 @@ export const PackagesList = () => {
               className='cursor-pointer select-none'
               key={packageListItem.id}
               onClick={async () => {
+                setActivePackageId(packageListItem.id);
                 const res = await dispatch(fetchPackage(packageListItem.id));
                 console.log('dispatch fetchPackage response: ', res);
 
@@ -38,7 +45,7 @@ export const PackagesList = () => {
                   router.push(SetPackagePatent);
                 }
               }}>
-              {packageListItem.title}
+              {packageListItem.title}{isFetchingPackage ? ' - Loading...' : null}
             </li>
           );
         })}
