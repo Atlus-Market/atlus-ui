@@ -8,7 +8,7 @@ import {
   selectPackagePatents
 } from '@/redux/features/set-package/selectors/set-package.selectors';
 import { getPatents } from '@/api/patents/get-patents';
-import { updatePatent } from '@/redux/features/set-package/set-package';
+import { setPackagePatents } from '@/redux/features/set-package/set-package';
 
 interface PatentsProviderProps {
   children: ReactNode;
@@ -37,9 +37,7 @@ export const PatentsProvider = ({ children }: PatentsProviderProps) => {
 
   useEffect(() => {
     if (data?.count) {
-      data.patents.forEach(patent => {
-        dispatch(updatePatent({ patent }));
-      });
+      dispatch(setPackagePatents(data.patents));
     }
   }, [data, dispatch]);
 

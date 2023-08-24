@@ -14,7 +14,6 @@ import {
   selectPatentsInitialState,
   SelectPatentsState
 } from '@/redux/features/set-package/slices/add-patents/slices/select-patents';
-import { mergeArrays } from '@/utils/patents';
 
 export interface AddPatentsState {
   isAddPatentsModalOpen: boolean;
@@ -41,16 +40,6 @@ export const addPatentesReducer = {
   },
   setPatents: (state: SetPackageState, action: PayloadAction<{ patents: Patent[] }>) => {
     state.addPatents.fetchedPatents = action.payload.patents;
-  },
-
-  // After finishing selecting patents from the table
-  setPackagePatents: (state: SetPackageState) => {
-    const { tableSelectedPatentIds } = state.addPatents.selectPatentsState;
-    const patents = state.addPatents.fetchedPatents.filter(patent => tableSelectedPatentIds.includes(patent.publicationNumber));
-    state.patents = mergeArrays(
-      state.patents,
-      patents,
-      (patent: Patent) => patent.publicationNumber);
   },
 
   // Replaces a Patent

@@ -13,11 +13,11 @@ export const SelectPatentsNextButton = () => {
   const selectedPatentIds = useSelector(selectTableSelectedPatentIds);
   const hasSelectedPatents = selectedPatentIds.length > 0;
 
-return (
+  return (
     <AtlusButton
       disabled={!hasSelectedPatents}
       onClick={() => {
-        dispatch(setPackagePatents());
+        dispatch(setPackagePatents([]));
         dispatch(hideAddPatentsModal());
       }}>
       Add to package

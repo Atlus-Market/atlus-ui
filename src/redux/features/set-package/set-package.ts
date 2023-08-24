@@ -20,6 +20,7 @@ import {
 import {
   createSetPackageExtraReducers
 } from '@/redux/features/set-package/set-package-extra-reducers';
+import { mergeArrays } from '@/utils/patents';
 
 
 export interface SetPackageState {
@@ -83,6 +84,16 @@ export const setPackage = createSlice({
     ) => {
       const { patentId } = action.payload;
       state.patents = state.patents.filter(p => p.publicationNumber !== patentId);
+    },
+
+    // After finishing selecting patents from the table
+    setPackagePatents: (state: SetPackageState, action: PayloadAction<Patent[]>) => {
+      const { tableSelectedPatentIds } = state.addPatents.selectPatentsState;
+      const patents = state.addPatents.fetchedPatents.filter(patent => tableSelectedPatentIds.includes(patent.publicationNumber));
+      state.patents = mergeArrays(
+        state.patents,
+        [...patents, ...action?.payload ?? []],
+        (patent: Patent) => patent.publicationNumber);
     },
 
     // set active package
