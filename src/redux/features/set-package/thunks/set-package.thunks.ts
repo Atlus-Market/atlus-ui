@@ -3,10 +3,14 @@ import { RootState } from '@/redux/store';
 import {
   selectPackageDetailsFormValues
 } from '@/redux/features/set-package/selectors/package-details.selectors';
-import { createPackage, CreatePackagePayload } from '@/api/package/create-package';
+import { createPackage, CreatePackageRequestPayload } from '@/api/package/create-package';
 import { Package } from '@/models/package';
 import { Patent } from '@/models/patent';
-import { selectPackagePatents } from '@/redux/features/set-package/selectors/set-package.selectors';
+import {
+  selectPackage,
+  selectPackagePatents
+} from '@/redux/features/set-package/selectors/set-package.selectors';
+import { updatePackage } from '@/api/package/update-package';
 
 export const persistPackage = createAsyncThunk<
   Package,
@@ -16,6 +20,7 @@ export const persistPackage = createAsyncThunk<
   async (args, thunkAPI) => {
     try {
       const { getState } = thunkAPI;
+      const activePackage = selectPackage(getState());
       const patents: Patent[] = selectPackagePatents(getState());
       const patentsIds = patents.map(p => p.publicationNumber);
       console.log('patents: ', patents);
@@ -24,7 +29,7 @@ export const persistPackage = createAsyncThunk<
       const packageDetails = selectPackageDetailsFormValues(getState());
       console.log('packageDetails: ', packageDetails);
 
-      const payload: CreatePackagePayload = {
+      const payload: CreatePackageRequestPayload = {
         ...packageDetails,
         keywords: packageDetails.keywords.join(','),
         industryIds: packageDetails.industryIds.map(id => parseInt(id, 10)),
@@ -32,9 +37,20 @@ export const persistPackage = createAsyncThunk<
         patents: patentsIds,
         custom_patents: []
       };
-      const res = await createPackage(payload);
-      console.log('Set package Response: ', res);
-      return res.package;
+
+      if (activePackage) {
+        const res = await updatePackage(activePackage.id, payload);
+        console.log('UPDATE package Response: ', res);
+        return {
+          ...payload,
+          ...activePackage
+        };
+      } else {
+        const res = await createPackage(payload);
+        console.log('CREATE package Response: ', res);
+        return res.package;
+      }
+
     } catch (e) {
       console.error(e);
       throw e;

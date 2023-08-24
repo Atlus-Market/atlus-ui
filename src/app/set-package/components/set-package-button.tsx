@@ -21,7 +21,7 @@ export const SetPackageButton = () => {
       onClick={async () => {
         const res = await dispatch(persistPackage());
         if (res.payload) {
-          showSuccessNotification({ text: 'Package created successfully' });
+          showSuccessNotification({ text: 'Package saved successfully!' });
         }
       }}
       isLoading={isPersistingPackage}

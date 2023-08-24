@@ -9,7 +9,6 @@ export const selectPackagePatents = createSelector(
 );
 
 // Edit Patent
-
 export const selectIsEditPatentModalOpen = createSelector(
   selectSetPackageState,
   state => state.isEditPatentModalOpen

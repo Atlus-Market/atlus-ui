@@ -10,7 +10,7 @@ export interface CustomPatent {
   application_date: string; //'2023-08-22'
 }
 
-export interface CreatePackagePayload {
+export interface CreatePackageRequestPayload {
   sellerUserId: string;
   title: string;
   description: string;
@@ -25,12 +25,12 @@ interface CreatePackageResponsePayload {
   package: Package;
 }
 
-export const createPackage = (data: CreatePackagePayload) => {
-  return createRequest<CreatePackagePayload, CreatePackageResponsePayload>({
+export const createPackage = (createPackageRequestPayload: CreatePackageRequestPayload) => {
+  return createRequest<CreatePackageRequestPayload, CreatePackageResponsePayload>({
       url: '/package',
       method: 'POST',
       isProtected: ProtectedEndpoint.True,
-      payload: data
+      payload: createPackageRequestPayload
     }
   );
 };
