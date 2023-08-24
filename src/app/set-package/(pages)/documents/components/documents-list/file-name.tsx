@@ -3,12 +3,14 @@ import { getFileExtension } from '@/utils/file';
 import { AtlusTooltip } from '@/components/ui/tooltip/atlus-tooltip';
 import { useRef } from 'react';
 import { generateID } from '@/utils/id';
+import { filesize } from 'filesize';
 
 interface FileNameProps {
   fileName: string;
+  fileSize: number;
 }
 
-export const FileName = ({ fileName }: FileNameProps) => {
+export const FileName = ({ fileName,fileSize }: FileNameProps) => {
   const fileExtension = getFileExtension(fileName);
   const refTooltipId = useRef(generateID());
   return (
@@ -23,7 +25,7 @@ export const FileName = ({ fileName }: FileNameProps) => {
           {fileName}
         </div>
         <div className='text-xs text-dark-grey leading-[15px]'>
-          <span className='uppercase'>{fileExtension}</span>{' '}{'377kb'}
+          <span className='uppercase'>{fileExtension}</span>{' '}{filesize(fileSize)}
         </div>
       </div>
     </div>

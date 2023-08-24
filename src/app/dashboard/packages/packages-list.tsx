@@ -45,7 +45,7 @@ export const PackagesList = () => {
                   router.push(SetPackagePatent);
                 }
               }}>
-              {packageListItem.title}{isFetchingPackage ? ' - Loading...' : null}
+              {packageListItem.title}{isFetchingPackage && (activePackageId === packageListItem.id) ? ' - Loading...' : null}
             </li>
           );
         })}

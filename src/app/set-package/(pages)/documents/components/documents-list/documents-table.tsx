@@ -7,15 +7,20 @@ import {
   dropdownPrivateOption,
   visibilityOptions
 } from '@/components/common/dropdown/visibility-options';
-import { HiOutlineLockClosed } from 'react-icons/hi2';
 import { AtlusDropdownList } from '@/components/ui/dropdown-list/atlus-dropdown-list';
+import { parseGMTDate } from '@/utils/date';
+import format from 'date-fns/format';
 
 interface DocumentsTableProps {
   dataroom: DirectoryTree[];
 }
 
+const formatUploadedDate = (gmtString: string): string => {
+  const uploadedDate = parseGMTDate(gmtString);
+  return uploadedDate ? format(uploadedDate, 'LLL dd, yyyy') : '-';
+};
+
 export const DocumentsTable = ({ dataroom }: DocumentsTableProps) => {
-  console.log('dataroom: ', dataroom);
   return (
     <div className='documents-grid-scroller'>
       <div className='documents-grid'>
@@ -26,10 +31,11 @@ export const DocumentsTable = ({ dataroom }: DocumentsTableProps) => {
         {dataroom.map(document => (
           <Fragment key={document.name}>
             <div className='grid-entry'>
-              <FileName fileName={document.name} />
+              <FileName fileName={document.name} fileSize={document.size} />
             </div>
             <div className='grid-entry'>
-              <span className='text-soft-black text-sm'>Mar 26, 2022</span>
+              <span
+                className='text-soft-black text-sm'>{formatUploadedDate(document.dateUploaded)}</span>
             </div>
             <div className='grid-entry'>
               <AtlusDropdownList
@@ -38,7 +44,7 @@ export const DocumentsTable = ({ dataroom }: DocumentsTableProps) => {
                 options={visibilityOptions}
                 showDropdownIndicator={true}
                 isSearchable={false}
-                size="small"
+                size='small'
                 defaultValue={dropdownPrivateOption.value}
               />
             </div>

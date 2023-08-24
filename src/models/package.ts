@@ -4,9 +4,9 @@ export interface Package {
   industryIds: number[];
   keywords: string;
   visibility: number;
-  price: number;
-  isOpenToLicensing: boolean;
-  showPricingPublicly: boolean;
+  priceUsd: number;
+  openToLicensing: boolean;
+  showPublicPricing: boolean;
   sellerUserId: string;
   customPatents: string[];
   patents: string[];
