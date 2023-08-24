@@ -40,7 +40,7 @@ export const AtlusInputSearch = ({
         <input
           type='text'
           placeholder={searchResults ? '' : placeholder}
-          className='outline-none text-dark-grey placeholder:text-dark-grey placeholder:text-base caret-orange flex-grow'
+          className='outline-none text-soft-black placeholder:text-dark-grey placeholder:text-base caret-soft-black flex-grow'
           onChange={updateValue}
           onFocus={() => setHasFocus(true)}
           onBlur={() => setHasFocus(false)}
