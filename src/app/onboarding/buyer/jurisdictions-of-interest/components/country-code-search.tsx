@@ -3,14 +3,20 @@
 import { AtlusInputSearch } from '@/components/ui/input/atlus-input-search';
 import { CountryCode } from '@/api/country-codes/country-code';
 import { useEffect, useMemo, useState } from 'react';
-import { CountryCodesList } from '@/app/onboarding/buyer/jurisdictions-of-interest/components/country-codes-list';
+import {
+  CountryCodesList
+} from '@/app/onboarding/buyer/jurisdictions-of-interest/components/country-codes-list';
 import {
   getDefaultCountryCodes,
-  worldWide,
+  worldWide
 } from '@/app/onboarding/buyer/jurisdictions-of-interest/components/default-country-codes';
-import { CountryCodeSelector } from '@/app/onboarding/buyer/jurisdictions-of-interest/components/country-code-selector';
+import {
+  CountryCodeSelector
+} from '@/app/onboarding/buyer/jurisdictions-of-interest/components/country-code-selector';
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
-import { useSelectCountry } from '@/app/onboarding/buyer/jurisdictions-of-interest/hooks/use-select-country';
+import {
+  useSelectCountry
+} from '@/app/onboarding/buyer/jurisdictions-of-interest/hooks/use-select-country';
 import { useOnboardingContext } from '@/app/onboarding/context/use-onboarding-context';
 
 interface CountryCodeSearchProps {
@@ -18,8 +24,8 @@ interface CountryCodeSearchProps {
 }
 
 export const CountryCodeSearch = ({
-  countryCodesDefinition,
-}: CountryCodeSearchProps) => {
+                                    countryCodesDefinition
+                                  }: CountryCodeSearchProps) => {
   const { updateCountryCodesIdsList } = useSelectCountry();
   const { countryCodesIds } = useOnboardingContext();
   const [searchText, setSearchText] = useState<string>('');
@@ -57,14 +63,14 @@ export const CountryCodeSearch = ({
         key={cc.code}
         text={cc.name}
         onClose={() => updateCountryCodesIdsList(cc.code)}
-        className="m-1"
+        className='m-1'
       />
     ));
   }, [countryCodesDefinition, countryCodesIds, updateCountryCodesIdsList]);
 
   return (
-    <div className="mx-auto max-w-[900px]">
-      <div className="mb-[25px]">
+    <div className='mx-auto max-w-[900px]'>
+      <div className='mb-[25px]'>
         <AtlusInputSearch
           onChange={setSearchText}
           searchResults={selectedCountryCodeTags}

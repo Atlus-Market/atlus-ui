@@ -21,11 +21,13 @@ import {
   createSetPackageExtraReducers
 } from '@/redux/features/set-package/set-package-extra-reducers';
 import { mergeArrays } from '@/utils/patents';
+import {
+  dropdownPrivateOption,
+  dropdownPublicOption
+} from '@/components/common/dropdown/visibility-options';
 
 
 export interface SetPackageState {
-  patents: Patent[];
-
   // Edit Patent
   isEditPatentModalOpen: boolean;
   editingPatentId: string | undefined;
@@ -35,13 +37,11 @@ export interface SetPackageState {
   documents: DocumentsState;
 
   package: Package | undefined;
-
+  patents: Patent[];
   isPersistingPackage: boolean;
 }
 
 const initialState: SetPackageState = {
-  patents: [],
-
   // Edit Patent
   isEditPatentModalOpen: false,
   editingPatentId: undefined,
@@ -51,6 +51,7 @@ const initialState: SetPackageState = {
   documents: documentsInitialState,
 
   package: undefined,
+  patents: [],
   isPersistingPackage: false
 };
 
@@ -74,11 +75,11 @@ export const setPackage = createSlice({
     hideEditPatentModal: (state: SetPackageState) => {
       state.isEditPatentModalOpen = false;
     },
-    updateSelectedPatent: (state: SetPackageState, action: PayloadAction<{ patent: Patent }>) => {
-      const { patent } = action.payload;
-      state.patents = state.patents.filter(p => p.publicationNumber !== patent.publicationNumber);
-      state.patents.push(patent);
-    },
+    // updateSelectedPatent: (state: SetPackageState, action: PayloadAction<{ patent: Patent }>) => {
+    //   const { patent } = action.payload;
+    //   state.patents = state.patents.filter(p => p.publicationNumber !== patent.publicationNumber);
+    //   state.patents.push(patent);
+    // },
     deletePatent: (
       state: SetPackageState, action: PayloadAction<{ patentId: string }>
     ) => {
@@ -99,6 +100,12 @@ export const setPackage = createSlice({
     // set active package
     setActivePackage: (state: SetPackageState, action: PayloadAction<Package>) => {
       state.package = action.payload;
+      state.packageDetails.packageDetailsForm = {
+        ...action.payload,
+        industryIds: action.payload.industryIds.map(iid => iid.toString()),
+        keywords: action.payload.keywords.split(','),
+        visibility: action.payload.visibility === 1 ? dropdownPublicOption.value : dropdownPrivateOption.value
+      };
     },
 
     ...addPatentesReducer,
@@ -119,7 +126,7 @@ export const {
   setActivePackage,
   showEditPatentModal,
   hideEditPatentModal,
-  updateSelectedPatent,
+  // updateSelectedPatent,
   deletePatent,
   updatePatent,
   showAddPatentsModal,
