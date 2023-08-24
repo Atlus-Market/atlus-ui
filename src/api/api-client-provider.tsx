@@ -15,14 +15,19 @@ const queryClient = new QueryClient();
 axios.interceptors.response.use(function(response) {
   return response;
 }, function(error) {
-  if (error.response.status === HttpStatusCode.Unauthorized) {
+  console.error('API ERROR: ', error);
+
+  if (error.response?.status === HttpStatusCode.Unauthorized) {
     const errorMessage = 'Invalid session. Please login again';
     showErrorNotification({ text: errorMessage, toastId: 'invalid-session-toast-id' });
     (window as Window).location = '/logout';
-  } else if (error.response.data) {
+  } else if (error.response?.data) {
     const errorMessage = error.response.data.error || error.response.data.msg;
     showErrorNotification({ text: errorMessage, toastId: error.config.url });
+  } else if (!error.response) {
+    showErrorNotification({ text: 'Something went wrong.', toastId: error.code });
   }
+
   return Promise.reject(error);
 });
 
