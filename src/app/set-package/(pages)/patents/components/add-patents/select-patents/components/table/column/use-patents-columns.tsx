@@ -115,7 +115,7 @@ export const usePatentsColumns = ({
             <div className='flex items-start gap-5'>
               {(hasFamilyId || isEditedRow) && <Checkbox />}
               <div className='flex flex-col items-start'>
-                <RowCell text={getValue().toString()} />
+                <RowCell text={getValue()} />
                 {isEditedRow &&
                   <AtlusButton
                     variant='clear'
@@ -157,7 +157,7 @@ export const usePatentsColumns = ({
             );
           }
 
-          return <RowCell text={getValue().toString()}
+          return <RowCell text={getValue()}
                           className='inline-block !w-[248px]' />;
         },
         header: () => <HeaderCell title='Title' />
@@ -175,13 +175,13 @@ export const usePatentsColumns = ({
 
           return <AtlusTag
             className='!text-xs !px-2 !py-[6px]'
-            text={getValue().toString()}
+            text={getValue() as string}
           />;
         }
       },
       {
-        accessorKey: 'applicantsOriginal',
-        accessorFn: row => row.applicantsOriginal ?? [],
+        accessorKey: 'applicants',
+        accessorFn: row => row.applicants ?? [],
         header: () => <HeaderCell title='Assignee' />,
         cell: ({ row, getValue }) => {
           const hasNoFamilyId = !rowHasFamilyId(row);
@@ -211,12 +211,12 @@ export const usePatentsColumns = ({
             return null;
           }
 
-          return <RowCell text={getValue().toString()} />;
+          return <RowCell text={getValue()} />;
         }
       },
       {
-        accessorKey: 'applicationReferenceEpodoc',
-        accessorFn: row => row?.applicationReferenceEpodoc?.date,
+        accessorKey: 'applicationDate',
+        accessorFn: row => row?.applicationDate,
         header: () => <HeaderCell title='Application date' />,
         cell: ({ row, getValue }) => {
           const hasNoFamilyId = !rowHasFamilyId(row);

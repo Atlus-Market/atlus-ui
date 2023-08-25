@@ -66,7 +66,7 @@ export const SetPatentFormFields = ({ allowEditPublicationNumber = true }: SetPa
       />
 
       <Controller
-        name='applicantsOriginal'
+        name='applicants'
         control={control}
         render={({ field }) => (
           <AtlusInput
@@ -78,14 +78,14 @@ export const SetPatentFormFields = ({ allowEditPublicationNumber = true }: SetPa
             errors={errors}
             onChange={e => {
               const value = e.target.value;
-              setValue('applicantsOriginal', value ? [value] : []);
+              setValue('applicants', value ? [value] : []);
             }}
           />
         )}
       />
 
       <Controller
-        name='applicationReferenceEpodoc'
+        name='applicationDate'
         control={control}
         render={({ field }) => (
           <AtlusInput
@@ -94,10 +94,10 @@ export const SetPatentFormFields = ({ allowEditPublicationNumber = true }: SetPa
             placeholder='MM/DD/YYYY'
             type='text'
             wrapperClassName='w-[50%]'
-            value={field.value?.date ?? ''}
+            value={field.value ?? ''}
             errors={errors}
             onChange={e => {
-              setValue('applicationReferenceEpodoc', { date: e.target.value });
+              setValue('applicationDate', e.target.value);
             }}
           />
         )}

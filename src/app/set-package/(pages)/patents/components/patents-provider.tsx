@@ -7,7 +7,7 @@ import {
   selectPackage,
   selectPackagePatents
 } from '@/redux/features/set-package/selectors/set-package.selectors';
-import { getPatents } from '@/api/patents/get-patents';
+import { getPatentsBulk } from '@/api/patents/get-patents-bulk';
 import { setPackagePatents } from '@/redux/features/set-package/set-package';
 
 interface PatentsProviderProps {
@@ -31,7 +31,7 @@ export const PatentsProvider = ({ children }: PatentsProviderProps) => {
 
   const { isLoading, data, error } = useQuery({
     queryKey: ['patents', patentsToFetch],
-    queryFn: () => getPatents({ ids: patentsToFetch }),
+    queryFn: () => getPatentsBulk({ ids: patentsToFetch }),
     enabled: hasPatentsToFetch,
     refetchOnWindowFocus: false,
   });

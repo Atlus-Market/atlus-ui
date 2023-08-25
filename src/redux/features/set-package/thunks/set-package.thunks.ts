@@ -29,7 +29,7 @@ export const persistPackage = createAsyncThunk<
       const { getState } = thunkAPI;
       const activePackage = selectPackage(getState());
       const patents: Patent[] = selectPackagePatents(getState());
-      const patentsIds = patents.map(p => p.publicationNumber);
+      const patentsIds = patents.filter(p => p.familyId !== NO_FAMILY_GROUP_ID).map(p => p.publicationNumber);
       console.log('patents: ', patents);
       console.log('getPatentsIds: ', patentsIds);
 
@@ -70,9 +70,9 @@ const getCustomPatents = (patents: Patent[]): CustomPatent[] => {
   return patents.filter(p => p.familyId === NO_FAMILY_GROUP_ID)
     .map(patent => ({
       patent_number: patent.publicationNumber,
-      application_date: patent.applicationReferenceEpodoc.date,
+      application_date: patent.applicationDate,
       application_number: patent.applicationNumber,
-      assignee: patent.applicantsOriginal.join(','),
+      assignee: patent.applicants.join(','),
       status: patent.status,
       title: patent.title
     }));

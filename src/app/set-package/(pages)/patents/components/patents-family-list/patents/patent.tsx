@@ -33,7 +33,7 @@ export const Patent = ({ patent }: PatentProps) => {
           </div>
           <div>
           <span className='text-soft-black text-sm leading-5'>
-            {(patent.applicantsOriginal ?? []).join(' & ')}
+            {(patent.applicants ?? []).join(' & ')}
           </span>
           </div>
         </div>

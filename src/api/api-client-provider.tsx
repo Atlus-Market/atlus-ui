@@ -3,14 +3,14 @@
 import { ReactNode } from 'react';
 import { QueryClient } from '@tanstack/query-core';
 import { QueryClientProvider } from '@tanstack/react-query';
-import axios, { HttpStatusCode } from 'axios';
+import axios, { AxiosError, HttpStatusCode } from 'axios';
 import { showErrorNotification } from '@/components/ui/notification/atlus-notification';
 
 interface ApiClientProviderProps {
   children: ReactNode;
 }
 
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 axios.interceptors.response.use(function(response) {
   return response;
@@ -25,6 +25,10 @@ axios.interceptors.response.use(function(response) {
     const errorMessage = error.response.data.error || error.response.data.msg;
     showErrorNotification({ text: errorMessage, toastId: error.config.url });
   } else if (!error.response) {
+    console.error(error);
+    if (error.code === AxiosError.ERR_CANCELED) {
+      return;
+    }
     showErrorNotification({ text: 'Something went wrong.', toastId: error.code });
   }
 

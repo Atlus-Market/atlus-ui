@@ -22,13 +22,12 @@ export const useTableGroupPatentsByFamily = ({ patents }: UseGroupPatentsByFamil
     return familyIdKeys.map(familyIdKey => ({
       familyId: familyIdKey,
       publicationNumber: '',
-      applicationReferenceEpodoc: {
-        date: ''
-      },
-      applicantsOriginal: [],
+      applicationDate: '',
       title: '',
       status: '',
       applicationNumber: '',
+      patentNumber: '',
+      applicants: [],
       subRows: groupedPatents[familyIdKey]
     }));
   }, [groupedPatents]);

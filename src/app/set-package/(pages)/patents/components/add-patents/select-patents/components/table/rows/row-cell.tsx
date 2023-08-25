@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
 interface RowCellProps {
-  text: string;
+  text: string | string[];
   className?: string;
 }
 

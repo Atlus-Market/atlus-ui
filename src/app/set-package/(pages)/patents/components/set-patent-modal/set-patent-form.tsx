@@ -13,10 +13,9 @@ const schema: ObjectSchema<Patent> = object({
   title: string().trim().required(RequiredField),
   status: string().trim().required(RequiredField),
   applicationNumber: string().trim().required(RequiredField),
-  applicantsOriginal: array().min(1, 'Enter at least one assignee').required(RequiredField),
-  applicationReferenceEpodoc: object({
-    date: string().trim().required(RequiredField)
-  }).required(RequiredField).test(plainDateValidator)
+  applicants: array().min(1, 'Enter at least one assignee').required(RequiredField),
+  applicationDate: string().trim().required(RequiredField).test(plainDateValidator),
+  patentNumber: string().default('')
 });
 
 interface SetPatentForm {

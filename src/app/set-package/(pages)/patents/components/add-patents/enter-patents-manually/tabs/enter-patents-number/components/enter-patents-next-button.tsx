@@ -7,7 +7,6 @@ import {
   selectIsActiveTabValid
 } from '@/redux/features/set-package/selectors/add-patents.selectors';
 import { useQuery } from '@tanstack/react-query';
-import { getPatents, GetPatentsPayload } from '@/api/patents/get-patents';
 import { setAddPatentsStep, setPatents } from '@/redux/features/set-package/set-package';
 import {
   AddPatentsStep
@@ -16,36 +15,56 @@ import { Patent } from '@/models/patent';
 import {
   NO_FAMILY_GROUP_ID
 } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
+import { getPatentsSimpleBulk } from '@/api/patents/get-patents-simple-bulk';
+import { useEffect, useMemo, useState } from 'react';
+import { queryClient } from '@/api/api-client-provider';
 
 
 const createPatentManually = (patentData: Partial<Patent>): Patent => ({
   publicationNumber: '',
   status: '',
-  applicationReferenceEpodoc: {
-    date: ''
-  },
   applicationNumber: '',
-  applicantsOriginal: [],
   familyId: NO_FAMILY_GROUP_ID,
   title: '',
+  patentNumber: '',
+  applicants: [],
+  applicationDate: '',
   ...patentData
 });
 
+const SearchPatentsQueryKey = 'patents/simple/bulk';
+
 export const EnterPatentsNextButton = () => {
+  const [mounted, setIsMounted] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   const isActiveFormValid = useAppSelector(selectIsActiveTabValid);
   const selectedPatentsId = useAppSelector(selectActivePatentsIds);
 
-  const getPatentsPayload: GetPatentsPayload = {
-    ids: selectedPatentsId
-  };
+  const queryKey = useMemo(() => {
+    return [SearchPatentsQueryKey, selectedPatentsId];
+  }, [selectedPatentsId]);
 
   const { refetch, isRefetching, isFetching } = useQuery({
-    queryKey: ['patents/bulk', getPatentsPayload],
-    queryFn: () => getPatents(getPatentsPayload),
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
+    queryKey: queryKey,
+    queryFn: ({ signal }) => getPatentsSimpleBulk({
+      ids: selectedPatentsId
+    }, signal),
     refetchOnWindowFocus: false,
     enabled: false // disable this query from automatically running,
   });
+
+  useEffect(() => {
+    return () => {
+      queryClient.cancelQueries({ queryKey: queryKey });
+    };
+  }, [queryKey]);
+
+  useEffect(() => {
+    return () => {
+      setIsMounted(false);
+    };
+  }, []);
 
   const onNext = async () => {
     if (!isActiveFormValid) {
@@ -53,24 +72,22 @@ export const EnterPatentsNextButton = () => {
     }
 
     const response = await refetch();
-    const fetchedPatents = response.data?.patents ?? [];
-    const fetchedPatentsIds = fetchedPatents.map(patent => patent.publicationNumber);
-    console.log('selectedPatentsId: ', selectedPatentsId);
-    console.log('fetchedPatents: ', fetchedPatents);
-    console.log('fetchedPatentsIds: ', fetchedPatentsIds);
+    console.log('response: ', response);
+    if (!response.data || !mounted) {
+      return;
+    }
+    const { patents, customPatents } = response.data;
+    const notFoundPatents = customPatents.map(({ publicationNumber }): Patent => createPatentManually({ publicationNumber }));
 
-    const notFoundPatents = selectedPatentsId
-      .filter(patentId => !fetchedPatentsIds.includes(patentId))
-      .map((patentId): Patent => createPatentManually({ publicationNumber: patentId }));
-
+    console.log('fetchedPatents: ', patents);
     console.log('notFoundPatents: ', notFoundPatents);
 
-    const patents = [
-      ...fetchedPatents,
+    const allPatents = [
+      ...patents,
       ...notFoundPatents
     ];
 
-    dispatch(setPatents({ patents }));
+    dispatch(setPatents({ patents: allPatents }));
     dispatch(setAddPatentsStep(AddPatentsStep.SelectPatents));
   };
 

@@ -1,11 +1,10 @@
 export interface Patent {
-  familyId: string;
-  publicationNumber: string; // also patent id
-  title: string;
-  status: string;
-  applicantsOriginal: string[];
+  applicants: string[];
+  applicationDate:string;
   applicationNumber: string;
-  applicationReferenceEpodoc: {
-    date: string; // GMT date string
-  };
+  familyId: string;
+  patentNumber:string;
+  publicationNumber: string; // also patent id
+  status: string;
+  title: string;
 }
