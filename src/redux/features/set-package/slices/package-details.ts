@@ -4,7 +4,7 @@ import {
 import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Contact } from '@/models/contact';
-import { dropdownPrivateOption } from '@/components/common/dropdown/visibility-options';
+import { dropdownPublicOption } from '@/components/common/dropdown/visibility-options';
 
 export interface PackageDetailsState {
   packageDetailsForm: IPackageDetailsForm;
@@ -21,7 +21,7 @@ export const packageDetailsInitialState: PackageDetailsState = {
     title: '',
     industryIds: [],
     description: '',
-    visibility: dropdownPrivateOption.value,
+    visibility: dropdownPublicOption.value,
     openToLicensing: false,
     keywords: [],
     // @ts-ignore
