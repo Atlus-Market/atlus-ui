@@ -1,4 +1,4 @@
-import { AtlusInputProps } from '@/components/ui/input/atlus-input';
+import { AtlusInput, AtlusInputProps } from '@/components/ui/input/atlus-input';
 import { ForwardedRef, forwardRef, Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { isArray } from 'lodash';
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
@@ -59,7 +59,7 @@ export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTag
     }, [tags]);
 
     return (
-      <AtlusFormInput
+      <AtlusInput
         {...rest}
         name={name}
         ref={inputRef}

@@ -25,8 +25,8 @@ import {
 } from '@/app/set-package/(pages)/package-details/set-package-details-in-store';
 import { InterestArea } from '@/api/interest-areas/interest-area';
 import { useMemo } from 'react';
-import { BiDollar } from 'react-icons/bi';
 import { visibilityOptions } from '@/components/common/dropdown/visibility-options';
+import { AtlusFormInputNumeric } from '@/components/ui/form/atlus-form-input-numeric';
 
 export interface IPackageDetailsForm {
   title: string;
@@ -125,12 +125,10 @@ export const PackageDetailsForm = ({ onSubmit, interestArea }: PackageDetailsFor
           <div className='pb-[44px]'>
             <AtlusTitle text='Pricing' className='!font-normal !text-2xl mb-6' />
 
-            <AtlusFormInput
+            <AtlusFormInputNumeric
               label='Price (in USD)'
               placeholder='Enter price'
-              type='number'
               {...register('priceUsd', { valueAsNumber: true })}
-              leftCmp={<BiDollar size={16} />}
             />
 
             <AtlusFormCheckbox
