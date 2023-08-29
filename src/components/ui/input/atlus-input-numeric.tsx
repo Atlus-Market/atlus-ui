@@ -11,10 +11,12 @@ export const AtlusInputNumeric = forwardRef<HTMLInputElement, AtlusInputNumericP
   function AtlusInputNumeric({
                                name,
                                initialValue = [],
+                               type,
+                               value,
+                               defaultValue,
                                ...rest
                              }, ref: ForwardedRef<HTMLInputElement>) {
 
-    console.log('rest: ', rest);
     return (
       <NumericFormat
         decimalScale={2}
@@ -22,13 +24,14 @@ export const AtlusInputNumeric = forwardRef<HTMLInputElement, AtlusInputNumericP
         thousandsGroupStyle='thousand'
         thousandSeparator=','
         customInput={AtlusInput}
-        value={rest.value as string}
         name={name}
         type='text'
+        value={value as string}
         onChange={rest.onChange}
         onBlur={rest.onBlur}
         errors={rest.errors}
         leftCmp={<BiDollar size={16} />}
+        {...rest}
       />
     );
   });

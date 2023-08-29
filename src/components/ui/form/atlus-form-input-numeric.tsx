@@ -6,6 +6,7 @@ import { forwardRef } from 'react';
 import { AtlusInputNumeric } from '@/components/ui/input/atlus-input-numeric';
 
 export interface AtlusFormInputProps extends AtlusInputProps {
+  name: string;
 }
 
 export const AtlusFormInputNumeric = forwardRef<HTMLInputElement, AtlusFormInputProps>(
@@ -14,14 +15,27 @@ export const AtlusFormInputNumeric = forwardRef<HTMLInputElement, AtlusFormInput
       name: name,
       exact: true
     });
-    const { control, setValue, getValues } = useFormContext();
+    const { control } = useFormContext();
 
     return (
       <Controller
         control={control}
-        name={name!}
+        name={name}
         render={(props) => (
-          <AtlusInputNumeric {...rest} errors={errors} {...props.field} />
+          <AtlusInputNumeric
+            {...rest}
+            errors={errors}
+            {...props.field}
+            onChange={e => {
+              const inputValue = e.target.value; // format: xxx,xxx.xx
+              const floatValue = parseFloat(inputValue.replace(',', '')) || '';
+              props.field.onChange({
+                target: {
+                  value: floatValue
+                }
+              });
+            }}
+          />
         )}
       />
     );
