@@ -44,12 +44,7 @@ export const selectUploadFilesQueue = createSelector(
   state => state.uploadFilesQueue
 );
 
-export const selectUploadingFilesRequestIds = createSelector(
-  selectDocumentsState,
-  state => state.uploadFilesQueue
-);
-
-export const selectPackageDataroom = createSelector(
+export const selectPackageDocuments = createSelector(
   selectDocumentsState,
   state => state.dataroom
 );
