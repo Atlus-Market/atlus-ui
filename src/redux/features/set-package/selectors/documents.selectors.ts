@@ -1,7 +1,5 @@
 import { createSelector } from 'reselect';
-import {
-  selectSetPackageState
-} from '@/redux/features/set-package/selectors/set-package.selectors';
+import { selectSetPackageState } from '@/redux/features/set-package/selectors/set-package.selectors';
 
 export const selectDocumentsState = createSelector(
   selectSetPackageState,
@@ -27,7 +25,8 @@ export const selectDocumentsToUpload = createSelector(
     const uploadingFilesCount = Object.keys(uploadingFiles).length;
 
     if (uploadingFilesCount < MAX_CONCURRENT_UPLOADS) {
-      const availableUploadsCount = MAX_CONCURRENT_UPLOADS - uploadingFilesCount;
+      const availableUploadsCount =
+        MAX_CONCURRENT_UPLOADS - uploadingFilesCount;
       return uploadFilesQueue.slice(0, availableUploadsCount);
     }
 
@@ -41,6 +40,11 @@ export const selectUploadingFiles = createSelector(
 );
 
 export const selectUploadFilesQueue = createSelector(
+  selectDocumentsState,
+  state => state.uploadFilesQueue
+);
+
+export const selectUploadingFilesRequestIds = createSelector(
   selectDocumentsState,
   state => state.uploadFilesQueue
 );
