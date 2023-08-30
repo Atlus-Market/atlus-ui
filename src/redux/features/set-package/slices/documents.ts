@@ -1,7 +1,7 @@
 import { Dataroom } from '@/models/dataroom';
 import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { uploadPackageDocument } from '@/redux/features/set-package/thunks/documents.thunks';
+import { uploadPackageDocument } from '@/redux/features/set-package/thunks/upload-documents.thunks';
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit/src/mapBuilders';
 
 
@@ -46,6 +46,9 @@ export const documentsReducer = {
       return;
     }
     state.documents.uploadingFiles[action.payload.requestId] = action.payload;
+  },
+  removeQueuedFile: (state: SetPackageState, action: PayloadAction<{ fileId: string }>) => {
+    state.documents.uploadFilesQueue = state.documents.uploadFilesQueue.filter(file => file.id !== action.payload.fileId);
   }
 };
 

@@ -40,6 +40,11 @@ export const selectUploadingFiles = createSelector(
   state => Object.values(state.uploadingFiles)
 );
 
+export const selectUploadFilesQueue = createSelector(
+  selectDocumentsState,
+  state => state.uploadFilesQueue
+);
+
 export const selectUploadingFilesRequestIds = createSelector(
   selectDocumentsState,
   state => Object.keys(state.uploadingFiles)
