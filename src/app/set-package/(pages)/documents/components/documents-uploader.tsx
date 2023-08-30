@@ -4,8 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   selectDocumentsToUpload,
   selectUploadFilesQueue,
-  selectUploadingFiles,
-  selectUploadingFilesRequestIds
+  selectUploadingFiles
 } from '@/redux/features/set-package/selectors/documents.selectors';
 import { useEffect } from 'react';
 import { useConst } from '@/hooks/use-const';
@@ -28,46 +27,41 @@ export const DocumentsUploader = () => {
   const uploadingFilesState = useAppSelector(selectUploadingFiles);
   const uUploadFilesQueue = useAppSelector(selectUploadFilesQueue);
   const filesToUpload = useAppSelector(selectDocumentsToUpload);
-  const uploadingFilesRequestIds = useAppSelector(selectUploadingFilesRequestIds);
-  const uploadingFilesExtraOptions = useConst<UploadingFilesExtraOption>({});
+  const uploadingFilesLocalState = useConst<UploadingFilesExtraOption>({});
 
   console.group('Documents Uploader');
   console.log('uploadingFiles: ', uploadingFilesState);
   console.log('uUploadFilesQueue: ', uUploadFilesQueue);
-  console.log('uploadingFilesExtraOptions: ', uploadingFilesExtraOptions);
+  console.log('uploadingFilesExtraOptions: ', uploadingFilesLocalState);
   console.log('filesToUpload: ', filesToUpload);
-  console.log('uploadingFilesRequestIds: ', uploadingFilesRequestIds);
   console.groupEnd();
 
   useEffect(() => {
     filesToUpload.forEach((serializedFileUpload) => {
       const thunkValue = dispatch(uploadPackageDocument(serializedFileUpload));
-      uploadingFilesExtraOptions[thunkValue.requestId] = { abort: thunkValue.abort };
-      debugger;
+      uploadingFilesLocalState[thunkValue.requestId] = { abort: thunkValue.abort };
     });
-  }, [dispatch, filesToUpload, uploadingFilesExtraOptions]);
+  }, [dispatch, filesToUpload, uploadingFilesLocalState]);
 
   // Clean up requestsIds that are no longer running
-  useEffect(() => {
-    if (uploadingFilesRequestIds.length === 0) {
-      return;
-    }
-    Object.keys(uploadingFilesExtraOptions).forEach(requestId => {
-      debugger;
-      if (!uploadingFilesRequestIds.includes(requestId)) {
-        delete uploadingFilesExtraOptions[requestId];
-      }
-    });
-  }, [uploadingFilesExtraOptions, uploadingFilesRequestIds]);
+  // useEffect(() => {
+  //   const uploadingRequestIds = uploadingFilesState.map(uploadFileState => uploadFileState.requestId);
+  //   Object.keys(uploadingFilesLocalState).forEach(requestId => {
+  //     if (!uploadingRequestIds.includes(requestId)) {
+  //       debugger;
+  //       delete uploadingFilesLocalState[requestId];
+  //     }
+  //   });
+  // }, [uploadingFilesLocalState, uploadingFilesState]);
 
   // Cancel all uploads on unmount
   useEffect(() => {
     return () => {
-      Object.values(uploadingFilesExtraOptions).forEach(extraOptions => extraOptions.abort());
+      Object.values(uploadingFilesLocalState).forEach(extraOptions => extraOptions.abort());
     };
-  }, [uploadingFilesExtraOptions]);
+  }, [uploadingFilesLocalState]);
 
-  const isUploadingFiles = uploadingFilesRequestIds.length > 0;
+  const isUploadingFiles = uploadingFilesState.length > 0;
 
   if (!isUploadingFiles) {
     return null;
@@ -82,9 +76,7 @@ export const DocumentsUploader = () => {
           fileName={uploadingFileState.serializedFile.name}
           progress={uploadingFileState.progress}
           onCancelUpload={() => {
-            const x = uploadingFilesExtraOptions[uploadingFileState.requestId];
-            debugger;
-            uploadingFilesExtraOptions[uploadingFileState.requestId].abort();
+            uploadingFilesLocalState[uploadingFileState.requestId].abort();
           }}
           classNames='[&:not(:last-child)]:mb-2'
         />

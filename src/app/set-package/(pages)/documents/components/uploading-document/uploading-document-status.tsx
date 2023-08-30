@@ -34,7 +34,8 @@ export const UploadingDocumentStatus = ({
                   fileSize={fileSize} />
       </div>
       <div className='flex items-center w-full gap-6'>
-        {isPendingUpload ? <div className="w-full text-middle-grey text-sm">Pending...</div> : <AtlusProgressBar progress={progress} />}
+        {isPendingUpload ? <div className='w-full text-middle-grey text-sm'>Pending...</div> :
+          <AtlusProgressBar progress={progress} />}
         <AtlusButton onClick={onCancelUpload} variant='clear'>
           <HiOutlineX size={20} className='text-middle-grey' />
         </AtlusButton>
