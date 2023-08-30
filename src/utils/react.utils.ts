@@ -3,7 +3,8 @@ import { isArray } from 'lodash';
 
 /** Checks if the children is null */
 export const isChildNull = (children: any): boolean => {
-  return Boolean(children?.type?.() === null);
+  const isFn = typeof children?.type === 'function';
+  return Boolean(isFn && children?.type?.() === null);
 };
 
 /**

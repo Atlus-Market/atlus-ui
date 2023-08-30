@@ -22,7 +22,7 @@ export const Patent = ({ patent }: PatentProps) => {
         </div>
         <div>
           <div className='mb-1'>
-            <span className='text-sm text-[#0E7580]'>{patent.publicationNumber}</span>
+            <span className='text-sm text-[#0E7580]'>{patent.publicationNumber || patent.patentNumber}</span>
           </div>
           <div className='mb-7'>
             <span

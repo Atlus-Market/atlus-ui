@@ -62,6 +62,7 @@ export const usePatentsColumns = ({
     () => [
       {
         accessorKey: 'publicationNumber',
+        accessorFn: row => row.publicationNumber || row.patentNumber,
         header: ({ table }) => (
           <HeaderCell title='Publication/Patent no.' />
         ),

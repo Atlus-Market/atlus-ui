@@ -15,6 +15,20 @@ export const TestComponentsHelper = () => {
       <button onClick={() => showErrorNotification({ text: 'Invalid session' })}>Show Error
         Notification
       </button>
+
+      {/*<AtlusAlertModal*/}
+      {/*  isOpen={true}*/}
+      {/*  title='Remove family?'*/}
+      {/*  text='Remove this family and its patents from your package.'*/}
+      {/*  mainButton={{*/}
+      {/*    text: 'Remove',*/}
+      {/*    onClick: () => console.log('Remove clicked')*/}
+      {/*  }}*/}
+      {/*  secondaryButton={{*/}
+      {/*    text: 'Cancel',*/}
+      {/*    onClick: () => console.log('Canceled')*/}
+      {/*  }}*/}
+      {/*/>*/}
       {/*<button onClick={() => {*/}
       {/*  createPackage({*/}
       {/*    'seller_user_id': '1',*/}
