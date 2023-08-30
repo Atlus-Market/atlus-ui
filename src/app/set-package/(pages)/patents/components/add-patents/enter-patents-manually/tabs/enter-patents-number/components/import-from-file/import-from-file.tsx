@@ -1,21 +1,15 @@
 'use client';
 
-import ImportFile from './import-file.svg';
-import SelectFile from './select-file.svg';
-import Image from 'next/image';
-import { useRef } from 'react';
+import { AtlusSelectFile } from '@/components/ui/select-file/atlus-select-file';
+import {
+  DownloadFileSample
+} from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/import-from-file/download-file-sample';
 
 export const ImportFromFile = () => {
-  const ref = useRef<any>(null);
   return (
-    <div>
-      <Image src={ImportFile} alt='import file' className='mb-6' />
-      <Image src={SelectFile} alt='select file'
-             className='hover:cursor-pointer'
-             onClick={() => {
-               ref.current?.click();
-             }} />
-      <input type='file' id='xyz' ref={ref} hidden />
+    <div className='[&>*:first-child]:mb-6'>
+      <DownloadFileSample />
+      <AtlusSelectFile />
     </div>
   );
 };
