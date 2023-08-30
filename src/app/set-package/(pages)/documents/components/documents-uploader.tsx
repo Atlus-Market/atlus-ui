@@ -3,6 +3,7 @@
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   selectDocumentsToUpload,
+  selectUploadFilesQueue,
   selectUploadingFiles,
   selectUploadingFilesRequestIds,
 } from '@/redux/features/set-package/selectors/documents.selectors';
@@ -20,7 +21,7 @@ interface UploadingFilesExtraOption {
 export const DocumentsUploader = () => {
   const dispatch = useAppDispatch();
   const uploadingFilesState = useAppSelector(selectUploadingFiles);
-  const uploadFilesQueue = useAppSelector(selectUploadFilesQueue);
+  const uUploadFilesQueue = useAppSelector(selectUploadFilesQueue);
   const filesToUpload = useAppSelector(selectDocumentsToUpload);
   const uploadingFilesRequestIds = useAppSelector(
     selectUploadingFilesRequestIds
@@ -29,8 +30,8 @@ export const DocumentsUploader = () => {
 
   console.group('Documents Uploader');
   console.log('uploadingFiles: ', uploadingFilesState);
-  console.log('uploadFilesQueue: ', uploadFilesQueue);
-  console.log('uploadingFilesExtraOptions: ', uploadingFilesLocalState);
+  console.log('uUploadFilesQueue: ', uUploadFilesQueue);
+  console.log('uploadingFilesExtraOptions: ', uploadingFilesExtraOptions);
   console.log('filesToUpload: ', filesToUpload);
   console.groupEnd();
 
@@ -45,15 +46,17 @@ export const DocumentsUploader = () => {
   }, [dispatch, filesToUpload, uploadingFilesLocalState]);
 
   // Clean up requestsIds that are no longer running
-  // useEffect(() => {
-  //   const uploadingRequestIds = uploadingFilesState.map(uploadFileState => uploadFileState.requestId);
-  //   Object.keys(uploadingFilesLocalState).forEach(requestId => {
-  //     if (!uploadingRequestIds.includes(requestId)) {
-  //       debugger;
-  //       delete uploadingFilesLocalState[requestId];
-  //     }
-  //   });
-  // }, [uploadingFilesLocalState, uploadingFilesState]);
+  useEffect(() => {
+    if (uploadingFilesRequestIds.length === 0) {
+      return;
+    }
+    Object.keys(uploadingFilesExtraOptions).forEach(requestId => {
+      debugger;
+      if (!uploadingFilesRequestIds.includes(requestId)) {
+        delete uploadingFilesExtraOptions[requestId];
+      }
+    });
+  }, [uploadingFilesExtraOptions, uploadingFilesRequestIds]);
 
   // Cancel all uploads on unmount
   useEffect(() => {
@@ -79,12 +82,14 @@ export const DocumentsUploader = () => {
           fileName={uploadingFileState.serializedFile.name}
           progress={uploadingFileState.progress}
           onCancelUpload={() => {
-            uploadingFilesLocalState[uploadingFileState.requestId].abort();
+            const x = uploadingFilesExtraOptions[uploadingFileState.requestId];
+            debugger;
+            uploadingFilesExtraOptions[uploadingFileState.requestId].abort();
           }}
           classNames="[&:not(:last-child)]:mb-2"
         />
       ))}
-      {uploadFilesQueue.map(queueFile => (
+      {uUploadFilesQueue.map(queueFile => (
         <UploadingDocumentStatus
           key={queueFile.id}
           fileSize={queueFile.size}

@@ -1,6 +1,11 @@
+import { FileName } from '@/app/set-package/(pages)/documents/components/documents-list/file-name';
+import { HiOutlineX } from 'react-icons/hi';
+import clsx from 'clsx';
 import { AtlusProgressBar } from '@/components/ui/progress-bar/atlus-progress-bar';
 import { FileName } from '@/components/common/file/file-name';
 import { FileContainer } from '@/components/common/file/file-container';
+
+export const PENDING_UPLOAD = -1;
 
 export const PENDING_UPLOAD = -1;
 
@@ -14,10 +19,13 @@ interface UploadingDocumentStatusProps {
 }
 
 export const UploadingDocumentStatus = ({
-  uploadingFileState,
   onCancelUpload,
   classNames,
+  fileSize,
+  fileName,
+  progress,
 }: UploadingDocumentStatusProps) => {
+  const isPendingUpload = progress === PENDING_UPLOAD;
   return (
     <div
       className={clsx(
@@ -26,14 +34,15 @@ export const UploadingDocumentStatus = ({
         classNames
       )}
     >
-      <div className="w-[50%]">
-        <FileName
-          fileName={uploadingFileState.serializedFile.name}
-          fileSize={uploadingFileState.serializedFile.size}
-        />
+      <div className="w-[50%] flex-shrink-0">
+        <FileName fileName={fileName} fileSize={fileSize} />
       </div>
       <div className="flex items-center w-full gap-6">
-        <AtlusProgressBar progress={uploadingFileState.progress} />
+        {isPendingUpload ? (
+          <div className="w-full text-middle-grey text-sm">Pending...</div>
+        ) : (
+          <AtlusProgressBar progress={progress} />
+        )}
         <AtlusButton onClick={onCancelUpload} variant="clear">
           <HiOutlineX size={20} className="text-middle-grey" />
         </AtlusButton>

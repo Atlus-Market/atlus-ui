@@ -52,6 +52,14 @@ export const documentsReducer = {
     }
     state.documents.uploadingFiles[action.payload.requestId] = action.payload;
   },
+  removeQueuedFile: (
+    state: SetPackageState,
+    action: PayloadAction<{ fileId: string }>
+  ) => {
+    state.documents.uploadFilesQueue = state.documents.uploadFilesQueue.filter(
+      file => file.id !== action.payload.fileId
+    );
+  },
 };
 
 export const createDocumentsExtraReducers = (
