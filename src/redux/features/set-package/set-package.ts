@@ -24,7 +24,7 @@ import {
   dropdownPrivateOption,
   dropdownPublicOption,
 } from '@/components/common/dropdown/visibility-options';
-import { cleanSerializedFile } from '@/utils/file';
+import { enterPatentsExtraReducers } from '@/redux/features/set-package/slices/add-patents/slices/enter-patents-extra-reducers';
 
 export interface SetPackageState {
   // Edit Patent
@@ -157,6 +157,7 @@ export const setPackage = createSlice({
 
   extraReducers: builder => {
     createSetPackageExtraReducers(builder);
+    enterPatentsExtraReducers(builder);
     createDocumentsExtraReducers(builder);
     packageTitleValidatorExtraReducers(builder);
   },

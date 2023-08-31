@@ -56,6 +56,7 @@ export const documentsReducer = {
     state: SetPackageState,
     action: PayloadAction<{ fileId: string }>
   ) => {
+    // TODO: removeUploadingFileFromState
     state.documents.uploadFilesQueue = state.documents.uploadFilesQueue.filter(
       file => file.id !== action.payload.fileId
     );
