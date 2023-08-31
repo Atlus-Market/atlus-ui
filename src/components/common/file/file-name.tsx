@@ -1,17 +1,18 @@
-import { FileIcon } from '@/components/common/file-icon';
 import { getFileExtension } from '@/utils/file';
 import { AtlusTooltip } from '@/components/ui/tooltip/atlus-tooltip';
 import { useRef } from 'react';
 import { generateID } from '@/utils/id';
 import { filesize } from 'filesize';
+import { FileIcon } from '@/components/common/file/file-icon';
 
 interface FileNameProps {
   fileName: string;
   fileSize: number;
 }
 
-export const FileName = ({ fileName,fileSize }: FileNameProps) => {
+export const FileName = ({ fileName, fileSize }: FileNameProps) => {
   const fileExtension = getFileExtension(fileName);
+  console.log('fileExtension: ', fileExtension);
   const refTooltipId = useRef(generateID());
   return (
     <div className='flex items-center gap-4'>

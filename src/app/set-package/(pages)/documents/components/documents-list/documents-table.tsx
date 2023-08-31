@@ -1,7 +1,6 @@
 import './documents-table.css';
 import { DirectoryTree } from '@/models/dataroom';
 import { Fragment } from 'react';
-import { FileName } from '@/app/set-package/(pages)/documents/components/documents-list/file-name';
 import { HiOutlineX } from 'react-icons/hi';
 import {
   dropdownPrivateOption,
@@ -10,6 +9,7 @@ import {
 import { AtlusDropdownList } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 import { parseGMTDate } from '@/utils/date';
 import format from 'date-fns/format';
+import { FileName } from '@/components/common/file/file-name';
 
 interface DocumentsTableProps {
   dataroom: DirectoryTree[];
