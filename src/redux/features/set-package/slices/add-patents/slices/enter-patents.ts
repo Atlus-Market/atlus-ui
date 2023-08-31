@@ -49,7 +49,16 @@ export const enterPatentsReducer = {
   updateEnterPatentsIdsManuallyForm: (state: SetPackageState, action: PayloadAction<EnterPatentsIdsManuallyForm>) => {
     state.addPatents.enterPatentsState[EnterPatentsNumberTab.EnterManually].form = action.payload;
   },
-  setImportPatentsFile: (state: SetPackageState, action: PayloadAction<{ file: SerializedFile }>) => {
+  setImportPatentsFile: (state: SetPackageState, action: PayloadAction<{
+    file: SerializedFile
+  }>) => {
     state.addPatents.enterPatentsState[EnterPatentsNumberTab.ImportFromFile].selectedFile = action.payload.file;
+  },
+  removeImportPatentsFile: (state: SetPackageState) => {
+    const serializedFile = state.addPatents.enterPatentsState[EnterPatentsNumberTab.ImportFromFile].selectedFile;
+    if (serializedFile) {
+      window.URL.revokeObjectURL(serializedFile.objectUrl);
+    }
+    state.addPatents.enterPatentsState[EnterPatentsNumberTab.ImportFromFile].selectedFile = undefined;
   }
 };
