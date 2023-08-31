@@ -5,7 +5,7 @@ import { uploadPackageDocument } from '@/redux/features/set-package/thunks/uploa
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit/src/mapBuilders';
 import { cleanSerializedFile } from '@/utils/file';
 
-export interface SerializedFileUpload {
+export interface SerializedFile {
   id: string;
   name: string;
   size: number;
