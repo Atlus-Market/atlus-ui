@@ -180,7 +180,6 @@ export const {
   setAddPatentsActiveTab,
   updateEnterPatentsIdsManuallyForm,
   setImportPatentsFile,
-  removeImportPatentsFile,
 
   setSelectedTablePatentIds,
   setPackagePatents,
