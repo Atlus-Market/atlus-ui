@@ -7,6 +7,8 @@ import {
 import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { SerializedFile } from '@/redux/features/set-package/slices/documents';
+import { createAction } from '@reduxjs/toolkit';
+import { SearchPatentsResponse } from '@/api/patents/search-patents-response';
 
 export type EnterPatentsIdsManuallyForm = EnterPatentsState[EnterPatentsNumberTab.EnterManually]['form'];
 
@@ -25,6 +27,8 @@ export interface EnterPatentsState {
     uploadingFile: boolean;
   };
 }
+
+export const patentsFetchedSuccessfully = createAction<SearchPatentsResponse>('setPackage/patentsFetchedSuccessfully')
 
 export const enterPatentsInitialState: EnterPatentsState = {
   activeTab: EnterPatentsNumberTab.EnterManually,

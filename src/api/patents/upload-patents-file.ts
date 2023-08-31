@@ -1,11 +1,13 @@
 import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { SearchPatentsResponse } from '@/api/patents/search-patents-response';
 
 interface UploadPatentsFilePayload {
   file: File;
-  abortSignal?: AbortSignal;
 }
 
-export const uploadPatentsFile = ({ file, abortSignal }: UploadPatentsFilePayload) => {
+type UploadPatentsFileResponse = SearchPatentsResponse
+
+export const uploadPatentsFile = ({ file }: UploadPatentsFilePayload, abortSignal?: AbortSignal) => {
   const headers = {
     'content-type': 'multipart/form-data'
   };
@@ -13,7 +15,7 @@ export const uploadPatentsFile = ({ file, abortSignal }: UploadPatentsFilePayloa
   const formData = new FormData();
   formData.append('file', file);
 
-  return createRequest({
+  return createRequest<unknown, UploadPatentsFileResponse>({
     url: '/patent/upload',
     method: 'POST',
     isProtected: ProtectedEndpoint.True,

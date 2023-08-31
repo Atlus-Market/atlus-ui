@@ -1,5 +1,5 @@
 import { createRequest, ProtectedEndpoint } from '@/api/api';
-import { Patent } from '@/models/patent';
+import { SearchPatentsResponse } from '@/api/patents/search-patents-response';
 
 export interface GetPatentsSimplePayload {
   ids: string[];
@@ -9,10 +9,7 @@ export interface CustomPatentData {
   publicationNumber: string;
 }
 
-export interface GetPatentsSimpleResponse {
-  customPatents: CustomPatentData[];
-  patents: Patent[];
-}
+export type GetPatentsSimpleResponse = SearchPatentsResponse;
 
 export const getPatentsSimpleBulk = async (getPatentsPayload: GetPatentsSimplePayload, signal?: AbortSignal): Promise<GetPatentsSimpleResponse> => {
   return createRequest<GetPatentsSimplePayload, GetPatentsSimpleResponse>({
