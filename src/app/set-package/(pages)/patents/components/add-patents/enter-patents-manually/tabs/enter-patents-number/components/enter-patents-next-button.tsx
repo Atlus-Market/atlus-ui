@@ -4,6 +4,7 @@ import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   selectActivePatentsIds,
+  selectAddPatentsActiveTab,
   selectIsActiveTabValid
 } from '@/redux/features/set-package/selectors/add-patents.selectors';
 import { useQuery } from '@tanstack/react-query';
@@ -18,6 +19,10 @@ import {
 import { getPatentsSimpleBulk } from '@/api/patents/get-patents-simple-bulk';
 import { useEffect, useMemo, useState } from 'react';
 import { queryClient } from '@/api/api-client-provider';
+import {
+  EnterPatentsNumberTab
+} from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
+import { uploadPatentsFile } from '@/redux/features/set-package/thunks/upload-patents-file.thunk';
 
 
 const createPatentManually = (patentData: Partial<Patent>): Patent => ({
@@ -39,6 +44,7 @@ export const EnterPatentsNextButton = () => {
   const dispatch = useAppDispatch();
   const isActiveFormValid = useAppSelector(selectIsActiveTabValid);
   const selectedPatentsId = useAppSelector(selectActivePatentsIds);
+  const addPatentsActiveTab = useAppSelector(selectAddPatentsActiveTab);
 
   const queryKey = useMemo(() => {
     return [SearchPatentsQueryKey, selectedPatentsId];
@@ -68,6 +74,11 @@ export const EnterPatentsNextButton = () => {
 
   const onNext = async () => {
     if (!isActiveFormValid) {
+      return;
+    }
+
+    if (addPatentsActiveTab === EnterPatentsNumberTab.ImportFromFile) {
+      dispatch(uploadPatentsFile());
       return;
     }
 

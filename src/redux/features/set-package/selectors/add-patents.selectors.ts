@@ -54,13 +54,14 @@ export const selectImportPatentsSerializedFile = createSelector(
 export const selectIsActiveTabValid = createSelector(
   selectAddPatentsActiveTab,
   selectEnterPatentsIdsManuallyState,
-  (activeTab, enterPatentsIdsManuallyState) => {
+  selectImportPatentsSerializedFile,
+  (activeTab, enterPatentsIdsManuallyState, patentsSerializedFile) => {
     if (activeTab === EnterPatentsNumberTab.EnterManually) {
       return enterPatentsIdsManuallyState.form.formState.isValid;
     }
 
     if (activeTab === EnterPatentsNumberTab.ImportFromFile) {
-      return false;
+      return !!patentsSerializedFile;
     }
 
     return false;

@@ -22,6 +22,7 @@ export interface EnterPatentsState {
   };
   [EnterPatentsNumberTab.ImportFromFile]: {
     selectedFile: SerializedFile | undefined;
+    uploadingFile: boolean;
   };
 }
 
@@ -38,7 +39,8 @@ export const enterPatentsInitialState: EnterPatentsState = {
     }
   },
   [EnterPatentsNumberTab.ImportFromFile]: {
-    selectedFile: undefined
+    selectedFile: undefined,
+    uploadingFile: false
   }
 };
 

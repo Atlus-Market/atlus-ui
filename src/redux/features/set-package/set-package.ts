@@ -25,6 +25,9 @@ import {
   dropdownPrivateOption,
   dropdownPublicOption
 } from '@/components/common/dropdown/visibility-options';
+import {
+  enterPatentsExtraReducers
+} from '@/redux/features/set-package/slices/add-patents/slices/enter-patents-extra-reducers';
 
 
 export interface SetPackageState {
@@ -115,6 +118,7 @@ export const setPackage = createSlice({
 
   extraReducers: (builder) => {
     createSetPackageExtraReducers(builder);
+    enterPatentsExtraReducers(builder);
     createDocumentsExtraReducers(builder);
   }
 });
