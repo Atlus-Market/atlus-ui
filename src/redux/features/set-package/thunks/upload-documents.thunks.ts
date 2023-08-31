@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { SerializedFileUpload } from '@/redux/features/set-package/slices/documents';
-import { createFileFromSerializedFileUpload } from '@/utils/file';
+import { SerializedFile } from '@/redux/features/set-package/slices/documents';
+import { createFileFromSerializedFile } from '@/utils/file';
 import { uploadPackageDocumentFile } from '@/api/dataroom/upload-file';
 import { RootState } from '@/redux/store';
 import { updateFileUploadState } from '@/redux/features/set-package/set-package';
@@ -8,10 +8,10 @@ import { updateFileUploadState } from '@/redux/features/set-package/set-package'
 
 export const uploadPackageDocument = createAsyncThunk(
   'package/documents/uploadFile',
-  async (serializedFileUpload: SerializedFileUpload, thunkAPI) => {
+  async (serializedFileUpload: SerializedFile, thunkAPI) => {
     const dataroomId = (thunkAPI.getState() as RootState).setPackageReducer.package?.dataroomId ?? '';
     try {
-      const file = await createFileFromSerializedFileUpload(serializedFileUpload);
+      const file = await createFileFromSerializedFile(serializedFileUpload);
       const res = await uploadPackageDocumentFile({
         file,
         folder: '',

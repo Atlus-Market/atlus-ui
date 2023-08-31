@@ -5,7 +5,7 @@ import { uploadPackageDocument } from '@/redux/features/set-package/thunks/uploa
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit/src/mapBuilders';
 
 
-export interface SerializedFileUpload {
+export interface SerializedFile {
   id: string;
   name: string;
   size: number;
@@ -14,14 +14,14 @@ export interface SerializedFileUpload {
 }
 
 export interface UploadingFileState {
-  serializedFile: SerializedFileUpload;
+  serializedFile: SerializedFile;
   requestId: string;
   progress: number;
 }
 
 export interface DocumentsState {
   dataroom: Dataroom | undefined;
-  uploadFilesQueue: SerializedFileUpload[];
+  uploadFilesQueue: SerializedFile[];
   uploadingFiles: Record<string, UploadingFileState>;
 }
 
@@ -37,7 +37,7 @@ export const documentsReducer = {
   },
 
   // File Upload
-  addFileToUpload: (state: SetPackageState, action: PayloadAction<SerializedFileUpload>) => {
+  addFileToUpload: (state: SetPackageState, action: PayloadAction<SerializedFile>) => {
     state.documents.uploadFilesQueue.push(action.payload);
   },
   updateFileUploadState: (state: SetPackageState, action: PayloadAction<UploadingFileState>) => {
@@ -79,7 +79,7 @@ export const createDocumentsExtraReducers = (builder: ActionReducerMapBuilder<Se
   });
 };
 
-const removeUploadingFileFromState = (state: SetPackageState, serializedFile: SerializedFileUpload, uploadId: string) => {
+const removeUploadingFileFromState = (state: SetPackageState, serializedFile: SerializedFile, uploadId: string) => {
   delete state.documents.uploadingFiles[uploadId];
   window.URL.revokeObjectURL(serializedFile.objectUrl);
 };

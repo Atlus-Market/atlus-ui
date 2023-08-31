@@ -1,7 +1,18 @@
-import { SerializedFileUpload } from '@/redux/features/set-package/slices/documents';
+import { SerializedFile } from '@/redux/features/set-package/slices/documents';
 import { NOT_FOUND } from '@/constants/general';
+import { generateID } from '@/utils/id';
 
-export const createFileFromSerializedFileUpload = async (fileUpload: SerializedFileUpload): Promise<File> => {
+export const createSerializedFile = (file: File): SerializedFile => {
+  return {
+    id: generateID(),
+    name: file.name,
+    size: file.size,
+    type: file.type,
+    objectUrl: URL.createObjectURL(file)
+  };
+};
+
+export const createFileFromSerializedFile = async (fileUpload: SerializedFile): Promise<File> => {
   const response = await fetch(fileUpload.objectUrl);
   const blobFile = await response.blob();
   return new File(

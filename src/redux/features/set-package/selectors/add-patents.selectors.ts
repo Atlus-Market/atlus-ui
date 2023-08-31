@@ -44,6 +44,11 @@ export const selectImportPatentsIdsFromFileState = createSelector(
   state => state[EnterPatentsNumberTab.ImportFromFile]
 );
 
+export const selectImportPatentsSerializedFile = createSelector(
+  selectEnterPatentsState,
+  state => state[EnterPatentsNumberTab.ImportFromFile].selectedFile
+);
+
 // Common
 
 export const selectIsActiveTabValid = createSelector(
@@ -69,7 +74,6 @@ export const selectActivePatentsIds = createSelector(
     if (activeTab == EnterPatentsNumberTab.EnterManually) {
       return mapPatentsIdsToPatentIdsArray(selectEnterPatentsIdsManuallyState.form?.formValues?.patentsIds);
     }
-    // TODO: return import from file patents ids
     return [];
   }
 );

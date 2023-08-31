@@ -15,7 +15,7 @@ export default function VerifyEmailPage() {
         className='max-w-[230px] md:max-w-[300px]'
       />
       <AtlusTitle text='Verify your email' className='mb-4 text-center' />
-      <SendVerificationEmail showText={true} />
+      <SendVerificationEmail />
     </div>
   );
 }

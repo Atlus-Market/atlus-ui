@@ -131,9 +131,13 @@ export const {
   updatePatent,
   showAddPatentsModal,
   hideAddPatentsModal,
+
+  // Enter Patents
   setAddPatentsStep,
   setAddPatentsActiveTab,
   updateEnterPatentsIdsManuallyForm,
+  setImportPatentsFile,
+
   setSelectedTablePatentIds,
   setPackagePatents,
   setPatents,

@@ -3,21 +3,24 @@
 import Image from 'next/image';
 import UploadFileImageSvg from '@/public/assets/images/upload-file.svg';
 import { useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { Accept, useDropzone } from 'react-dropzone';
 import clsx from 'clsx';
+
+const NO_MAX_FILES_LIMIT = 0;
 
 interface AtlusSelectFileProps {
   onFilesSelected?: (selectedFiles: File[]) => void;
-  // maxFiles ????
+  maxFiles?: number;
+  acceptedFileTypes?: Accept;
 }
 
-export const AtlusSelectFile = ({ onFilesSelected }: AtlusSelectFileProps) => {
+export const AtlusSelectFile = ({ onFilesSelected, maxFiles = NO_MAX_FILES_LIMIT, acceptedFileTypes }: AtlusSelectFileProps) => {
   const onDrop = useCallback((acceptedFiles: File[]) => {
     console.log('acceptedFiles: ', acceptedFiles);
     onFilesSelected?.(acceptedFiles);
   }, [onFilesSelected]);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, maxFiles, accept: acceptedFileTypes });
 
   return (
     <div
