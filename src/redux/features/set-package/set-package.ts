@@ -110,6 +110,15 @@ export const setPackage = createSlice({
         patent => patent.familyId !== familyId
       );
     },
+    removeFamilyPatents: (
+      state: SetPackageState,
+      action: PayloadAction<{ familyId: string }>
+    ) => {
+      const { familyId } = action.payload;
+      state.patents = state.patents.filter(
+        patent => patent.familyId !== familyId
+      );
+    },
 
     // After finishing selecting patents from the table
     setPackagePatents: (
