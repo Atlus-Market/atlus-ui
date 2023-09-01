@@ -3,7 +3,6 @@ import {
   getCoreRowModel,
   getExpandedRowModel,
   getFilteredRowModel,
-  getPaginationRowModel,
   useReactTable
 } from '@tanstack/react-table';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -55,9 +54,9 @@ export const PatentsTable = () => {
 
   const updateRowSelectionState = useCallback(
     (rowSelectionState: PatentsRowSelectionState) => dispatch(setRowSelectionState({ rowSelectionState }))
-    , []);
+    , [dispatch]);
 
-  const [data, setData] = useState(groupPatentsByFamily);
+  const [tableData, setTableData] = useState(groupPatentsByFamily);
   const [expanded, setExpanded] = useState<ExpandedState>(getInitialExpandedState(groupPatentsByFamily));
   const columns = usePatentsColumns({
     rowSelectionState: rowSelectionState,
@@ -65,13 +64,13 @@ export const PatentsTable = () => {
   });
 
   useEffect(() => {
-    setData(groupPatentsByFamily);
+    setTableData(groupPatentsByFamily);
   }, [groupPatentsByFamily]);
 
-  console.log('data: ', data);
+  console.log('tableData: ', tableData);
 
   const table = useReactTable({
-    data,
+    data: tableData,
     columns,
     state: {
       expanded,
@@ -90,18 +89,20 @@ export const PatentsTable = () => {
 
     getSubRows: row => row.subRows,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getExpandedRowModel: getExpandedRowModel()
   });
 
   const tableRows = table.getRowModel().rows;
+  console.log('tableRows: ', tableRows);
   const patentsFamilyGroups = useMemo(() => {
     // This grouping is used to render only first row and expand the rest.
     return makeFamilyRowGroups(tableRows);
   }, [tableRows]);
 
   useSetSelectedPatents({ table });
+
+  console.log('patentsFamilyGroups: ', patentsFamilyGroups);
 
   const hasFetchedPatents = fetchedPatents?.length > 0;
   if (!hasFetchedPatents) {
@@ -122,11 +123,13 @@ export const PatentsTable = () => {
         ))}
       </thead>
       <tbody>
-        {patentsFamilyGroups.map(patentsGroup =>
-          <PatentsFamilyGroup
-            key={patentsGroup.parentRow.id}
-            patentsFamilyGroup={patentsGroup} table={table}
-          />
+        {patentsFamilyGroups.map(patentsGroup => {
+            console.log('patentsGroup: ', patentsGroup);
+            return <PatentsFamilyGroup
+              key={patentsGroup.parentRow.id}
+              patentsFamilyGroup={patentsGroup} table={table}
+            />;
+          }
         )}
       </tbody>
     </table>

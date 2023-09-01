@@ -84,6 +84,7 @@ export interface PatentsFamilyRowsGroup {
 }
 
 export const makeFamilyRowGroups = (rows: Row<PatentTableData>[]): PatentsFamilyRowsGroup[] => {
+  console.log('makeFamilyRowGroups:rows: ', rows);
   let result: PatentsFamilyRowsGroup[] = [];
   let familyGroup: PatentsFamilyRowsGroup;
   rows.forEach(row => {

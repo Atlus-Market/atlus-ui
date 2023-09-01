@@ -15,7 +15,7 @@ export const EnterPatentsNextButton = () => {
   const [mounted, setIsMounted] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   const isActiveFormValid = useAppSelector(selectIsActiveTabValid);
-  const { refetch, isRefetching, isFetching } = useFetchPatents();
+  const { refetch, isFetching } = useFetchPatents();
 
   useEffect(() => {
     return () => {
@@ -38,7 +38,6 @@ export const EnterPatentsNextButton = () => {
     dispatch(patentsFetchedSuccessfully(response.data));
   };
 
-  console.log('isRefetching || isFetching: ', isRefetching, isFetching);
   return (
     <AtlusButton
       disabled={!isActiveFormValid || isFetching}
