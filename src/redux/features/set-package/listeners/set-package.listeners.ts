@@ -34,7 +34,10 @@ const setPatentsListener = (appStartListening: ListenersMiddleware) => {
       const { dispatch } = listenerApi;
       console.log('Effect patentsFetchedSuccessfully running: ', action);
 
-      const { patents, customPatents } = action.payload;
+      const { patents, customPatents = [] } = action.payload;
+      if (!customPatents) {
+        debugger;
+      }
       const notFoundPatents = customPatents.map(({ publicationNumber }): Patent => createPatentManually({ publicationNumber }));
 
       console.log('fetchedPatents: ', patents);

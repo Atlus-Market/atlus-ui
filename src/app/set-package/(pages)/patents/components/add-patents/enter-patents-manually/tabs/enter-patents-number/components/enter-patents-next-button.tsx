@@ -1,29 +1,50 @@
-'use client';
-
-import { useAppSelector } from '@/redux/hooks';
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
-  selectAddPatentsActiveTab
+  selectIsActiveTabValid
 } from '@/redux/features/set-package/selectors/add-patents.selectors';
 import {
-  EnterPatentsNumberTab
-} from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
+  useFetchPatents
+} from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/use-fetch-patents';
 import {
-  UploadPatentsFileNextButton
-} from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/upload-patents-file-next-button';
-import {
-  SearchPatentsNextButton
-} from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/search-patents-next-button';
+  patentsFetchedSuccessfully
+} from '@/redux/features/set-package/slices/add-patents/slices/enter-patents';
+import { AtlusButton } from '@/components/ui/button/atlus-button';
 
 export const EnterPatentsNextButton = () => {
-  const addPatentsActiveTab = useAppSelector(selectAddPatentsActiveTab);
+  const [mounted, setIsMounted] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
+  const isActiveFormValid = useAppSelector(selectIsActiveTabValid);
+  const { refetch, isRefetching, isFetching } = useFetchPatents();
 
-  if (addPatentsActiveTab === EnterPatentsNumberTab.EnterManually) {
-    return <SearchPatentsNextButton />;
-  }
+  useEffect(() => {
+    return () => {
+      setIsMounted(false);
+    };
+  }, []);
 
-  if (addPatentsActiveTab === EnterPatentsNumberTab.ImportFromFile) {
-    return <UploadPatentsFileNextButton />;
-  }
+  const onNext = async () => {
+    if (!isActiveFormValid) {
+      return;
+    }
 
-  return null;
+    const response = await refetch();
+    console.log('Fetch Patents Response: ', response);
+
+    if (!response.data || !mounted) {
+      return;
+    }
+
+    dispatch(patentsFetchedSuccessfully(response.data));
+  };
+
+  console.log('isRefetching || isFetching: ', isRefetching, isFetching);
+  return (
+    <AtlusButton
+      disabled={!isActiveFormValid || isFetching}
+      isLoading={isFetching}
+      onClick={onNext}>
+      Next
+    </AtlusButton>
+  );
 };
