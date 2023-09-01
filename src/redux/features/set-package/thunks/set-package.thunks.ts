@@ -19,12 +19,18 @@ import {
   NO_FAMILY_GROUP_ID
 } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
 
+
+export interface PersistPackageResult {
+  package: Package;
+  createdPackage: boolean;
+}
+
 export const persistPackage = createAsyncThunk<
-  Package,
+  PersistPackageResult,
   void,
   { state: RootState }>(
   'setPackage/persist',
-  async (args, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       const { getState } = thunkAPI;
       const activePackage = selectPackage(getState());
@@ -49,13 +55,19 @@ export const persistPackage = createAsyncThunk<
         const res = await updatePackage(activePackage.id, payload);
         console.log('UPDATE package Response: ', res);
         return {
-          ...payload,
-          ...activePackage
+          createdPackage: false,
+          package: {
+            ...payload,
+            ...activePackage
+          }
         };
       } else {
         const res = await createPackage(payload);
         console.log('CREATE package Response: ', res);
-        return res.package;
+        return {
+          createdPackage: true,
+          package: res.package
+        };
       }
 
     } catch (e) {
