@@ -3,10 +3,12 @@ import {
   showErrorNotification,
   showSuccessNotification
 } from '@/components/ui/notification/atlus-notification';
+import { AtlusMenu } from '@/components/ui/menu/atlus-menu';
+import { AtlusButton } from '@/components/ui/button/atlus-button';
+import { HiOutlineClipboardCopy, HiOutlineDotsVertical } from 'react-icons/hi';
+import { AtlusMenuItem } from '@/components/ui/menu/atlus-menu-item';
 
 export const TestComponentsHelper = () => {
-
-
   return (
     <div>
       <button onClick={() => showSuccessNotification({ text: 'Success' })}>Show Success
@@ -16,31 +18,23 @@ export const TestComponentsHelper = () => {
         Notification
       </button>
 
-      {/*<AtlusAlertModal*/}
-      {/*  isOpen={true}*/}
-      {/*  title='Remove family?'*/}
-      {/*  text='Remove this family and its patents from your package.'*/}
-      {/*  mainButton={{*/}
-      {/*    text: 'Remove',*/}
-      {/*    onClick: () => console.log('Remove clicked')*/}
-      {/*  }}*/}
-      {/*  secondaryButton={{*/}
-      {/*    text: 'Cancel',*/}
-      {/*    onClick: () => console.log('Canceled')*/}
-      {/*  }}*/}
-      {/*/>*/}
-      {/*<button onClick={() => {*/}
-      {/*  createPackage({*/}
-      {/*    'seller_user_id': '1',*/}
-      {/*    'broker_user_id': '1',*/}
-      {/*    'title': 'Sample Package 6',*/}
-      {/*    'description': 'Here is the sample package description.',*/}
-      {/*    'keywords': 'word1, word2, word3',*/}
-      {/*    'industry_id': 1,*/}
-      {/*    'visibility': 1*/}
-      {/*  });*/}
-      {/*}}>Create Package*/}
-      {/*</button>*/}
+      <div className='p-6'>
+        <AtlusMenu
+          menuButton={
+            <AtlusButton
+              variant='clear'>
+              <HiOutlineDotsVertical />
+            </AtlusButton>
+          }
+          menuItems={
+            <>
+              <AtlusMenuItem text='Cut' icon={HiOutlineClipboardCopy} />
+              <AtlusMenuItem text='Copy' />
+              <AtlusMenuItem text='Paste' />
+            </>
+          }
+        />
+      </div>
     </div>
   );
 };

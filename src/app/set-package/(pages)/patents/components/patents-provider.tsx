@@ -1,13 +1,12 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { ReactNode, useEffect, useMemo } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   selectPackage,
   selectPackagePatents
 } from '@/redux/features/set-package/selectors/set-package.selectors';
-import { getPatentsBulk } from '@/api/patents/get-patents-bulk';
 import { setPackagePatents } from '@/redux/features/set-package/set-package';
 import { getPatentsSimpleBulk } from '@/api/patents/get-patents-simple-bulk';
 
@@ -16,6 +15,7 @@ interface PatentsProviderProps {
 }
 
 export const PatentsProvider = ({ children }: PatentsProviderProps) => {
+  const [hasLoadPatents, setHasLoadPatents] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const activePackage = useAppSelector(selectPackage);
   const patents = useAppSelector(selectPackagePatents);
@@ -33,12 +33,16 @@ export const PatentsProvider = ({ children }: PatentsProviderProps) => {
   const { isLoading, data, error } = useQuery({
     queryKey: ['patents', patentsToFetch],
     queryFn: () => getPatentsSimpleBulk({ ids: patentsToFetch }),
-    enabled: hasPatentsToFetch,
-    refetchOnWindowFocus: false,
+    enabled: !hasLoadPatents,
+    refetchOnWindowFocus: false
   });
 
   useEffect(() => {
+    if (hasLoadPatents) {
+      return;
+    }
     if (data?.patents) {
+      setHasLoadPatents(true);
       dispatch(setPackagePatents(data.patents));
     }
   }, [data, dispatch]);
@@ -48,7 +52,7 @@ export const PatentsProvider = ({ children }: PatentsProviderProps) => {
     return <div>Error while loading patents</div>;
   }
 
-  if (hasPatentsToFetch && isLoading) {
+  if (!hasLoadPatents && isLoading) {
     return (
       <div>Loading patents...</div>
     );

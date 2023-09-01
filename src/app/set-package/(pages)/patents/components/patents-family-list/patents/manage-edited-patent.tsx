@@ -6,7 +6,7 @@ import {
   NO_FAMILY_GROUP_ID
 } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
 import { useAppDispatch } from '@/redux/hooks';
-import { deletePatent, showEditPatentModal } from '@/redux/features/set-package/set-package';
+import { removePatent, showEditPatentModal } from '@/redux/features/set-package/set-package';
 import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
 import { useState } from 'react';
 
@@ -39,7 +39,7 @@ export const ManageEditedPatent = ({ patent }: ManageEditedPatentProps) => {
           text: 'Remove',
           onClick: () => {
             hideAlertModal();
-            dispatch(deletePatent({ patentId: patent.publicationNumber }));
+            dispatch(removePatent({ patentId: patent.publicationNumber }));
           }
         }}
         secondaryButton={{

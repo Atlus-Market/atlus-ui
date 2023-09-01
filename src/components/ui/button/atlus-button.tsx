@@ -1,6 +1,6 @@
 'use client';
 
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { ButtonHTMLAttributes, forwardRef, ReactNode } from 'react';
 import clsx from 'clsx';
 import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loading-spinner';
 import { AtlusColor } from '@/components/ui/theme';
@@ -65,34 +65,36 @@ const getButtonSize = (props: AtlusButtonProps): string => {
   );
 };
 
-export const AtlusButton = (props: AtlusButtonProps) => {
-  const {
-    variant = 'solid',
-    size = 'big',
-    children,
-    type = 'button',
-    isLoading = false,
-    disabled = false,
-    color,
-    className,
-    ...restProps
-  } = props;
-  const isClearVariant = variant === 'clear';
-  const classVariant = isClearVariant ? clearVariant(props) : variant === 'solid' ? solidOrangeVariant : outlineWhiteVariant;
-  return (
-    <button
-      type={type}
-      className={clsx(
-        classVariant,
-        className,
-        getButtonSize(props),
-        isClearVariant && color,
-        disabled ? '!bg-middle-grey' : ''
-      )}
-      disabled={isLoading || disabled}
-      {...restProps}
-    >
-      {isLoading ? <AtlusLoadingSpinner /> : children}
-    </button>
-  );
-};
+export const AtlusButton = forwardRef<HTMLButtonElement, AtlusButtonProps>(
+  function AtlusButton(props, ref) {
+    const {
+      variant = 'solid',
+      size = 'big',
+      children,
+      type = 'button',
+      isLoading = false,
+      disabled = false,
+      color,
+      className,
+      ...restProps
+    } = props;
+    const isClearVariant = variant === 'clear';
+    const classVariant = isClearVariant ? clearVariant(props) : variant === 'solid' ? solidOrangeVariant : outlineWhiteVariant;
+    return (
+      <button
+        type={type}
+        className={clsx(
+          classVariant,
+          className,
+          getButtonSize(props),
+          isClearVariant && color,
+          disabled ? '!bg-middle-grey' : ''
+        )}
+        disabled={isLoading || disabled}
+        ref={ref}
+        {...restProps}
+      >
+        {isLoading ? <AtlusLoadingSpinner /> : children}
+      </button>
+    );
+  });

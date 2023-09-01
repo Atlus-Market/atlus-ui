@@ -80,11 +80,15 @@ export const setPackage = createSlice({
       state.patents = state.patents.filter(p => p.publicationNumber !== patent.publicationNumber);
       state.patents.push(patent);
     },
-    deletePatent: (
+    removePatent: (
       state: SetPackageState, action: PayloadAction<{ patentId: string }>
     ) => {
       const { patentId } = action.payload;
       state.patents = state.patents.filter(p => p.publicationNumber !== patentId);
+    },
+    removeFamilyPatents: (state: SetPackageState, action: PayloadAction<{ familyId: string }>) => {
+      const { familyId } = action.payload;
+      state.patents = state.patents.filter(patent => patent.familyId !== familyId);
     },
 
     // After finishing selecting patents from the table
@@ -126,8 +130,9 @@ export const {
   showEditPatentModal,
   hideEditPatentModal,
   updateSelectedPatent,
-  deletePatent,
+  removePatent,
   updatePatent,
+  removeFamilyPatents,
   showAddPatentsModal,
   hideAddPatentsModal,
 
