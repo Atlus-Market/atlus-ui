@@ -2,15 +2,13 @@
 
 import { ReactNode, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import {
-  selectActiveDataroom,
-  selectDataroom,
-  selectDocumentsState
-} from '@/redux/features/set-package/selectors/documents.selectors';
+import { selectActiveDataroom } from '@/redux/features/set-package/selectors/documents.selectors';
 import { setDataroom } from '@/redux/features/set-package/set-package';
 import {
   useFetchDataroom
 } from '@/app/set-package/(pages)/documents/components/use-fetch-dataroom';
+import { addListener } from '@reduxjs/toolkit';
+import { uploadPackageDocument } from '@/redux/features/set-package/thunks/upload-documents.thunks';
 
 interface DocumentsProviderProps {
   children: ReactNode;
@@ -19,18 +17,29 @@ interface DocumentsProviderProps {
 export const DocumentsProvider = ({ children }: DocumentsProviderProps) => {
   const dataroomId = useAppSelector(selectActiveDataroom) ?? '';
   const dispatch = useAppDispatch();
-  const dataroom = useAppSelector(selectDataroom);
 
-  const docsState = useAppSelector(selectDocumentsState);
-  console.log('DocumentsState: ', docsState);
-
-  const { fetchStatus, isLoading, data, error, ...rest } = useFetchDataroom(dataroomId);
+  const { isLoading, data, error, refetch } = useFetchDataroom(dataroomId);
 
   useEffect(() => {
     if (data) {
       dispatch(setDataroom(data));
     }
   }, [data, dispatch]);
+
+  useEffect(() => {
+    const unsubscribe = dispatch(
+      addListener({
+        actionCreator: uploadPackageDocument.fulfilled,
+        effect: (action, listenerApi) => {
+          refetch();
+        }
+      })
+    );
+    return () => {
+      // @ts-ignore
+      unsubscribe();
+    };
+  }, [dispatch, refetch]);
 
   if (!dataroomId) {
     return (<div>You must create a package first to upload files.</div>);
@@ -45,7 +54,6 @@ export const DocumentsProvider = ({ children }: DocumentsProviderProps) => {
     return <div>Loading dataroom...</div>;
   }
 
-  console.log('Dataroom: ', dataroom);
   return (
     <>
       {children}

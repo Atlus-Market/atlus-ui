@@ -26,15 +26,17 @@ export const Icon = ({ name, size = 20, color = 'orange' }: IconProps) => {
   const [imageData, setImageData] = useState<StaticImageData | null>(null);
 
   useEffect(() => {
+    if (iconName === name || iconName === DefaultIconName) {
+      return;
+    }
     setIconName(name);
-  }, [name]);
+  }, [name, iconName]);
 
   useEffect((): (() => void) => {
     let mounted = true;
 
     const importIcon = async (): Promise<void> => {
       try {
-        setImageData(null);
         const icon = (await import(`@/public/assets/icons/${iconName}`)).default;
 
         // If the component is unmounted while loading,
@@ -43,6 +45,7 @@ export const Icon = ({ name, size = 20, color = 'orange' }: IconProps) => {
           setImageData(icon);
         }
       } catch (err) {
+        setImageData(null);
         console.error(`Error loading icon "${iconName}"`);
         if (iconName !== DefaultIconName) {
           setIconName(DefaultIconName);

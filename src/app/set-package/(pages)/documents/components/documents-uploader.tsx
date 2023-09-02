@@ -25,13 +25,13 @@ interface UploadingFilesExtraOption {
 export const DocumentsUploader = () => {
   const dispatch = useAppDispatch();
   const uploadingFilesState = useAppSelector(selectUploadingFiles);
-  const uUploadFilesQueue = useAppSelector(selectUploadFilesQueue);
+  const uploadFilesQueue = useAppSelector(selectUploadFilesQueue);
   const filesToUpload = useAppSelector(selectDocumentsToUpload);
   const uploadingFilesLocalState = useConst<UploadingFilesExtraOption>({});
 
   console.group('Documents Uploader');
   console.log('uploadingFiles: ', uploadingFilesState);
-  console.log('uUploadFilesQueue: ', uUploadFilesQueue);
+  console.log('uploadFilesQueue: ', uploadFilesQueue);
   console.log('uploadingFilesExtraOptions: ', uploadingFilesLocalState);
   console.log('filesToUpload: ', filesToUpload);
   console.groupEnd();
@@ -81,7 +81,7 @@ export const DocumentsUploader = () => {
           classNames='[&:not(:last-child)]:mb-2'
         />
       ))}
-      {uUploadFilesQueue.map(queueFile => (
+      {uploadFilesQueue.map(queueFile => (
         <UploadingDocumentStatus
           key={queueFile.id}
           fileSize={queueFile.size}

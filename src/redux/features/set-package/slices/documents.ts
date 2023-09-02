@@ -60,7 +60,7 @@ export const documentsReducer = {
     }
     const directoryTree = getDirectoryTree(dataroom.directoryTree, action.payload.documentId);
     if (directoryTree) {
-      directoryTree.private = !directoryTree.private
+      directoryTree.private = !directoryTree.private;
     }
   }
 };

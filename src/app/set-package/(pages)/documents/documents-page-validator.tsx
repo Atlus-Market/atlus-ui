@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { SetPackagePatent } from '@/constants/routes';
 import { useAppSelector } from '@/redux/hooks';
@@ -14,8 +14,13 @@ export const DocumentsPageValidator = ({ children }: DocumentsPageValidatorProps
   const router = useRouter();
   const dataroomId = useAppSelector(selectActiveDataroom) ?? '';
 
+  useEffect(() => {
+    if (!dataroomId) {
+      router.push(SetPackagePatent);
+    }
+  }, [dataroomId, router]);
+
   if (!dataroomId) {
-    router.push(SetPackagePatent);
     return null;
   }
 

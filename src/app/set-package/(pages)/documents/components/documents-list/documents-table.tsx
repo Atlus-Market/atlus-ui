@@ -22,7 +22,6 @@ const formatUploadedDate = (gmtString: string): string => {
 export const DocumentsTable = ({ dataroom, onDocumentChanged }: DocumentsTableProps) => {
   const documents = dataroom.directoryTree.children.filter(directory => directory.type === 'file');
 
-  console.log('dataroom: ', dataroom);
   return (
     <div className='documents-grid-scroller'>
       <div className='documents-grid'>
@@ -49,7 +48,7 @@ export const DocumentsTable = ({ dataroom, onDocumentChanged }: DocumentsTablePr
             </div>
             <div className='grid-entry flex'>
               <button>
-                <HiOutlineX />
+                <HiOutlineX className='text-middle-grey' />
               </button>
             </div>
           </Fragment>
