@@ -45,7 +45,7 @@ export const selectUploadFilesQueue = createSelector(
   state => state.uploadFilesQueue
 );
 
-export const selectPackageDocuments = createSelector(
+export const selectPackageDataroom = createSelector(
   selectDocumentsState,
-  state => state.dataroom?.directoryTree.children ?? []
+  state => state.dataroom
 );
