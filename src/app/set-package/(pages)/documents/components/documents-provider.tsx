@@ -5,8 +5,6 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { selectActiveDataroom } from '@/redux/features/set-package/selectors/documents.selectors';
 import { setDataroom } from '@/redux/features/set-package/set-package';
 import { useFetchDataroom } from '@/app/set-package/(pages)/documents/components/use-fetch-dataroom';
-import { addListener } from '@reduxjs/toolkit';
-import { uploadPackageDocument } from '@/redux/features/set-package/thunks/upload-documents.thunks';
 
 interface DocumentsProviderProps {
   children: ReactNode;
@@ -19,12 +17,8 @@ export const DocumentsProvider = ({ children }: DocumentsProviderProps) => {
   const docsState = useAppSelector(selectDocumentsState);
   console.log('DocumentsState: ', docsState);
 
-  const { fetchStatus, isLoading, data, error, ...rest } = useQuery({
-    queryKey: ['dataroom', dataroomId],
-    queryFn: () => getDataroom(dataroomId),
-    refetchOnWindowFocus: true,
-    enabled: !!dataroomId, // disable this query from automatically running if no dataroomId
-  });
+  const { fetchStatus, isLoading, data, error, ...rest } =
+    useFetchDataroom(dataroomId);
 
   useEffect(() => {
     if (data) {

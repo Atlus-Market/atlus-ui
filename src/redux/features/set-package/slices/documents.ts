@@ -61,6 +61,24 @@ export const documentsReducer = {
       file => file.id !== action.payload.fileId
     );
   },
+  toggleDocumentVisibility: (
+    state: SetPackageState,
+    action: PayloadAction<{
+      documentId: string;
+    }>
+  ) => {
+    const dataroom = state.documents.dataroom;
+    if (!dataroom) {
+      return;
+    }
+    const directoryTree = getDirectoryTree(
+      dataroom.directoryTree,
+      action.payload.documentId
+    );
+    if (directoryTree) {
+      directoryTree.private = !directoryTree.private;
+    }
+  },
 };
 
 export const createDocumentsExtraReducers = (
@@ -135,4 +153,19 @@ const removeDirectoryTree = (
   directoryTree.children = directoryTree.children.filter(
     dt => dt.id !== directoryTreeId
   );
+};
+
+const getDirectoryTree = (
+  directoryTree: DirectoryTree,
+  directoryTreeId: string
+): DirectoryTree | undefined => {
+  if (directoryTree.id === directoryTreeId) {
+    return directoryTree;
+  }
+  return directoryTree.children.find(childDirectoryTree => {
+    if (childDirectoryTree.type === 'file') {
+      return childDirectoryTree.id === directoryTreeId;
+    }
+    return getDirectoryTree(childDirectoryTree, directoryTreeId);
+  });
 };

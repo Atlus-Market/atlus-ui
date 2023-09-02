@@ -211,5 +211,6 @@ export const {
   updateFileUploadState,
   addFileToUpload,
   removeQueuedFile,
+  toggleDocumentVisibility,
 } = setPackage.actions;
 export default setPackage.reducer;
