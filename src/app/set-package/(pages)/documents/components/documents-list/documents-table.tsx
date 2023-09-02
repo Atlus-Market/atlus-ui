@@ -10,6 +10,9 @@ import { AtlusDropdownList } from '@/components/ui/dropdown-list/atlus-dropdown-
 import { parseGMTDate } from '@/utils/date';
 import format from 'date-fns/format';
 import { FileName } from '@/components/common/file/file-name';
+import {
+  DocumentVisibility
+} from '@/app/set-package/(pages)/documents/components/documents-list/document-visibility';
 
 interface DocumentsTableProps {
   dataroom: Dataroom;
@@ -21,7 +24,10 @@ const formatUploadedDate = (gmtString: string): string => {
   return uploadedDate ? format(uploadedDate, 'LLL dd, yyyy') : '-';
 };
 
-export const DocumentsTable = ({ dataroom }: DocumentsTableProps) => {
+export const DocumentsTable = ({ dataroom, onDocumentChanged }: DocumentsTableProps) => {
+  const documents = dataroom.directoryTree.children.filter(directory => directory.type === 'file');
+
+  console.log('dataroom: ', dataroom);
   return (
     <div className='documents-grid-scroller'>
       <div className='documents-grid'>
@@ -39,14 +45,11 @@ export const DocumentsTable = ({ dataroom }: DocumentsTableProps) => {
                 className='text-soft-black text-sm'>{formatUploadedDate(document.dateUploaded)}</span>
             </div>
             <div className='grid-entry'>
-              <AtlusDropdownList
-                placeholder='Visibility'
-                name='visibility'
-                options={visibilityOptions}
-                showDropdownIndicator={true}
-                isSearchable={false}
-                size='small'
-                defaultValue={dropdownPrivateOption.value}
+              <DocumentVisibility
+                dataroomId={dataroom.directoryTree.name}
+                documentId={document.id}
+                isPrivate={document.private}
+                onDocumentVisibilityChanged={() => onDocumentChanged?.(document.id)}
               />
             </div>
             <div className='grid-entry flex'>
