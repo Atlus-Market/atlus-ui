@@ -8,10 +8,10 @@ import { FileName } from '@/components/common/file/file-name';
 import {
   DocumentVisibility
 } from '@/app/set-package/(pages)/documents/components/documents-list/document-visibility';
-import { showSuccessNotification } from '@/components/ui/notification/atlus-notification';
 
 interface DocumentsTableProps {
   dataroom: Dataroom;
+  onDocumentChanged?: (documentId: string) => void;
 }
 
 const formatUploadedDate = (gmtString: string): string => {
@@ -19,7 +19,7 @@ const formatUploadedDate = (gmtString: string): string => {
   return uploadedDate ? format(uploadedDate, 'LLL dd, yyyy') : '-';
 };
 
-export const DocumentsTable = ({ dataroom }: DocumentsTableProps) => {
+export const DocumentsTable = ({ dataroom, onDocumentChanged }: DocumentsTableProps) => {
   const documents = dataroom.directoryTree.children.filter(directory => directory.type === 'file');
 
   console.log('dataroom: ', dataroom);
@@ -44,9 +44,7 @@ export const DocumentsTable = ({ dataroom }: DocumentsTableProps) => {
                 dataroomId={dataroom.directoryTree.name}
                 documentId={document.id}
                 isPrivate={document.private}
-                onDocumentChanged={() => {
-                  showSuccessNotification({ text: 'Document updated successfully!' });
-                }}
+                onDocumentVisibilityChanged={() => onDocumentChanged?.(document.id)}
               />
             </div>
             <div className='grid-entry flex'>

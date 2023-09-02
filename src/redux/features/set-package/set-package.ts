@@ -162,6 +162,7 @@ export const {
   setDataroom,
   updateFileUploadState,
   addFileToUpload,
-  removeQueuedFile
+  removeQueuedFile,
+  toggleDocumentVisibility
 } = setPackage.actions;
 export default setPackage.reducer;

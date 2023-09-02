@@ -1,4 +1,4 @@
-import { Dataroom } from '@/models/dataroom';
+import { Dataroom, DirectoryTree } from '@/models/dataroom';
 import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { uploadPackageDocument } from '@/redux/features/set-package/thunks/upload-documents.thunks';
@@ -50,6 +50,18 @@ export const documentsReducer = {
   removeQueuedFile: (state: SetPackageState, action: PayloadAction<{ fileId: string }>) => {
     // TODO: removeUploadingFileFromState
     state.documents.uploadFilesQueue = state.documents.uploadFilesQueue.filter(file => file.id !== action.payload.fileId);
+  },
+  toggleDocumentVisibility: (state: SetPackageState, action: PayloadAction<{
+    documentId: string
+  }>) => {
+    const dataroom = state.documents.dataroom;
+    if (!dataroom) {
+      return;
+    }
+    const directoryTree = getDirectoryTree(dataroom.directoryTree, action.payload.documentId);
+    if (directoryTree) {
+      directoryTree.private = !directoryTree.private
+    }
   }
 };
 
@@ -83,4 +95,17 @@ export const createDocumentsExtraReducers = (builder: ActionReducerMapBuilder<Se
 const removeUploadingFileFromState = (state: SetPackageState, serializedFile: SerializedFile, uploadId: string) => {
   delete state.documents.uploadingFiles[uploadId];
   window.URL.revokeObjectURL(serializedFile.objectUrl);
+};
+
+
+const getDirectoryTree = (directoryTree: DirectoryTree, directoryTreeId: string): DirectoryTree | undefined => {
+  if (directoryTree.id === directoryTreeId) {
+    return directoryTree;
+  }
+  return directoryTree.children.find(childDirectoryTree => {
+    if (childDirectoryTree.type === 'file') {
+      return childDirectoryTree.id === directoryTreeId;
+    }
+    return getDirectoryTree(childDirectoryTree, directoryTreeId);
+  });
 };

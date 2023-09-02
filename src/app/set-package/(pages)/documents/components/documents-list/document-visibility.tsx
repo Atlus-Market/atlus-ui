@@ -13,14 +13,14 @@ interface DocumentVisibilityProps {
   dataroomId: string;
   documentId: string;
   isPrivate: boolean;
-  onDocumentChanged?: () => void;
+  onDocumentVisibilityChanged?: () => void;
 }
 
 export const DocumentVisibility = ({
                                      dataroomId,
                                      documentId,
                                      isPrivate,
-                                     onDocumentChanged
+                                     onDocumentVisibilityChanged
                                    }: DocumentVisibilityProps) => {
 
   const { mutateAsync, isLoading } = useMutation({
@@ -43,7 +43,7 @@ export const DocumentVisibility = ({
           return;
         }
         await mutateAsync(!isPrivate);
-        onDocumentChanged?.();
+        onDocumentVisibilityChanged?.();
       }}
     />
   );
