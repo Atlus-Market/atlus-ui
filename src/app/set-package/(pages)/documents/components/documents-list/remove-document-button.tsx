@@ -1,34 +1,39 @@
 import { HiOutlineX } from 'react-icons/hi';
+import { useState } from 'react';
 import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
 import { useAppDispatch } from '@/redux/hooks';
 import { useMutation } from '@tanstack/react-query';
+import { sleep } from '@/utils/sleep';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { removeDocument } from '@/redux/features/set-package/set-package';
 import { showSuccessNotification } from '@/components/ui/notification/atlus-notification';
-import { useAtlusModal } from '@/components/ui/modal/use-atlus-modal';
-import { removeFile } from '@/api/dataroom/remove-file';
 
 interface RemoveDocumentButtonProps {
-  dataroomId: string;
   documentId: string;
 }
 
-export const RemoveDocumentButton = ({ dataroomId, documentId }: RemoveDocumentButtonProps) => {
-  const { isShowingAlertModal, hideAlertModal, showAlertModal } = useAtlusModal();
+export const RemoveDocumentButton = ({
+  documentId,
+}: RemoveDocumentButtonProps) => {
+  const [isShowingAlertModal, setIsShowingAlertModal] =
+    useState<boolean>(false);
   const dispatch = useAppDispatch();
 
   const { mutateAsync, isLoading } = useMutation({
-    mutationKey: [dataroomId, documentId],
-    mutationFn: async () => {
-      await removeFile(dataroomId, documentId);
-    }
+    mutationFn: async (documentId: string) => {
+      await sleep(500);
+    },
   });
+
+  const hideAlertModal = () => {
+    setIsShowingAlertModal(false);
+  };
 
   const deleteDocument = async () => {
     try {
-      await mutateAsync();
+      await mutateAsync(documentId);
       dispatch(removeDocument({ documentId }));
-      showSuccessNotification({ text: 'Document removed successfully!' });
+      showSuccessNotification({ text: 'File removed successfully!' });
     } catch (e) {
       console.error(e);
     }
@@ -36,32 +41,32 @@ export const RemoveDocumentButton = ({ dataroomId, documentId }: RemoveDocumentB
 
   return (
     <>
-      {isShowingAlertModal &&
+      {isShowingAlertModal && (
         <AtlusAlertModal
           isOpen={isShowingAlertModal}
-          title='Delete file?'
-          text='This file will be deleted from your package.'
+          title="Delete file?"
+          text="This file will be deleted from your package."
           mainButton={{
             text: 'Delete',
-            onClick: () => {
+            onClick: async () => {
               hideAlertModal();
               deleteDocument();
-            }
+            },
           }}
           secondaryButton={{
             text: 'Cancel',
-            onClick: hideAlertModal
+            onClick: hideAlertModal,
           }}
         />
-      }
+      )}
       <AtlusButton
-        variant='clear'
-        onClick={showAlertModal}
+        variant="clear"
+        onClick={() => setIsShowingAlertModal(true)}
         disabled={isLoading}
-        isLoading={isLoading}>
-        <HiOutlineX className='text-middle-grey' />
+        isLoading={isLoading}
+      >
+        <HiOutlineX className="text-middle-grey" />
       </AtlusButton>
     </>
   );
-
 };
