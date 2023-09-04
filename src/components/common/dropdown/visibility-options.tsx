@@ -19,8 +19,8 @@ export const dropdownPublicOption: Readonly<DropdownOption> = {
 };
 
 export const visibilityOptions: Readonly<DropdownOption[]> = [
-  dropdownPrivateOption,
-  dropdownPublicOption
+  dropdownPublicOption,
+  dropdownPrivateOption
 ];
 
 

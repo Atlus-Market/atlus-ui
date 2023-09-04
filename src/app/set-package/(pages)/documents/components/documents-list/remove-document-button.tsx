@@ -1,5 +1,4 @@
 import { HiOutlineX } from 'react-icons/hi';
-import { useState } from 'react';
 import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
 import { useAppDispatch } from '@/redux/hooks';
 import { useMutation } from '@tanstack/react-query';
@@ -7,13 +6,14 @@ import { sleep } from '@/utils/sleep';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { removeDocument } from '@/redux/features/set-package/set-package';
 import { showSuccessNotification } from '@/components/ui/notification/atlus-notification';
+import { useAtlusModal } from '@/components/ui/modal/use-atlus-modal';
 
 interface RemoveDocumentButtonProps {
   documentId: string;
 }
 
 export const RemoveDocumentButton = ({ documentId }: RemoveDocumentButtonProps) => {
-  const [isShowingAlertModal, setIsShowingAlertModal] = useState<boolean>(false);
+  const { isShowingAlertModal, hideAlertModal, showAlertModal } = useAtlusModal();
   const dispatch = useAppDispatch();
 
   const { mutateAsync, isLoading } = useMutation({
@@ -21,10 +21,6 @@ export const RemoveDocumentButton = ({ documentId }: RemoveDocumentButtonProps) 
       await sleep(500);
     }
   });
-
-  const hideAlertModal = () => {
-    setIsShowingAlertModal(false);
-  };
 
   const deleteDocument = async () => {
     try {
@@ -45,7 +41,7 @@ export const RemoveDocumentButton = ({ documentId }: RemoveDocumentButtonProps) 
           text='This file will be deleted from your package.'
           mainButton={{
             text: 'Delete',
-            onClick: async () => {
+            onClick: () => {
               hideAlertModal();
               deleteDocument();
             }
@@ -58,7 +54,7 @@ export const RemoveDocumentButton = ({ documentId }: RemoveDocumentButtonProps) 
       }
       <AtlusButton
         variant='clear'
-        onClick={() => setIsShowingAlertModal(true)}
+        onClick={showAlertModal}
         disabled={isLoading}
         isLoading={isLoading}>
         <HiOutlineX className='text-middle-grey' />

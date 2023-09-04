@@ -20,17 +20,18 @@ import {
 import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
 import { useState } from 'react';
 import { removeFamilyPatents } from '@/redux/features/set-package/set-package';
+import { useAtlusModal } from '@/components/ui/modal/use-atlus-modal';
 
 
 export const PatentsFamilyList = () => {
   const dispatch = useAppDispatch();
-  const [isShowingAlertModal, setIsShowingAlertModal] = useState<boolean>(false);
+  const { isShowingAlertModal, hideAlertModal, showAlertModal } = useAtlusModal();
   const [activeFamilyId, setActiveFamilyId] = useState<string>('');
   const patents = useAppSelector(selectPackagePatents);
   const familyIdPatentsGroup = useGroupPatentsByFamilyId({ patents });
   const { familiesCount, patentsCount, familyIds } = useFamilyPatentsHelper(patents);
-  const hideAlertModal = () => {
-    setIsShowingAlertModal(false);
+  const onHideAlertModal = () => {
+    hideAlertModal();
     setActiveFamilyId('');
   };
 
@@ -48,7 +49,7 @@ export const PatentsFamilyList = () => {
             patents={familyIdPatentsGroup[familyId]}
             onRemoveFamily={() => {
               setActiveFamilyId(familyId);
-              setIsShowingAlertModal(true);
+              showAlertModal();
             }}
           />
         ))}
@@ -66,7 +67,7 @@ export const PatentsFamilyList = () => {
         }}
         secondaryButton={{
           text: 'Cancel',
-          onClick: hideAlertModal
+          onClick: onHideAlertModal
         }}
       />
       <SetPackageFooter>

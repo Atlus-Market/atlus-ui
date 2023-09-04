@@ -11,7 +11,7 @@ interface AtlusLoadingSpinnerProps {
 
 export const AtlusLoadingSpinner = ({
                                       size = 22,
-                                      hexColor = '#FFFFFF',
+                                      hexColor,
                                       classNames
                                     }: AtlusLoadingSpinnerProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -21,8 +21,9 @@ export const AtlusLoadingSpinner = ({
       return;
     }
 
-    const spinnerColor05 = hexToRgba(hexColor, 0.5);
-    const spinnerTopColor1 = hexToRgba(hexColor, 1);
+    const color = hexColor || '#FFFFFF';
+    const spinnerColor05 = hexToRgba(color, 0.5);
+    const spinnerTopColor1 = hexToRgba(color, 1);
     ref.current.style.setProperty('--atlus-spinner-size', `${size}px`);
     ref.current.style.setProperty('--atlus-spinner-border-color', spinnerColor05);
     ref.current.style.setProperty('--atlus-spinner-border-top-color', spinnerTopColor1);

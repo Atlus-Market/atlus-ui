@@ -8,18 +8,17 @@ import {
 import { useAppDispatch } from '@/redux/hooks';
 import { removePatent, showEditPatentModal } from '@/redux/features/set-package/set-package';
 import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
-import { useState } from 'react';
+import { useAtlusModal } from '@/components/ui/modal/use-atlus-modal';
 
 interface ManageEditedPatentProps {
   patent: PatentModel;
 }
 
 export const ManageEditedPatent = ({ patent }: ManageEditedPatentProps) => {
-  const [isShowingAlertModal, setIsShowingAlertModal] = useState<boolean>(false);
+  const { isShowingAlertModal, hideAlertModal, showAlertModal } = useAtlusModal();
   const isCreatedManually = patent.familyId === NO_FAMILY_GROUP_ID;
   const dispatch = useAppDispatch();
 
-  const hideAlertModal = () => setIsShowingAlertModal(false);
 
   return (
     <div className='flex items-start gap-2'>
@@ -28,7 +27,7 @@ export const ManageEditedPatent = ({ patent }: ManageEditedPatentProps) => {
         <HiPencil className='text-middle-grey' />
       </button>}
       <button
-        onClick={() => setIsShowingAlertModal(true)}>
+        onClick={showAlertModal}>
         <HiTrash className='text-middle-grey' />
       </button>
       <AtlusAlertModal
