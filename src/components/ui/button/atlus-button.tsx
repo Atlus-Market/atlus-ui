@@ -68,6 +68,14 @@ const getButtonSize = (props: AtlusButtonProps): string => {
   );
 };
 
+const getLoadingSpinnerColor = ({ variant }: AtlusButtonProps) => {
+  if (variant === 'clear') {
+    return '#a4a2a0';
+  }
+
+  return '';
+};
+
 export const AtlusButton = forwardRef<HTMLButtonElement, AtlusButtonProps>(
   function AtlusButton(props, ref) {
     const {
@@ -94,14 +102,13 @@ export const AtlusButton = forwardRef<HTMLButtonElement, AtlusButtonProps>(
           classVariant,
           className,
           getButtonSize(props),
-          isClearVariant && color,
-          disabled ? '!bg-middle-grey' : ''
+          isClearVariant && color
         )}
         disabled={isLoading || disabled}
         ref={ref}
         {...restProps}
       >
-        {isLoading ? <AtlusLoadingSpinner /> : children}
+        {isLoading ? <AtlusLoadingSpinner hexColor={getLoadingSpinnerColor(props)} /> : children}
       </button>
     );
   }

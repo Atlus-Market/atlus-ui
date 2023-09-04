@@ -13,8 +13,7 @@ export const uploadPackageDocument = createAsyncThunk<
   'package/documents/uploadFile',
   async (serializedFileUpload: SerializedFile, thunkAPI) => {
     const dataroomId =
-      (thunkAPI.getState() as RootState).setPackageReducer.package
-        ?.dataroomId ?? '';
+      thunkAPI.getState().setPackageReducer.package?.dataroomId ?? '';
     try {
       const file = await createFileFromSerializedFile(serializedFileUpload);
       const res = await uploadPackageDocumentFile({

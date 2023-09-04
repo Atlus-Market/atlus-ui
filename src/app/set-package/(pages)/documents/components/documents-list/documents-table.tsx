@@ -1,18 +1,15 @@
 import './documents-table.css';
 import { DirectoryTree } from '@/models/dataroom';
 import { Fragment } from 'react';
-import { HiOutlineX } from 'react-icons/hi';
-import {
-  dropdownPrivateOption,
-  visibilityOptions
-} from '@/components/common/dropdown/visibility-options';
-import { AtlusDropdownList } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 import { parseGMTDate } from '@/utils/date';
 import format from 'date-fns/format';
 import { FileName } from '@/components/common/file/file-name';
 import {
   DocumentVisibility
 } from '@/app/set-package/(pages)/documents/components/documents-list/document-visibility';
+import {
+  RemoveDocumentButton
+} from '@/app/set-package/(pages)/documents/components/documents-list/remove-document-button';
 
 interface DocumentsTableProps {
   dataroom: Dataroom;
@@ -52,9 +49,7 @@ export const DocumentsTable = ({ dataroom, onDocumentChanged }: DocumentsTablePr
               />
             </div>
             <div className='grid-entry flex'>
-              <button>
-                <HiOutlineX className='text-middle-grey' />
-              </button>
+              <RemoveDocumentButton documentId={document.id} />
             </div>
           </Fragment>
         ))}

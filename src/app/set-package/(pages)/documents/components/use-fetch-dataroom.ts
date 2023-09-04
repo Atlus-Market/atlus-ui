@@ -5,7 +5,7 @@ export const useFetchDataroom = (dataroomId: string) => {
   return useQuery({
     queryKey: ['dataroom', dataroomId],
     queryFn: () => getDataroom(dataroomId),
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
     enabled: !!dataroomId, // disable this query from automatically running if no dataroomId
   });
 };
