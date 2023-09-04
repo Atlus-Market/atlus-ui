@@ -6,10 +6,14 @@ import { RootState } from '@/redux/store';
 import { updateFileUploadState } from '@/redux/features/set-package/set-package';
 
 
-export const uploadPackageDocument = createAsyncThunk(
+export const uploadPackageDocument = createAsyncThunk<
+  void,
+  SerializedFile,
+  { state: RootState }
+>(
   'package/documents/uploadFile',
   async (serializedFileUpload: SerializedFile, thunkAPI) => {
-    const dataroomId = (thunkAPI.getState() as RootState).setPackageReducer.package?.dataroomId ?? '';
+    const dataroomId = thunkAPI.getState().setPackageReducer.package?.dataroomId ?? '';
     try {
       const file = await createFileFromSerializedFile(serializedFileUpload);
       const res = await uploadPackageDocumentFile({

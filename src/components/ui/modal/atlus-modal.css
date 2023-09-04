@@ -6,6 +6,7 @@
     @apply flex;
     @apply justify-center;
     @apply items-center;
+    z-index: 9;
 }
 
 .atlus-modal-content {

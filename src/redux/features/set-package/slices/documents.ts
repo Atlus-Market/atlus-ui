@@ -62,6 +62,12 @@ export const documentsReducer = {
     if (directoryTree) {
       directoryTree.private = !directoryTree.private;
     }
+  },
+  removeDocument: (state: SetPackageState, action: PayloadAction<{ documentId: string }>) => {
+    if (!state.documents.dataroom) {
+      return;
+    }
+    removeDirectoryTree(state.documents.dataroom.directoryTree, action.payload.documentId);
   }
 };
 
@@ -108,4 +114,8 @@ const getDirectoryTree = (directoryTree: DirectoryTree, directoryTreeId: string)
     }
     return getDirectoryTree(childDirectoryTree, directoryTreeId);
   });
+};
+
+const removeDirectoryTree = (directoryTree: DirectoryTree, directoryTreeId: string) => {
+  directoryTree.children = directoryTree.children.filter(dt => dt.id !== directoryTreeId);
 };

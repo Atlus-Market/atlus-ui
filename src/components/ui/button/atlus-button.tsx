@@ -25,7 +25,8 @@ const baseButton = clsx(
 const solidOrangeVariant = clsx(
   baseButton,
   'bg-orange text-white rounded-[32px]',
-  'hover:bg-[#F15F4C] active:bg-[#DC422D]'
+  'hover:bg-[#F15F4C] active:bg-[#DC422D]',
+  'disabled:bg-middle-grey'
 );
 
 const clearVariant = ({ variant, color }: AtlusButtonProps) => {
@@ -34,7 +35,8 @@ const clearVariant = ({ variant, color }: AtlusButtonProps) => {
     baseButton,
     'text-dark-grey',
     isClearVariant && color === 'orange' ? 'bg-none text-orange' : '',
-    'hover:text-[#F15F4C] active:text-[#DC422D]'
+    'hover:text-[#F15F4C] active:text-[#DC422D]',
+    'disabled:bg-transparent'
   );
 };
 
@@ -42,7 +44,8 @@ const outlineWhiteVariant = clsx(
   baseButton,
   'bg-white',
   'border border-soft-black rounded-[32px]',
-  'hover:bg-[#FCFCFC] active:bg-[#F5F5F5]'
+  'hover:bg-[#FCFCFC] active:bg-[#F5F5F5]',
+  'disabled:bg-middle-grey'
 );
 
 const getButtonSize = (props: AtlusButtonProps): string => {
@@ -63,6 +66,14 @@ const getButtonSize = (props: AtlusButtonProps): string => {
     'min-w-[200px] py-[15px] px-9',
     'text-lg font-bold leading-[23px]'
   );
+};
+
+const getLoadingSpinnerColor = ({ variant }: AtlusButtonProps) => {
+  if (variant === 'clear') {
+    return '#a4a2a0';
+  }
+
+  return '';
 };
 
 export const AtlusButton = forwardRef<HTMLButtonElement, AtlusButtonProps>(
@@ -87,14 +98,13 @@ export const AtlusButton = forwardRef<HTMLButtonElement, AtlusButtonProps>(
           classVariant,
           className,
           getButtonSize(props),
-          isClearVariant && color,
-          disabled ? '!bg-middle-grey' : ''
+          isClearVariant && color
         )}
         disabled={isLoading || disabled}
         ref={ref}
         {...restProps}
       >
-        {isLoading ? <AtlusLoadingSpinner /> : children}
+        {isLoading ? <AtlusLoadingSpinner hexColor={getLoadingSpinnerColor(props)} /> : children}
       </button>
     );
   });
