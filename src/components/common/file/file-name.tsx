@@ -8,15 +8,23 @@ import { FileIcon } from '@/components/common/file/file-icon';
 interface FileNameProps {
   fileName: string;
   fileSize: number;
+
+  /**
+   * Use it when the component is not in a list.
+   * Tooltip doesn't work well when rendered many times, so reuse the tooltip
+   * instance once.
+   * See AtlusTooltip for more info.
+   */
+  showTooltip?: boolean;
+  tooltipId?: string;
 }
 
-export const FileName = ({ fileName, fileSize }: FileNameProps) => {
+export const FileName = ({ fileName, fileSize, showTooltip = true, tooltipId }: FileNameProps) => {
   const fileExtension = getFileExtension(fileName);
-  console.log('fileExtension: ', fileExtension);
-  const refTooltipId = useRef(generateID());
+  const refTooltipId = useRef(tooltipId || generateID());
   return (
     <div className='flex items-center gap-4'>
-      <AtlusTooltip tooltipId={refTooltipId.current} />
+      {showTooltip && <AtlusTooltip tooltipId={refTooltipId.current} />}
       <FileIcon extension={fileExtension} />
       <div className='whitespace-nowrap overflow-hidden overflow-ellipsis'>
         <div

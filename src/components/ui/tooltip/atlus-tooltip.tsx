@@ -23,7 +23,7 @@ export const AtlusTooltip = ({
                              }: AtlusTooltipProps) => {
   return (
     // Hide tooltip pn small screens (mobile)
-    <div className="hidden md:block">
+    <div className="hidden md:inline-block">
       <Tooltip
         id={tooltipId}
         place={place}
