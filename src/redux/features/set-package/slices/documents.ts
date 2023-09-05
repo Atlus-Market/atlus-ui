@@ -56,10 +56,16 @@ export const documentsReducer = {
     state: SetPackageState,
     action: PayloadAction<{ fileId: string }>
   ) => {
-    // TODO: removeUploadingFileFromState
-    state.documents.uploadFilesQueue = state.documents.uploadFilesQueue.filter(
-      file => file.id !== action.payload.fileId
+    const serializedFile = state.documents.uploadFilesQueue.find(
+      file => file.id === action.payload.fileId
     );
+    if (serializedFile) {
+      cleanSerializedFile(serializedFile);
+      state.documents.uploadFilesQueue =
+        state.documents.uploadFilesQueue.filter(
+          file => file.id !== action.payload.fileId
+        );
+    }
   },
   toggleDocumentVisibility: (
     state: SetPackageState,
@@ -141,30 +147,6 @@ const removeUploadingFileFromState = (
 ) => {
   delete state.documents.uploadingFiles[uploadId];
   cleanSerializedFile(serializedFile);
-};
-
-const getDirectoryTree = (
-  directoryTree: DirectoryTree,
-  directoryTreeId: string
-): DirectoryTree | undefined => {
-  if (directoryTree.id === directoryTreeId) {
-    return directoryTree;
-  }
-  return directoryTree.children.find(childDirectoryTree => {
-    if (childDirectoryTree.type === 'file') {
-      return childDirectoryTree.id === directoryTreeId;
-    }
-    return getDirectoryTree(childDirectoryTree, directoryTreeId);
-  });
-};
-
-const removeDirectoryTree = (
-  directoryTree: DirectoryTree,
-  directoryTreeId: string
-) => {
-  directoryTree.children = directoryTree.children.filter(
-    dt => dt.id !== directoryTreeId
-  );
 };
 
 const getDirectoryTree = (

@@ -24,15 +24,13 @@ export const uploadPackageDocument = createAsyncThunk<
           if (thunkAPI.signal.aborted) {
             return;
           }
-          thunkAPI.dispatch(
-            updateFileUploadState({
-              progress: progressCompleted,
-              serializedFile: serializedFileUpload,
-              requestId: thunkAPI.requestId,
-            })
-          );
-        },
-        abortSignal: thunkAPI.signal,
+          thunkAPI.dispatch(updateFileUploadState({
+            progress: progressCompleted,
+            serializedFile: serializedFileUpload,
+            requestId: thunkAPI.requestId
+          }));
+        }),
+        abortSignal: thunkAPI.signal
       });
       console.log('File Upload Response: ', res);
     } catch (e) {
