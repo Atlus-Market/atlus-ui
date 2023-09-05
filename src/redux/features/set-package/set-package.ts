@@ -24,7 +24,7 @@ import {
   dropdownPrivateOption,
   dropdownPublicOption,
 } from '@/components/common/dropdown/visibility-options';
-import { enterPatentsExtraReducers } from '@/redux/features/set-package/slices/add-patents/slices/enter-patents-extra-reducers';
+import { cleanSerializedFile } from '@/utils/file';
 
 export interface SetPackageState {
   // Edit Patent
