@@ -58,6 +58,11 @@ export const CountryCodeSearch = ({
         countryCodesIds.includes(cc.code)
       );
     }
+
+    if (selectedCountryCodes.length === 0) {
+      return null;
+    }
+
     return selectedCountryCodes.map(cc => (
       <AtlusTag
         key={cc.code}
@@ -74,6 +79,7 @@ export const CountryCodeSearch = ({
         <AtlusInputSearch
           onChange={setSearchText}
           searchResults={selectedCountryCodeTags}
+          placeholder='Search country'
         />
       </div>
       <CountryCodeSelector>
