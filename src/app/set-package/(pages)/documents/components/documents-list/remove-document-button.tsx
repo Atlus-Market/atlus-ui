@@ -28,7 +28,7 @@ export const RemoveDocumentButton = ({ dataroomId, documentId }: RemoveDocumentB
     try {
       await mutateAsync();
       dispatch(removeDocument({ documentId }));
-      showSuccessNotification({ text: 'File removed successfully!' });
+      showSuccessNotification({ text: 'Document removed successfully!' });
     } catch (e) {
       console.error(e);
     }
