@@ -32,7 +32,7 @@ export const DocumentsTable = ({ dataroom, onDocumentChanged }: DocumentsTablePr
         <div className='grid-header'>Visibility</div>
         <div className='grid-header grid-last-header-col'>{' '}</div>
         {documents.map(document => (
-          <Fragment key={document.name}>
+          <Fragment key={document.id}>
             <div className='grid-entry'>
               <FileName fileName={document.name} fileSize={document.size} />
             </div>
@@ -42,14 +42,17 @@ export const DocumentsTable = ({ dataroom, onDocumentChanged }: DocumentsTablePr
             </div>
             <div className='grid-entry'>
               <DocumentVisibility
-                dataroomId={dataroom.directoryTree.name}
+                dataroomId={dataroom.id}
                 documentId={document.id}
                 isPrivate={document.private}
                 onDocumentVisibilityChanged={() => onDocumentChanged?.(document.id)}
               />
             </div>
             <div className='grid-entry flex'>
-              <RemoveDocumentButton documentId={document.id} />
+              <RemoveDocumentButton
+                dataroomId={dataroom.id}
+                documentId={document.id}
+              />
             </div>
           </Fragment>
         ))}

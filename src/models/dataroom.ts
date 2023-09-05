@@ -9,6 +9,7 @@ export interface DirectoryTree {
 }
 
 export interface Dataroom {
+  id: string;
   access: {
     canDelete: boolean;
     canRead: boolean;
