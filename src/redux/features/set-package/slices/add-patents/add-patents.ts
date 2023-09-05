@@ -14,6 +14,10 @@ import {
   selectPatentsInitialState,
   SelectPatentsState
 } from '@/redux/features/set-package/slices/add-patents/slices/select-patents';
+import {
+  EnterPatentsNumberTab
+} from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
+import { cleanSerializedFile } from '@/utils/file';
 
 export interface AddPatentsState {
   isAddPatentsModalOpen: boolean;
@@ -33,6 +37,10 @@ export const addPatentsInitialState: AddPatentsState = {
 
 export const addPatentesReducer = {
   resetAddPatents: (state: SetPackageState) => {
+    const serializedImportSelectedFile = state.addPatents.enterPatentsState[EnterPatentsNumberTab.ImportFromFile].selectedFile;
+    if (serializedImportSelectedFile) {
+      cleanSerializedFile(serializedImportSelectedFile);
+    }
     state.addPatents = addPatentsInitialState;
   },
   setAddPatentsStep: (state: SetPackageState, action: PayloadAction<AddPatentsStep>) => {

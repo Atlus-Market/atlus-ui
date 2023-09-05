@@ -25,6 +25,7 @@ import {
   dropdownPrivateOption,
   dropdownPublicOption
 } from '@/components/common/dropdown/visibility-options';
+import { cleanSerializedFile } from '@/utils/file';
 
 
 export interface SetPackageState {
@@ -59,7 +60,12 @@ export const setPackage = createSlice({
   name: 'setPackage',
   initialState,
   reducers: {
-    resetSetPackageState: () => initialState,
+    resetSetPackageState: (state: SetPackageState) => {
+      state.documents.uploadFilesQueue.forEach(serializedFile => {
+        cleanSerializedFile(serializedFile);
+      });
+      return initialState;
+    },
     showAddPatentsModal: (state: SetPackageState) => {
       state.addPatents.isAddPatentsModalOpen = true;
     },

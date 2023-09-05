@@ -5,10 +5,10 @@ import {
   PatentsIdsForm
 } from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-ids/patents-ids-form';
 import { SetPackageState } from '@/redux/features/set-package/set-package';
-import { PayloadAction } from '@reduxjs/toolkit';
+import { createAction, PayloadAction } from '@reduxjs/toolkit';
 import { SerializedFile } from '@/redux/features/set-package/slices/documents';
-import { createAction } from '@reduxjs/toolkit';
 import { SearchPatentsResponse } from '@/api/patents/search-patents-response';
+import { cleanSerializedFile } from '@/utils/file';
 
 export type EnterPatentsIdsManuallyForm = EnterPatentsState[EnterPatentsNumberTab.EnterManually]['form'];
 
@@ -28,7 +28,7 @@ export interface EnterPatentsState {
   };
 }
 
-export const patentsFetchedSuccessfully = createAction<SearchPatentsResponse>('setPackage/patentsFetchedSuccessfully')
+export const patentsFetchedSuccessfully = createAction<SearchPatentsResponse>('setPackage/patentsFetchedSuccessfully');
 
 export const enterPatentsInitialState: EnterPatentsState = {
   activeTab: EnterPatentsNumberTab.EnterManually,
@@ -63,7 +63,7 @@ export const enterPatentsReducer = {
   removeImportPatentsFile: (state: SetPackageState) => {
     const serializedFile = state.addPatents.enterPatentsState[EnterPatentsNumberTab.ImportFromFile].selectedFile;
     if (serializedFile) {
-      window.URL.revokeObjectURL(serializedFile.objectUrl);
+      cleanSerializedFile(serializedFile);
     }
     state.addPatents.enterPatentsState[EnterPatentsNumberTab.ImportFromFile].selectedFile = undefined;
   }

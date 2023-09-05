@@ -3,6 +3,7 @@ import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { uploadPackageDocument } from '@/redux/features/set-package/thunks/upload-documents.thunks';
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit/src/mapBuilders';
+import { cleanSerializedFile } from '@/utils/file';
 
 
 export interface SerializedFile {
@@ -42,14 +43,16 @@ export const documentsReducer = {
   },
   updateFileUploadState: (state: SetPackageState, action: PayloadAction<UploadingFileState>) => {
     if (!state.documents.uploadingFiles[action.payload.requestId]) {
-      debugger;
       return;
     }
     state.documents.uploadingFiles[action.payload.requestId] = action.payload;
   },
   removeQueuedFile: (state: SetPackageState, action: PayloadAction<{ fileId: string }>) => {
-    // TODO: removeUploadingFileFromState
-    state.documents.uploadFilesQueue = state.documents.uploadFilesQueue.filter(file => file.id !== action.payload.fileId);
+    const serializedFile = state.documents.uploadFilesQueue.find(file => file.id === action.payload.fileId);
+    if (serializedFile) {
+      cleanSerializedFile(serializedFile);
+      state.documents.uploadFilesQueue = state.documents.uploadFilesQueue.filter(file => file.id !== action.payload.fileId);
+    }
   },
   toggleDocumentVisibility: (state: SetPackageState, action: PayloadAction<{
     documentId: string
@@ -100,9 +103,8 @@ export const createDocumentsExtraReducers = (builder: ActionReducerMapBuilder<Se
 
 const removeUploadingFileFromState = (state: SetPackageState, serializedFile: SerializedFile, uploadId: string) => {
   delete state.documents.uploadingFiles[uploadId];
-  window.URL.revokeObjectURL(serializedFile.objectUrl);
+  cleanSerializedFile(serializedFile);
 };
-
 
 const getDirectoryTree = (directoryTree: DirectoryTree, directoryTreeId: string): DirectoryTree | undefined => {
   if (directoryTree.id === directoryTreeId) {

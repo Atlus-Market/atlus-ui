@@ -29,3 +29,7 @@ export const getFileExtension = (fileName: string): string => {
 
   return fileName.slice(lastDot + 1); // +1 to not include the dot
 };
+
+export const cleanSerializedFile = (serializedFile: SerializedFile) => {
+  window.URL.revokeObjectURL(serializedFile.objectUrl);
+};
