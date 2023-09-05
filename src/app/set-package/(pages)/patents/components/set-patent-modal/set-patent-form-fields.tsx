@@ -4,15 +4,8 @@ import { Patent } from '@/models/patent';
 import { AtlusInput } from '@/components/ui/input/atlus-input';
 import { AtlusFormDropdownList } from '@/components/ui/form/atlus-form-dropdown';
 import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
+import { statusOptions } from '@/components/common/dropdown/status-options';
 
-
-const statusOptions: DropdownOption[] = [
-  { value: 'pending', label: 'Pending' },
-  { value: 'expired', label: 'Expired' },
-  { value: 'issued', label: 'Issued' },
-  { value: 'abandoned', label: 'Abandoned' },
-  { value: 'lapsed', label: 'Lapsed' }
-];
 
 interface SetPatentFormFieldsProps {
   allowEditPublicationNumber?: boolean;
