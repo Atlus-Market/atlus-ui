@@ -27,7 +27,7 @@ export const AtlusTooltip = ({
       <Tooltip
         id={tooltipId}
         place={place}
-        className='!bg-dark-grey !text-white !font-medium !text-xs !py-2 !px-3 z-[1]'
+        className='!bg-dark-grey !text-white !font-medium !text-xs !py-2 !px-3 z-[1] z-10'
         noArrow={true}
         render={({ content, activeAnchor }) => <span>{content}</span>}
       />
