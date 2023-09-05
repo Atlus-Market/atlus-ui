@@ -4,6 +4,7 @@ export const DashboardRoute = '/dashboard';
 
 // Auth
 export const LoginRoute = '/login';
+export const LogoutRoute = '/logout';
 export const ForgotPassword = '/forgot-password';
 export const VerifyEmailRoute = '/onboarding/broker/verify-email';
 export const PasswordResetRoute = '/password/reset';
