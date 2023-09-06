@@ -5,7 +5,7 @@ import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   selectPackage,
-  selectPackagePatents
+  selectPackagePatents,
 } from '@/redux/features/set-package/selectors/set-package.selectors';
 import { setPackagePatents } from '@/redux/features/set-package/set-package';
 import { getPatentsSimpleBulk } from '@/api/patents/get-patents-simple-bulk';
@@ -22,9 +22,8 @@ export const PatentsProvider = ({ children }: PatentsProviderProps) => {
   const packagePatentIds = activePackage?.patents;
 
   const patentsToFetch = useMemo<string[]>(() => {
-    const loadedPatentIds = patents.map(patent => patent.publicationNumber);
-    return (packagePatentIds ?? []).filter(patentId => !loadedPatentIds.includes(patentId));
-  }, [packagePatentIds, patents]);
+    return (packagePatentIds ?? []).map(patent => patent.publicationNumber);
+  }, [packagePatentIds]);
 
   console.log('patentsToFetch: ', patentsToFetch);
 
@@ -34,7 +33,7 @@ export const PatentsProvider = ({ children }: PatentsProviderProps) => {
     queryKey: ['patents', patentsToFetch],
     queryFn: () => getPatentsSimpleBulk({ ids: patentsToFetch }),
     enabled: !hasLoadPatents,
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
@@ -53,14 +52,8 @@ export const PatentsProvider = ({ children }: PatentsProviderProps) => {
   }
 
   if (!hasLoadPatents && isLoading) {
-    return (
-      <div>Loading patents...</div>
-    );
+    return <div>Loading patents...</div>;
   }
 
-  return (
-    <>
-      {children}
-    </>
-  );
+  return <>{children}</>;
 };
