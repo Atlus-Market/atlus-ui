@@ -1,10 +1,9 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-import { getPackages } from '@/api/package/get-packages';
 import { ReactNode, useEffect } from 'react';
 import { useAppDispatch } from '@/redux/hooks';
 import { setPackagesList } from '@/redux/features/packages/packages';
+import { useFetchPackagesList } from '@/hooks/data/use-fetch-packages-list';
 
 interface PackagesListProviderProps {
   children: ReactNode;
@@ -12,10 +11,7 @@ interface PackagesListProviderProps {
 
 export const PackagesListProvider = ({ children }: PackagesListProviderProps) => {
   const dispatch = useAppDispatch();
-  const { isLoading, data, error } = useQuery({
-    queryKey: ['packages'],
-    queryFn: getPackages
-  });
+  const { isLoading, data, error } = useFetchPackagesList();
 
   useEffect(() => {
     if (data?.packages) {

@@ -3,7 +3,7 @@ import { Patent } from '@/models/patent';
 import {
   packageDetailsInitialState,
   packageDetailsReducer,
-  PackageDetailsState
+  PackageDetailsState, packageTitleValidatorExtraReducers
 } from '@/redux/features/set-package/slices/package-details';
 import {
   addPatentesReducer,
@@ -126,6 +126,7 @@ export const setPackage = createSlice({
   extraReducers: (builder) => {
     createSetPackageExtraReducers(builder);
     createDocumentsExtraReducers(builder);
+    packageTitleValidatorExtraReducers(builder);
   }
 });
 

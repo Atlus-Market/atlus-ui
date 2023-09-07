@@ -6,11 +6,12 @@ export interface GetPackagesResponse {
   packages: PackageListItem[];
 }
 
-export const getPackages = () => {
+export const getPackages = (signal?: AbortSignal) => {
   return createRequest<void, GetPackagesResponse>({
       url: '/packages',
       method: 'GET',
-      isProtected: ProtectedEndpoint.True
+      isProtected: ProtectedEndpoint.True,
+      signal: signal || undefined
     }
   );
 };

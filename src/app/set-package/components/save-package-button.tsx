@@ -6,9 +6,6 @@ import { persistPackage } from '@/redux/features/set-package/thunks/set-package.
 import {
   selectIsPersistingPackage
 } from '@/redux/features/set-package/selectors/set-package.selectors';
-import {
-  selectIsPackageValid
-} from '@/redux/features/set-package/selectors/package-validility.selectors';
 import { showSuccessNotification } from '@/components/ui/notification/atlus-notification';
 import { setActivePackage } from '@/redux/features/set-package/set-package';
 import { AnyAction } from 'redux';
@@ -17,12 +14,33 @@ import { ThunkDispatch } from '@reduxjs/toolkit';
 import { Package } from '@/models/package';
 import { useRouter } from 'next/navigation';
 import { SetPackageDocuments } from '@/constants/routes';
+import { useFormContext } from 'react-hook-form';
+import {
+  IPackageDetailsForm
+} from '@/app/set-package/(pages)/package-details/package-details-form';
+import {
+  selectPackageHasValidPatents
+} from '@/redux/features/set-package/selectors/package-validility.selectors';
+import {
+  selectIsValidatingTitle,
+  selectIsValidTitle
+} from '@/redux/features/set-package/selectors/package-details.selectors';
 
 export const SavePackageButton = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const { formState: { isValid, errors } } = useFormContext<IPackageDetailsForm>();
   const isPersistingPackage = useAppSelector(selectIsPersistingPackage);
-  const isPackageValid = useAppSelector(selectIsPackageValid);
+  const packageHasValidPatents = useAppSelector(selectPackageHasValidPatents);
+  const isValidTitle = useAppSelector(selectIsValidTitle);
+  const isValidatingTitle = useAppSelector(selectIsValidatingTitle);
+
+  console.log('isFormValid: ', isValid);
+  console.log('isValidatingTitle: ', isValidatingTitle);
+  console.log('isValidTitle: ', isValidTitle);
+  console.log('formErrors: ', errors);
+
+  const isFormValid = !isValidatingTitle && isValidTitle && isValid;
 
   return (
     <AtlusButton
@@ -42,7 +60,7 @@ export const SavePackageButton = () => {
         }
       }}
       isLoading={isPersistingPackage}
-      disabled={!isPackageValid}>
+      disabled={!isFormValid || !packageHasValidPatents}>
       Save
     </AtlusButton>
   );

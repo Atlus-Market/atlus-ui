@@ -2,6 +2,10 @@ import axios, { AxiosProgressEvent, AxiosResponse, CreateAxiosDefaults } from 'a
 import { AtlusSessionManager } from '@/app/(auth)/session/atlus-session-manager';
 import { Session } from 'next-auth';
 
+export const isRequestCanceledError = (e: Error): boolean => {
+  return axios.isCancel(e);
+};
+
 export const createUrl = (endpoint: string): string => {
   const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
   return `${process.env.NEXT_PUBLIC_API_ENDPOINT}${cleanEndpoint}`;

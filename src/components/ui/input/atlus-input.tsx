@@ -64,7 +64,7 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(
             {...rest}
           />
           {rightIcon &&
-            <div className='pr-4'>
+            <div className='pr-4 leading-none'>
               {rightIcon}
             </div>
           }

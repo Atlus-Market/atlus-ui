@@ -32,3 +32,14 @@ export const selectContacts = createSelector(
     return state.setContact.contacts;
   }
 );
+
+// Title Validation
+export const selectIsValidatingTitle = createSelector(
+  selectPackageDetailsState,
+  state => state.titleValidation.isValidatingTitle
+);
+
+export const selectIsValidTitle = createSelector(
+  selectPackageDetailsState,
+  state => state.titleValidation.isValidTitle
+);

@@ -38,6 +38,7 @@ export const DocumentsUploader = () => {
 
   useEffect(() => {
     filesToUpload.forEach((serializedFileUpload) => {
+      // @ts-ignore
       const thunkValue = dispatch(uploadPackageDocument(serializedFileUpload));
       uploadingFilesLocalState[thunkValue.requestId] = { abort: thunkValue.abort };
     });

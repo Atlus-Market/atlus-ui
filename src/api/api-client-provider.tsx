@@ -25,7 +25,7 @@ axios.interceptors.response.use(function(response) {
 
   if (!error.response || error.response.status >= StatusCodes.INTERNAL_SERVER_ERROR) {
     if (error.code === AxiosError.ERR_CANCELED) {
-      return;
+      return Promise.reject(error);
     }
     showErrorNotification({ text: 'Something went wrong.', toastId: error.code });
   } else if (error.response?.status === HttpStatusCode.Unauthorized) {
