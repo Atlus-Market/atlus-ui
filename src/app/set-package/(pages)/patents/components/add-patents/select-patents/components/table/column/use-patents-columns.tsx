@@ -102,9 +102,7 @@ export const usePatentsColumns = ({
               <div className="select-family-cell">
                 <Checkbox />
                 <span className="text-dark-grey text-sm font-normal leading-[17px] inline-block ml-5">
-                  <span className="text-soft-black">
-                    Select Family ({row.original.familyId})
-                  </span>
+                  <span className="text-soft-black">Select Family</span>
                   {selectedRowsCount > 0 && (
                     <span className="inline-block ml-1">
                       ({selectedRowsCount} out of {row.subRows.length} selected)
