@@ -6,7 +6,7 @@ import {
   IPackageDetailsForm
 } from '@/app/set-package/(pages)/package-details/package-details-form';
 import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loading-spinner';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   packageTitleValidator
@@ -33,7 +33,7 @@ export const PackageDetailsTitle = () => {
     abortRef.current = { abort: thunkValue.abort };
   }, [dispatch, title]);
 
-  useEffect(() => {
+  const handleInvalidTitleError = useCallback(() => {
     if (!title || isValidatingTitle) {
       return;
     }
@@ -44,6 +44,10 @@ export const PackageDetailsTitle = () => {
     }
   }, [isValidatingTitle, isValidTitle, title, setError, clearErrors]);
 
+  useEffect(() => {
+    handleInvalidTitleError();
+  }, [handleInvalidTitleError]);
+
   return (
     <div>
       <AtlusFormInput
@@ -52,16 +56,7 @@ export const PackageDetailsTitle = () => {
         type='text'
         {...register('title')}
         rightIcon={isValidatingTitle && <AtlusLoadingSpinner hexColor='#D9D9D9' />}
-        onBlur={()=>{
-          if (!title || isValidatingTitle) {
-            return;
-          }
-          if (!isValidTitle) {
-            setError('title', { type: 'custom', message: 'This title is already taken.' });
-          } else {
-            clearErrors('title');
-          }
-        }}
+        onBlur={handleInvalidTitleError}
       />
     </div>
   );
