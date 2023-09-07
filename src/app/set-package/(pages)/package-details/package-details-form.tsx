@@ -29,7 +29,7 @@ export const packageDetailsSchema: ObjectSchema<IPackageDetailsForm> = object({
   industryIds: array().min(1).required(RequiredField),
   keywords: array().min(1).required(RequiredField).typeError('Enter at least one keyword'),
   visibility: string().required(RequiredField),
-  priceUsd: number().min(1).required(RequiredField).typeError('Price must be greater than $1'),
+  priceUsd: number().min(0).default(0).required(RequiredField).typeError('Price must be greater than $0'),
   openToLicensing: boolean().default(false).required(RequiredField),
   showPublicPricing: boolean().default(false).required(RequiredField),
   sellerUserId: string().default('').required(RequiredField)

@@ -28,7 +28,7 @@ export const AtlusFormInputNumeric = forwardRef<HTMLInputElement, AtlusFormInput
             {...props.field}
             onChange={e => {
               const inputValue = e.target.value; // format: xxx,xxx.xx
-              const floatValue = parseFloat(inputValue.replaceAll(',', '')) || '';
+              const floatValue = parseFloat(inputValue.replaceAll(',', '')) || '0';
               props.field.onChange({
                 target: {
                   value: floatValue
