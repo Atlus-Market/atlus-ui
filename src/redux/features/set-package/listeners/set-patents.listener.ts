@@ -1,7 +1,3 @@
-import { Patent } from '@/models/patent';
-import {
-  NO_FAMILY_GROUP_ID
-} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
 import { ListenersMiddleware } from '@/redux/store';
 import {
   patentsFetchedSuccessfully
@@ -11,37 +7,16 @@ import {
   AddPatentsStep
 } from '@/app/set-package/(pages)/patents/components/add-patents/add-patents-step';
 
-const createPatentManually = (patentData: Partial<Patent>): Patent => ({
-  publicationNumber: '',
-  status: '',
-  applicationNumber: '',
-  familyId: NO_FAMILY_GROUP_ID,
-  title: '',
-  patentNumber: '',
-  applicants: [],
-  applicationDate: '',
-  ...patentData
-});
-
 export const setPatentsListener = (appStartListening: ListenersMiddleware) => {
   appStartListening.startListening({
     actionCreator: patentsFetchedSuccessfully,
     effect: async (action, listenerApi) => {
       const { dispatch } = listenerApi;
-      console.log('Effect patentsFetchedSuccessfully running: ', action);
-
+      console.log('Fetch Patents Listener: ', action);
       const { patents, customPatents = [] } = action.payload;
-      if (!customPatents) {
-        debugger;
-      }
-      const notFoundPatents = customPatents.map(({ publicationNumber }): Patent => createPatentManually({ publicationNumber }));
-
-      console.log('fetchedPatents: ', patents);
-      console.log('notFoundPatents: ', notFoundPatents);
-
       const allPatents = [
         ...patents,
-        ...notFoundPatents
+        ...customPatents
       ];
 
       dispatch(setPatents({ patents: allPatents }));

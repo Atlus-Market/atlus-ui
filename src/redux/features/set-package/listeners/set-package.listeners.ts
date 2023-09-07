@@ -4,5 +4,6 @@ import { setPatentsListener } from '@/redux/features/set-package/listeners/set-p
 export const startSetPackageListeners = (listenerMiddleware: ListenersMiddleware) => {
   [
     setPatentsListener
-  ].forEach(fn => fn(listenerMiddleware));
+  ]
+    .forEach(fn => fn(listenerMiddleware));
 };

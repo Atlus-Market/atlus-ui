@@ -5,10 +5,6 @@ export interface GetPatentsSimplePayload {
   ids: string[];
 }
 
-export interface CustomPatentData {
-  publicationNumber: string;
-}
-
 export type GetPatentsSimpleResponse = SearchPatentsResponse;
 
 export const getPatentsSimpleBulk = async (getPatentsPayload: GetPatentsSimplePayload, signal?: AbortSignal): Promise<GetPatentsSimpleResponse> => {

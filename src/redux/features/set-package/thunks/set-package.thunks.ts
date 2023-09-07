@@ -6,7 +6,7 @@ import {
 import {
   createPackage,
   CreatePackageRequestPayload,
-  CustomPatent
+  CustomPatentPayload
 } from '@/api/package/create-package';
 import { Package } from '@/models/package';
 import { Patent } from '@/models/patent';
@@ -34,9 +34,14 @@ export const persistPackage = createAsyncThunk<
     try {
       const { getState } = thunkAPI;
       const activePackage = selectPackage(getState());
-      const patents: Patent[] = selectPackagePatents(getState());
-      const patentsIds = patents.filter(p => p.familyId !== NO_FAMILY_GROUP_ID).map(p => p.publicationNumber);
+
+      const allPatents: Patent[] = selectPackagePatents(getState());
+      const patents= allPatents.filter(p => p.familyId !== NO_FAMILY_GROUP_ID)
+      const customPatents= allPatents.filter(p => p.familyId === NO_FAMILY_GROUP_ID)
+      const patentsIds = allPatents.filter(p => p.familyId !== NO_FAMILY_GROUP_ID).map(p => p.publicationNumber);
+
       console.log('patents: ', patents);
+      console.log('customPatents: ', customPatents);
       console.log('getPatentsIds: ', patentsIds);
 
       const packageDetails = selectPackageDetailsFormValues(getState());
@@ -48,7 +53,7 @@ export const persistPackage = createAsyncThunk<
         industryIds: packageDetails.industryIds.map(id => parseInt(id, 10)),
         visibility: packageDetails.visibility ? 1 : 0,
         patents: patentsIds,
-        customPatents: getCustomPatents(patents)
+        customPatents: getCustomPatents(customPatents)
       };
 
       if (activePackage) {
@@ -58,7 +63,9 @@ export const persistPackage = createAsyncThunk<
           createdPackage: false,
           package: {
             ...payload,
-            ...activePackage
+            ...activePackage,
+            patents,
+            customPatents
           }
         };
       } else {
@@ -78,7 +85,7 @@ export const persistPackage = createAsyncThunk<
 );
 
 
-const getCustomPatents = (patents: Patent[]): CustomPatent[] => {
+const getCustomPatents = (patents: Patent[]): CustomPatentPayload[] => {
   return patents.filter(p => p.familyId === NO_FAMILY_GROUP_ID)
     .map(patent => ({
       patent_number: patent.publicationNumber,

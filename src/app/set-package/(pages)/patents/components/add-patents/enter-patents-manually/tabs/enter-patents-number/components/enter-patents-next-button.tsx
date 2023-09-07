@@ -29,7 +29,7 @@ export const EnterPatentsNextButton = () => {
     }
 
     const response = await refetch();
-    console.log('Fetch Patents Response: ', response);
+    console.log('Fetch Patents Response: ', response.data);
 
     if (!response.data || !mounted) {
       return;

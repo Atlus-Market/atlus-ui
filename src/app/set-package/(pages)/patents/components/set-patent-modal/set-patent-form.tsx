@@ -8,7 +8,7 @@ import { Patent } from '@/models/patent';
 import { plainDateValidator } from '@/components/ui/form/validators/plain-date-validator';
 
 const schema: ObjectSchema<Patent> = object({
-  familyId: string().default('a').trim().required(RequiredField),
+  familyId: string().default('').trim(),
   publicationNumber: string().trim().required(RequiredField),
   title: string().trim().required(RequiredField),
   status: string().trim().required(RequiredField),

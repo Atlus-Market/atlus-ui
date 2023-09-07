@@ -3,7 +3,6 @@ import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
 import { Patent } from '@/models/patent';
 import { AtlusInput } from '@/components/ui/input/atlus-input';
 import { AtlusFormDropdownList } from '@/components/ui/form/atlus-form-dropdown';
-import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 import { statusOptions } from '@/components/common/dropdown/status-options';
 
 
@@ -16,8 +15,7 @@ export const SetPatentFormFields = ({ allowEditPublicationNumber = true }: SetPa
   const {
     register,
     setValue, control, formState: { errors }
-  }
-    = formProps;
+  } = formProps;
   console.log('SetPatentForm Errors: ', errors);
 
   return (

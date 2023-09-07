@@ -56,7 +56,7 @@ export const usePatentsColumns = ({
   const editPatent = useCallback((editingPatent: EditingPatent) => {
     dispatch(setEditingPatent(editingPatent));
     dispatch(showSetPatentModal());
-  }, []);
+  }, [dispatch]);
 
   return useMemo<ColumnDef<PatentTableData, string | string[]>[]>(
     () => [

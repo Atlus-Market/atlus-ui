@@ -19,7 +19,6 @@ export const ManageEditedPatent = ({ patent }: ManageEditedPatentProps) => {
   const isCreatedManually = patent.familyId === NO_FAMILY_GROUP_ID;
   const dispatch = useAppDispatch();
 
-
   return (
     <div className='flex items-start gap-2'>
       {isCreatedManually && <button
