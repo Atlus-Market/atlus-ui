@@ -110,15 +110,6 @@ export const setPackage = createSlice({
         patent => patent.familyId !== familyId
       );
     },
-    removeFamilyPatents: (
-      state: SetPackageState,
-      action: PayloadAction<{ familyId: string }>
-    ) => {
-      const { familyId } = action.payload;
-      state.patents = state.patents.filter(
-        patent => patent.familyId !== familyId
-      );
-    },
 
     // After finishing selecting patents from the table
     setPackagePatents: (
@@ -166,7 +157,6 @@ export const setPackage = createSlice({
 
   extraReducers: builder => {
     createSetPackageExtraReducers(builder);
-    enterPatentsExtraReducers(builder);
     createDocumentsExtraReducers(builder);
     packageTitleValidatorExtraReducers(builder);
   },
@@ -190,6 +180,7 @@ export const {
   setAddPatentsActiveTab,
   updateEnterPatentsIdsManuallyForm,
   setImportPatentsFile,
+  removeImportPatentsFile,
 
   setSelectedTablePatentIds,
   setPackagePatents,
