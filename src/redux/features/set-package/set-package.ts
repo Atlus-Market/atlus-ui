@@ -110,9 +110,13 @@ export const setPackage = createSlice({
     // set active package
     setActivePackage: (state: SetPackageState, action: PayloadAction<Package>) => {
       state.package = action.payload;
+      state.patents = [
+        ...action.payload.patents,
+        ...action.payload.customPatents
+      ]
       state.packageDetails.packageDetailsForm = {
         ...action.payload,
-        industryIds: action.payload.industryIds.map(iid => iid.toString()),
+        industryIds: action.payload.industryIds.map(industryId => industryId.toString()),
         keywords: action.payload.keywords.split(','),
         visibility: action.payload.visibility === 1 ? dropdownPublicOption.value : dropdownPrivateOption.value
       };

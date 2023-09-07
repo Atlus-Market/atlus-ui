@@ -1,3 +1,5 @@
+import { Patent } from '@/models/patent';
+
 export interface Package {
   title: string;
   description: string;
@@ -8,8 +10,8 @@ export interface Package {
   openToLicensing: boolean;
   showPublicPricing: boolean;
   sellerUserId: string;
-  customPatents: string[];
-  patents: string[];
+  patents: Patent[];
+  customPatents: Patent[];
 
   // When package is created
   id: string;
