@@ -38,7 +38,7 @@ const providers = [
         });
 
         return {
-          id: credentials.email,
+          id: loginResponse.userId,
           email: credentials.email,
           accessToken: loginResponse.accessToken,
           csrfToken: loginResponse.csrfAccessToken

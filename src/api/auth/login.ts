@@ -10,6 +10,7 @@ export interface LoginPayload {
 }
 
 export interface LoginResponse {
+  userId: string;
   accessToken: string;
   accessTokenCookie: string;
   csrfAccessToken: string;
