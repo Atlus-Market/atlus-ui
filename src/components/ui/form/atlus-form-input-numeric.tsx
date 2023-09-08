@@ -5,39 +5,39 @@ import { Controller, useFormContext, useFormState } from 'react-hook-form';
 import { forwardRef } from 'react';
 import { AtlusInputNumeric } from '@/components/ui/input/atlus-input-numeric';
 
-export interface AtlusFormInputProps extends AtlusInputProps {
-  name: string;
-}
+export interface AtlusFormInputProps extends AtlusInputProps {}
 
-export const AtlusFormInputNumeric = forwardRef<HTMLInputElement, AtlusFormInputProps>(
-  function AtlusFormInputNumeric({ name, type, ...rest }, ref) {
-    const { errors } = useFormState({
-      name: name,
-      exact: true
-    });
-    const { control } = useFormContext();
+export const AtlusFormInputNumeric = forwardRef<
+  HTMLInputElement,
+  AtlusFormInputProps
+>(function AtlusFormInputNumeric({ name, type, ...rest }, ref) {
+  const { errors } = useFormState({
+    name: name,
+    exact: true,
+  });
+  const { control, setValue, getValues } = useFormContext();
 
-    return (
-      <Controller
-        control={control}
-        name={name}
-        render={(props) => (
-          <AtlusInputNumeric
-            {...rest}
-            errors={errors}
-            {...props.field}
-            onChange={e => {
-              const inputValue = e.target.value; // format: xxx,xxx.xx
-              const floatValue = parseFloat(inputValue.replaceAll(',', '')) || '0';
-              props.field.onChange({
-                target: {
-                  value: floatValue
-                }
-              });
-            }}
-          />
-        )}
-      />
-    );
-  }
-);
+  return (
+    <Controller
+      control={control}
+      name={name}
+      render={props => (
+        <AtlusInputNumeric
+          {...rest}
+          errors={errors}
+          {...props.field}
+          onChange={e => {
+            const inputValue = e.target.value; // format: xxx,xxx.xx
+            const floatValue =
+              parseFloat(inputValue.replaceAll(',', '')) || '0';
+            props.field.onChange({
+              target: {
+                value: floatValue,
+              },
+            });
+          }}
+        />
+      )}
+    />
+  );
+});

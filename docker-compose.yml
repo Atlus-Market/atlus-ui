@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_API_ENDPOINT
+        - NEXTAUTH_SECRET
+        - NEXTAUTH_URL
+        - COOKIE_DOMAIN
+    ports:
+      - '3000:3000'
+    expose:
+      - '3000'
+    user: nextjs
+    command: ['node', 'server.js']
+    env_file:
+      - ./.env

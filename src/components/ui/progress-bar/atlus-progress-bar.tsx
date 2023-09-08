@@ -6,17 +6,17 @@ interface AtlusProgressBarProps {
 
 export const AtlusProgressBar = ({ progress }: AtlusProgressBarProps) => {
   return (
-    <div className='flex items-center gap-4 w-full'>
+    <div className="flex items-center gap-4 w-full">
       <ProgressBar
         completed={progress}
-        baseBgColor='var(--color-light-grey)'
-        bgColor='var(--color-soft-black)'
-        height='8px'
+        baseBgColor="var(--color-light-grey)"
+        bgColor="var(--color-soft-black)"
+        height="8px"
         borderRadius={progress === 0 ? '0' : '8px'}
-        className='w-full'
+        className="w-full"
         isLabelVisible={false}
       />
-      <span className='text-xs text-soft-black'>{progress}%</span>
+      <span className="text-xs text-soft-black">{progress}%</span>
     </div>
   );
 };

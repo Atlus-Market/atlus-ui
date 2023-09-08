@@ -7,12 +7,15 @@ export interface GetPatentsSimplePayload {
 
 export type GetPatentsSimpleResponse = SearchPatentsResponse;
 
-export const getPatentsSimpleBulk = async (getPatentsPayload: GetPatentsSimplePayload, signal?: AbortSignal): Promise<GetPatentsSimpleResponse> => {
+export const getPatentsSimpleBulk = async (
+  getPatentsPayload: GetPatentsSimplePayload,
+  signal?: AbortSignal
+): Promise<GetPatentsSimpleResponse> => {
   return createRequest<GetPatentsSimplePayload, GetPatentsSimpleResponse>({
     url: '/patents/simple/bulk',
     method: 'POST',
     isProtected: ProtectedEndpoint.True,
     payload: getPatentsPayload,
-    signal
+    signal,
   });
 };

@@ -90,7 +90,11 @@ export const AtlusButton = forwardRef<HTMLButtonElement, AtlusButtonProps>(
       ...restProps
     } = props;
     const isClearVariant = variant === 'clear';
-    const classVariant = isClearVariant ? clearVariant(props) : variant === 'solid' ? solidOrangeVariant : outlineWhiteVariant;
+    const classVariant = isClearVariant
+      ? clearVariant(props)
+      : variant === 'solid'
+      ? solidOrangeVariant
+      : outlineWhiteVariant;
     return (
       <button
         type={type}
@@ -107,4 +111,5 @@ export const AtlusButton = forwardRef<HTMLButtonElement, AtlusButtonProps>(
         {isLoading ? <AtlusLoadingSpinner hexColor={getLoadingSpinnerColor(props)} /> : children}
       </button>
     );
-  });
+  }
+);

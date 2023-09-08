@@ -1,14 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import {
-  selectIsActiveTabValid
-} from '@/redux/features/set-package/selectors/add-patents.selectors';
-import {
-  useFetchPatents
-} from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/use-fetch-patents';
-import {
-  patentsFetchedSuccessfully
-} from '@/redux/features/set-package/slices/add-patents/slices/enter-patents';
+import { selectIsActiveTabValid } from '@/redux/features/set-package/selectors/add-patents.selectors';
+import { useFetchPatents } from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/use-fetch-patents';
+import { patentsFetchedSuccessfully } from '@/redux/features/set-package/slices/add-patents/slices/enter-patents';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 
 export const EnterPatentsNextButton = () => {
@@ -42,7 +36,8 @@ export const EnterPatentsNextButton = () => {
     <AtlusButton
       disabled={!isActiveFormValid || isFetching}
       isLoading={isFetching}
-      onClick={onNext}>
+      onClick={onNext}
+    >
       Next
     </AtlusButton>
   );

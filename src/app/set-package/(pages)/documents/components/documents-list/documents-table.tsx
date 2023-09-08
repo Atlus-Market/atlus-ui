@@ -4,12 +4,8 @@ import { Fragment, useMemo } from 'react';
 import { parseGMTDate } from '@/utils/date';
 import format from 'date-fns/format';
 import { FileName } from '@/components/common/file/file-name';
-import {
-  DocumentVisibility
-} from '@/app/set-package/(pages)/documents/components/documents-list/document-visibility';
-import {
-  RemoveDocumentButton
-} from '@/app/set-package/(pages)/documents/components/documents-list/remove-document-button';
+import { DocumentVisibility } from '@/app/set-package/(pages)/documents/components/documents-list/document-visibility';
+import { RemoveDocumentButton } from '@/app/set-package/(pages)/documents/components/documents-list/remove-document-button';
 import { AtlusTooltip } from '@/components/ui/tooltip/atlus-tooltip';
 import { sortDocumentsByUploadedDate } from '@/utils/dataroom';
 
@@ -23,45 +19,54 @@ const formatUploadedDate = (gmtString: string): string => {
   return uploadedDate ? format(uploadedDate, 'LLL dd, yyyy') : '-';
 };
 
-export const DocumentsTable = ({ dataroom, onDocumentChanged }: DocumentsTableProps) => {
+export const DocumentsTable = ({
+  dataroom,
+  onDocumentChanged,
+}: DocumentsTableProps) => {
   const tooltipId = dataroom.id;
 
   const sortedDocuments = useMemo(() => {
-    const documents = dataroom.directoryTree.children.filter(directory => directory.type === 'file');
+    const documents = dataroom.directoryTree.children.filter(
+      directory => directory.type === 'file'
+    );
     return sortDocumentsByUploadedDate(documents);
   }, [dataroom]);
 
   return (
     <>
       <AtlusTooltip tooltipId={tooltipId} />
-      <div className='documents-grid-scroller'>
-        <div className='documents-grid'>
-          <div className='grid-header grid-first-header-col'>Name</div>
-          <div className='grid-header'>Date uploaded</div>
-          <div className='grid-header'>Visibility</div>
-          <div className='grid-header grid-last-header-col'>{' '}</div>
+      <div className="documents-grid-scroller">
+        <div className="documents-grid">
+          <div className="grid-header grid-first-header-col">Name</div>
+          <div className="grid-header">Date uploaded</div>
+          <div className="grid-header">Visibility</div>
+          <div className="grid-header grid-last-header-col"> </div>
           {sortedDocuments.map(document => (
             <Fragment key={document.id}>
-              <div className='grid-entry'>
+              <div className="grid-entry">
                 <FileName
                   fileName={document.name}
                   fileSize={document.size}
                   showTooltip={false}
-                  tooltipId={tooltipId} />
+                  tooltipId={tooltipId}
+                />
               </div>
-              <div className='grid-entry'>
-              <span
-                className='text-soft-black text-sm'>{formatUploadedDate(document.dateUploaded)}</span>
+              <div className="grid-entry">
+                <span className="text-soft-black text-sm">
+                  {formatUploadedDate(document.dateUploaded)}
+                </span>
               </div>
-              <div className='grid-entry'>
+              <div className="grid-entry">
                 <DocumentVisibility
                   dataroomId={dataroom.id}
                   documentId={document.id}
                   isPrivate={document.private}
-                  onDocumentVisibilityChanged={() => onDocumentChanged?.(document.id)}
+                  onDocumentVisibilityChanged={() =>
+                    onDocumentChanged?.(document.id)
+                  }
                 />
               </div>
-              <div className='grid-entry flex'>
+              <div className="grid-entry flex">
                 <RemoveDocumentButton
                   dataroomId={dataroom.id}
                   documentId={document.id}
