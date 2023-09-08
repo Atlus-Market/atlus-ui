@@ -15,10 +15,13 @@ import {
   selectIsValidatingTitle,
   selectIsValidTitle
 } from '@/redux/features/set-package/selectors/package-details.selectors';
+import { useAtlusSession } from '@/app/(auth)/session/use-atlus-session';
 
 type Abort = (reason?: string) => void;
 
 export const PackageDetailsTitle = () => {
+  const session = useAtlusSession();
+  const userId = session.data?.user?.id ?? '';
   const isValidTitle = useAppSelector(selectIsValidTitle);
   const isValidatingTitle = useAppSelector(selectIsValidatingTitle);
   const { register, setError, clearErrors } = useFormContext<IPackageDetailsForm>();
@@ -29,7 +32,7 @@ export const PackageDetailsTitle = () => {
   useEffect(() => {
     abortRef.current?.abort();
     // @ts-ignore
-    const thunkValue = dispatch(packageTitleValidator(title));
+    const thunkValue = dispatch(packageTitleValidator({ title, userId }));
     abortRef.current = { abort: thunkValue.abort };
   }, [dispatch, title]);
 
