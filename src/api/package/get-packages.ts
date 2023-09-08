@@ -6,9 +6,9 @@ export interface GetPackagesResponse {
   packages: PackageListItem[];
 }
 
-export const getPackages = (signal?: AbortSignal) => {
+export const getPackages = (userId: string, signal?: AbortSignal) => {
   return createRequest<void, GetPackagesResponse>({
-      url: '/packages',
+      url: `/packages/user/${userId}`,
       method: 'GET',
       isProtected: ProtectedEndpoint.True,
       signal: signal || undefined
