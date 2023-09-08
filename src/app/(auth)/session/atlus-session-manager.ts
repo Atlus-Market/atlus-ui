@@ -1,4 +1,4 @@
-import { Session, SessionUser } from 'next-auth';
+import { Session, User } from 'next-auth';
 
 /**
  * Use this static class to get/set the accessToken for hitting the API.
@@ -18,7 +18,7 @@ export class AtlusSessionManager {
     return AtlusSessionManager.atlusSession?.user?.csrfToken;
   }
 
-  static get user(): SessionUser | undefined {
+  static get user(): User | undefined {
     return AtlusSessionManager.atlusSession?.user;
   }
 

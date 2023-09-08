@@ -1,7 +1,13 @@
-import { NextAuthOptions, Session, User } from 'next-auth';
+import {
+  CallbacksOptions,
+  EventCallbacks,
+  JWTCallback,
+  NextAuthOptions,
+  Session,
+  SessionCallback,
+  User
+} from 'next-auth';
 import { LoginRoute } from '@/constants/routes';
-import { CallbacksOptions, DefaultSession, EventCallbacks } from 'next-auth/src/core/types';
-import { JWTCallback, SessionCallback } from '@/auth';
 import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { login, SignInResponse } from '@/api/auth/login';
@@ -71,7 +77,7 @@ const callbacks: Partial<CallbacksOptions> = {
   },
 
   // called from client
-  async session({ session, token, user }: SessionCallback): Promise<Session | DefaultSession> {
+  async session({ session, token, user }: SessionCallback): Promise<Session> {
     session.user = token.user;
     return session;
   }
