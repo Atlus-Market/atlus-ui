@@ -6,7 +6,7 @@ import { selectActiveDataroom } from '@/redux/features/set-package/selectors/doc
 import { setDataroom } from '@/redux/features/set-package/set-package';
 import { useFetchDataroom } from '@/app/set-package/(pages)/documents/components/use-fetch-dataroom';
 import { addListener } from '@reduxjs/toolkit';
-import { uploadPackageDocument } from '@/redux/features/set-package/thunks/upload-documents.thunks';
+import { uploadPackageDocument } from '@/redux/features/set-package/thunks/upload-documents.thunk';
 
 interface DocumentsProviderProps {
   children: ReactNode;

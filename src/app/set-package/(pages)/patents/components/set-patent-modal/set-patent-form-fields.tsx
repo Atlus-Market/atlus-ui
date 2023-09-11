@@ -1,9 +1,9 @@
 import { Controller, useFormContext } from 'react-hook-form';
 import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
-import { Patent } from '@/models/patent';
 import { AtlusInput } from '@/components/ui/input/atlus-input';
 import { AtlusFormDropdownList } from '@/components/ui/form/atlus-form-dropdown';
 import { statusOptions } from '@/components/common/dropdown/status-options';
+import { CustomPatentPayload } from '@/api/package/create-package';
 
 interface SetPatentFormFieldsProps {
   allowEditPublicationNumber?: boolean;
@@ -12,7 +12,7 @@ interface SetPatentFormFieldsProps {
 export const SetPatentFormFields = ({
   allowEditPublicationNumber = true,
 }: SetPatentFormFieldsProps) => {
-  const formProps = useFormContext<Patent>();
+  const formProps = useFormContext<CustomPatentPayload>();
   const {
     register,
     setValue,
@@ -38,7 +38,7 @@ export const SetPatentFormFields = ({
           label="Patent number"
           placeholder="US12345678B1"
           type="text"
-          {...register('publicationNumber')}
+          {...register('patentNumber')}
           wrapperClassName="grow"
           disabled={!allowEditPublicationNumber}
         />
@@ -54,23 +54,11 @@ export const SetPatentFormFields = ({
         wrapperClassName="w-[50%] pr-4"
       />
 
-      <Controller
-        name="applicants"
-        control={control}
-        render={({ field }) => (
-          <AtlusInput
-            {...field}
-            label="Assignee"
-            placeholder="Enter current assignee"
-            type="text"
-            value={field.value?.join('') ?? ''}
-            errors={errors}
-            onChange={e => {
-              const value = e.target.value;
-              setValue('applicants', value ? [value] : []);
-            }}
-          />
-        )}
+      <AtlusFormInput
+        label="Assignee"
+        placeholder="Enter current assignee"
+        type="text"
+        {...register('assignee')}
       />
 
       <Controller

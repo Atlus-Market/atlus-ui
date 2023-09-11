@@ -15,6 +15,7 @@ import {
   selectIsSetPatentModalOpen,
   selectRowSelectionState,
 } from '@/redux/features/set-package/selectors/add-patents.selectors';
+import { getPatentId } from '@/utils/patents';
 
 export const SelectPatentSetPatentHandler = () => {
   const isSetPatentModalOpen = useAppSelector(selectIsSetPatentModalOpen);
@@ -36,7 +37,7 @@ export const SelectPatentSetPatentHandler = () => {
       editingPatent={editingPatent}
       onPatentAdded={(patent: Patent) => {
         dispatch(updatePatent({ patent }));
-        dispatch(setEditedPatent({ patentId: patent.publicationNumber }));
+        dispatch(setEditedPatent({ patentId: getPatentId(patent) }));
         dispatch(
           setRowSelectionState({
             rowSelectionState: {

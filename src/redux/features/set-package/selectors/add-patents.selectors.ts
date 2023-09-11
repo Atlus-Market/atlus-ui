@@ -3,6 +3,7 @@ import { EnterPatentsNumberTab } from '@/app/set-package/(pages)/patents/compone
 import { selectSetPackageState } from '@/redux/features/set-package/selectors/set-package.selectors';
 import { mapPatentsIdsToPatentIdsArray } from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-ids/patent-id-validator';
 import { AddPatentsState } from '@/redux/features/set-package/slices/add-patents/add-patents';
+import { getPatentId } from '@/utils/patents';
 
 // Add patents
 
@@ -111,7 +112,7 @@ export const selectEditingPatent = createSelector(
   selectFetchedPatents,
   (selectPatentsState, patents) => {
     return patents.find(
-      patent => patent.publicationNumber === selectPatentsState.editingPatent?.publicationNumber
+      patent => getPatentId(patent) === selectPatentsState.editingPatent?.publicationNumber
     );
   }
 );

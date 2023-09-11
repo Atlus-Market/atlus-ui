@@ -2,7 +2,7 @@
 
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { persistPackage } from '@/redux/features/set-package/thunks/set-package.thunks';
+import { persistPackage } from '@/redux/features/set-package/thunks/set-package.thunk';
 import { selectIsPersistingPackage } from '@/redux/features/set-package/selectors/set-package.selectors';
 import { showSuccessNotification } from '@/components/ui/notification/atlus-notification';
 import { setActivePackage } from '@/redux/features/set-package/set-package';

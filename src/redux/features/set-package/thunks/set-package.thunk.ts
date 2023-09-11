@@ -14,6 +14,7 @@ import {
 } from '@/redux/features/set-package/selectors/set-package.selectors';
 import { updatePackage } from '@/api/package/update-package';
 import { NO_FAMILY_GROUP_ID } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
+import { getPatentId, mapPatentToCustomPatentPayload } from '@/utils/patents';
 
 export interface PersistPackageResult {
   package: Package;
@@ -30,9 +31,7 @@ export const persistPackage = createAsyncThunk<PersistPackageResult, void, { sta
       const allPatents: Patent[] = selectPackagePatents(getState());
       const patents = allPatents.filter(p => p.familyId !== NO_FAMILY_GROUP_ID);
       const customPatents = allPatents.filter(p => p.familyId === NO_FAMILY_GROUP_ID);
-      const patentsIds = allPatents
-        .filter(p => p.familyId !== NO_FAMILY_GROUP_ID)
-        .map(p => p.publicationNumber);
+      const patentsIds = patents.map(p => getPatentId(p));
 
       console.log('patents: ', patents);
       console.log('customPatents: ', customPatents);
@@ -78,14 +77,5 @@ export const persistPackage = createAsyncThunk<PersistPackageResult, void, { sta
 );
 
 const getCustomPatents = (patents: Patent[]): CustomPatentPayload[] => {
-  return patents
-    .filter(p => p.familyId === NO_FAMILY_GROUP_ID)
-    .map(patent => ({
-      patent_number: patent.publicationNumber,
-      application_date: patent.applicationDate,
-      application_number: patent.applicationNumber,
-      assignee: patent.applicants.join(','),
-      status: patent.status,
-      title: patent.title,
-    }));
+  return patents.filter(p => p.familyId === NO_FAMILY_GROUP_ID).map(mapPatentToCustomPatentPayload);
 };

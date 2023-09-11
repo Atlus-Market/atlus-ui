@@ -19,7 +19,7 @@ import {
   DocumentsState,
 } from '@/redux/features/set-package/slices/documents';
 import { createSetPackageExtraReducers } from '@/redux/features/set-package/set-package-extra-reducers';
-import { mergeArrays } from '@/utils/patents';
+import { getPatentId, mergeArrays } from '@/utils/patents';
 import {
   dropdownPrivateOption,
   dropdownPublicOption,
@@ -81,12 +81,12 @@ export const setPackage = createSlice({
     },
     updateSelectedPatent: (state: SetPackageState, action: PayloadAction<{ patent: Patent }>) => {
       const { patent } = action.payload;
-      state.patents = state.patents.filter(p => p.publicationNumber !== patent.publicationNumber);
+      state.patents = state.patents.filter(p => getPatentId(p) !== getPatentId(patent));
       state.patents.push(patent);
     },
     removePatent: (state: SetPackageState, action: PayloadAction<{ patentId: string }>) => {
       const { patentId } = action.payload;
-      state.patents = state.patents.filter(p => p.publicationNumber !== patentId);
+      state.patents = state.patents.filter(p => getPatentId(p) !== patentId);
     },
     removeFamilyPatents: (state: SetPackageState, action: PayloadAction<{ familyId: string }>) => {
       const { familyId } = action.payload;
@@ -97,12 +97,12 @@ export const setPackage = createSlice({
     setPackagePatents: (state: SetPackageState, action: PayloadAction<Patent[] | undefined>) => {
       const { tableSelectedPatentIds } = state.addPatents.selectPatentsState;
       const patents = state.addPatents.fetchedPatents.filter(patent =>
-        tableSelectedPatentIds.includes(patent.publicationNumber)
+        tableSelectedPatentIds.includes(getPatentId(patent))
       );
       state.patents = mergeArrays(
         state.patents,
         [...patents, ...(action?.payload ?? [])],
-        (patent: Patent) => patent.publicationNumber
+        (patent: Patent) => getPatentId(patent)
       );
     },
 

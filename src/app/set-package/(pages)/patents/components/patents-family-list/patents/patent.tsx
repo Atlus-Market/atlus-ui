@@ -2,6 +2,7 @@ import { Patent as PatentModel } from '@/models/patent';
 import DocumentSVG from '@/public/assets/images/document.svg';
 import Image from 'next/image';
 import { ManageEditedPatent } from '@/app/set-package/(pages)/patents/components/patents-family-list/patents/manage-edited-patent';
+import { getPatentId, getPatentReadableAssignees } from '@/utils/patents';
 
 interface PatentProps {
   patent: PatentModel;
@@ -22,9 +23,7 @@ export const Patent = ({ patent }: PatentProps) => {
         </div>
         <div>
           <div className="mb-1">
-            <span className="text-sm text-[#0E7580]">
-              {patent.publicationNumber || patent.patentNumber}
-            </span>
+            <span className="text-sm text-[#0E7580]">{getPatentId(patent)}</span>
           </div>
           <div className="mb-7">
             <span className="text-soft-black text-[15px] leading-5 font-medium">
@@ -36,7 +35,7 @@ export const Patent = ({ patent }: PatentProps) => {
           </div>
           <div>
             <span className="text-soft-black text-sm leading-5">
-              {(patent.applicants ?? []).join(' & ')}
+              {getPatentReadableAssignees(patent)}
             </span>
           </div>
         </div>

@@ -19,6 +19,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setEditingPatent, showSetPatentModal } from '@/redux/features/set-package/set-package';
 import { selectEditedPatentsIds } from '@/redux/features/set-package/selectors/add-patents.selectors';
 import { EditingPatent } from '@/redux/features/set-package/slices/add-patents/slices/select-patents';
+import { getPatentId, getPatentReadableAssignees } from '@/utils/patents';
 
 interface UsePatentsColumnsProps {
   rowSelectionState: RowSelectionState;
@@ -30,7 +31,7 @@ const rowHasFamilyId = (row: Row<PatentTableData>): boolean => {
 };
 
 const hasRowBeenEdited = (row: Row<PatentTableData>, editedPatentsIds: string[]): boolean => {
-  return editedPatentsIds.includes(row.original.publicationNumber);
+  return editedPatentsIds.includes(getPatentId(row.original));
 };
 
 export const usePatentsColumns = ({
@@ -52,7 +53,7 @@ export const usePatentsColumns = ({
     () => [
       {
         accessorKey: 'publicationNumber',
-        accessorFn: row => row.publicationNumber || row.patentNumber,
+        accessorFn: row => getPatentId(row),
         header: ({ table }) => <HeaderCell title="Publication/Patent no." />,
         cell: ({ row, getValue }) => {
           const Checkbox = () => {
@@ -115,7 +116,7 @@ export const usePatentsColumns = ({
                     className="text-xs mt-2 font-medium"
                     onClick={() =>
                       editPatent({
-                        publicationNumber: row.original.publicationNumber,
+                        publicationNumber: getPatentId(row.original),
                         rowId: row.id,
                       })
                     }
@@ -145,7 +146,7 @@ export const usePatentsColumns = ({
                   size="medium"
                   onClick={() =>
                     editPatent({
-                      publicationNumber: row.original.publicationNumber,
+                      publicationNumber: getPatentId(row.original),
                       rowId: row.id,
                     })
                   }
@@ -175,7 +176,7 @@ export const usePatentsColumns = ({
         },
       },
       {
-        accessorKey: 'applicants',
+        accessorKey: 'assignees',
         accessorFn: row => row.applicants ?? [],
         header: () => <HeaderCell title="Assignee" />,
         cell: ({ row, getValue }) => {
@@ -186,11 +187,10 @@ export const usePatentsColumns = ({
             return null;
           }
 
-          const applicants = (getValue() as string[]) ?? [];
           return (
             <RowCell
               className="whitespace-break-spaces inline-block !w-[187px]"
-              text={applicants.join(' &\n')}
+              text={getPatentReadableAssignees({ assignees: getValue() as string[] }, ' &\n')}
             />
           );
         },

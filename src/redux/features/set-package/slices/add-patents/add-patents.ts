@@ -14,6 +14,7 @@ import {
 } from '@/redux/features/set-package/slices/add-patents/slices/select-patents';
 import { EnterPatentsNumberTab } from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
 import { cleanSerializedFile } from '@/utils/file';
+import { getPatentId } from '@/utils/patents';
 
 export interface AddPatentsState {
   isAddPatentsModalOpen: boolean;
@@ -50,7 +51,7 @@ export const addPatentesReducer = {
   // Replaces a Patent
   updatePatent: (state: SetPackageState, action: PayloadAction<{ patent: Patent }>) => {
     const patents = state.addPatents.fetchedPatents.filter(
-      (patent: Patent) => patent.publicationNumber !== action.payload.patent.publicationNumber
+      (patent: Patent) => getPatentId(patent) !== getPatentId(action.payload.patent)
     );
     state.addPatents.fetchedPatents = [...patents, action.payload.patent];
   },

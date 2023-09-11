@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { RootState } from '@/redux/store';
+import { getPatentId } from '@/utils/patents';
 
 export const selectSetPackageState = (state: RootState) => state.setPackageReducer;
 
@@ -13,7 +14,7 @@ export const selectIsEditPatentModalOpen = createSelector(
 
 export const selectPatentsListEditingPatent = createSelector(selectSetPackageState, state => {
   const patents = state.patents;
-  return patents.find(patent => patent.publicationNumber === state.editingPatentId);
+  return patents.find(patent => getPatentId(patent) === state.editingPatentId);
 });
 
 export const selectIsPersistingPackage = createSelector(

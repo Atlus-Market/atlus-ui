@@ -7,6 +7,7 @@ import { useAppDispatch } from '@/redux/hooks';
 import { removePatent, showEditPatentModal } from '@/redux/features/set-package/set-package';
 import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
 import { useAtlusModal } from '@/components/ui/modal/use-atlus-modal';
+import { getPatentId } from '@/utils/patents';
 
 interface ManageEditedPatentProps {
   patent: PatentModel;
@@ -20,9 +21,7 @@ export const ManageEditedPatent = ({ patent }: ManageEditedPatentProps) => {
   return (
     <div className="flex items-start gap-2">
       {isCreatedManually && (
-        <button
-          onClick={() => dispatch(showEditPatentModal({ patentId: patent.publicationNumber }))}
-        >
+        <button onClick={() => dispatch(showEditPatentModal({ patentId: getPatentId(patent) }))}>
           <HiPencil className="text-middle-grey" />
         </button>
       )}
@@ -37,7 +36,7 @@ export const ManageEditedPatent = ({ patent }: ManageEditedPatentProps) => {
           text: 'Remove',
           onClick: () => {
             hideAlertModal();
-            dispatch(removePatent({ patentId: patent.publicationNumber }));
+            dispatch(removePatent({ patentId: getPatentId(patent) }));
           },
         }}
         secondaryButton={{

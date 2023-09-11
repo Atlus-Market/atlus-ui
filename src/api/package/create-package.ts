@@ -2,12 +2,12 @@ import { createRequest, ProtectedEndpoint } from '@/api/api';
 import { Package } from '@/models/package';
 
 export interface CustomPatentPayload {
-  patent_number: string;
-  application_number: string;
+  patentNumber: string;
+  applicationNumber: string;
   title: string;
   status: string;
   assignee: string;
-  application_date: string; //'2023-08-22'
+  applicationDate: string; //'2023-08-22'
 }
 
 export interface CreatePackageRequestPayload {

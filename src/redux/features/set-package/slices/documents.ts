@@ -1,7 +1,7 @@
 import { Dataroom, DirectoryTree } from '@/models/dataroom';
 import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { uploadPackageDocument } from '@/redux/features/set-package/thunks/upload-documents.thunks';
+import { uploadPackageDocument } from '@/redux/features/set-package/thunks/upload-documents.thunk';
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit/src/mapBuilders';
 import { cleanSerializedFile } from '@/utils/file';
 

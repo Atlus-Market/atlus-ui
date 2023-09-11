@@ -8,7 +8,7 @@ import {
 } from '@/redux/features/set-package/selectors/documents.selectors';
 import { useEffect } from 'react';
 import { useConst } from '@/hooks/use-const';
-import { uploadPackageDocument } from '@/redux/features/set-package/thunks/upload-documents.thunks';
+import { uploadPackageDocument } from '@/redux/features/set-package/thunks/upload-documents.thunk';
 import {
   PENDING_UPLOAD,
   UploadingDocumentStatus,

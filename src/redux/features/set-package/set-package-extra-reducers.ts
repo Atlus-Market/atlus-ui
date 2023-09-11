@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit/src/mapBuilders';
 import { SetPackageState } from '@/redux/features/set-package/set-package';
-import { persistPackage } from '@/redux/features/set-package/thunks/set-package.thunks';
+import { persistPackage } from '@/redux/features/set-package/thunks/set-package.thunk';
 
 export const createSetPackageExtraReducers = (
   builder: ActionReducerMapBuilder<SetPackageState>

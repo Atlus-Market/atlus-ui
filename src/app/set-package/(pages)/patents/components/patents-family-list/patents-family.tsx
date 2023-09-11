@@ -8,6 +8,7 @@ import { HiChevronDown, HiChevronUp, HiTrash } from 'react-icons/hi2';
 import { HiOutlineDotsVertical } from 'react-icons/hi';
 import { AtlusMenu } from '@/components/ui/menu/atlus-menu';
 import { AtlusMenuItem } from '@/components/ui/menu/atlus-menu-item';
+import { getPatentId } from '@/utils/patents';
 
 interface PatentProps {
   familyId: string;
@@ -55,7 +56,7 @@ export const PatentsFamily = ({ familyId, patents, onRemoveFamily }: PatentProps
       </div>
       <div>
         {patentsToShow.map(patent => (
-          <Patent key={patent.publicationNumber} patent={patent} />
+          <Patent key={getPatentId(patent)} patent={patent} />
         ))}
       </div>
       {patents.length > 1 && (

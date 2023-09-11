@@ -7,4 +7,5 @@ export interface Patent {
   publicationNumber: string; // also patent id
   status: string;
   title: string;
+  assignees: string[];
 }
