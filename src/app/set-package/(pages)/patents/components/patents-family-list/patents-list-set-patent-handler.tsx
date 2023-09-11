@@ -3,15 +3,13 @@
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   hideEditPatentModal,
-  updateSelectedPatent
+  updateSelectedPatent,
 } from '@/redux/features/set-package/set-package';
 import { Patent } from '@/models/patent';
-import {
-  SetPatentModal
-} from '@/app/set-package/(pages)/patents/components/set-patent-modal/set-patent-modal';
+import { SetPatentModal } from '@/app/set-package/(pages)/patents/components/set-patent-modal/set-patent-modal';
 import {
   selectIsEditPatentModalOpen,
-  selectPatentsListEditingPatent
+  selectPatentsListEditingPatent,
 } from '@/redux/features/set-package/selectors/set-package.selectors';
 
 export const PatentsListSetPatentHandler = () => {

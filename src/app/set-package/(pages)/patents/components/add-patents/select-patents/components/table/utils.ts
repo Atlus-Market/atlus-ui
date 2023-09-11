@@ -2,9 +2,8 @@ import { Row, RowSelectionState } from '@tanstack/react-table';
 import { ExpandedState } from '@tanstack/table-core/src/features/Expanding';
 import {
   PatentTableData,
-  TableData
+  TableData,
 } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/patents-table';
-
 
 export interface CheckBoxState {
   checked: boolean;
@@ -13,7 +12,10 @@ export interface CheckBoxState {
 
 const isNullOrUndefined = (value: unknown): boolean => value === undefined || value === null;
 
-export const getUpdatedSelectedRowsState = <T>(row: Row<T>, rowSelectionState: RowSelectionState): RowSelectionState => {
+export const getUpdatedSelectedRowsState = <T>(
+  row: Row<T>,
+  rowSelectionState: RowSelectionState
+): RowSelectionState => {
   const parentRow = row.getParentRow();
   const isParentRow = !parentRow;
   const id = row.id;
@@ -21,7 +23,7 @@ export const getUpdatedSelectedRowsState = <T>(row: Row<T>, rowSelectionState: R
   const checkedStateToSet = isNullOrUndefined(currentCheckedState) ? true : !currentCheckedState;
   const clonedRowSelectionState = {
     ...rowSelectionState,
-    [id]: checkedStateToSet
+    [id]: checkedStateToSet,
   };
 
   if (isParentRow) {
@@ -35,7 +37,9 @@ export const getUpdatedSelectedRowsState = <T>(row: Row<T>, rowSelectionState: R
     return rowSelectionState;
   }
 
-  const allChildrenHaveTheSameValue = parentRow.subRows.every(childRow => clonedRowSelectionState[childRow.id] === checkedStateToSet);
+  const allChildrenHaveTheSameValue = parentRow.subRows.every(
+    childRow => clonedRowSelectionState[childRow.id] === checkedStateToSet
+  );
 
   if (allChildrenHaveTheSameValue) {
     // if all children have the same value, then the parent must have the same value too
@@ -48,7 +52,10 @@ export const getUpdatedSelectedRowsState = <T>(row: Row<T>, rowSelectionState: R
   return clonedRowSelectionState;
 };
 
-export const getCheckboxState = <T>(row: Row<T>, rowSelectionState: RowSelectionState): CheckBoxState => {
+export const getCheckboxState = <T>(
+  row: Row<T>,
+  rowSelectionState: RowSelectionState
+): CheckBoxState => {
   const { id } = row;
   const parentRow = row.getParentRow();
   const isParentRow = !parentRow;
@@ -58,14 +65,14 @@ export const getCheckboxState = <T>(row: Row<T>, rowSelectionState: RowSelection
     const indeterminate = !checked && row.subRows.some(childRow => rowSelectionState[childRow.id]);
     return {
       checked,
-      indeterminate
+      indeterminate,
     };
   }
 
   // is a subRow
   return {
     indeterminate: false,
-    checked: rowSelectionState[id]
+    checked: rowSelectionState[id],
   };
 };
 
@@ -91,7 +98,7 @@ export const makeFamilyRowGroups = (rows: Row<PatentTableData>[]): PatentsFamily
     if (row.getCanExpand()) {
       familyGroup = {
         parentRow: row,
-        childRows: [...row.subRows]
+        childRows: [...row.subRows],
       };
       result.push(familyGroup);
     }

@@ -3,11 +3,7 @@ import { DealSizeFooter } from '@/app/onboarding/buyer/deal-size/components/deal
 import { SetOnboardingProgress } from '@/app/onboarding/components/onboarding-progress-bar/set-onboarding-progress';
 import { ReactNode } from 'react';
 
-export default function DealSizeLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function DealSizeLayout({ children }: { children: ReactNode }) {
   return (
     <OnboardingContainer footer={<DealSizeFooter />}>
       <SetOnboardingProgress pageNumber={3} />

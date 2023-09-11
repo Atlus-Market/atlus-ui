@@ -8,6 +8,6 @@ export const addContact = (addContactPayload: AddContactPayload): Promise<void> 
   return createRequest<void, void>({
     url: `/user/${addContactPayload.userId}/contacts`,
     method: 'POST',
-    isProtected: ProtectedEndpoint.True
+    isProtected: ProtectedEndpoint.True,
   });
 };

@@ -1,8 +1,6 @@
 import { useAtlusForm } from '@/components/ui/form/use-atlus-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  AddSeller
-} from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-form-fields';
+import { AddSeller } from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-form-fields';
 import { AtlusForm } from '@/components/ui/form/atlus-form';
 import { object, ObjectSchema, string } from 'yup';
 import { RequiredField } from '@/constants/form';
@@ -21,12 +19,8 @@ const schema: ObjectSchema<AddSeller> = object({
   firstName: string().trim().required(RequiredField),
   lastName: string().trim().required(RequiredField),
   companyName: string().trim().required(RequiredField),
-  phoneNumber: string()
-    .trim()
-    .optional()
-    .default('')
-    .test(phoneNumberValidator),
-  email: emailField
+  phoneNumber: string().trim().optional().default('').test(phoneNumberValidator),
+  email: emailField,
 });
 
 interface AddContactForm {
@@ -39,16 +33,18 @@ export const AddContactForm = ({ initialValues, children, onContactAdded }: AddC
   const formProps = useAtlusForm<AddSeller>({
     formOptions: {
       resolver: yupResolver(schema),
-      defaultValues: initialValues
-    }
+      defaultValues: initialValues,
+    },
   });
 
   const setSellerMutation = useMutation({
-    mutationFn: async (sellerPayload: UpdateSellerPayload): Promise<{
-      sellerId: string
+    mutationFn: async (
+      sellerPayload: UpdateSellerPayload
+    ): Promise<{
+      sellerId: string;
     }> => {
       const response = {
-        sellerId: sellerPayload.id
+        sellerId: sellerPayload.id,
       };
       if (sellerPayload.id) {
         await updateSeller(sellerPayload);
@@ -60,31 +56,34 @@ export const AddContactForm = ({ initialValues, children, onContactAdded }: AddC
         showSuccessNotification({ text: 'Contact created successfully.' });
       }
       return response;
-    }
+    },
   });
   const { mutateAsync: createSellerAsync } = setSellerMutation;
 
   const addContactMutation = useMutation({
-    mutationFn: addContact
+    mutationFn: addContact,
   });
 
   const { mutateAsync: addContactAsync } = addContactMutation;
 
-  const onSubmit = useCallback(async (formValues: AddSeller) => {
-    try {
-      const sellerPayload: UpdateSellerPayload = {
-        ...formValues,
-        id: formValues.id ?? ''
-      };
-      const response = await createSellerAsync(sellerPayload);
-      onContactAdded?.({
-        id: response.sellerId,
-        ...formValues
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  }, [createSellerAsync, onContactAdded]);
+  const onSubmit = useCallback(
+    async (formValues: AddSeller) => {
+      try {
+        const sellerPayload: UpdateSellerPayload = {
+          ...formValues,
+          id: formValues.id ?? '',
+        };
+        const response = await createSellerAsync(sellerPayload);
+        onContactAdded?.({
+          id: response.sellerId,
+          ...formValues,
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [createSellerAsync, onContactAdded]
+  );
 
   return (
     <AtlusForm formProps={formProps} onSubmit={onSubmit}>

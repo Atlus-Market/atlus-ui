@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import {
   SetPackageDocuments,
   SetPackagePackageDetails,
-  SetPackagePatent
+  SetPackagePatent,
 } from '@/constants/routes';
 import { useAppSelector } from '@/redux/hooks';
 import { selectPackage } from '@/redux/features/set-package/selectors/set-package.selectors';
@@ -14,22 +14,22 @@ export const Sidebar = () => {
   const pathname = usePathname();
   const activePackage = useAppSelector(selectPackage);
   return (
-    <div className='pt-[99px] p-4 [&>*:not(:last-child)]:mb-4'>
+    <div className="pt-[99px] p-4 [&>*:not(:last-child)]:mb-4">
       <SidebarItem
         itemNumber={1}
-        text='Patents'
+        text="Patents"
         href={SetPackagePatent}
         isActive={pathname === SetPackagePatent}
       />
       <SidebarItem
         itemNumber={2}
-        text='Package details'
+        text="Package details"
         href={SetPackagePackageDetails}
         isActive={pathname === SetPackagePackageDetails}
       />
       <SidebarItem
         itemNumber={3}
-        text='Documents'
+        text="Documents"
         href={SetPackageDocuments}
         isActive={pathname === SetPackageDocuments}
         disabled={!activePackage}

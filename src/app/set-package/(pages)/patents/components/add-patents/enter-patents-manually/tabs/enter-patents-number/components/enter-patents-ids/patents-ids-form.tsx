@@ -11,18 +11,16 @@ import Highlighter, { Chunk, FindChunks } from 'react-highlight-words';
 import {
   findChunks,
   getInvalidPatentsIds,
-  patentIdValidator
+  patentIdValidator,
 } from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-ids/patent-id-validator';
-import {
-  EnterPatentsIdsManuallyForm
-} from '@/redux/features/set-package/slices/add-patents/slices/enter-patents';
+import { EnterPatentsIdsManuallyForm } from '@/redux/features/set-package/slices/add-patents/slices/enter-patents';
 
 export interface PatentsIdsForm {
   patentsIds: string;
 }
 
 const schema: ObjectSchema<PatentsIdsForm> = object({
-  patentsIds: string().default('').test(patentIdValidator).required(RequiredField)
+  patentsIds: string().default('').test(patentIdValidator).required(RequiredField),
 });
 
 interface PatentsIdsFormProps {
@@ -38,8 +36,8 @@ export const PatentsIdsForm = ({ initialFormValues, onFormChange }: PatentsIdsFo
   const formProps = useAtlusForm<PatentsIdsForm>({
     formOptions: {
       resolver: yupResolver(schema),
-      defaultValues: initialFormValues
-    }
+      defaultValues: initialFormValues,
+    },
   });
   const { watch, register, formState } = formProps;
   const { ref, onBlur, ...rest } = register('patentsIds');
@@ -56,22 +54,24 @@ export const PatentsIdsForm = ({ initialFormValues, onFormChange }: PatentsIdsFo
   useEffect(() => {
     onFormChange({
       formState: {
-        isValid
+        isValid,
       },
       formValues: {
-        patentsIds
-      }
+        patentsIds,
+      },
     });
   }, [patentsIds, isValid, onFormChange]);
 
   return (
     <AtlusForm formProps={formProps}>
-      <div className={clsx(
-        'w-full h-[218px]',
-        'border border-orange',
-        'rounded-lg',
-        'px-[13px] py-[17px] mb-[9px]'
-      )}>
+      <div
+        className={clsx(
+          'w-full h-[218px]',
+          'border border-orange',
+          'rounded-lg',
+          'px-[13px] py-[17px] mb-[9px]'
+        )}
+      >
         <textarea
           spellCheck={false}
           className={clsx(
@@ -82,37 +82,30 @@ export const PatentsIdsForm = ({ initialFormValues, onFormChange }: PatentsIdsFo
             hasFocus ? 'block' : 'hidden'
           )}
           {...rest}
-          ref={(e) => {
+          ref={e => {
             if (e) {
               textAreaRef.current = e;
               ref(e);
             }
           }}
-          onBlur={(e) => {
+          onBlur={e => {
             setHasFocus(false);
             onBlur(e);
           }}
         />
-        {!hasFocus &&
-          <div
-            className={clsx(
-              'w-full h-full'
-            )}
-            onClick={() => setHasFocus(true)}>
+        {!hasFocus && (
+          <div className={clsx('w-full h-full')} onClick={() => setHasFocus(true)}>
             <Highlighter
-              className={clsx(
-                textStyles,
-                'flex'
-              )}
-              highlightClassName='bg-transparent text-red'
-              unhighlightClassName='bg-transparent'
+              className={clsx(textStyles, 'flex')}
+              highlightClassName="bg-transparent text-red"
+              unhighlightClassName="bg-transparent"
               searchWords={getInvalidPatentsIds(patentsIds)}
               autoEscape={true}
               textToHighlight={patentsIds}
               findChunks={findChunks}
             />
           </div>
-        }
+        )}
       </div>
     </AtlusForm>
   );

@@ -3,7 +3,7 @@
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   selectIsFetchingPackage,
-  selectPackagesList
+  selectPackagesList,
 } from '@/redux/features/packages/selectors/packages.selectors';
 import { AtlusTitle } from '@/components/ui/typography/atlus-title';
 import { fetchPackage } from '@/redux/features/packages/thunks/get-package.thunks';
@@ -21,19 +21,17 @@ export const PackagesList = () => {
   const isFetchingPackage = useAppSelector(selectIsFetchingPackage(activePackageId));
 
   if (!packagesList.length) {
-    return (
-      <div>There are no packages</div>
-    );
+    return <div>There are no packages</div>;
   }
 
   return (
-    <div className='p-4'>
-      <AtlusTitle text='Packages' />
-      <ol className='list-decimal p-4'>
+    <div className="p-4">
+      <AtlusTitle text="Packages" />
+      <ol className="list-decimal p-4">
         {packagesList.map(packageListItem => {
           return (
             <li
-              className='cursor-pointer select-none'
+              className="cursor-pointer select-none"
               key={packageListItem.id}
               onClick={async () => {
                 setActivePackageId(packageListItem.id);
@@ -44,8 +42,10 @@ export const PackagesList = () => {
                   dispatch(setActivePackage(res.payload as Package));
                   router.push(SetPackagePatent);
                 }
-              }}>
-              {packageListItem.title}{isFetchingPackage && (activePackageId === packageListItem.id) ? ' - Loading...' : null}
+              }}
+            >
+              {packageListItem.title}
+              {isFetchingPackage && activePackageId === packageListItem.id ? ' - Loading...' : null}
             </li>
           );
         })}

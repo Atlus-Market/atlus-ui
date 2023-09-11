@@ -16,12 +16,9 @@ export const CountryCodeSelector = ({ children }: CountryCodeSelectorProps) => {
         e?.preventDefault();
         e?.stopPropagation();
         const target = e?.target as HTMLElement;
-        const dataSet = target?.closest<HTMLElement>(
-          `[data-${atlusIconTagDataId}]`
-        )?.dataset;
+        const dataSet = target?.closest<HTMLElement>(`[data-${atlusIconTagDataId}]`)?.dataset;
         if (dataSet) {
-          const selectedCountryCodeId: string | undefined =
-            dataSet[atlusIconTagDataId] || '';
+          const selectedCountryCodeId: string | undefined = dataSet[atlusIconTagDataId] || '';
           updateCountryCodesIdsList(selectedCountryCodeId);
         }
       }}

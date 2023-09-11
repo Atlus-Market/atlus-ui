@@ -18,8 +18,8 @@ export default async function middleware(req: NextRequest, event: NextFetchEvent
   // The pathname requires auth and the user is not logged in
   const authMiddleware = await withAuth({
     pages: {
-      signIn: `/login`
-    }
+      signIn: `/login`,
+    },
   });
 
   if (authMiddleware instanceof Response) {
@@ -34,12 +34,11 @@ export default async function middleware(req: NextRequest, event: NextFetchEvent
 }
 
 const isUnauthenticatedEndpoint = (pathname: string) => {
-  return new RegExp(/(login|forgot-password|onboarding|user\/confirm\/*|password\/reset\/*).*/).test(pathname);
+  return new RegExp(
+    /(login|forgot-password|onboarding|user\/confirm\/*|password\/reset\/*).*/
+  ).test(pathname);
 };
 
-
 export const config = {
-  matcher: [
-    '/((?!_next|api/auth).*)(.+)'
-  ]
+  matcher: ['/((?!_next|api/auth).*)(.+)'],
 };

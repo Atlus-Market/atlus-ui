@@ -1,1 +1,2 @@
-export const sleep = (waitTime: number): Promise<void> => new Promise(resolve => setTimeout(resolve, waitTime));
+export const sleep = (waitTime: number): Promise<void> =>
+  new Promise(resolve => setTimeout(resolve, waitTime));

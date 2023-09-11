@@ -15,13 +15,13 @@ interface AtlusModalProps {
 }
 
 export const AtlusModal = ({
-                             isOpen = false,
-                             children,
-                             onAfterClose,
-                             overlayClassName,
-                             modalBodyClassName,
-                             onRequestClose
-                           }: AtlusModalProps) => {
+  isOpen = false,
+  children,
+  onAfterClose,
+  overlayClassName,
+  modalBodyClassName,
+  onRequestClose,
+}: AtlusModalProps) => {
   return (
     <Modal
       isOpen={isOpen}
@@ -29,7 +29,8 @@ export const AtlusModal = ({
       onAfterClose={onAfterClose}
       shouldCloseOnOverlayClick={true}
       onRequestClose={onRequestClose}
-      className={clsx('atlus-modal-content', modalBodyClassName)}>
+      className={clsx('atlus-modal-content', modalBodyClassName)}
+    >
       {children}
     </Modal>
   );

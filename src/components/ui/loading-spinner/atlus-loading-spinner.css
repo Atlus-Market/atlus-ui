@@ -1,24 +1,24 @@
 .spinner {
-    --atlus-spinner-size: 22px;
-    --atlus-spinner-border-color: rgba(255, 255, 255, 0.5);
-    --atlus-spinner-border-top-color: var(--color-white);
+  --atlus-spinner-size: 22px;
+  --atlus-spinner-border-color: rgba(255, 255, 255, 0.5);
+  --atlus-spinner-border-top-color: var(--color-white);
 
-    box-sizing: border-box;
-    display: inline-block;
-    flex-shrink: 0;
-    width: var(--atlus-spinner-size);
-    height: var(--atlus-spinner-size);
-    border-radius: 50%;
-    border: calc(var(--atlus-spinner-size) / 10) solid var(--atlus-spinner-border-color); /* circle color */
-    border-top-color: var(--atlus-spinner-border-top-color); /* short part of the circle color */
-    animation: 1s spin infinite linear;
+  box-sizing: border-box;
+  display: inline-block;
+  flex-shrink: 0;
+  width: var(--atlus-spinner-size);
+  height: var(--atlus-spinner-size);
+  border-radius: 50%;
+  border: calc(var(--atlus-spinner-size) / 10) solid var(--atlus-spinner-border-color); /* circle color */
+  border-top-color: var(--atlus-spinner-border-top-color); /* short part of the circle color */
+  animation: 1s spin infinite linear;
 }
 
 @keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

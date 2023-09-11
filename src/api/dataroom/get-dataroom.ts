@@ -5,6 +5,6 @@ export const getDataroom = (dataroomId: string): Promise<Dataroom> => {
   return createRequest<void, Dataroom>({
     url: `/dataroom/${dataroomId}`,
     method: 'GET',
-    isProtected: ProtectedEndpoint.True
+    isProtected: ProtectedEndpoint.True,
   });
 };

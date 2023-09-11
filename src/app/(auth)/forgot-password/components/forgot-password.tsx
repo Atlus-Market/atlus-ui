@@ -12,14 +12,14 @@ export const ForgotPassword = () => {
     mutationFn: forgotPassword,
     onSuccess: () => {
       router.push(`${window.location.pathname}/email-sent`);
-    }
+    },
   });
 
   return (
     <ForgotPasswordForm
       isLoading={mutation.isLoading}
       onSubmit={mutation.mutateAsync}
-      errorMessage={mutation.error ? 'Couldn\'t find an account with this email' : undefined}
+      errorMessage={mutation.error ? "Couldn't find an account with this email" : undefined}
     />
   );
 };

@@ -9,11 +9,8 @@ interface SetOnboardingProgressProps {
 
 export const OnboardingPagesCount = 7;
 
-export const SetOnboardingProgress = ({
-                                        pageNumber
-                                      }: SetOnboardingProgressProps) => {
-  const { updateContext, progress: onboardingProgress } =
-    useOnboardingContext();
+export const SetOnboardingProgress = ({ pageNumber }: SetOnboardingProgressProps) => {
+  const { updateContext, progress: onboardingProgress } = useOnboardingContext();
 
   useEffect(() => {
     const progress = (pageNumber * 100) / (OnboardingPagesCount - 1);
@@ -21,7 +18,7 @@ export const SetOnboardingProgress = ({
       return;
     }
     updateContext({
-      progress
+      progress,
     });
   }, [pageNumber, updateContext, onboardingProgress]);
 

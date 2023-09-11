@@ -9,9 +9,7 @@ interface InterestAreasListProps {
   interestAreas: InterestArea[];
 }
 
-export const InterestAreasList = ({
-  interestAreas,
-}: InterestAreasListProps) => {
+export const InterestAreasList = ({ interestAreas }: InterestAreasListProps) => {
   const { interestAreasIds } = useOnboardingContext();
 
   return (

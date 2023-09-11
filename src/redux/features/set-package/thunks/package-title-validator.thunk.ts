@@ -11,32 +11,30 @@ interface PackageTitleValidatorPayload {
 export const packageTitleValidator = createAsyncThunk<
   void,
   PackageTitleValidatorPayload,
-  { state: RootState }>(
-  'setPackage/package/validateTitle',
-  async ({ title: titleToValidate, userId }, thunkAPI) => {
-    try {
-      const { getState, signal } = thunkAPI;
-      const activePackage = selectPackage(getState());
+  { state: RootState }
+>('setPackage/package/validateTitle', async ({ title: titleToValidate, userId }, thunkAPI) => {
+  try {
+    const { getState, signal } = thunkAPI;
+    const activePackage = selectPackage(getState());
 
-      if (!titleToValidate) {
-        throw new Error('No title to validate');
-      }
-
-      if (activePackage && activePackage.title === titleToValidate) {
-        return;
-      }
-
-      const { packages: packagesListItems } = await getPackages(userId, signal);
-      const foundPackage = packagesListItems.find(packageListItem => titleToValidate === packageListItem.title);
-
-      if (foundPackage) {
-        throw new Error(`Title ${titleToValidate} not available.`);
-      }
-
-    } catch (e: any) {
-      console.error(e.message);
-      throw e;
+    if (!titleToValidate) {
+      throw new Error('No title to validate');
     }
-  }
-);
 
+    if (activePackage && activePackage.title === titleToValidate) {
+      return;
+    }
+
+    const { packages: packagesListItems } = await getPackages(userId, signal);
+    const foundPackage = packagesListItems.find(
+      packageListItem => titleToValidate === packageListItem.title
+    );
+
+    if (foundPackage) {
+      throw new Error(`Title ${titleToValidate} not available.`);
+    }
+  } catch (e: any) {
+    console.error(e.message);
+    throw e;
+  }
+});

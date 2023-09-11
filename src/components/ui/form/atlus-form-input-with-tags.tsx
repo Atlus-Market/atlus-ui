@@ -2,7 +2,7 @@
 
 import {
   AtlusInputWithTags,
-  AtlusInputWithTagsProps
+  AtlusInputWithTagsProps,
 } from '@/components/ui/input/atlus-input-with-tags';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useCallback } from 'react';
@@ -15,9 +15,12 @@ export const AtlusFormInputWithTags = (props: AtlusFormInputWithTagsProps) => {
   const { name } = props;
   const { control, setValue, getValues } = useFormContext();
 
-  const onTagsChange = useCallback((tags: string[]) => {
-    setValue(name, tags);
-  }, [name, setValue]);
+  const onTagsChange = useCallback(
+    (tags: string[]) => {
+      setValue(name, tags);
+    },
+    [name, setValue]
+  );
 
   return (
     <Controller

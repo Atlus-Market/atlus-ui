@@ -3,11 +3,7 @@ import { OnboardingContainer } from '@/app/onboarding/components/onboarding-cont
 import { SetOnboardingProgress } from '@/app/onboarding/components/onboarding-progress-bar/set-onboarding-progress';
 import { ReactNode } from 'react';
 
-export default function TimeframeLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function TimeframeLayout({ children }: { children: ReactNode }) {
   return (
     <OnboardingContainer footer={<TimeframeFooter />}>
       <SetOnboardingProgress pageNumber={4} />

@@ -24,7 +24,5 @@ export const DocumentsPageValidator = ({ children }: DocumentsPageValidatorProps
     return null;
   }
 
-  return (
-    <>{children}</>
-  );
+  return <>{children}</>;
 };

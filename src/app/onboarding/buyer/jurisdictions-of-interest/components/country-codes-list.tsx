@@ -30,19 +30,11 @@ export const CountryCodesList = ({ countryCodes }: CountryCodesListProps) => {
       );
 
       return (
-        <div
-          data-tooltip-id={tooltipId}
-          key={`${cc.code}-${index}`}
-          data-tooltip-content={cc.name}
-        >
+        <div data-tooltip-id={tooltipId} key={`${cc.code}-${index}`} data-tooltip-content={cc.name}>
           <AtlusIconTag
             id={cc.code}
             text={cc.name}
-            isActive={
-              isWorldWide && isWorldWideSelected
-                ? true
-                : countryCodesIds.includes(cc.code)
-            }
+            isActive={isWorldWide && isWorldWideSelected ? true : countryCodesIds.includes(cc.code)}
             disabled={!isWorldWide && isWorldWideSelected}
             icon={iconFlag}
             className="w-full"

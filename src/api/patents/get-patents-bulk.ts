@@ -10,11 +10,13 @@ export interface GetPatentsBulkResponse {
   patents: Patent[];
 }
 
-export const getPatentsBulk = async (getPatentsPayload: GetPatentsBulkPayload): Promise<GetPatentsBulkResponse> => {
+export const getPatentsBulk = async (
+  getPatentsPayload: GetPatentsBulkPayload
+): Promise<GetPatentsBulkResponse> => {
   return createRequest<GetPatentsBulkPayload, GetPatentsBulkResponse>({
     url: '/patents/bulk',
     method: 'POST',
     isProtected: ProtectedEndpoint.True,
-    payload: getPatentsPayload
+    payload: getPatentsPayload,
   });
 };

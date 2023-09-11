@@ -4,9 +4,7 @@ import { ReactNode, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { selectActiveDataroom } from '@/redux/features/set-package/selectors/documents.selectors';
 import { setDataroom } from '@/redux/features/set-package/set-package';
-import {
-  useFetchDataroom
-} from '@/app/set-package/(pages)/documents/components/use-fetch-dataroom';
+import { useFetchDataroom } from '@/app/set-package/(pages)/documents/components/use-fetch-dataroom';
 import { addListener } from '@reduxjs/toolkit';
 import { uploadPackageDocument } from '@/redux/features/set-package/thunks/upload-documents.thunks';
 
@@ -32,7 +30,7 @@ export const DocumentsProvider = ({ children }: DocumentsProviderProps) => {
         actionCreator: uploadPackageDocument.fulfilled,
         effect: (action, listenerApi) => {
           refetch();
-        }
+        },
       })
     );
     return () => {
@@ -42,7 +40,7 @@ export const DocumentsProvider = ({ children }: DocumentsProviderProps) => {
   }, [dispatch, refetch]);
 
   if (!dataroomId) {
-    return (<div>You must create a package first to upload files.</div>);
+    return <div>You must create a package first to upload files.</div>;
   }
 
   if (error) {
@@ -54,9 +52,5 @@ export const DocumentsProvider = ({ children }: DocumentsProviderProps) => {
     return <div>Loading dataroom...</div>;
   }
 
-  return (
-    <>
-      {children}
-    </>
-  );
+  return <>{children}</>;
 };

@@ -1,11 +1,7 @@
 import { Patent } from '@/models/patent';
-import {
-  PatentTableData
-} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/patents-table';
+import { PatentTableData } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/patents-table';
 import { useMemo } from 'react';
-import {
-  useGroupPatentsByFamilyId
-} from '@/app/set-package/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
+import { useGroupPatentsByFamilyId } from '@/app/set-package/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
 
 interface UseGroupPatentsByFamilyProps {
   patents: Patent[];
@@ -13,7 +9,9 @@ interface UseGroupPatentsByFamilyProps {
 
 export const NO_FAMILY_GROUP_ID = ''; // MUST BE EMPTY STRING because custom patents have familyId: ''
 
-export const useTableGroupPatentsByFamily = ({ patents }: UseGroupPatentsByFamilyProps): PatentTableData[] => {
+export const useTableGroupPatentsByFamily = ({
+  patents,
+}: UseGroupPatentsByFamilyProps): PatentTableData[] => {
   const groupedPatents = useGroupPatentsByFamilyId({ patents });
 
   return useMemo(() => {
@@ -28,7 +26,7 @@ export const useTableGroupPatentsByFamily = ({ patents }: UseGroupPatentsByFamil
       applicationNumber: '',
       patentNumber: '',
       applicants: [],
-      subRows: groupedPatents[familyIdKey]
+      subRows: groupedPatents[familyIdKey],
     }));
   }, [groupedPatents]);
 };

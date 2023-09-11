@@ -23,6 +23,6 @@ export const createUser = (userPayload: CreateUserPayload): Promise<void> => {
     url: '/user',
     method: 'POST',
     isProtected: ProtectedEndpoint.False,
-    payload: userPayload
+    payload: userPayload,
   });
 };

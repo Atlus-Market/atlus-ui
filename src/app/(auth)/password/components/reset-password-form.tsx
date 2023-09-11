@@ -16,7 +16,7 @@ export interface ResetPasswordFormSchema {
 }
 
 const schema: ObjectSchema<ResetPasswordFormSchema> = object({
-  password: string().trim().required(RequiredField).test(passwordValidator)
+  password: string().trim().required(RequiredField).test(passwordValidator),
 });
 
 interface ResetPasswordFormProps {
@@ -26,30 +26,30 @@ interface ResetPasswordFormProps {
 }
 
 export const ResetPasswordForm = ({
-                                    onSubmit,
-                                    isLoading,
-                                    errorMessage
-                                  }: ResetPasswordFormProps) => {
+  onSubmit,
+  isLoading,
+  errorMessage,
+}: ResetPasswordFormProps) => {
   const formProps = useAtlusForm<ResetPasswordFormSchema>({
     formOptions: {
-      resolver: yupResolver(schema)
-    }
+      resolver: yupResolver(schema),
+    },
   });
   const { register } = formProps;
 
   return (
     <AtlusForm formProps={formProps} onSubmit={onSubmit}>
       <AtlusFormInputPassword
-        label='New password'
-        placeholder='Set a password'
-        type='password'
+        label="New password"
+        placeholder="Set a password"
+        type="password"
         {...register('password')}
       />
 
       <AtlusErrorMessage errorMessage={errorMessage} />
 
-      <div className='text-center'>
-        <AtlusButton className='my-8 md:my-12' type='submit' isLoading={isLoading}>
+      <div className="text-center">
+        <AtlusButton className="my-8 md:my-12" type="submit" isLoading={isLoading}>
           Reset password
         </AtlusButton>
       </div>

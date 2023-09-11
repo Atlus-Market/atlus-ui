@@ -2,7 +2,9 @@ import { ActionReducerMapBuilder } from '@reduxjs/toolkit/src/mapBuilders';
 import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { persistPackage } from '@/redux/features/set-package/thunks/set-package.thunks';
 
-export const createSetPackageExtraReducers = (builder: ActionReducerMapBuilder<SetPackageState>) => {
+export const createSetPackageExtraReducers = (
+  builder: ActionReducerMapBuilder<SetPackageState>
+) => {
   builder.addCase(persistPackage.pending, (state: SetPackageState, action) => {
     const { meta } = action;
     const payload = meta.arg;

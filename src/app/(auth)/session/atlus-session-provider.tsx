@@ -12,9 +12,7 @@ import { AtlusSessionHandler } from '@/app/(auth)/session/atlus-session-handler'
 export const AtlusSessionProvider = ({ children }: { children: ReactNode }) => {
   return (
     <SessionProvider>
-      <AtlusSessionHandler>
-        {children}
-      </AtlusSessionHandler>
+      <AtlusSessionHandler>{children}</AtlusSessionHandler>
     </SessionProvider>
   );
 };

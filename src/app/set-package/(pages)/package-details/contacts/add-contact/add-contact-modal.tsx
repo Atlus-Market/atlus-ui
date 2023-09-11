@@ -7,16 +7,10 @@ import { AtlusCloseModalButton } from '@/components/ui/modal/atlus-close-modal-b
 import { AtlusModalTitle } from '@/components/ui/modal/atlus-modal-title';
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
 import { AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
-import {
-  AddContactFormFields
-} from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-form-fields';
+import { AddContactFormFields } from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-form-fields';
 import { Contact } from '@/models/contact';
-import {
-  AddContactForm
-} from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-form';
-import {
-  AddContactSaveButton
-} from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-save-button';
+import { AddContactForm } from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-form';
+import { AddContactSaveButton } from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-save-button';
 
 interface AddContactModalProps {
   isOpen: boolean;
@@ -26,32 +20,32 @@ interface AddContactModalProps {
 }
 
 export const AddContactModal = ({
-                                  isOpen,
-                                  onClose,
-                                  initialValues,
-                                  onContactAdded
-                                }: AddContactModalProps) => {
+  isOpen,
+  onClose,
+  initialValues,
+  onContactAdded,
+}: AddContactModalProps) => {
   return (
     <AtlusModal
       isOpen={isOpen}
       onAfterClose={onClose}
-      overlayClassName='z-[2]'
-      modalBodyClassName='max-h-[80%]'>
-      <AddContactForm
-        initialValues={initialValues}
-        onContactAdded={onContactAdded}>
+      overlayClassName="z-[2]"
+      modalBodyClassName="max-h-[80%]"
+    >
+      <AddContactForm initialValues={initialValues} onContactAdded={onContactAdded}>
         <AtlusModalContainer
           header={
             <AtlusModalHeader leftContent={<AtlusCloseModalButton onClick={onClose} />}>
-              <AtlusModalTitle text='Add new contact' />
+              <AtlusModalTitle text="Add new contact" />
             </AtlusModalHeader>
           }
           footer={
-            <AtlusModalFooter className='!justify-center'>
+            <AtlusModalFooter className="!justify-center">
               <AddContactSaveButton />
             </AtlusModalFooter>
-          }>
-          <AtlusModalBody className='w-[650px]'>
+          }
+        >
+          <AtlusModalBody className="w-[650px]">
             <AddContactFormFields />
           </AtlusModalBody>
         </AtlusModalContainer>

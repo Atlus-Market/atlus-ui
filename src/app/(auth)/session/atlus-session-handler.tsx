@@ -6,7 +6,6 @@ interface AtlusTokenHandlerProps {
   children: ReactNode;
 }
 
-
 /**
  * Wrapper to listen for accessToken changes and save it in the manager class.
  * @param children
@@ -24,9 +23,5 @@ export const AtlusSessionHandler = ({ children }: AtlusTokenHandlerProps) => {
     return null;
   }
 
-  return (
-    <>
-      {children}
-    </>
-  );
+  return <>{children}</>;
 };

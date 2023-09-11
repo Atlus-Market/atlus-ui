@@ -26,7 +26,7 @@ export const mapServerSessionToAuthHeadersProvider = (
 ): AuthHeadersProvider => {
   return {
     accessToken: serverSession.user?.accessToken,
-    csrfToken: serverSession.user?.csrfToken
+    csrfToken: serverSession.user?.csrfToken,
   };
 };
 
@@ -47,14 +47,13 @@ interface AtlusRequestConfig<T extends unknown> extends CreateAxiosDefaults {
 }
 
 export const createRequest = <Payload, Response>({
-                                                   url,
-                                                   isProtected = ProtectedEndpoint.False,
-                                                   headers = {},
-                                                   method,
-                                                   payload,
-                                                   ...restConfig
-                                                 }: AtlusRequestConfig<Payload>
-): Promise<Response> => {
+  url,
+  isProtected = ProtectedEndpoint.False,
+  headers = {},
+  method,
+  payload,
+  ...restConfig
+}: AtlusRequestConfig<Payload>): Promise<Response> => {
   if (isProtected === ProtectedEndpoint.True) {
     setAuthHeaders(headers, AtlusSessionManager);
   }
@@ -65,7 +64,7 @@ export const createRequest = <Payload, Response>({
     headers,
     data: payload,
     withCredentials: isProtected === ProtectedEndpoint.True,
-    ...restConfig
+    ...restConfig,
   }).then(response => {
     return response.data;
   });

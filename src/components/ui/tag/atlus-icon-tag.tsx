@@ -24,30 +24,30 @@ const atlusIconStateColors: Record<string, AtlusIconStateColor> = {
     opacity: '',
     textColor: 'text-dark-grey',
     bgColor: 'bg-white',
-    borderColor: 'border-light-grey'
+    borderColor: 'border-light-grey',
   },
   active: {
     opacity: '',
     textColor: 'text-orange',
     bgColor: 'bg-off-white',
-    borderColor: 'border-orange'
+    borderColor: 'border-orange',
   },
   disabled: {
     opacity: 'opacity-50',
     textColor: 'text-dark-grey',
     bgColor: 'bg-white',
-    borderColor: 'border-light-grey'
-  }
+    borderColor: 'border-light-grey',
+  },
 };
 
 export const AtlusIconTag = ({
-                               id,
-                               text,
-                               isActive,
-                               disabled = false,
-                               icon,
-                               className
-                             }: AtlusIconTagProps) => {
+  id,
+  text,
+  isActive,
+  disabled = false,
+  icon,
+  className,
+}: AtlusIconTagProps) => {
   const data = { [`data-${atlusIconTagDataId}`]: id };
 
   let colorState = atlusIconStateColors.normal;
@@ -69,9 +69,7 @@ export const AtlusIconTag = ({
         className
       )}
     >
-      <div className={clsx('leading-none text-soft-black flex-shrink-0')}>
-        {icon}
-      </div>
+      <div className={clsx('leading-none text-soft-black flex-shrink-0')}>{icon}</div>
       <span
         className={clsx(
           'font-normal text-sm md:text-base pl-3',

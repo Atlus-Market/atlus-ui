@@ -9,9 +9,7 @@ interface InterestAreaSelectorProps {
   children: ReactNode;
 }
 
-export const InterestAreaSelector = ({
-  children,
-}: InterestAreaSelectorProps) => {
+export const InterestAreaSelector = ({ children }: InterestAreaSelectorProps) => {
   const { updateContext, interestAreasIds } = useOnboardingContext();
   return (
     <div
@@ -19,9 +17,7 @@ export const InterestAreaSelector = ({
         e?.preventDefault();
         e?.stopPropagation();
         const target = e?.target as HTMLElement;
-        const dataSet = target?.closest<HTMLElement>(
-          `[data-${atlusIconTagDataId}]`
-        )?.dataset;
+        const dataSet = target?.closest<HTMLElement>(`[data-${atlusIconTagDataId}]`)?.dataset;
         if (dataSet) {
           const selectedInterestAdreaId: number | undefined = parseInt(
             dataSet[atlusIconTagDataId] || '',
@@ -33,14 +29,9 @@ export const InterestAreaSelector = ({
 
           let updatedInterestAreasIds: number[] = [];
           if (interestAreasIds.includes(selectedInterestAdreaId)) {
-            updatedInterestAreasIds = interestAreasIds.filter(
-              id => id !== selectedInterestAdreaId
-            );
+            updatedInterestAreasIds = interestAreasIds.filter(id => id !== selectedInterestAdreaId);
           } else {
-            updatedInterestAreasIds = [
-              ...interestAreasIds,
-              selectedInterestAdreaId,
-            ];
+            updatedInterestAreasIds = [...interestAreasIds, selectedInterestAdreaId];
           }
           updateContext({
             interestAreasIds: updatedInterestAreasIds,

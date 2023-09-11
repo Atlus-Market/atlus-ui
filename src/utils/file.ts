@@ -8,16 +8,14 @@ export const createSerializedFile = (file: File): SerializedFile => {
     name: file.name,
     size: file.size,
     type: file.type,
-    objectUrl: URL.createObjectURL(file)
+    objectUrl: URL.createObjectURL(file),
   };
 };
 
 export const createFileFromSerializedFile = async (fileUpload: SerializedFile): Promise<File> => {
   const response = await fetch(fileUpload.objectUrl);
   const blobFile = await response.blob();
-  return new File(
-    [blobFile], fileUpload.name, { type: fileUpload.type }
-  );
+  return new File([blobFile], fileUpload.name, { type: fileUpload.type });
 };
 
 export const getFileExtension = (fileName: string): string => {

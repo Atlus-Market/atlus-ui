@@ -9,10 +9,7 @@ interface SelectedCardHandlerProps {
   timeframe: Timeframe;
 }
 
-export const TimeframeHandler = ({
-  children,
-  timeframe,
-}: SelectedCardHandlerProps) => {
+export const TimeframeHandler = ({ children, timeframe }: SelectedCardHandlerProps) => {
   const { updateContext, timeframe: currentTimeframe } = useOnboardingContext();
 
   return (

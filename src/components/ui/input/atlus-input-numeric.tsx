@@ -8,24 +8,19 @@ export interface AtlusInputNumericProps extends AtlusInputProps {
 }
 
 export const AtlusInputNumeric = forwardRef<HTMLInputElement, AtlusInputNumericProps>(
-  function AtlusInputNumeric({
-                               name,
-                               initialValue = [],
-                               type,
-                               value,
-                               defaultValue,
-                               ...rest
-                             }, ref: ForwardedRef<HTMLInputElement>) {
-
+  function AtlusInputNumeric(
+    { name, initialValue = [], type, value, defaultValue, ...rest },
+    ref: ForwardedRef<HTMLInputElement>
+  ) {
     return (
       <NumericFormat
         decimalScale={2}
         fixedDecimalScale
-        thousandsGroupStyle='thousand'
-        thousandSeparator=','
+        thousandsGroupStyle="thousand"
+        thousandSeparator=","
         customInput={AtlusInput}
         name={name}
-        type='text'
+        type="text"
         value={value as string}
         onChange={rest.onChange}
         onBlur={rest.onBlur}
@@ -34,4 +29,5 @@ export const AtlusInputNumeric = forwardRef<HTMLInputElement, AtlusInputNumericP
         {...rest}
       />
     );
-  });
+  }
+);

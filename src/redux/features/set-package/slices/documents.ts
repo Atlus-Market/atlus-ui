@@ -5,7 +5,6 @@ import { uploadPackageDocument } from '@/redux/features/set-package/thunks/uploa
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit/src/mapBuilders';
 import { cleanSerializedFile } from '@/utils/file';
 
-
 export interface SerializedFile {
   id: string;
   name: string;
@@ -29,7 +28,7 @@ export interface DocumentsState {
 export const documentsInitialState: DocumentsState = {
   dataroom: undefined,
   uploadFilesQueue: [],
-  uploadingFiles: {}
+  uploadingFiles: {},
 };
 
 export const documentsReducer = {
@@ -48,15 +47,22 @@ export const documentsReducer = {
     state.documents.uploadingFiles[action.payload.requestId] = action.payload;
   },
   removeQueuedFile: (state: SetPackageState, action: PayloadAction<{ fileId: string }>) => {
-    const serializedFile = state.documents.uploadFilesQueue.find(file => file.id === action.payload.fileId);
+    const serializedFile = state.documents.uploadFilesQueue.find(
+      file => file.id === action.payload.fileId
+    );
     if (serializedFile) {
       cleanSerializedFile(serializedFile);
-      state.documents.uploadFilesQueue = state.documents.uploadFilesQueue.filter(file => file.id !== action.payload.fileId);
+      state.documents.uploadFilesQueue = state.documents.uploadFilesQueue.filter(
+        file => file.id !== action.payload.fileId
+      );
     }
   },
-  toggleDocumentVisibility: (state: SetPackageState, action: PayloadAction<{
-    documentId: string
-  }>) => {
+  toggleDocumentVisibility: (
+    state: SetPackageState,
+    action: PayloadAction<{
+      documentId: string;
+    }>
+  ) => {
     const dataroom = state.documents.dataroom;
     if (!dataroom) {
       return;
@@ -71,7 +77,7 @@ export const documentsReducer = {
       return;
     }
     removeDirectoryTree(state.documents.dataroom.directoryTree, action.payload.documentId);
-  }
+  },
 };
 
 export const createDocumentsExtraReducers = (builder: ActionReducerMapBuilder<SetPackageState>) => {
@@ -79,12 +85,14 @@ export const createDocumentsExtraReducers = (builder: ActionReducerMapBuilder<Se
     const { meta } = action;
     const payload = meta.arg;
     console.log('uploadPackageFile.pending:action ', action);
-    state.documents.uploadFilesQueue = state.documents.uploadFilesQueue.filter(serializedFile => serializedFile.id !== payload.id);
+    state.documents.uploadFilesQueue = state.documents.uploadFilesQueue.filter(
+      serializedFile => serializedFile.id !== payload.id
+    );
 
     state.documents.uploadingFiles[meta.requestId] = {
       progress: 0,
       requestId: meta.requestId,
-      serializedFile: payload
+      serializedFile: payload,
     };
   });
 
@@ -101,12 +109,19 @@ export const createDocumentsExtraReducers = (builder: ActionReducerMapBuilder<Se
   });
 };
 
-const removeUploadingFileFromState = (state: SetPackageState, serializedFile: SerializedFile, uploadId: string) => {
+const removeUploadingFileFromState = (
+  state: SetPackageState,
+  serializedFile: SerializedFile,
+  uploadId: string
+) => {
   delete state.documents.uploadingFiles[uploadId];
   cleanSerializedFile(serializedFile);
 };
 
-const getDirectoryTree = (directoryTree: DirectoryTree, directoryTreeId: string): DirectoryTree | undefined => {
+const getDirectoryTree = (
+  directoryTree: DirectoryTree,
+  directoryTreeId: string
+): DirectoryTree | undefined => {
   if (directoryTree.id === directoryTreeId) {
     return directoryTree;
   }

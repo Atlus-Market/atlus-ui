@@ -14,6 +14,6 @@ export const useAtlusModal = (initialState = false) => {
   return {
     isShowingAlertModal,
     showAlertModal,
-    hideAlertModal
+    hideAlertModal,
   };
 };

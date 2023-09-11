@@ -4,6 +4,6 @@ import { showAddPatentsModal } from '@/redux/features/set-package/set-package';
 export const useShowAddPatentsModal = () => {
   const dispatch = useAppDispatch();
   return {
-    showAddPatentsModal: () => dispatch(showAddPatentsModal())
+    showAddPatentsModal: () => dispatch(showAddPatentsModal()),
   };
 };

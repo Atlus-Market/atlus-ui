@@ -11,7 +11,6 @@ export interface AtlusCheckboxProps extends HTMLProps<HTMLInputElement> {
   errors?: FieldErrors;
 }
 
-
 export const AtlusCheckbox = forwardRef<HTMLInputElement, AtlusCheckboxProps>(
   function AtlusCheckbox(
     {
@@ -24,7 +23,6 @@ export const AtlusCheckbox = forwardRef<HTMLInputElement, AtlusCheckboxProps>(
     }: AtlusCheckboxProps,
     ref
   ) {
-
     const indeterminateRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
@@ -34,15 +32,12 @@ export const AtlusCheckbox = forwardRef<HTMLInputElement, AtlusCheckboxProps>(
     }, [ref, indeterminate, checked]);
 
     return (
-      <div className={clsx(
-        'checkbox-wrapper',
-        wrapperClassName
-      )}>
-        <label className='flex items-center'>
+      <div className={clsx('checkbox-wrapper', wrapperClassName)}>
+        <label className="flex items-center">
           <input
             {...rest}
             checked={checked}
-            type='checkbox'
+            type="checkbox"
             ref={e => {
               indeterminateRef.current = e;
               if (typeof ref === 'function') {
@@ -52,9 +47,9 @@ export const AtlusCheckbox = forwardRef<HTMLInputElement, AtlusCheckboxProps>(
               }
             }}
           />
-          {label && <span className='inline-block ml-[15px]'>{label}</span>}
+          {label && <span className="inline-block ml-[15px]">{label}</span>}
         </label>
       </div>
-    )
-      ;
-  });
+    );
+  }
+);

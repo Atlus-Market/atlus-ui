@@ -2,14 +2,10 @@
 
 import {
   AtlusDropdownList,
-  DropdownOption
+  DropdownOption,
 } from '@/components/ui/dropdown-list/atlus-dropdown-list';
-import {
-  AddContactOption
-} from '@/app/set-package/(pages)/package-details/contacts/add-contact-button';
-import {
-  AddContactModal
-} from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-modal';
+import { AddContactOption } from '@/app/set-package/(pages)/package-details/contacts/add-contact-button';
+import { AddContactModal } from '@/app/set-package/(pages)/package-details/contacts/add-contact/add-contact-modal';
 import { useQuery } from '@tanstack/react-query';
 import { getContacts } from '@/api/contacts/get-contacts';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
@@ -23,12 +19,12 @@ import {
   setActiveContact,
   setContact,
   setContacts,
-  showSetContactModal
+  showSetContactModal,
 } from '@/redux/features/set-package/set-package';
 import {
   selectActiveContact,
   selectContacts,
-  selectIsSetContactModalOpen
+  selectIsSetContactModalOpen,
 } from '@/redux/features/set-package/selectors/package-details.selectors';
 import { HiPencil } from 'react-icons/hi2';
 import { ActiveContact } from '@/app/set-package/(pages)/package-details/contacts/active-contact';
@@ -49,7 +45,7 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
   const { isFetching, data } = useQuery({
     queryKey: ['contacts'],
     queryFn: getContacts,
-    refetchOnWindowFocus: true
+    refetchOnWindowFocus: true,
   });
 
   const contactOptions = useMemo<DropdownOption[]>(() => {
@@ -60,24 +56,29 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
     const contactsOptions = contacts.map(c => ({
       value: c.id,
       data: {
-        contact: c
+        contact: c,
       },
-      label: <AtlusContact contact={c} />
+      label: <AtlusContact contact={c} />,
     }));
 
     return [
       {
         options: contactsOptions,
         label: 'Contacts',
-        value: 'contacts'
-      }
+        value: 'contacts',
+      },
     ];
   }, [contacts]);
 
   const customFilter = useCallback((option: FilterOptionOption<DropdownOption>, input: string) => {
     if (input) {
       const contact = option.data.data?.contact as Contact;
-      return contact && [contact.firstName, contact.lastName, contact.companyName].some(contactValue => new RegExp(input, 'ig').test(contactValue));
+      return (
+        contact &&
+        [contact.firstName, contact.lastName, contact.companyName].some(contactValue =>
+          new RegExp(input, 'ig').test(contactValue)
+        )
+      );
     }
     return true; // if not search, then all match
   }, []);
@@ -86,10 +87,14 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
     dispatchRef.current.dispatch(setContacts({ contacts: data?.contacts ?? [] }));
   }, [data]);
 
-  const addContactElement = <AddContactOption onClick={() => {
-    dispatch(setActiveContact({ contactId: undefined }));
-    dispatch(showSetContactModal());
-  }} />;
+  const addContactElement = (
+    <AddContactOption
+      onClick={() => {
+        dispatch(setActiveContact({ contactId: undefined }));
+        dispatch(showSetContactModal());
+      }}
+    />
+  );
 
   const dropdownValue = useMemo(() => {
     const options = contactOptions[0]?.options ?? [];
@@ -112,42 +117,53 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
         onContactAdded={onContactAddedOk}
       />
       <AtlusDropdownList
-        label='Contact Name'
+        label="Contact Name"
         isLoading={isFetching}
         isSearchable={!isSellerSelected}
-        placeholder='Select a contact'
-        leftIcon={<HiSearch size={20} color='#A4A2A0' />}
+        placeholder="Select a contact"
+        leftIcon={<HiSearch size={20} color="#A4A2A0" />}
         filterOption={customFilter}
         options={contactOptions}
         value={dropdownValue}
         indicatorsExtraCmp={
-          !isFetching && isSellerSelected &&
-          <button
-            className='mr-2'
-            onMouseDown={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              dispatch(setActiveContact({ contactId: selectedSellerId }));
-              dispatch(showSetContactModal());
-            }}>
-            <HiPencil size={18} color='var(--color-orange)' />
-          </button>
+          !isFetching &&
+          isSellerSelected && (
+            <button
+              className="mr-2"
+              onMouseDown={e => {
+                e.preventDefault();
+                e.stopPropagation();
+                dispatch(setActiveContact({ contactId: selectedSellerId }));
+                dispatch(showSetContactModal());
+              }}
+            >
+              <HiPencil size={18} color="var(--color-orange)" />
+            </button>
+          )
         }
         isClearable={isSellerSelected}
-        clearIndicator={isSellerSelected &&
-          <button><HiX size={24} color='var(--color-orange)' /></button>
+        clearIndicator={
+          isSellerSelected && (
+            <button>
+              <HiX size={24} color="var(--color-orange)" />
+            </button>
+          )
         }
         showDropdownIndicator={!isSellerSelected}
         defaultValue={selectedSellerId}
-        groupHeadingHeader={<div className='pt-[10px] pb-5'>{addContactElement}</div>}
-        noOptionsMessage={<div className='px-4 py-[10px]'>{addContactElement}</div>}
-        onChange={(contactId) => {
+        groupHeadingHeader={<div className="pt-[10px] pb-5">{addContactElement}</div>}
+        noOptionsMessage={<div className="px-4 py-[10px]">{addContactElement}</div>}
+        onChange={contactId => {
           onSellerSelected(contactId as string);
           dispatch(setActiveContact({ contactId: contactId as string }));
         }}
-        bottomText='Specify which seller you’re representing. This is for your records only and cannot be seen by others.'
+        bottomText="Specify which seller you’re representing. This is for your records only and cannot be seen by others."
       />
-      {activeContact && <div className='mt-6'><ActiveContact contact={activeContact} /></div>}
+      {activeContact && (
+        <div className="mt-6">
+          <ActiveContact contact={activeContact} />
+        </div>
+      )}
     </>
   );
 };

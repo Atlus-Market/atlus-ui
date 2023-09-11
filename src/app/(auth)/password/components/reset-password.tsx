@@ -2,7 +2,7 @@
 
 import {
   ResetPasswordForm,
-  ResetPasswordFormSchema
+  ResetPasswordFormSchema,
 } from '@/app/(auth)/password/components/reset-password-form';
 import { useParams, useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
@@ -20,7 +20,7 @@ export const ResetPassword = () => {
     },
     onSuccess: () => {
       router.push(`${PasswordResetRoute}/success`);
-    }
+    },
   });
   return (
     <ResetPasswordForm

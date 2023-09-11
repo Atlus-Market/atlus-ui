@@ -26,9 +26,7 @@ export const useSelectCountry = () => {
       }
 
       if (countryCodesIds.includes(countryCodeId)) {
-        updatedCountryCodesIds = countryCodesIds.filter(
-          ccId => ccId !== countryCodeId
-        );
+        updatedCountryCodesIds = countryCodesIds.filter(ccId => ccId !== countryCodeId);
       } else {
         updatedCountryCodesIds = [...countryCodesIds, countryCodeId];
       }

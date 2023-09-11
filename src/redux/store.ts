@@ -11,16 +11,15 @@ export type ListenersMiddleware = typeof listenerMiddleware;
 export const store = configureStore({
   reducer: {
     setPackageReducer,
-    packagesReducer
+    packagesReducer,
   },
   middleware: getDefaultMiddleware => [
-    ...getDefaultMiddleware().prepend(listenerMiddleware.middleware)
+    ...getDefaultMiddleware().prepend(listenerMiddleware.middleware),
   ],
-  devTools: process.env.NODE_ENV !== 'production'
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
 
 startListeners();

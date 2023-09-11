@@ -12,7 +12,8 @@ export const AtlusLink = ({ href, children, target }: AtlusLinkProps) => {
     <Link
       href={href}
       target={target}
-      className='text-orange text-[11px] font-medium leading-normal'>
+      className="text-orange text-[11px] font-medium leading-normal"
+    >
       {children}
     </Link>
   );

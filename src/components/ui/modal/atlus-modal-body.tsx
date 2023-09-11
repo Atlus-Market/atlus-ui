@@ -7,9 +7,5 @@ interface AtlusModalBodyProps {
 }
 
 export const AtlusModalBody = ({ children, className }: AtlusModalBodyProps) => {
-  return (
-    <div className={clsx('p-10', className)}>
-      {children}
-    </div>
-  );
+  return <div className={clsx('p-10', className)}>{children}</div>;
 };

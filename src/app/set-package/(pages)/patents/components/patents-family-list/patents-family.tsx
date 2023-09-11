@@ -1,12 +1,8 @@
 import { Patent as PatentModel } from '@/models/patent';
 import clsx from 'clsx';
 import pluralizeWord from 'pluralize';
-import {
-  Patent
-} from '@/app/set-package/(pages)/patents/components/patents-family-list/patents/patent';
-import {
-  NO_FAMILY_GROUP_ID
-} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
+import { Patent } from '@/app/set-package/(pages)/patents/components/patents-family-list/patents/patent';
+import { NO_FAMILY_GROUP_ID } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
 import { useState } from 'react';
 import { HiChevronDown, HiChevronUp, HiTrash } from 'react-icons/hi2';
 import { HiOutlineDotsVertical } from 'react-icons/hi';
@@ -26,50 +22,60 @@ export const PatentsFamily = ({ familyId, patents, onRemoveFamily }: PatentProps
 
   const patentsToShow = showingExpandedPatentsList ? patents : patents.slice(0, 1);
   return (
-    <div className={clsx(
-      '[&:not(:last-child)]:mb-8',
-      'border border-lightest-grey border-solid',
-      'rounded-t-[12px]',
-      'overflow-hidden'
-    )}>
+    <div
+      className={clsx(
+        '[&:not(:last-child)]:mb-8',
+        'border border-lightest-grey border-solid',
+        'rounded-t-[12px]',
+        'overflow-hidden'
+      )}
+    >
       <div className={clsx('bg-lightest-grey', 'px-6 py-4', 'flex justify-between items-center')}>
         <div>
-            <span
-              className='text-sm text-dark-grey'>{patentsCount} {pluralizeWord('patent', patentsCount)} in this family
-            </span>
+          <span className="text-sm text-dark-grey">
+            {patentsCount} {pluralizeWord('patent', patentsCount)} in this family
+          </span>
         </div>
-        <div className='flex items-center'>
-          {isCreatedManually &&
-            <span className='text-xs text-dark-grey inline-block mr-4'>Created Manually</span>
-          }
+        <div className="flex items-center">
+          {isCreatedManually && (
+            <span className="text-xs text-dark-grey inline-block mr-4">Created Manually</span>
+          )}
 
           <AtlusMenu
             menuButton={
               <button>
-                <HiOutlineDotsVertical className='text-dark-grey' />
+                <HiOutlineDotsVertical className="text-dark-grey" />
               </button>
             }
             menuItems={
-              <AtlusMenuItem text='Remove family' icon={HiTrash} onClick={onRemoveFamily} />
+              <AtlusMenuItem text="Remove family" icon={HiTrash} onClick={onRemoveFamily} />
             }
           />
         </div>
       </div>
       <div>
-        {patentsToShow.map(patent => (<Patent key={patent.publicationNumber} patent={patent} />))}
+        {patentsToShow.map(patent => (
+          <Patent key={patent.publicationNumber} patent={patent} />
+        ))}
       </div>
-      {patents.length > 1 &&
-        <div className='px-6 pb-4'>
+      {patents.length > 1 && (
+        <div className="px-6 pb-4">
           <button
-            className='text-orange text-xs font-medium flex items-center'
-            onClick={() => setShowingExpandedPatentsList(!showingExpandedPatentsList)}>
-            {showingExpandedPatentsList ?
-              <>Show less <HiChevronUp size={16} className='ml-[3px]' /></> :
-              <>See all {patents.length} patents <HiChevronDown size={16} className='ml-[3px]' /></>
-            }
+            className="text-orange text-xs font-medium flex items-center"
+            onClick={() => setShowingExpandedPatentsList(!showingExpandedPatentsList)}
+          >
+            {showingExpandedPatentsList ? (
+              <>
+                Show less <HiChevronUp size={16} className="ml-[3px]" />
+              </>
+            ) : (
+              <>
+                See all {patents.length} patents <HiChevronDown size={16} className="ml-[3px]" />
+              </>
+            )}
           </button>
         </div>
-      }
+      )}
     </div>
   );
 };

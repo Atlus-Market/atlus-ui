@@ -9,7 +9,7 @@ import { createSerializedFile } from '@/utils/file';
 const acceptedFileTypes: Accept = {
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': [],
   'text/csv': [],
-  'application/vnd.ms-excel': []
+  'application/vnd.ms-excel': [],
 };
 
 export const SelectPatentsFile = () => {
@@ -18,8 +18,8 @@ export const SelectPatentsFile = () => {
     <AtlusSelectFile
       maxFiles={1}
       acceptedFileTypes={acceptedFileTypes}
-      onFilesSelected={(files)=>{
-        files.forEach(file => dispatch(setImportPatentsFile({file:createSerializedFile(file)})))
+      onFilesSelected={files => {
+        files.forEach(file => dispatch(setImportPatentsFile({ file: createSerializedFile(file) })));
       }}
     />
   );

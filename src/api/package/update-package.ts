@@ -17,12 +17,14 @@ interface UpdatePackageResponsePayload {
   package: Package;
 }
 
-export const updatePackage = (packageId: string, updatePackagePayload: UpdatePackageRequestPayload) => {
+export const updatePackage = (
+  packageId: string,
+  updatePackagePayload: UpdatePackageRequestPayload
+) => {
   return createRequest<UpdatePackageRequestPayload, UpdatePackageResponsePayload>({
-      url: `/package/${packageId}`,
-      method: 'PUT',
-      isProtected: ProtectedEndpoint.True,
-      payload: updatePackagePayload
-    }
-  );
+    url: `/package/${packageId}`,
+    method: 'PUT',
+    isProtected: ProtectedEndpoint.True,
+    payload: updatePackagePayload,
+  });
 };

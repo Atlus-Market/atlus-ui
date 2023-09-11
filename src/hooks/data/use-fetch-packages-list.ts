@@ -6,6 +6,6 @@ export const useFetchPackagesList = () => {
   const userId = useAtlusUser()?.id ?? '';
   return useQuery({
     queryKey: ['packages/user', userId],
-    queryFn: () => getPackages(userId)
+    queryFn: () => getPackages(userId),
   });
 };

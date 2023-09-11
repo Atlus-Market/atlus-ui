@@ -7,17 +7,11 @@ interface OnboardingContainerPros {
   footer?: ReactNode;
 }
 
-export const OnboardingContainer = ({
-  children,
-  footer,
-}: OnboardingContainerPros) => {
+export const OnboardingContainer = ({ children, footer }: OnboardingContainerPros) => {
   return (
     <div className="flex flex-col h-full">
       <Header />
-      <main
-        className="flex justify-center h-full flex-1 overflow-y-auto flex-wrap"
-        id="main-inner"
-      >
+      <main className="flex justify-center h-full flex-1 overflow-y-auto flex-wrap" id="main-inner">
         <PageWrapper>{children}</PageWrapper>
       </main>
       {footer}

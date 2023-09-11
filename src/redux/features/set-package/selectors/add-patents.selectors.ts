@@ -1,15 +1,8 @@
 import { createSelector } from 'reselect';
-import {
-  EnterPatentsNumberTab
-} from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
-import {
-  selectSetPackageState
-} from '@/redux/features/set-package/selectors/set-package.selectors';
-import {
-  mapPatentsIdsToPatentIdsArray
-} from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-ids/patent-id-validator';
+import { EnterPatentsNumberTab } from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
+import { selectSetPackageState } from '@/redux/features/set-package/selectors/set-package.selectors';
+import { mapPatentsIdsToPatentIdsArray } from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-ids/patent-id-validator';
 import { AddPatentsState } from '@/redux/features/set-package/slices/add-patents/add-patents';
-
 
 // Add patents
 
@@ -73,7 +66,9 @@ export const selectActivePatentsIds = createSelector(
   selectEnterPatentsIdsManuallyState,
   (activeTab, selectEnterPatentsIdsManuallyState): string[] => {
     if (activeTab == EnterPatentsNumberTab.EnterManually) {
-      return mapPatentsIdsToPatentIdsArray(selectEnterPatentsIdsManuallyState.form?.formValues?.patentsIds);
+      return mapPatentsIdsToPatentIdsArray(
+        selectEnterPatentsIdsManuallyState.form?.formValues?.patentsIds
+      );
     }
     return [];
   }
@@ -81,7 +76,7 @@ export const selectActivePatentsIds = createSelector(
 
 export const selectFetchedPatents = createSelector(
   selectAddPatentsState,
-  (state) => state.fetchedPatents
+  state => state.fetchedPatents
 );
 
 // Select Patents State
@@ -108,13 +103,15 @@ export const selectIsSetPatentModalOpen = createSelector(
 
 export const selectEditingPatentInfo = createSelector(
   selectSelectedPatentsState,
-  (selectPatentsState) => selectPatentsState.editingPatent
+  selectPatentsState => selectPatentsState.editingPatent
 );
 
 export const selectEditingPatent = createSelector(
   selectSelectedPatentsState,
   selectFetchedPatents,
   (selectPatentsState, patents) => {
-    return patents.find(patent => patent.publicationNumber === selectPatentsState.editingPatent?.publicationNumber);
+    return patents.find(
+      patent => patent.publicationNumber === selectPatentsState.editingPatent?.publicationNumber
+    );
   }
 );

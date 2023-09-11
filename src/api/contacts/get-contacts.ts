@@ -9,6 +9,6 @@ export const getContacts = async (): Promise<GetContactsResponse> => {
   return createRequest<void, GetContactsResponse>({
     url: '/user/contacts?q=',
     method: 'GET',
-    isProtected: ProtectedEndpoint.True
+    isProtected: ProtectedEndpoint.True,
   });
 };

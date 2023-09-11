@@ -10,10 +10,10 @@ interface AtlusLoadingSpinnerProps {
 }
 
 export const AtlusLoadingSpinner = ({
-                                      size = 22,
-                                      hexColor,
-                                      classNames
-                                    }: AtlusLoadingSpinnerProps) => {
+  size = 22,
+  hexColor,
+  classNames,
+}: AtlusLoadingSpinnerProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {

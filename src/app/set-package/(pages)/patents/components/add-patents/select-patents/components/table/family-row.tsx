@@ -1,7 +1,5 @@
 import { flexRender, Row, Table } from '@tanstack/react-table';
-import {
-  PatentTableData
-} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/patents-table';
+import { PatentTableData } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/patents-table';
 
 interface SelectFamilyRowProps {
   table: Table<PatentTableData>;
@@ -21,12 +19,11 @@ export const FamilyRow = ({ row, table }: SelectFamilyRowProps) => {
         }
 
         // Select family cell expands horizontally as much as full table width (max columns count).
-        return <td key={cell.id} colSpan={table.getAllColumns().length}>
-          {flexRender(
-            cell.column.columnDef.cell,
-            cell.getContext()
-          )}
-        </td>;
+        return (
+          <td key={cell.id} colSpan={table.getAllColumns().length}>
+            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+          </td>
+        );
       })}
     </tr>
   );

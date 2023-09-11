@@ -10,12 +10,10 @@ export interface AtlusInputWithTagsProps extends AtlusInputProps {
 }
 
 export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTagsProps>(
-  function AtlusInputWithTags({
-                                onTagsChange,
-                                name,
-                                initialValue = [],
-                                ...rest
-                              }, ref: ForwardedRef<HTMLInputElement>) {
+  function AtlusInputWithTags(
+    { onTagsChange, name, initialValue = [], ...rest },
+    ref: ForwardedRef<HTMLInputElement>
+  ) {
     const [tags, setTags] = useState<string[]>(initialValue);
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -32,10 +30,7 @@ export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTag
           if (inputRef.current) {
             inputRef.current.value = '';
           }
-          setTags([
-            ...tags,
-            value.replace(/[^a-z0-9]/gi, '')
-          ]);
+          setTags([...tags, value.replace(/[^a-z0-9]/gi, '')]);
         }
       }
     };
@@ -50,9 +45,7 @@ export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTag
             const onClose = () => {
               setTags(tags.filter(t => t !== tag));
             };
-            return (
-              <AtlusTag key={`${index}-${tag}`} text={tag} onClose={onClose} size='small' />
-            );
+            return <AtlusTag key={`${index}-${tag}`} text={tag} onClose={onClose} size="small" />;
           })}
         </>
       );
@@ -65,7 +58,8 @@ export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTag
         ref={inputRef}
         leftCmp={tagsList}
         onKeyDown={handleKeyDown}
-        inputClassName='min-w-[260px]'
+        inputClassName="min-w-[260px]"
       />
     );
-  });
+  }
+);

@@ -4,11 +4,14 @@ interface ResetPasswordPayload {
   password: string;
 }
 
-export const resetPassword = (resetPasswordToken: string, resetPasswordPayload: ResetPasswordPayload): Promise<void> => {
+export const resetPassword = (
+  resetPasswordToken: string,
+  resetPasswordPayload: ResetPasswordPayload
+): Promise<void> => {
   return createRequest<ResetPasswordPayload, void>({
     url: `/password/reset/${resetPasswordToken}`,
     method: 'POST',
     isProtected: ProtectedEndpoint.False,
-    payload: resetPasswordPayload
+    payload: resetPasswordPayload,
   });
 };

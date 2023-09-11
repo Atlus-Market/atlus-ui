@@ -5,17 +5,15 @@ import {
   hideSetPatentModal,
   setEditedPatent,
   setRowSelectionState,
-  updatePatent
+  updatePatent,
 } from '@/redux/features/set-package/set-package';
 import { Patent } from '@/models/patent';
-import {
-  SetPatentModal
-} from '@/app/set-package/(pages)/patents/components/set-patent-modal/set-patent-modal';
+import { SetPatentModal } from '@/app/set-package/(pages)/patents/components/set-patent-modal/set-patent-modal';
 import {
   selectEditingPatent,
   selectEditingPatentInfo,
   selectIsSetPatentModalOpen,
-  selectRowSelectionState
+  selectRowSelectionState,
 } from '@/redux/features/set-package/selectors/add-patents.selectors';
 
 export const SelectPatentSetPatentHandler = () => {
@@ -39,12 +37,14 @@ export const SelectPatentSetPatentHandler = () => {
       onPatentAdded={(patent: Patent) => {
         dispatch(updatePatent({ patent }));
         dispatch(setEditedPatent({ patentId: patent.publicationNumber }));
-        dispatch(setRowSelectionState({
-          rowSelectionState: {
-            ...rowSelectionState,
-            [editingPatentInfo.rowId]: true
-          }
-        }));
+        dispatch(
+          setRowSelectionState({
+            rowSelectionState: {
+              ...rowSelectionState,
+              [editingPatentInfo.rowId]: true,
+            },
+          })
+        );
         closeModal();
       }}
     />

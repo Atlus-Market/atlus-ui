@@ -17,10 +17,7 @@ export interface AtlusButtonProps extends HtmlButtonProps {
   color?: AtlusColor;
 }
 
-const baseButton = clsx(
-  'inline-flex justify-center items-center',
-  geologica.className
-);
+const baseButton = clsx('inline-flex justify-center items-center', geologica.className);
 
 const solidOrangeVariant = clsx(
   baseButton,
@@ -55,17 +52,11 @@ const getButtonSize = (props: AtlusButtonProps): string => {
   }
 
   if (size === 'medium') {
-    return clsx(
-      'min-w-[100px] py-[10px] px-6',
-      'text-[13px] font-bold leading-[16px]'
-    );
+    return clsx('min-w-[100px] py-[10px] px-6', 'text-[13px] font-bold leading-[16px]');
   }
 
   // big
-  return clsx(
-    'min-w-[200px] py-[15px] px-9',
-    'text-lg font-bold leading-[23px]'
-  );
+  return clsx('min-w-[200px] py-[15px] px-9', 'text-lg font-bold leading-[23px]');
 };
 
 const getLoadingSpinnerColor = ({ variant }: AtlusButtonProps) => {
@@ -76,35 +67,36 @@ const getLoadingSpinnerColor = ({ variant }: AtlusButtonProps) => {
   return '';
 };
 
-export const AtlusButton = forwardRef<HTMLButtonElement, AtlusButtonProps>(
-  function AtlusButton(props, ref) {
-    const {
-      variant = 'solid',
-      size = 'big',
-      children,
-      type = 'button',
-      isLoading = false,
-      disabled = false,
-      color,
-      className,
-      ...restProps
-    } = props;
-    const isClearVariant = variant === 'clear';
-    const classVariant = isClearVariant ? clearVariant(props) : variant === 'solid' ? solidOrangeVariant : outlineWhiteVariant;
-    return (
-      <button
-        type={type}
-        className={clsx(
-          classVariant,
-          className,
-          getButtonSize(props),
-          isClearVariant && color
-        )}
-        disabled={isLoading || disabled}
-        ref={ref}
-        {...restProps}
-      >
-        {isLoading ? <AtlusLoadingSpinner hexColor={getLoadingSpinnerColor(props)} /> : children}
-      </button>
-    );
-  });
+export const AtlusButton = forwardRef<HTMLButtonElement, AtlusButtonProps>(function AtlusButton(
+  props,
+  ref
+) {
+  const {
+    variant = 'solid',
+    size = 'big',
+    children,
+    type = 'button',
+    isLoading = false,
+    disabled = false,
+    color,
+    className,
+    ...restProps
+  } = props;
+  const isClearVariant = variant === 'clear';
+  const classVariant = isClearVariant
+    ? clearVariant(props)
+    : variant === 'solid'
+    ? solidOrangeVariant
+    : outlineWhiteVariant;
+  return (
+    <button
+      type={type}
+      className={clsx(classVariant, className, getButtonSize(props), isClearVariant && color)}
+      disabled={isLoading || disabled}
+      ref={ref}
+      {...restProps}
+    >
+      {isLoading ? <AtlusLoadingSpinner hexColor={getLoadingSpinnerColor(props)} /> : children}
+    </button>
+  );
+});

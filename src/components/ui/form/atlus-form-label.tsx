@@ -9,8 +9,7 @@ export const AtlusFormLabel = ({ label, ...rest }: AtlusFormLabelProps) => {
   }
 
   return (
-    <label
-      className='text-xs md:text-sm leading-[17px] font-medium mb-2 inline-block' {...rest}>
+    <label className="text-xs md:text-sm leading-[17px] font-medium mb-2 inline-block" {...rest}>
       {label}
     </label>
   );

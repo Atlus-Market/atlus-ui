@@ -3,11 +3,7 @@ import { RootState } from '@/redux/store';
 import { getPackage } from '@/api/package/get-package';
 import { Package } from '@/models/package';
 
-export const fetchPackage = createAsyncThunk<
-  Package,
-  string,
-  { state: RootState }
->(
+export const fetchPackage = createAsyncThunk<Package, string, { state: RootState }>(
   'package/get',
   async (packageId: string, thunkAPI) => {
     try {
@@ -16,7 +12,7 @@ export const fetchPackage = createAsyncThunk<
       return res.package;
     } catch (e) {
       console.error(e);
-      throw e
+      throw e;
     }
   }
 );

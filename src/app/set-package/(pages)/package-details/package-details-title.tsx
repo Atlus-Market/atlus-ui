@@ -2,18 +2,14 @@
 
 import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
 import { useFormContext, useWatch } from 'react-hook-form';
-import {
-  IPackageDetailsForm
-} from '@/app/set-package/(pages)/package-details/package-details-form';
+import { IPackageDetailsForm } from '@/app/set-package/(pages)/package-details/package-details-form';
 import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loading-spinner';
 import { useCallback, useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import {
-  packageTitleValidator
-} from '@/redux/features/set-package/thunks/package-title-validator.thunk';
+import { packageTitleValidator } from '@/redux/features/set-package/thunks/package-title-validator.thunk';
 import {
   selectIsValidatingTitle,
-  selectIsValidTitle
+  selectIsValidTitle,
 } from '@/redux/features/set-package/selectors/package-details.selectors';
 import { useAtlusSession } from '@/app/(auth)/session/use-atlus-session';
 
@@ -41,7 +37,10 @@ export const PackageDetailsTitle = () => {
       return;
     }
     if (!isValidTitle) {
-      setError('title', { type: 'custom', message: 'This title is already taken.' });
+      setError('title', {
+        type: 'custom',
+        message: 'This title is already taken.',
+      });
     } else {
       clearErrors('title');
     }
@@ -54,11 +53,11 @@ export const PackageDetailsTitle = () => {
   return (
     <div>
       <AtlusFormInput
-        label='Title'
-        placeholder='Enter package title'
-        type='text'
+        label="Title"
+        placeholder="Enter package title"
+        type="text"
         {...register('title')}
-        rightIcon={isValidatingTitle && <AtlusLoadingSpinner hexColor='#D9D9D9' />}
+        rightIcon={isValidatingTitle && <AtlusLoadingSpinner hexColor="#D9D9D9" />}
         onBlur={handleInvalidTitleError}
       />
     </div>

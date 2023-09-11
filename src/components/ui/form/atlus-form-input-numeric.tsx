@@ -13,7 +13,7 @@ export const AtlusFormInputNumeric = forwardRef<HTMLInputElement, AtlusFormInput
   function AtlusFormInputNumeric({ name, type, ...rest }, ref) {
     const { errors } = useFormState({
       name: name,
-      exact: true
+      exact: true,
     });
     const { control } = useFormContext();
 
@@ -21,7 +21,7 @@ export const AtlusFormInputNumeric = forwardRef<HTMLInputElement, AtlusFormInput
       <Controller
         control={control}
         name={name}
-        render={(props) => (
+        render={props => (
           <AtlusInputNumeric
             {...rest}
             errors={errors}
@@ -31,8 +31,8 @@ export const AtlusFormInputNumeric = forwardRef<HTMLInputElement, AtlusFormInput
               const floatValue = parseFloat(inputValue.replaceAll(',', '')) || '0';
               props.field.onChange({
                 target: {
-                  value: floatValue
-                }
+                  value: floatValue,
+                },
               });
             }}
           />

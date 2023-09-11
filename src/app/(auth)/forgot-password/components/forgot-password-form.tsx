@@ -29,30 +29,27 @@ interface ForgotFormProps {
 export const ForgotPasswordForm = ({ onSubmit, errorMessage, isLoading }: ForgotFormProps) => {
   const formProps = useAtlusForm<ForgotPasswordFormSchema>({
     formOptions: {
-      resolver: yupResolver(schema)
-    }
+      resolver: yupResolver(schema),
+    },
   });
   const { register } = formProps;
 
   return (
     <AtlusForm formProps={formProps} onSubmit={onSubmit}>
-      <AtlusFormInput
-        label='Email'
-        placeholder='Enter email'
-        type='email'
-        {...register('email')}
-      />
+      <AtlusFormInput label="Email" placeholder="Enter email" type="email" {...register('email')} />
 
       <AtlusErrorMessage errorMessage={errorMessage} />
 
-      <div className='text-center'>
-        <AtlusButton className='my-8 md:my-12' type='submit' isLoading={isLoading}>
+      <div className="text-center">
+        <AtlusButton className="my-8 md:my-12" type="submit" isLoading={isLoading}>
           Send reset link
         </AtlusButton>
 
-        <div className='text-[13px] md:text-base font-medium'>
-          <span className='text-dark-grey'>Back to </span>
-          <Link href={LoginRoute} className='text-orange'>Log in</Link>
+        <div className="text-[13px] md:text-base font-medium">
+          <span className="text-dark-grey">Back to </span>
+          <Link href={LoginRoute} className="text-orange">
+            Log in
+          </Link>
         </div>
       </div>
     </AtlusForm>

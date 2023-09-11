@@ -7,13 +7,5 @@ interface AtlusLogoProps {
 }
 
 export default function AtlusLogo({ width = 30, height }: AtlusLogoProps) {
-  return (
-    <Image
-      width={width}
-      height={height}
-      priority
-      src={AtlusSvgLogo}
-      alt="Atlus logo"
-    />
-  );
+  return <Image width={width} height={height} priority src={AtlusSvgLogo} alt="Atlus logo" />;
 }

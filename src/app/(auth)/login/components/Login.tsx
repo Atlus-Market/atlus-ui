@@ -16,13 +16,11 @@ export const Login = () => {
   const onSubmit = async ({ email, password }: LoginFormSchema) => {
     setErrorMessage(undefined);
     setIsLoggingIn(true);
-    const signInResult = await signIn('credentials',
-      {
-        email,
-        password,
-        redirect: false
-      }
-    );
+    const signInResult = await signIn('credentials', {
+      email,
+      password,
+      redirect: false,
+    });
 
     if (signInResult?.error) {
       setIsLoggingIn(false);
@@ -43,7 +41,5 @@ export const Login = () => {
 
     router.replace(DashboardRoute);
   };
-  return (
-    <LoginForm onSubmit={onSubmit} errorMessage={errorMessage} isSubmitting={isLoggingIn} />
-  );
+  return <LoginForm onSubmit={onSubmit} errorMessage={errorMessage} isSubmitting={isLoggingIn} />;
 };

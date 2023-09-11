@@ -3,35 +3,25 @@
 import { AtlusInputSearch } from '@/components/ui/input/atlus-input-search';
 import { CountryCode } from '@/api/country-codes/country-code';
 import { useEffect, useMemo, useState } from 'react';
-import {
-  CountryCodesList
-} from '@/app/onboarding/buyer/jurisdictions-of-interest/components/country-codes-list';
+import { CountryCodesList } from '@/app/onboarding/buyer/jurisdictions-of-interest/components/country-codes-list';
 import {
   getDefaultCountryCodes,
-  worldWide
+  worldWide,
 } from '@/app/onboarding/buyer/jurisdictions-of-interest/components/default-country-codes';
-import {
-  CountryCodeSelector
-} from '@/app/onboarding/buyer/jurisdictions-of-interest/components/country-code-selector';
+import { CountryCodeSelector } from '@/app/onboarding/buyer/jurisdictions-of-interest/components/country-code-selector';
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
-import {
-  useSelectCountry
-} from '@/app/onboarding/buyer/jurisdictions-of-interest/hooks/use-select-country';
+import { useSelectCountry } from '@/app/onboarding/buyer/jurisdictions-of-interest/hooks/use-select-country';
 import { useOnboardingContext } from '@/app/onboarding/context/use-onboarding-context';
 
 interface CountryCodeSearchProps {
   countryCodesDefinition: CountryCode[];
 }
 
-export const CountryCodeSearch = ({
-                                    countryCodesDefinition
-                                  }: CountryCodeSearchProps) => {
+export const CountryCodeSearch = ({ countryCodesDefinition }: CountryCodeSearchProps) => {
   const { updateCountryCodesIdsList } = useSelectCountry();
   const { countryCodesIds } = useOnboardingContext();
   const [searchText, setSearchText] = useState<string>('');
-  const [countryCodesResult, setCountryCodesResult] = useState<CountryCode[]>(
-    []
-  );
+  const [countryCodesResult, setCountryCodesResult] = useState<CountryCode[]>([]);
 
   const defaultCountryCodes = useMemo(() => {
     return getDefaultCountryCodes(countryCodesDefinition);
@@ -54,9 +44,7 @@ export const CountryCodeSearch = ({
     if (isWorldWideSelected) {
       selectedCountryCodes = [worldWide];
     } else {
-      selectedCountryCodes = countryCodesDefinition.filter(cc =>
-        countryCodesIds.includes(cc.code)
-      );
+      selectedCountryCodes = countryCodesDefinition.filter(cc => countryCodesIds.includes(cc.code));
     }
 
     if (selectedCountryCodes.length === 0) {
@@ -68,18 +56,18 @@ export const CountryCodeSearch = ({
         key={cc.code}
         text={cc.name}
         onClose={() => updateCountryCodesIdsList(cc.code)}
-        className='m-1'
+        className="m-1"
       />
     ));
   }, [countryCodesDefinition, countryCodesIds, updateCountryCodesIdsList]);
 
   return (
-    <div className='mx-auto max-w-[900px]'>
-      <div className='mb-[25px]'>
+    <div className="mx-auto max-w-[900px]">
+      <div className="mb-[25px]">
         <AtlusInputSearch
           onChange={setSearchText}
           searchResults={selectedCountryCodeTags}
-          placeholder='Search country'
+          placeholder="Search country"
         />
       </div>
       <CountryCodeSelector>

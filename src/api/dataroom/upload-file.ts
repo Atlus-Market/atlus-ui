@@ -12,23 +12,23 @@ interface UploadPackageDocumentPayload {
 }
 
 export const uploadPackageDocumentFile = ({
-                                            dataroomId,
-                                            file,
-                                            folder = '',
-                                            onProgress,
-                                            abortSignal
-                                          }: UploadPackageDocumentPayload) => {
+  dataroomId,
+  file,
+  folder = '',
+  onProgress,
+  abortSignal,
+}: UploadPackageDocumentPayload) => {
   const headers = {
-    'content-type': 'multipart/form-data'
+    'content-type': 'multipart/form-data',
   };
 
   const formData = new FormData();
   formData.append('file', file);
   formData.append('folder', folder);
 
-  let updateProgress: (progressEvent: AxiosProgressEvent) => void = noop()
+  let updateProgress: (progressEvent: AxiosProgressEvent) => void = noop();
   if (onProgress) {
-    updateProgress = throttle(function(progressEvent: AxiosProgressEvent) {
+    updateProgress = throttle(function (progressEvent: AxiosProgressEvent) {
       const percentCompleted = getProgressPercent(progressEvent);
       console.log('uploadPackageDocumentFile::percentCompleted: ', progressEvent);
       onProgress?.(percentCompleted);
@@ -42,6 +42,6 @@ export const uploadPackageDocumentFile = ({
     payload: formData,
     headers,
     onUploadProgress: updateProgress,
-    signal: abortSignal
+    signal: abortSignal,
   });
 };

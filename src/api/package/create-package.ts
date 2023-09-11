@@ -27,10 +27,9 @@ interface CreatePackageResponsePayload {
 
 export const createPackage = (createPackageRequestPayload: CreatePackageRequestPayload) => {
   return createRequest<CreatePackageRequestPayload, CreatePackageResponsePayload>({
-      url: '/package',
-      method: 'POST',
-      isProtected: ProtectedEndpoint.True,
-      payload: createPackageRequestPayload
-    }
-  );
+    url: '/package',
+    method: 'POST',
+    isProtected: ProtectedEndpoint.True,
+    payload: createPackageRequestPayload,
+  });
 };

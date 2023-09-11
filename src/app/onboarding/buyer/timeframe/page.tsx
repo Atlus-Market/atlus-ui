@@ -6,10 +6,7 @@ export default function TimeframePage() {
   return (
     <>
       <AtlusTitle text="What’s your timeframe?" className="mb-4 text-center" />
-      <AtlusSubTitle
-        text="How soon you’re looking to purchase IP"
-        className="text-center mb-12"
-      />
+      <AtlusSubTitle text="How soon you’re looking to purchase IP" className="text-center mb-12" />
       <TimeFrameCardSelector />
     </>
   );

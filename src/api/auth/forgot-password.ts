@@ -9,6 +9,6 @@ export const forgotPassword = (forgotPasswordPayload: ForgotPasswordPayload): Pr
     url: '/password/reset',
     method: 'POST',
     isProtected: ProtectedEndpoint.False,
-    payload: forgotPasswordPayload
+    payload: forgotPasswordPayload,
   });
 };

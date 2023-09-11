@@ -8,6 +8,6 @@ export const updateUser = (userId: string, updateUserPayload: UpdateUserPayload)
     url: `/user/${userId}`,
     method: 'PUT',
     isProtected: ProtectedEndpoint.True,
-    payload: updateUserPayload
+    payload: updateUserPayload,
   });
 };

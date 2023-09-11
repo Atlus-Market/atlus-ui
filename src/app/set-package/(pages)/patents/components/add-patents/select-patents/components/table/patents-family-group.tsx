@@ -1,16 +1,8 @@
-import {
-  PatentsFamilyRowsGroup
-} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/table/utils';
-import {
-  FamilyRow
-} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/table/family-row';
+import { PatentsFamilyRowsGroup } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/table/utils';
+import { FamilyRow } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/table/family-row';
 import { Table } from '@tanstack/react-table';
-import {
-  PatentTableData
-} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/patents-table';
-import {
-  PatentsRows
-} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/table/rows/patents-rows';
+import { PatentTableData } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/patents-table';
+import { PatentsRows } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/table/rows/patents-rows';
 
 interface PatentsFamilyGroupProps {
   patentsFamilyGroup: PatentsFamilyRowsGroup;

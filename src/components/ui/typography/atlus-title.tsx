@@ -5,7 +5,6 @@ interface TitleProps {
   className?: string;
 }
 
-
 export const AtlusTitle = ({ text, className }: TitleProps) => {
   return (
     <h3

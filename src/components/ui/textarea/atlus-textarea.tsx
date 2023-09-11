@@ -13,29 +13,21 @@ export interface AtlusTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaE
 }
 
 export const AtlusTextarea = forwardRef<HTMLTextAreaElement, AtlusTextareaProps>(
-  function AtlusTextarea(
-    {
-      id,
-      label,
-      name,
-      wrapperClassName,
-      errors,
-      ...rest
-    },
-    ref
-  ) {
+  function AtlusTextarea({ id, label, name, wrapperClassName, errors, ...rest }, ref) {
     const textareaId = id || name;
     return (
       <div className={clsx('mb-4 md:mb-6', wrapperClassName)}>
-        <div className='flex justify-between items-center'>
+        <div className="flex justify-between items-center">
           <AtlusFormLabel htmlFor={id} label={label} />
         </div>
-        <div className={clsx(
-          'border border-light-grey rounded-lg',
-          'py-[18px] pl-4 pr-[27px]',
-          'flex justify-start items-center',
-          '[&:has(textarea:focus)]:border-orange'
-        )}>
+        <div
+          className={clsx(
+            'border border-light-grey rounded-lg',
+            'py-[18px] pl-4 pr-[27px]',
+            'flex justify-start items-center',
+            '[&:has(textarea:focus)]:border-orange'
+          )}
+        >
           <textarea
             id={textareaId}
             name={name}
@@ -51,13 +43,11 @@ export const AtlusTextarea = forwardRef<HTMLTextAreaElement, AtlusTextareaProps>
           />
         </div>
         {name && (
-          <div className='mt-[5px]'>
+          <div className="mt-[5px]">
             <ErrorMessage
               errors={errors}
               name={name}
-              render={({ message }) => (
-                <p className='text-red text-xs pl-3'>{message}</p>
-              )}
+              render={({ message }) => <p className="text-red text-xs pl-3">{message}</p>}
             />
           </div>
         )}

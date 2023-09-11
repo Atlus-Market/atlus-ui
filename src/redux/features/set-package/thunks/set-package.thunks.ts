@@ -1,34 +1,26 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '@/redux/store';
-import {
-  selectPackageDetailsFormValues
-} from '@/redux/features/set-package/selectors/package-details.selectors';
+import { selectPackageDetailsFormValues } from '@/redux/features/set-package/selectors/package-details.selectors';
 import {
   createPackage,
   CreatePackageRequestPayload,
-  CustomPatentPayload
+  CustomPatentPayload,
 } from '@/api/package/create-package';
 import { Package } from '@/models/package';
 import { Patent } from '@/models/patent';
 import {
   selectPackage,
-  selectPackagePatents
+  selectPackagePatents,
 } from '@/redux/features/set-package/selectors/set-package.selectors';
 import { updatePackage } from '@/api/package/update-package';
-import {
-  NO_FAMILY_GROUP_ID
-} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
-
+import { NO_FAMILY_GROUP_ID } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
 
 export interface PersistPackageResult {
   package: Package;
   createdPackage: boolean;
 }
 
-export const persistPackage = createAsyncThunk<
-  PersistPackageResult,
-  void,
-  { state: RootState }>(
+export const persistPackage = createAsyncThunk<PersistPackageResult, void, { state: RootState }>(
   'setPackage/persist',
   async (_, thunkAPI) => {
     try {
@@ -36,9 +28,11 @@ export const persistPackage = createAsyncThunk<
       const activePackage = selectPackage(getState());
 
       const allPatents: Patent[] = selectPackagePatents(getState());
-      const patents= allPatents.filter(p => p.familyId !== NO_FAMILY_GROUP_ID)
-      const customPatents= allPatents.filter(p => p.familyId === NO_FAMILY_GROUP_ID)
-      const patentsIds = allPatents.filter(p => p.familyId !== NO_FAMILY_GROUP_ID).map(p => p.publicationNumber);
+      const patents = allPatents.filter(p => p.familyId !== NO_FAMILY_GROUP_ID);
+      const customPatents = allPatents.filter(p => p.familyId === NO_FAMILY_GROUP_ID);
+      const patentsIds = allPatents
+        .filter(p => p.familyId !== NO_FAMILY_GROUP_ID)
+        .map(p => p.publicationNumber);
 
       console.log('patents: ', patents);
       console.log('customPatents: ', customPatents);
@@ -53,7 +47,7 @@ export const persistPackage = createAsyncThunk<
         industryIds: packageDetails.industryIds.map(id => parseInt(id, 10)),
         visibility: packageDetails.visibility ? 1 : 0,
         patents: patentsIds,
-        customPatents: getCustomPatents(customPatents)
+        customPatents: getCustomPatents(customPatents),
       };
 
       if (activePackage) {
@@ -65,18 +59,17 @@ export const persistPackage = createAsyncThunk<
             ...payload,
             ...activePackage,
             patents,
-            customPatents
-          }
+            customPatents,
+          },
         };
       } else {
         const res = await createPackage(payload);
         console.log('CREATE package Response: ', res);
         return {
           createdPackage: true,
-          package: res.package
+          package: res.package,
         };
       }
-
     } catch (e) {
       console.error(e);
       throw e;
@@ -84,15 +77,15 @@ export const persistPackage = createAsyncThunk<
   }
 );
 
-
 const getCustomPatents = (patents: Patent[]): CustomPatentPayload[] => {
-  return patents.filter(p => p.familyId === NO_FAMILY_GROUP_ID)
+  return patents
+    .filter(p => p.familyId === NO_FAMILY_GROUP_ID)
     .map(patent => ({
       patent_number: patent.publicationNumber,
       application_date: patent.applicationDate,
       application_number: patent.applicationNumber,
       assignee: patent.applicants.join(','),
       status: patent.status,
-      title: patent.title
+      title: patent.title,
     }));
 };

@@ -21,7 +21,7 @@ export const RemoveDocumentButton = ({ dataroomId, documentId }: RemoveDocumentB
     mutationKey: [dataroomId, documentId],
     mutationFn: async () => {
       await removeFile(dataroomId, documentId);
-    }
+    },
   });
 
   const deleteDocument = async () => {
@@ -36,32 +36,32 @@ export const RemoveDocumentButton = ({ dataroomId, documentId }: RemoveDocumentB
 
   return (
     <>
-      {isShowingAlertModal &&
+      {isShowingAlertModal && (
         <AtlusAlertModal
           isOpen={isShowingAlertModal}
-          title='Delete file?'
-          text='This file will be deleted from your package.'
+          title="Delete file?"
+          text="This file will be deleted from your package."
           mainButton={{
             text: 'Delete',
             onClick: () => {
               hideAlertModal();
               deleteDocument();
-            }
+            },
           }}
           secondaryButton={{
             text: 'Cancel',
-            onClick: hideAlertModal
+            onClick: hideAlertModal,
           }}
         />
-      }
+      )}
       <AtlusButton
-        variant='clear'
+        variant="clear"
         onClick={showAlertModal}
         disabled={isLoading}
-        isLoading={isLoading}>
-        <HiOutlineX className='text-middle-grey' />
+        isLoading={isLoading}
+      >
+        <HiOutlineX className="text-middle-grey" />
       </AtlusButton>
     </>
   );
-
 };

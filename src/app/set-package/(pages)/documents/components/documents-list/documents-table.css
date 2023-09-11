@@ -1,36 +1,36 @@
 .documents-grid-scroller {
-    /*overflow: scroll;*/
-    /*height: 100vh;*/
+  /*overflow: scroll;*/
+  /*height: 100vh;*/
 }
 
 .documents-grid {
-    display: grid;
-    grid-template-columns: minmax(500px, 1fr) 150px 200px 60px;
-    --border-radius: 12px;
-    --padding-x: 20px
+  display: grid;
+  grid-template-columns: minmax(500px, 1fr) 150px 200px 60px;
+  --border-radius: 12px;
+  --padding-x: 20px;
 }
 
 .grid-header {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    background-color: #FCFCFC;
-    color: var(--color-dark-grey);
-    font-size: 12px;
-    padding: 13px var(--padding-x);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #fcfcfc;
+  color: var(--color-dark-grey);
+  font-size: 12px;
+  padding: 13px var(--padding-x);
 }
 
 .grid-header.grid-first-header-col {
-    border-top-left-radius: var(--border-radius);
-    border-bottom-left-radius: var(--border-radius);
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
 }
 
 .grid-header.grid-last-header-col {
-    border-top-right-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
 }
 
 .grid-entry {
-    border-bottom: 1px solid var(--color-lightest-grey);
-    padding: 20px var(--padding-x);
+  border-bottom: 1px solid var(--color-lightest-grey);
+  padding: 20px var(--padding-x);
 }

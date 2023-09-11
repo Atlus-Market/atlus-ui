@@ -4,7 +4,6 @@ export const sortPatentsByPublicationNumber = (patents: Patent[]): Patent[] => {
   return patents.sort((p1, p2) => p1.publicationNumber.localeCompare(p2.publicationNumber));
 };
 
-
 type GetIdFn<T extends unknown> = (arg: T) => string;
 /**
  * Merges all patents into one single array.

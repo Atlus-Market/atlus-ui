@@ -23,7 +23,6 @@ export const logout = async (): Promise<void> => {
     method: 'GET',
     url: createUrl('/logout'),
     headers,
-    withCredentials: true
+    withCredentials: true,
   });
 };
-

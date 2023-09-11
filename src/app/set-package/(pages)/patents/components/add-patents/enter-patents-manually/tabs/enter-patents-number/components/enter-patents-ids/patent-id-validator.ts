@@ -3,9 +3,9 @@ import { Chunk, FindChunks } from 'react-highlight-words';
 
 export const patentIdValidator: Validator<string> = {
   name: 'is-valid-patent-id',
-  message:
-    'Invalid patentId',
-  test: (patentsIds: string, context): boolean => mapPatentsIdsToPatentIdsArray(patentsIds).every(isValidPatentId)
+  message: 'Invalid patentId',
+  test: (patentsIds: string, context): boolean =>
+    mapPatentsIdsToPatentIdsArray(patentsIds).every(isValidPatentId),
 };
 
 const isValidPatentId = (patentId: string): boolean => {
@@ -17,9 +17,7 @@ export const mapPatentsIdsToPatentIdsArray = (patentsIds: string): string[] =>
   ((patentsIds ?? '').split(',') || []).map(patentId => patentId.trim());
 
 export const getInvalidPatentsIds = (patentsIds: string): string[] => {
-  return patentsIds
-    .split(',')
-    .filter(patentId => !isValidPatentId(patentId));
+  return patentsIds.split(',').filter(patentId => !isValidPatentId(patentId));
 };
 
 /**
@@ -30,7 +28,11 @@ export const getInvalidPatentsIds = (patentsIds: string): string[] => {
  * @param indexPosition
  * @param separatorLength
  */
-const calculateLengthToIndex = (arr: string[], indexPosition: number, separatorLength: number): number => {
+const calculateLengthToIndex = (
+  arr: string[],
+  indexPosition: number,
+  separatorLength: number
+): number => {
   if (indexPosition >= arr.length) {
     return 0;
   }
@@ -58,13 +60,14 @@ export const findChunks = ({ textToHighlight, searchWords }: FindChunks): Chunk[
             // (if not, it means the word to highlight was already counted).
             // This prevents cases where duplicates (for example, at the beginning and at the end)
             // are not highlighted because the word index is always found at first position.
-            globalWordIndex >= wordIndex && word === wordToHighlight);
+            globalWordIndex >= wordIndex && word === wordToHighlight
+        );
 
         const positionInPlainText = calculateLengthToIndex(allWords, start, commaLength);
         const end = positionInPlainText + wordToHighlight.length;
         return {
           start: positionInPlainText,
-          end
+          end,
         };
       }
       return INVALID_CHUNK;

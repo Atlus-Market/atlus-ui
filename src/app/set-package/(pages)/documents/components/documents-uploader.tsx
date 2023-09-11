@@ -4,17 +4,16 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
   selectDocumentsToUpload,
   selectUploadFilesQueue,
-  selectUploadingFiles
+  selectUploadingFiles,
 } from '@/redux/features/set-package/selectors/documents.selectors';
 import { useEffect } from 'react';
 import { useConst } from '@/hooks/use-const';
 import { uploadPackageDocument } from '@/redux/features/set-package/thunks/upload-documents.thunks';
 import {
   PENDING_UPLOAD,
-  UploadingDocumentStatus
+  UploadingDocumentStatus,
 } from '@/app/set-package/(pages)/documents/components/uploading-document/uploading-document-status';
 import { removeQueuedFile } from '@/redux/features/set-package/set-package';
-
 
 type Abort = (reason?: string) => void;
 
@@ -37,10 +36,12 @@ export const DocumentsUploader = () => {
   console.groupEnd();
 
   useEffect(() => {
-    filesToUpload.forEach((serializedFileUpload) => {
+    filesToUpload.forEach(serializedFileUpload => {
       // @ts-ignore
       const thunkValue = dispatch(uploadPackageDocument(serializedFileUpload));
-      uploadingFilesLocalState[thunkValue.requestId] = { abort: thunkValue.abort };
+      uploadingFilesLocalState[thunkValue.requestId] = {
+        abort: thunkValue.abort,
+      };
     });
   }, [dispatch, filesToUpload, uploadingFilesLocalState]);
 
@@ -69,7 +70,7 @@ export const DocumentsUploader = () => {
   }
 
   return (
-    <div className='mt-3'>
+    <div className="mt-3">
       {uploadingFilesState.map(uploadingFileState => (
         <UploadingDocumentStatus
           key={uploadingFileState.requestId}
@@ -79,7 +80,7 @@ export const DocumentsUploader = () => {
           onCancelUpload={() => {
             uploadingFilesLocalState[uploadingFileState.requestId].abort();
           }}
-          classNames='[&:not(:last-child)]:mb-2'
+          classNames="[&:not(:last-child)]:mb-2"
         />
       ))}
       {uploadFilesQueue.map(queueFile => (
@@ -89,7 +90,7 @@ export const DocumentsUploader = () => {
           fileName={queueFile.name}
           progress={PENDING_UPLOAD}
           onCancelUpload={() => dispatch(removeQueuedFile({ fileId: queueFile.id }))}
-          classNames='[&:not(:last-child)]:mb-2'
+          classNames="[&:not(:last-child)]:mb-2"
         />
       ))}
     </div>

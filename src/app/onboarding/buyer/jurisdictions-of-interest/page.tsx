@@ -7,14 +7,8 @@ export default async function CountriesOfInterestPage() {
   const countryCodes = await getCountryCodes();
   return (
     <>
-      <AtlusTitle
-        text="What are your jurisdictions of interest?"
-        className="mb-3 text-center"
-      />
-      <AtlusSubTitle
-        className="text-center mb-12"
-        text="Select all that apply"
-      />
+      <AtlusTitle text="What are your jurisdictions of interest?" className="mb-3 text-center" />
+      <AtlusSubTitle className="text-center mb-12" text="Select all that apply" />
       <CountryCodeSearch countryCodesDefinition={countryCodes} />
     </>
   );

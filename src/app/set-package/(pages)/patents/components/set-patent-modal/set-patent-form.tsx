@@ -15,7 +15,7 @@ const schema: ObjectSchema<Patent> = object({
   applicationNumber: string().trim().required(RequiredField),
   applicants: array().min(1, 'Enter at least one assignee').required(RequiredField),
   applicationDate: string().trim().required(RequiredField).test(plainDateValidator),
-  patentNumber: string().default('')
+  patentNumber: string().default(''),
 });
 
 interface SetPatentForm {
@@ -28,8 +28,8 @@ export const SetPatentForm = ({ initialValues, children, onSubmit }: SetPatentFo
   const formProps = useAtlusForm<Patent>({
     formOptions: {
       resolver: yupResolver(schema),
-      defaultValues: initialValues
-    }
+      defaultValues: initialValues,
+    },
   });
 
   return (

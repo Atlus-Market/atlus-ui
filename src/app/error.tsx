@@ -22,14 +22,15 @@ export default function Error({ error, reset }: ErrorProps) {
   return (
     <div>
       <Header />
-      <PageWrapper className='w-full text-center'>
+      <PageWrapper className="w-full text-center">
         <h2>Something went wrong!</h2>
 
         <AtlusButton
-          variant='clear'
-          color='orange'
-          className='mb-4'
-          onClick={() => router.replace(LoginRoute)}>
+          variant="clear"
+          color="orange"
+          className="mb-4"
+          onClick={() => router.replace(LoginRoute)}
+        >
           Go to Home
         </AtlusButton>
       </PageWrapper>

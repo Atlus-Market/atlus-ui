@@ -14,13 +14,24 @@ interface AtlusSelectFileProps {
   acceptedFileTypes?: Accept;
 }
 
-export const AtlusSelectFile = ({ onFilesSelected, maxFiles = NO_MAX_FILES_LIMIT, acceptedFileTypes }: AtlusSelectFileProps) => {
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    console.log('acceptedFiles: ', acceptedFiles);
-    onFilesSelected?.(acceptedFiles);
-  }, [onFilesSelected]);
+export const AtlusSelectFile = ({
+  onFilesSelected,
+  maxFiles = NO_MAX_FILES_LIMIT,
+  acceptedFileTypes,
+}: AtlusSelectFileProps) => {
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      console.log('acceptedFiles: ', acceptedFiles);
+      onFilesSelected?.(acceptedFiles);
+    },
+    [onFilesSelected]
+  );
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, maxFiles, accept: acceptedFileTypes });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    maxFiles,
+    accept: acceptedFileTypes,
+  });
 
   return (
     <div
@@ -29,17 +40,20 @@ export const AtlusSelectFile = ({ onFilesSelected, maxFiles = NO_MAX_FILES_LIMIT
         isDragActive ? 'bg-[#FFFBF9] border-peach' : 'bg-white border-light-grey',
         'hover:cursor-pointer'
       )}
-      {...getRootProps()}>
+      {...getRootProps()}
+    >
       <input {...getInputProps()} />
-      <div className='flex justify-center flex-col items-center'>
-        <Image src={UploadFileImageSvg} alt='upload-file' className='mb-6' />
-        <div className='mb-2 leading-none'>
-          <span className='text-sm text-soft-black font-medium leading-5'>
+      <div className="flex justify-center flex-col items-center">
+        <Image src={UploadFileImageSvg} alt="upload-file" className="mb-6" />
+        <div className="mb-2 leading-none">
+          <span className="text-sm text-soft-black font-medium leading-5">
             Select files to upload
           </span>
         </div>
-        <div className='leading-none'>
-          <span className='text-dark-grey text-xs font-normal leading-[15px]]'>Or drag and drop them here</span>
+        <div className="leading-none">
+          <span className="text-dark-grey text-xs font-normal leading-[15px]]">
+            Or drag and drop them here
+          </span>
         </div>
       </div>
     </div>

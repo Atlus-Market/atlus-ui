@@ -1,7 +1,7 @@
 import { createRequest, ProtectedEndpoint } from '@/api/api';
 import { Contact } from '@/models/contact';
 
-export type CreateSellerPayload = Omit<Contact, 'id'>
+export type CreateSellerPayload = Omit<Contact, 'id'>;
 
 export interface CreateSellerResponse {
   userId: string;
@@ -12,6 +12,6 @@ export const createSeller = (userPayload: CreateSellerPayload): Promise<CreateSe
     url: '/user/seller',
     method: 'POST',
     isProtected: ProtectedEndpoint.True,
-    payload: userPayload
+    payload: userPayload,
   });
 };

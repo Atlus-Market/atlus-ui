@@ -17,7 +17,5 @@ export const PackageStateHandler = ({ children }: PackageStateHandlerProps) => {
     };
   }, [dispatch]);
 
-  return (
-    <>{children}</>
-  );
+  return <>{children}</>;
 };

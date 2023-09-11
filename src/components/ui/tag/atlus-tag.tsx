@@ -20,13 +20,15 @@ export const AtlusTag = ({ text, onClose, className, size = 'big' }: TagProps) =
         className
       )}
     >
-      <span className={clsx(
-        'font-medium  text-orange inline-block',
-        isBigSize ? 'text-sm leading-[17px]' : 'text-xs leading-[15px]'
-      )}>
+      <span
+        className={clsx(
+          'font-medium  text-orange inline-block',
+          isBigSize ? 'text-sm leading-[17px]' : 'text-xs leading-[15px]'
+        )}
+      >
         {text}
       </span>
-      {onClose && (<AtlusTagRemoveButton onClick={onClose} size={size} />)}
+      {onClose && <AtlusTagRemoveButton onClick={onClose} size={size} />}
     </div>
   );
 };

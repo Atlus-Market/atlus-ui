@@ -9,9 +9,7 @@ interface CloseModalButtonProps {
 
 export const AtlusCloseModalButton = ({ onClick }: CloseModalButtonProps) => {
   return (
-    <AtlusButton
-      onClick={onClick}
-      variant='clear'>
+    <AtlusButton onClick={onClick} variant="clear">
       <HiOutlineX size={30} />
     </AtlusButton>
   );

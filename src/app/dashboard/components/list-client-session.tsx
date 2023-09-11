@@ -4,10 +4,8 @@ import Link from 'next/link';
 export const ListClientSession = () => {
   return (
     <div>
-      <Link href='/logout'>
-        <AtlusButton>
-          Logout
-        </AtlusButton>
+      <Link href="/logout">
+        <AtlusButton>Logout</AtlusButton>
       </Link>
     </div>
   );

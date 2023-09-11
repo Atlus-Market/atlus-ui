@@ -20,36 +20,35 @@ interface AtlusAlertModalProps {
 }
 
 export const AtlusAlertModal = ({
-                                  isOpen,
-                                  title,
-                                  text,
-                                  mainButton,
-                                  secondaryButton
-                                }: AtlusAlertModalProps) => {
+  isOpen,
+  title,
+  text,
+  mainButton,
+  secondaryButton,
+}: AtlusAlertModalProps) => {
   return (
     <AtlusModal isOpen={isOpen}>
       <AtlusModalContainer
         header={
           <AtlusModalHeader>
-            <AtlusModalTitle text={title} classNames='!text-2xl' />
+            <AtlusModalTitle text={title} classNames="!text-2xl" />
           </AtlusModalHeader>
         }
         footer={
           <AtlusModalFooter>
-            <div className='flex gap-8 justify-end items-center'>
-              {
-                secondaryButton &&
-                <AtlusButton variant='clear' onClick={secondaryButton.onClick}>
+            <div className="flex gap-8 justify-end items-center">
+              {secondaryButton && (
+                <AtlusButton variant="clear" onClick={secondaryButton.onClick}>
                   {secondaryButton.text}
                 </AtlusButton>
-              }
-              <AtlusButton variant='solid' onClick={mainButton.onClick}>
+              )}
+              <AtlusButton variant="solid" onClick={mainButton.onClick}>
                 {mainButton.text}
               </AtlusButton>
             </div>
           </AtlusModalFooter>
-
-        }>
+        }
+      >
         <AtlusModalBody className="!pt-4">
           <span className="text-soft-black text-base font-normal">{text}</span>
         </AtlusModalBody>

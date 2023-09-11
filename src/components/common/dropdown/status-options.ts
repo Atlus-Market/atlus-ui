@@ -5,5 +5,5 @@ export const statusOptions: DropdownOption[] = [
   { value: 'expired', label: 'Expired' },
   { value: 'issued', label: 'Issued' },
   { value: 'abandoned', label: 'Abandoned' },
-  { value: 'lapsed', label: 'Lapsed' }
+  { value: 'lapsed', label: 'Lapsed' },
 ];

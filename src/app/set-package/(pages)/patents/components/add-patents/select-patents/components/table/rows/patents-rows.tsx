@@ -1,11 +1,7 @@
 import { Row } from '@tanstack/react-table';
-import {
-  PatentTableData
-} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/patents-table';
+import { PatentTableData } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/patents-table';
 import { useState } from 'react';
-import {
-  PatentRow
-} from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/table/rows/patent-row';
+import { PatentRow } from '@/app/set-package/(pages)/patents/components/add-patents/select-patents/components/table/rows/patent-row';
 import { HiChevronDown, HiChevronUp } from 'react-icons/hi2';
 
 interface PatentsRowsProps {
@@ -20,21 +16,23 @@ export const PatentsRows = ({ rows }: PatentsRowsProps) => {
   return (
     <>
       {jsxRows}
-      {rows.length > 1 &&
+      {rows.length > 1 && (
         <tr>
-          <td className='pt-3 pb-6 pl-7'>
+          <td className="pt-3 pb-6 pl-7">
             <button
-              className='text-orange text-xs font-medium leading-5 flex items-center'
-              onClick={() => setExpanded(!expanded)}>
+              className="text-orange text-xs font-medium leading-5 flex items-center"
+              onClick={() => setExpanded(!expanded)}
+            >
               See all {rows.length} patents
-              {!expanded ?
-                <HiChevronDown size={16} className='ml-[3px]' /> :
-                <HiChevronUp size={16} className='ml-[3px]' />
-              }
+              {!expanded ? (
+                <HiChevronDown size={16} className="ml-[3px]" />
+              ) : (
+                <HiChevronUp size={16} className="ml-[3px]" />
+              )}
             </button>
           </td>
         </tr>
-      }
+      )}
     </>
   );
 };

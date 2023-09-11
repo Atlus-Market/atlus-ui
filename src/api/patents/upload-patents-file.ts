@@ -5,11 +5,14 @@ interface UploadPatentsFilePayload {
   file: File;
 }
 
-type UploadPatentsFileResponse = SearchPatentsResponse
+type UploadPatentsFileResponse = SearchPatentsResponse;
 
-export const uploadPatentsFile = ({ file }: UploadPatentsFilePayload, abortSignal?: AbortSignal) => {
+export const uploadPatentsFile = (
+  { file }: UploadPatentsFilePayload,
+  abortSignal?: AbortSignal
+) => {
   const headers = {
-    'content-type': 'multipart/form-data'
+    'content-type': 'multipart/form-data',
   };
 
   const formData = new FormData();
@@ -21,6 +24,6 @@ export const uploadPatentsFile = ({ file }: UploadPatentsFilePayload, abortSigna
     isProtected: ProtectedEndpoint.True,
     payload: formData,
     headers,
-    signal: abortSignal
+    signal: abortSignal,
   });
 };

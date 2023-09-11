@@ -6,9 +6,7 @@ import { useAtlusForm } from '@/components/ui/form/use-atlus-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AtlusForm } from '@/components/ui/form/atlus-form';
 import { useAppSelector } from '@/redux/hooks';
-import {
-  selectPackageDetailsFormValues
-} from '@/redux/features/set-package/selectors/package-details.selectors';
+import { selectPackageDetailsFormValues } from '@/redux/features/set-package/selectors/package-details.selectors';
 import { ReactNode } from 'react';
 
 export interface IPackageDetailsForm {
@@ -32,7 +30,7 @@ export const packageDetailsSchema: ObjectSchema<IPackageDetailsForm> = object({
   priceUsd: number().min(0, 'Price must be greater than $0').default(0).required(RequiredField),
   openToLicensing: boolean().default(false).required(RequiredField),
   showPublicPricing: boolean().default(false).required(RequiredField),
-  sellerUserId: string().default('').required(RequiredField)
+  sellerUserId: string().default('').required(RequiredField),
 });
 
 export interface PackageDetailsFormProps {
@@ -44,10 +42,12 @@ export const PackageDetailsForm = ({ children }: PackageDetailsFormProps) => {
   const formProps = useAtlusForm<IPackageDetailsForm>({
     formOptions: {
       resolver: yupResolver(packageDetailsSchema),
-      defaultValues: packageDetailsFormValues
-    }
+      defaultValues: packageDetailsFormValues,
+    },
   });
-  const { formState: { errors } } = formProps;
+  const {
+    formState: { errors },
+  } = formProps;
   console.log('Package Details form errors:', errors);
 
   const onSubmit = (detailsForm: IPackageDetailsForm) => {

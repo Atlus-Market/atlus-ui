@@ -1,14 +1,10 @@
-import {
-  IPackageDetailsForm
-} from '@/app/set-package/(pages)/package-details/package-details-form';
+import { IPackageDetailsForm } from '@/app/set-package/(pages)/package-details/package-details-form';
 import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Contact } from '@/models/contact';
 import { dropdownPublicOption } from '@/components/common/dropdown/visibility-options';
 import { ActionReducerMapBuilder } from '@reduxjs/toolkit/src/mapBuilders';
-import {
-  packageTitleValidator
-} from '@/redux/features/set-package/thunks/package-title-validator.thunk';
+import { packageTitleValidator } from '@/redux/features/set-package/thunks/package-title-validator.thunk';
 
 export interface PackageDetailsState {
   packageDetailsForm: IPackageDetailsForm;
@@ -35,18 +31,18 @@ export const packageDetailsInitialState: PackageDetailsState = {
     keywords: [],
     // @ts-ignore
     priceUsd: null,
-    showPublicPricing: false
+    showPublicPricing: false,
   },
   setContact: {
     contacts: [],
     isSetContactModalOpen: false,
-    activeContactId: undefined
+    activeContactId: undefined,
   },
   titleValidation: {
     requestId: undefined,
     isValidatingTitle: false,
-    isValidTitle: false
-  }
+    isValidTitle: false,
+  },
 };
 
 export const packageDetailsReducer = {
@@ -60,21 +56,28 @@ export const packageDetailsReducer = {
     state.packageDetails.setContact.isSetContactModalOpen = false;
   },
   setContact: (state: SetPackageState, action: PayloadAction<{ contact: Contact }>) => {
-    const contacts = state.packageDetails.setContact.contacts.filter(c => c.id !== action.payload.contact.id);
+    const contacts = state.packageDetails.setContact.contacts.filter(
+      c => c.id !== action.payload.contact.id
+    );
     contacts.push(action.payload.contact);
     state.packageDetails.setContact.contacts = contacts;
   },
   setContacts: (state: SetPackageState, action: PayloadAction<{ contacts: Contact[] }>) => {
     state.packageDetails.setContact.contacts = [...action.payload.contacts];
   },
-  setActiveContact: (state: SetPackageState, action: PayloadAction<{
-    contactId: string | undefined
-  }>) => {
+  setActiveContact: (
+    state: SetPackageState,
+    action: PayloadAction<{
+      contactId: string | undefined;
+    }>
+  ) => {
     state.packageDetails.setContact.activeContactId = action.payload.contactId;
-  }
+  },
 };
 
-export const packageTitleValidatorExtraReducers = (builder: ActionReducerMapBuilder<SetPackageState>) => {
+export const packageTitleValidatorExtraReducers = (
+  builder: ActionReducerMapBuilder<SetPackageState>
+) => {
   builder.addCase(packageTitleValidator.pending, (state: SetPackageState, action) => {
     const { meta } = action;
     const payload = meta.arg;

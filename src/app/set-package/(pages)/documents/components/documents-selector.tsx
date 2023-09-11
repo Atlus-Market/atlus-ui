@@ -10,13 +10,14 @@ import { createSerializedFile } from '@/utils/file';
 export const DocumentsSelector = () => {
   const dispatch = useAppDispatch();
 
-  const onDocumentsSelected = useCallback((files: File[]) => {
-    files.forEach((file) => {
-      dispatch(addFileToUpload(createSerializedFile(file)));
-    });
-  }, [dispatch]);
-
-  return (
-    <AtlusSelectFile onFilesSelected={onDocumentsSelected} />
+  const onDocumentsSelected = useCallback(
+    (files: File[]) => {
+      files.forEach(file => {
+        dispatch(addFileToUpload(createSerializedFile(file)));
+      });
+    },
+    [dispatch]
   );
+
+  return <AtlusSelectFile onFilesSelected={onDocumentsSelected} />;
 };

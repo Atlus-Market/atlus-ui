@@ -9,12 +9,12 @@ export const useLogout = () => {
     setIsLoggingOut(true);
     signOut({
       callbackUrl: LoginRoute,
-      redirect: true
+      redirect: true,
     });
   }, []);
 
   return {
     logout,
-    isLoggingOut
-  }
+    isLoggingOut,
+  };
 };

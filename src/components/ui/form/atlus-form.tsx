@@ -17,16 +17,16 @@ interface AtlusFormProps<TFieldValues extends FieldValues> {
 }
 
 export const AtlusForm = <T extends FieldValues>({
-                                                   className,
-                                                   children,
-                                                   onSubmit = noop,
-                                                   htmlFormProps,
-                                                   formProps
-                                                 }: AtlusFormProps<T>) => {
+  className,
+  children,
+  onSubmit = noop,
+  htmlFormProps,
+  formProps,
+}: AtlusFormProps<T>) => {
   return (
     <FormProvider {...formProps}>
       <form
-        onSubmit={(e) => {
+        onSubmit={e => {
           e.stopPropagation();
           return formProps.handleSubmit(onSubmit)(e);
         }}
@@ -35,7 +35,7 @@ export const AtlusForm = <T extends FieldValues>({
         {...htmlFormProps}
       >
         {children}
-        <input type='submit' hidden />
+        <input type="submit" hidden />
       </form>
     </FormProvider>
   );

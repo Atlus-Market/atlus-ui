@@ -1,7 +1,7 @@
 import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { PayloadAction } from '@reduxjs/toolkit';
 
-export type PatentsRowSelectionState = Record<string, boolean>
+export type PatentsRowSelectionState = Record<string, boolean>;
 
 export interface EditingPatent {
   publicationNumber: string;
@@ -21,12 +21,15 @@ export const selectPatentsInitialState: SelectPatentsState = {
   editingPatent: undefined,
   tableSelectedPatentIds: [],
   editedPatentsIds: [],
-  rowSelectionState: {}
+  rowSelectionState: {},
 };
 
 export const selectPatentesReducer = {
   // Set Patents from the table
-  setSelectedTablePatentIds: (state: SetPackageState, action: PayloadAction<{ patentIds: string[] }>) => {
+  setSelectedTablePatentIds: (
+    state: SetPackageState,
+    action: PayloadAction<{ patentIds: string[] }>
+  ) => {
     state.addPatents.selectPatentsState.tableSelectedPatentIds = action.payload.patentIds;
   },
   showSetPatentModal: (state: SetPackageState) => {
@@ -44,12 +47,13 @@ export const selectPatentesReducer = {
     }
     state.addPatents.selectPatentsState.editedPatentsIds = [
       ...state.addPatents.selectPatentsState.editedPatentsIds,
-      action.payload.patentId
+      action.payload.patentId,
     ];
   },
   setRowSelectionState: (
     state: SetPackageState,
-    action: PayloadAction<{ rowSelectionState: PatentsRowSelectionState }>) => {
+    action: PayloadAction<{ rowSelectionState: PatentsRowSelectionState }>
+  ) => {
     state.addPatents.selectPatentsState.rowSelectionState = action.payload.rowSelectionState;
-  }
+  },
 };

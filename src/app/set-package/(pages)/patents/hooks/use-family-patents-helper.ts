@@ -1,8 +1,6 @@
 import { useMemo } from 'react';
 import { Patent } from '@/models/patent';
-import {
-  useGroupPatentsByFamilyId
-} from '@/app/set-package/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
+import { useGroupPatentsByFamilyId } from '@/app/set-package/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
 
 export const useFamilyPatentsHelper = (patents: Patent[]) => {
   const groupedPatents = useGroupPatentsByFamilyId({ patents });
@@ -17,7 +15,7 @@ export const useFamilyPatentsHelper = (patents: Patent[]) => {
     return {
       familyIds,
       familiesCount,
-      patentsCount
+      patentsCount,
     };
   }, [groupedPatents]);
 };

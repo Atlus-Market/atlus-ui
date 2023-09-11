@@ -25,14 +25,8 @@ export const PackagesListProvider = ({ children }: PackagesListProviderProps) =>
   }
 
   if (isLoading) {
-    return (
-      <div>Loading packages...</div>
-    );
+    return <div>Loading packages...</div>;
   }
 
-  return (
-    <>
-      {children}
-    </>
-  );
+  return <>{children}</>;
 };

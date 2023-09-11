@@ -9,15 +9,9 @@ import { AtlusModal } from '@/components/ui/modal/atlus-modal';
 
 import { AtlusCloseModalButton } from '@/components/ui/modal/atlus-close-modal-button';
 import { Patent } from '@/models/patent';
-import {
-  SetPatentForm
-} from '@/app/set-package/(pages)/patents/components/set-patent-modal/set-patent-form';
-import {
-  SetPatentSaveButton
-} from '@/app/set-package/(pages)/patents/components/set-patent-modal/set-patent-save-button';
-import {
-  SetPatentFormFields
-} from '@/app/set-package/(pages)/patents/components/set-patent-modal/set-patent-form-fields';
+import { SetPatentForm } from '@/app/set-package/(pages)/patents/components/set-patent-modal/set-patent-form';
+import { SetPatentSaveButton } from '@/app/set-package/(pages)/patents/components/set-patent-modal/set-patent-save-button';
+import { SetPatentFormFields } from '@/app/set-package/(pages)/patents/components/set-patent-modal/set-patent-form-fields';
 
 interface SetPatentModalProps {
   isOpen: boolean;
@@ -28,32 +22,28 @@ interface SetPatentModalProps {
 }
 
 export const SetPatentModal = ({
-                                 isOpen,
-                                 closeModal,
-                                 editingPatent,
-                                 onPatentAdded,
-                                 allowEditPublicationNumber
-                               }: SetPatentModalProps) => {
+  isOpen,
+  closeModal,
+  editingPatent,
+  onPatentAdded,
+  allowEditPublicationNumber,
+}: SetPatentModalProps) => {
   return (
-    <AtlusModal
-      isOpen={isOpen}
-      onRequestClose={closeModal}
-      modalBodyClassName='max-h-[80%]'>
-      <SetPatentForm
-        initialValues={editingPatent}
-        onSubmit={(patent) => onPatentAdded(patent)}>
+    <AtlusModal isOpen={isOpen} onRequestClose={closeModal} modalBodyClassName="max-h-[80%]">
+      <SetPatentForm initialValues={editingPatent} onSubmit={patent => onPatentAdded(patent)}>
         <AtlusModalContainer
           header={
             <AtlusModalHeader rightContent={<AtlusCloseModalButton onClick={closeModal} />}>
-              <AtlusModalTitle text='Add patent details' />
+              <AtlusModalTitle text="Add patent details" />
             </AtlusModalHeader>
           }
           footer={
             <AtlusModalFooter>
               <SetPatentSaveButton />
             </AtlusModalFooter>
-          }>
-          <AtlusModalBody className='w-[650px] !py-0'>
+          }
+        >
+          <AtlusModalBody className="w-[650px] !py-0">
             <SetPatentFormFields allowEditPublicationNumber={allowEditPublicationNumber} />
           </AtlusModalBody>
         </AtlusModalContainer>

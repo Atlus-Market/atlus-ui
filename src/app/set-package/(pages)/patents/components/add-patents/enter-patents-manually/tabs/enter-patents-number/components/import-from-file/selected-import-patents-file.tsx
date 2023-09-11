@@ -1,6 +1,4 @@
-import {
-  selectImportPatentsSerializedFile
-} from '@/redux/features/set-package/selectors/add-patents.selectors';
+import { selectImportPatentsSerializedFile } from '@/redux/features/set-package/selectors/add-patents.selectors';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { FileName } from '@/components/common/file/file-name';
 import { FileContainer } from '@/components/common/file/file-container';
@@ -15,10 +13,7 @@ export const SelectedImportPatentsFile = () => {
   }
   return (
     <FileContainer
-      file={<FileName
-        fileName={selectedFile.name}
-        fileSize={selectedFile.size}
-      />}
+      file={<FileName fileName={selectedFile.name} fileSize={selectedFile.size} />}
       onCancelUpload={() => dispatch(removeImportPatentsFile())}
     />
   );

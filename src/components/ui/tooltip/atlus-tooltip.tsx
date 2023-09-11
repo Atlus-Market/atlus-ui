@@ -17,17 +17,14 @@ interface AtlusTooltipProps {
  * component, all referencing the same data-tooltip-id but with different data-tooltip-content
  * because it has performance issues.
  */
-export const AtlusTooltip = ({
-                               tooltipId,
-                               place = 'top'
-                             }: AtlusTooltipProps) => {
+export const AtlusTooltip = ({ tooltipId, place = 'top' }: AtlusTooltipProps) => {
   return (
     // Hide tooltip pn small screens (mobile)
     <div className="hidden md:inline-block">
       <Tooltip
         id={tooltipId}
         place={place}
-        className='!bg-dark-grey !text-white !font-medium !text-xs !py-2 !px-3 z-[10]'
+        className="!bg-dark-grey !text-white !font-medium !text-xs !py-2 !px-3 z-[10]"
         noArrow={true}
         render={({ content, activeAnchor }) => <span>{content}</span>}
       />

@@ -1,28 +1,24 @@
-import {
-  AddPatentsStep
-} from '@/app/set-package/(pages)/patents/components/add-patents/add-patents-step';
+import { AddPatentsStep } from '@/app/set-package/(pages)/patents/components/add-patents/add-patents-step';
 import { Patent } from '@/models/patent';
 import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { PayloadAction } from '@reduxjs/toolkit';
 import {
   enterPatentsInitialState,
   enterPatentsReducer,
-  EnterPatentsState
+  EnterPatentsState,
 } from '@/redux/features/set-package/slices/add-patents/slices/enter-patents';
 import {
   selectPatentesReducer,
   selectPatentsInitialState,
-  SelectPatentsState
+  SelectPatentsState,
 } from '@/redux/features/set-package/slices/add-patents/slices/select-patents';
-import {
-  EnterPatentsNumberTab
-} from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
+import { EnterPatentsNumberTab } from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
 import { cleanSerializedFile } from '@/utils/file';
 
 export interface AddPatentsState {
   isAddPatentsModalOpen: boolean;
   currentStep: AddPatentsStep;
-  fetchedPatents: Patent[], // Fetched from the API
+  fetchedPatents: Patent[]; // Fetched from the API
   enterPatentsState: EnterPatentsState;
   selectPatentsState: SelectPatentsState;
 }
@@ -32,12 +28,13 @@ export const addPatentsInitialState: AddPatentsState = {
   currentStep: AddPatentsStep.EnterPatentsNumber,
   fetchedPatents: [],
   enterPatentsState: enterPatentsInitialState,
-  selectPatentsState: selectPatentsInitialState
+  selectPatentsState: selectPatentsInitialState,
 };
 
 export const addPatentesReducer = {
   resetAddPatents: (state: SetPackageState) => {
-    const serializedImportSelectedFile = state.addPatents.enterPatentsState[EnterPatentsNumberTab.ImportFromFile].selectedFile;
+    const serializedImportSelectedFile =
+      state.addPatents.enterPatentsState[EnterPatentsNumberTab.ImportFromFile].selectedFile;
     if (serializedImportSelectedFile) {
       cleanSerializedFile(serializedImportSelectedFile);
     }
@@ -52,15 +49,12 @@ export const addPatentesReducer = {
 
   // Replaces a Patent
   updatePatent: (state: SetPackageState, action: PayloadAction<{ patent: Patent }>) => {
-    const patents = state.addPatents.fetchedPatents.filter((patent: Patent) => patent.publicationNumber !== action.payload.patent.publicationNumber);
-    state.addPatents.fetchedPatents = [
-      ...patents,
-      action.payload.patent
-    ];
+    const patents = state.addPatents.fetchedPatents.filter(
+      (patent: Patent) => patent.publicationNumber !== action.payload.patent.publicationNumber
+    );
+    state.addPatents.fetchedPatents = [...patents, action.payload.patent];
   },
 
   ...enterPatentsReducer,
-  ...selectPatentesReducer
+  ...selectPatentesReducer,
 };
-
-

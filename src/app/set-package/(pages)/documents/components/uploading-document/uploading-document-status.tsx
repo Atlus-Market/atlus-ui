@@ -14,27 +14,24 @@ interface UploadingDocumentStatusProps {
 }
 
 export const UploadingDocumentStatus = ({
-                                          onCancelUpload,
-                                          classNames,
-                                          fileSize,
-                                          fileName,
-                                          progress
-                                        }: UploadingDocumentStatusProps) => {
+  onCancelUpload,
+  classNames,
+  fileSize,
+  fileName,
+  progress,
+}: UploadingDocumentStatusProps) => {
   const isPendingUpload = progress === PENDING_UPLOAD;
   return (
     <FileContainer
       classNames={classNames}
-      file={
-        <FileName
-          fileName={fileName}
-          fileSize={fileSize}
-        />
-      }
-      onCancelUpload={onCancelUpload}>
-      {isPendingUpload ?
-        <div className='w-full text-middle-grey text-sm'>Pending...</div> :
+      file={<FileName fileName={fileName} fileSize={fileSize} />}
+      onCancelUpload={onCancelUpload}
+    >
+      {isPendingUpload ? (
+        <div className="w-full text-middle-grey text-sm">Pending...</div>
+      ) : (
         <AtlusProgressBar progress={progress} />
-      }
+      )}
     </FileContainer>
   );
 };

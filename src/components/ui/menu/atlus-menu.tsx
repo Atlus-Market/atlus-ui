@@ -15,7 +15,8 @@ export const AtlusMenu = ({ menuButton, menuItems }: AtlusMenuProps) => {
         'bg-white rounded-lg border-[1px] border-solid border-lightest-grey',
         'pt-[10px] pb-[12px]'
       )}
-      menuButton={menuButton}>
+      menuButton={menuButton}
+    >
       {menuItems}
     </Menu>
   );

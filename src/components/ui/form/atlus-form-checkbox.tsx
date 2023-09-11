@@ -13,7 +13,7 @@ export const AtlusFormCheckbox = forwardRef<HTMLInputElement, AtlusFormCheckboxP
     const { control, setValue } = useFormContext();
     const { errors } = useFormState({
       name: name,
-      exact: true
+      exact: true,
     });
 
     return (
@@ -21,12 +21,7 @@ export const AtlusFormCheckbox = forwardRef<HTMLInputElement, AtlusFormCheckboxP
         name={name}
         control={control}
         render={({ field }) => (
-          <AtlusCheckbox
-            {...rest}
-            {...field}
-            checked={field.value}
-            errors={errors}
-          />
+          <AtlusCheckbox {...rest} {...field} checked={field.value} errors={errors} />
         )}
       />
     );

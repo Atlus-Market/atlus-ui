@@ -20,7 +20,7 @@ export interface LoginFormSchema {
 
 const schema: ObjectSchema<LoginFormSchema> = object({
   email: emailField,
-  password: string().trim().required(RequiredField)
+  password: string().trim().required(RequiredField),
 });
 
 interface LoginFormProps {
@@ -29,49 +29,53 @@ interface LoginFormProps {
   isSubmitting: boolean;
 }
 
-export const LoginForm = ({ onSubmit, errorMessage , isSubmitting}: LoginFormProps) => {
+export const LoginForm = ({ onSubmit, errorMessage, isSubmitting }: LoginFormProps) => {
   const formProps = useAtlusForm<LoginFormSchema>({
     formOptions: {
       resolver: yupResolver(schema),
-    }
+    },
   });
   const { register } = formProps;
 
   return (
     <AtlusForm formProps={formProps} onSubmit={onSubmit}>
       <AtlusFormInput
-        label='Email'
-        placeholder='Enter email'
-        type='email'
-        wrapperClassName='mb-[18px] md:mb-8'
+        label="Email"
+        placeholder="Enter email"
+        type="email"
+        wrapperClassName="mb-[18px] md:mb-8"
         tabIndex={1}
         {...register('email')}
       />
       <AtlusFormInputPassword
-        label='Password'
-        placeholder='Enter password'
-        type='password'
+        label="Password"
+        placeholder="Enter password"
+        type="password"
         tabIndex={2}
         rightLabel={
           <Link
             tabIndex={3}
             href={ForgotPassword}
-            className='text-orange text-[13px] md:text-sm leading-0'>
+            className="text-orange text-[13px] md:text-sm leading-0"
+          >
             Forgot password
-          </Link>}
+          </Link>
+        }
         {...register('password')}
       />
 
       <AtlusErrorMessage errorMessage={errorMessage} />
 
-      <div className='text-center'>
-        <AtlusButton className='my-8 md:my-12' type='submit' isLoading={isSubmitting}>
+      <div className="text-center">
+        <AtlusButton className="my-8 md:my-12" type="submit" isLoading={isSubmitting}>
           Log in
         </AtlusButton>
 
-        <div className='text-[13px] md:text-base font-medium'>
-          <span className='text-dark-grey'>Don&apos;t have an account? </span>
-          <Link href={OnboardingSelectUser} className='text-orange'>Sign up</Link>
+        <div className="text-[13px] md:text-base font-medium">
+          <span className="text-dark-grey">Don&apos;t have an account? </span>
+          <Link href={OnboardingSelectUser} className="text-orange">
+            Sign up
+          </Link>
         </div>
       </div>
     </AtlusForm>

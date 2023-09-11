@@ -7,10 +7,5 @@ export const InterestAreaFooter = () => {
   const { interestAreasIds } = useOnboardingContext();
   const hasInterestAreasSelected = interestAreasIds.length > 0;
 
-  return (
-    <Footer
-      shouldSkip={!hasInterestAreasSelected}
-      nextUrl="jurisdictions-of-interest"
-    />
-  );
+  return <Footer shouldSkip={!hasInterestAreasSelected} nextUrl="jurisdictions-of-interest" />;
 };

@@ -4,9 +4,7 @@ import { Session, User } from 'next-auth';
  * Use this static class to get/set the accessToken for hitting the API.
  */
 export class AtlusSessionManager {
-
-  private constructor() {
-  }
+  private constructor() {}
 
   private static atlusSession: Session | null;
 

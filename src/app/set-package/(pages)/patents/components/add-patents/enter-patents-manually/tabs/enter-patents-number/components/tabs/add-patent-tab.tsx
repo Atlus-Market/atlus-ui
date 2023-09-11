@@ -16,7 +16,8 @@ export const AddPatentTab = ({ isActive, text, onSelected }: SectionTabProps) =>
         'text-base font-medium',
         'hover:cursor-pointer',
         isActive ? 'text-orange underline underline-offset-8 decoration-2' : 'text-dark-grey'
-      )}>
+      )}
+    >
       {text}
     </div>
   );

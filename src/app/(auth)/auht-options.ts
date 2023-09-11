@@ -5,7 +5,7 @@ import {
   NextAuthOptions,
   Session,
   SessionCallback,
-  User
+  User,
 } from 'next-auth';
 import { LoginRoute } from '@/constants/routes';
 import { JWT } from 'next-auth/jwt';
@@ -26,7 +26,7 @@ const providers = [
     type: 'credentials',
     credentials: {
       email: { label: 'Email', type: 'text' },
-      password: { label: 'Password', type: 'password' }
+      password: { label: 'Password', type: 'password' },
     },
     authorize: async (credentials, req): Promise<User> => {
       try {
@@ -35,37 +35,39 @@ const providers = [
         }
         const loginResponse = await login({
           email: credentials.email,
-          password: credentials.password
+          password: credentials.password,
         });
 
         cookies().set(accessTokenCookieName, loginResponse.accessTokenCookie, {
           httpOnly: true,
-          secure: usingSecureDomain
+          secure: usingSecureDomain,
         });
 
         return {
           id: loginResponse.userId,
           email: credentials.email,
           accessToken: loginResponse.accessToken,
-          csrfToken: loginResponse.csrfAccessToken
+          csrfToken: loginResponse.csrfAccessToken,
         };
       } catch (e) {
-        console.log('--------------------------- Auth Provider:authorize ERROR ---------------------------');
+        console.log(
+          '--------------------------- Auth Provider:authorize ERROR ---------------------------'
+        );
         if (isAxiosError(e) && e.response) {
           console.log('error data: ', e.response.data);
           console.log('error code: ', e.code);
           console.log('error status: ', e.response.status);
           const signResponse: SignInResponse = {
             status: e.response.status,
-            data: e.response.data
+            data: e.response.data,
           };
           throw new Error(JSON.stringify(signResponse));
         }
         console.log(e);
         throw new Error('Sign in Error');
       }
-    }
-  })
+    },
+  }),
 ];
 
 const callbacks: Partial<CallbacksOptions> = {
@@ -80,7 +82,7 @@ const callbacks: Partial<CallbacksOptions> = {
   async session({ session, token, user }: SessionCallback): Promise<Session> {
     session.user = token.user;
     return session;
-  }
+  },
 };
 
 const events: Partial<EventCallbacks> = {
@@ -93,12 +95,12 @@ const events: Partial<EventCallbacks> = {
     } finally {
       cookies().delete(accessTokenCookieName);
     }
-  }
+  },
 };
 
 export const authOptions: NextAuthOptions = {
   session: {
-    strategy: 'jwt'
+    strategy: 'jwt',
   },
   providers,
   callbacks,
@@ -106,7 +108,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: LoginRoute,
     signOut: LoginRoute,
-    error: `${LoginRoute}?error=true`// Changing the error redirect page to our custom login page
+    error: `${LoginRoute}?error=true`, // Changing the error redirect page to our custom login page
   },
-  secret: process.env.NEXTAUTH_SECRET
+  secret: process.env.NEXTAUTH_SECRET,
 };

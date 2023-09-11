@@ -2,9 +2,7 @@
 
 import { useSelector } from 'react-redux';
 import { pluralize } from '@/utils/words';
-import {
-  selectTableSelectedPatentIds
-} from '@/redux/features/set-package/selectors/add-patents.selectors';
+import { selectTableSelectedPatentIds } from '@/redux/features/set-package/selectors/add-patents.selectors';
 
 export const SelectedPatents = () => {
   const selectedPatentIds = useSelector(selectTableSelectedPatentIds);
@@ -16,8 +14,9 @@ export const SelectedPatents = () => {
 
   return (
     <div>
-      <span
-        className='text-sm text-orange font-medium'>{patentsCount} patent {pluralize('asset', patentsCount)} selected</span>
+      <span className="text-sm text-orange font-medium">
+        {patentsCount} patent {pluralize('asset', patentsCount)} selected
+      </span>
     </div>
   );
 };

@@ -1,8 +1,7 @@
 import { Logout } from '@/app/(auth)/logout/Logout';
 import { AtlusSplashLoader } from '@/components/ui/splash-loader/atlus-splash-loader';
 
-interface PageLayoutProps {
-}
+interface PageLayoutProps {}
 
 export default function LogoutPage({}: PageLayoutProps) {
   return (
@@ -11,4 +10,4 @@ export default function LogoutPage({}: PageLayoutProps) {
       <Logout />
     </>
   );
-};
+}

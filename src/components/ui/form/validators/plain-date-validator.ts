@@ -5,11 +5,9 @@ export const plainDateFormat = 'MM/DD/YYYY';
 
 export const plainDateValidator: Validator<string> = {
   name: 'plain-date-validator',
-  message:
-    `The date format should be ${plainDateFormat}`,
-  test: (date, context): boolean => isValidDate(date)
+  message: `The date format should be ${plainDateFormat}`,
+  test: (date, context): boolean => isValidDate(date),
 };
-
 
 const isValidDate = (date: string): boolean => {
   if (!date) {

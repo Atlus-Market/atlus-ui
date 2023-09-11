@@ -7,7 +7,7 @@ import Select, {
   MultiValue,
   SelectInstance,
   SingleValue,
-  ValueContainerProps
+  ValueContainerProps,
 } from 'react-select';
 import AsyncSelect from 'react-select/async';
 import clsx from 'clsx';
@@ -22,7 +22,6 @@ import { AtlusTagRemoveButton } from '@/components/ui/tag/atlus-tag-remove-butto
 import { getDropdownOptions } from '@/components/ui/dropdown-list/dropdown.utils';
 import { ErrorMessage } from '@hookform/error-message';
 
-
 export interface DropdownOption {
   readonly value: string;
   readonly label: ReactNode;
@@ -33,28 +32,25 @@ export interface DropdownOption {
 const classNames = {
   container: () => 'rounded-lg',
 
-  valueContainer: (props: ValueContainerProps<DropdownOption, boolean, GroupBase<DropdownOption>>) => clsx(
-    'text-soft-black text-sm font-normal leading-[16px]',
-    props.isMulti ? 'gap-2' : ''
-  ),
+  valueContainer: (
+    props: ValueContainerProps<DropdownOption, boolean, GroupBase<DropdownOption>>
+  ) => clsx('text-soft-black text-sm font-normal leading-[16px]', props.isMulti ? 'gap-2' : ''),
   placeholder: () => 'bg-white text-sm font-normal text-dark-grey leading-[16px]',
   input: () => 'text-xs font-medium text-soft-black leading-[16px]',
-  menu: () => clsx(
-    'rounded-lg border border-solid border-lightest-grey py-[10px]',
-    'bg-white shadow-[0px_2px_6px_0px_rgba(164,162,160,0.25)]',
-    'mt-[13px]'
-  ),
-  groupHeading: () => clsx(
-    'text-middle-grey text-xs font-medium',
-    'px-[20px] py-[10px]'
-  ),
+  menu: () =>
+    clsx(
+      'rounded-lg border border-solid border-lightest-grey py-[10px]',
+      'bg-white shadow-[0px_2px_6px_0px_rgba(164,162,160,0.25)]',
+      'mt-[13px]'
+    ),
+  groupHeading: () => clsx('text-middle-grey text-xs font-medium', 'px-[20px] py-[10px]'),
   option: () => {
     return clsx(
       'px-[20px] py-[10px]',
       'text-soft-black !text-sm font-medium !leading-[17px]',
       'hover:bg-lightest-grey'
     );
-  }
+  },
 };
 
 export interface AtlusDropdownListProps {
@@ -90,187 +86,188 @@ export interface AtlusDropdownListProps {
 }
 
 export const AtlusDropdownList = forwardRef<
-  SelectInstance<DropdownOption, true | false, GroupBase<DropdownOption>>, AtlusDropdownListProps
->(
-  function AtlusDropdownList(
-    {
-      isAsync,
-      isOpen,
-      placeholder,
-      options = [],
-      value,
-      defaultValue,
-      name,
-      onChange,
-      onBlur,
-      wrapperClassName,
-      leftIcon,
-      label,
-      bottomText,
-      groupHeadingHeader,
-      indicatorsExtraCmp,
-      clearIndicator,
-      showDropdownIndicator,
-      filterOption,
-      isLoading,
-      isSearchable,
-      isClearable,
-      noOptionsMessage,
-      isMulti = false,
-      errors,
-      size = 'big'
-    },
-    ref
-  ) {
-    const refId = useRef<string>('');
-    const [hydrated, setHydrated] = useState(false);
-    const [isFocused, setIsFocused] = useState(false);
+  SelectInstance<DropdownOption, true | false, GroupBase<DropdownOption>>,
+  AtlusDropdownListProps
+>(function AtlusDropdownList(
+  {
+    isAsync,
+    isOpen,
+    placeholder,
+    options = [],
+    value,
+    defaultValue,
+    name,
+    onChange,
+    onBlur,
+    wrapperClassName,
+    leftIcon,
+    label,
+    bottomText,
+    groupHeadingHeader,
+    indicatorsExtraCmp,
+    clearIndicator,
+    showDropdownIndicator,
+    filterOption,
+    isLoading,
+    isSearchable,
+    isClearable,
+    noOptionsMessage,
+    isMulti = false,
+    errors,
+    size = 'big',
+  },
+  ref
+) {
+  const refId = useRef<string>('');
+  const [hydrated, setHydrated] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
-    const memoDefaultValue = useMemo(() => {
-      return getDropdownOptions(options, defaultValue);
-    }, [defaultValue, options]);
+  const memoDefaultValue = useMemo(() => {
+    return getDropdownOptions(options, defaultValue);
+  }, [defaultValue, options]);
 
-    useEffect(() => {
-      setHydrated(true);
-    }, []);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
-    const dynamicClassNames = useMemo(() => {
-      return {
-        ...classNames,
-        control: (props: ControlProps<DropdownOption, boolean, GroupBase<DropdownOption>>) => {
-          return clsx(
-            'px-4 m-0',
-            size === 'big' ? '!min-h-[53px]' : '!min-h-[48px]',
-            'rounded-lg border border-solid',
-            isFocused ? 'border-orange' : 'border-light-grey'
-          );
-        }
-      };
-    }, [isFocused]);
+  const dynamicClassNames = useMemo(() => {
+    return {
+      ...classNames,
+      control: (props: ControlProps<DropdownOption, boolean, GroupBase<DropdownOption>>) => {
+        return clsx(
+          'px-4 m-0',
+          size === 'big' ? '!min-h-[53px]' : '!min-h-[48px]',
+          'rounded-lg border border-solid',
+          isFocused ? 'border-orange' : 'border-light-grey'
+        );
+      },
+    };
+  }, [isFocused]);
 
-    if (!hydrated) {
-      // Returns null on first render, so the client and server match
-      return null;
-    }
+  if (!hydrated) {
+    // Returns null on first render, so the client and server match
+    return null;
+  }
 
-    refId.current = refId.current || generateID();
+  refId.current = refId.current || generateID();
 
-    const Comp = isAsync ? AsyncSelect : Select;
+  const Comp = isAsync ? AsyncSelect : Select;
 
-    return (
-      <div className={clsx(wrapperClassName)}>
-        {label && <AtlusFormLabel label={label} />}
-        <Comp
-          value={value}
-          isLoading={isLoading}
-          isSearchable={isSearchable}
-          id={refId.current}
-          instanceId={refId.current}
-          ref={ref}
-          name={name}
-          menuIsOpen={isOpen}
-          unstyled={true}
-          isMulti={isMulti}
-          defaultValue={memoDefaultValue}
-          options={options}
-          placeholder={placeholder}
-          classNames={dynamicClassNames}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => {
-            setIsFocused(false);
-            onBlur?.();
-          }}
-          onMenuClose={() => setIsFocused(false)} // onBlur is not called when selecting an option
-          isClearable={isClearable}
-          filterOption={filterOption}
-          onChange={(option: MultiValue<DropdownOption> | SingleValue<DropdownOption> | null, actionMeta: ActionMeta<DropdownOption>) => {
+  return (
+    <div className={clsx(wrapperClassName)}>
+      {label && <AtlusFormLabel label={label} />}
+      <Comp
+        value={value}
+        isLoading={isLoading}
+        isSearchable={isSearchable}
+        id={refId.current}
+        instanceId={refId.current}
+        ref={ref}
+        name={name}
+        menuIsOpen={isOpen}
+        unstyled={true}
+        isMulti={isMulti}
+        defaultValue={memoDefaultValue}
+        options={options}
+        placeholder={placeholder}
+        classNames={dynamicClassNames}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => {
+          setIsFocused(false);
+          onBlur?.();
+        }}
+        onMenuClose={() => setIsFocused(false)} // onBlur is not called when selecting an option
+        isClearable={isClearable}
+        filterOption={filterOption}
+        onChange={(
+          option: MultiValue<DropdownOption> | SingleValue<DropdownOption> | null,
+          actionMeta: ActionMeta<DropdownOption>
+        ) => {
+          if (isMulti) {
+            const values = (option as MultiValue<DropdownOption>).map(o => o.value);
+            onChange?.(values);
+          } else {
+            const value = (option as SingleValue<DropdownOption>)?.value ?? '';
+            onChange?.(value);
+          }
+        }}
+        components={{
+          Control: ({ children, ...rest }) => (
+            <components.Control {...rest}>
+              {leftIcon && <div className="inline-block mr-3">{leftIcon}</div>}
+              {children}
+            </components.Control>
+          ),
+          GroupHeading: ({ children, ...rest }) => (
+            <components.GroupHeading {...rest}>
+              {groupHeadingHeader}
+              {children}
+            </components.GroupHeading>
+          ),
+          IndicatorsContainer: ({ children, ...rest }) => {
+            // Renders CleanIndicator & DropdownIndicator
+            return (
+              <components.IndicatorsContainer {...rest}>
+                {indicatorsExtraCmp}
+                {children}
+              </components.IndicatorsContainer>
+            );
+          },
+          DropdownIndicator: ({ children, ...rest }) => {
+            return (
+              <components.DropdownIndicator {...rest}>
+                {showDropdownIndicator ? children : <div />}
+              </components.DropdownIndicator>
+            );
+          },
+          ClearIndicator: ({ children, ...rest }) => {
             if (isMulti) {
-              const values = (option as MultiValue<DropdownOption>).map(o => o.value);
-              onChange?.(values);
-            } else {
-              const value = (option as SingleValue<DropdownOption>)?.value ?? '';
-              onChange?.(value);
+              return null;
             }
-          }}
-          components={{
-            Control: ({ children, ...rest }) => (
-              <components.Control {...rest}>
-                {leftIcon && <div className='inline-block mr-3'>{leftIcon}</div>}
-                {children}
-              </components.Control>
-            ),
-            GroupHeading: ({ children, ...rest }) => (
-              <components.GroupHeading {...rest}>
-                {groupHeadingHeader}
-                {children}
-              </components.GroupHeading>
-            ),
-            IndicatorsContainer: ({ children, ...rest }) => {
-              // Renders CleanIndicator & DropdownIndicator
-              return (
-                <components.IndicatorsContainer {...rest}>
-                  {indicatorsExtraCmp}
-                  {children}
-                </components.IndicatorsContainer>
-              );
-            },
-            DropdownIndicator: ({ children, ...rest }) => {
-              return (
-                <components.DropdownIndicator {...rest}>
-                  {showDropdownIndicator ? children : <div />}
-                </components.DropdownIndicator>
-              );
-            },
-            ClearIndicator: ({ children, ...rest }) => {
-              if (isMulti) {
-                return null;
-              }
-              return (
-                <components.ClearIndicator {...rest}>
-                  {clearIndicator ? clearIndicator : children}
-                </components.ClearIndicator>
-              );
-            },
-            NoOptionsMessage: ({ children, ...rest }) => {
-              return (
-                <components.NoOptionsMessage {...rest}>
-                  {noOptionsMessage ? noOptionsMessage : children}
-                </components.NoOptionsMessage>
-              );
-            },
-            IndicatorSeparator: () => null,
-            MultiValue: ({ children, ...rest }) => {
-              return (
-                <components.MultiValue {...rest}>
-                  <AtlusTag text={children as string} className='!pr-0 !rounded-r-[0]' />
-                </components.MultiValue>
-              );
-            },
-            MultiValueRemove: ({ children, ...rest }) => {
-              return (
-                <components.MultiValueRemove {...rest}>
-                  <AtlusTagRemoveButton classNames='!rounded-l-[0] pr-[12px] h-full' />
-                </components.MultiValueRemove>
-              );
-            }
-          }}
-        />
-        {name && errors && (
-          <div className='mt-[5px]'>
-            <ErrorMessage
-              errors={errors}
-              name={name}
-              render={({ message }) => (
-                <p className='text-red text-xs pl-3'>{message}</p>
-              )}
-            />
-          </div>
-        )}
-        {bottomText &&
-          <span className='text-xs text-dark-grey font-semibold inline-block mt-2 pl-2'>
+            return (
+              <components.ClearIndicator {...rest}>
+                {clearIndicator ? clearIndicator : children}
+              </components.ClearIndicator>
+            );
+          },
+          NoOptionsMessage: ({ children, ...rest }) => {
+            return (
+              <components.NoOptionsMessage {...rest}>
+                {noOptionsMessage ? noOptionsMessage : children}
+              </components.NoOptionsMessage>
+            );
+          },
+          IndicatorSeparator: () => null,
+          MultiValue: ({ children, ...rest }) => {
+            return (
+              <components.MultiValue {...rest}>
+                <AtlusTag text={children as string} className="!pr-0 !rounded-r-[0]" />
+              </components.MultiValue>
+            );
+          },
+          MultiValueRemove: ({ children, ...rest }) => {
+            return (
+              <components.MultiValueRemove {...rest}>
+                <AtlusTagRemoveButton classNames="!rounded-l-[0] pr-[12px] h-full" />
+              </components.MultiValueRemove>
+            );
+          },
+        }}
+      />
+      {name && errors && (
+        <div className="mt-[5px]">
+          <ErrorMessage
+            errors={errors}
+            name={name}
+            render={({ message }) => <p className="text-red text-xs pl-3">{message}</p>}
+          />
+        </div>
+      )}
+      {bottomText && (
+        <span className="text-xs text-dark-grey font-semibold inline-block mt-2 pl-2">
           {bottomText}
-          </span>
-        }
-      </div>
-    );
-  });
+        </span>
+      )}
+    </div>
+  );
+});
