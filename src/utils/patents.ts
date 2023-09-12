@@ -51,7 +51,7 @@ interface IPatentId {
 }
 
 export const getPatentId = (patent: IPatentId): string => {
-  return (patent.patentNumber || patent.publicationNumber) ?? '';
+  return (patent.publicationNumber || patent.patentNumber) ?? '';
 };
 
 export const getPatentReadableAssignees = (
