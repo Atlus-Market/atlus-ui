@@ -1,5 +1,7 @@
 import { Patent } from '@/models/patent';
 import { CustomPatentPayload } from '@/api/package/create-package';
+import { FamilyPatentGroup } from '@/app/set-package/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
+import { groupBy } from 'lodash';
 
 export const sortPatentsByPublicationNumber = (patents: Patent[]): Patent[] => {
   return patents.sort((p1, p2) => getPatentId(p1).localeCompare(getPatentId(p2)));
@@ -64,14 +66,13 @@ export const getPatentReadableAssignees = (
   return readableAssignees.length > 0 ? readableAssignees : '-';
 };
 
-export const createEmptyPatent = (): Patent => ({
-  patentNumber: '',
-  publicationNumber: '',
-  title: '',
-  status: '',
-  assignees: [],
-  applicationDate: '',
-  applicationNumber: '',
-  familyId: '',
-  applicants: [],
-});
+export const groupPatentsByFamily = (patents: Patent[]): FamilyPatentGroup => {
+  const groupedPatents = groupBy(patents, (patent: Patent) => patent.familyId);
+  const familyIdKeys = Object.keys(groupedPatents);
+
+  familyIdKeys.forEach(familyIdKey => {
+    groupedPatents[familyIdKey] = sortPatentsByPublicationNumber(groupedPatents[familyIdKey]);
+  });
+
+  return groupedPatents;
+};
