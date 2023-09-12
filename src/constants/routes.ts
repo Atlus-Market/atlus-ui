@@ -18,3 +18,6 @@ const SetPackageBaseRoute = 'set-package';
 export const SetPackagePatent = `/${SetPackageBaseRoute}/patents`;
 export const SetPackagePackageDetails = `/${SetPackageBaseRoute}/package-details`;
 export const SetPackageDocuments = `/${SetPackageBaseRoute}/documents`;
+
+// View Package
+export const PackagePage = '/package';

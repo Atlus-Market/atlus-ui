@@ -1,6 +1,6 @@
 import axios, { AxiosProgressEvent, AxiosResponse, CreateAxiosDefaults } from 'axios';
 import { AtlusSessionManager } from '@/app/(auth)/session/atlus-session-manager';
-import { Session } from 'next-auth';
+import { isRunningOnServer } from '@/utils/env';
 
 export const isRequestCanceledError = (e: Error): boolean => {
   return axios.isCancel(e);
@@ -16,19 +16,12 @@ export enum ProtectedEndpoint {
   False = 0,
 }
 
-interface AuthHeadersProvider {
+export type AtlusAuthRequestHeaders = Pick<AtlusRequestConfig<void>, 'headers'>;
+
+export interface AuthHeadersProvider {
   accessToken: string | undefined;
   csrfToken: string | undefined;
 }
-
-export const mapServerSessionToAuthHeadersProvider = (
-  serverSession: Session
-): AuthHeadersProvider => {
-  return {
-    accessToken: serverSession.user?.accessToken,
-    csrfToken: serverSession.user?.csrfToken,
-  };
-};
 
 export const setAuthHeaders = (
   headers: Record<string, string>,
@@ -39,7 +32,7 @@ export const setAuthHeaders = (
   return headers;
 };
 
-interface AtlusRequestConfig<T extends unknown> extends CreateAxiosDefaults {
+export interface AtlusRequestConfig<T extends unknown> extends CreateAxiosDefaults {
   url: `/${string}`;
   isProtected?: ProtectedEndpoint;
   headers?: Record<string, string>;
@@ -54,7 +47,7 @@ export const createRequest = <Payload, Response>({
   payload,
   ...restConfig
 }: AtlusRequestConfig<Payload>): Promise<Response> => {
-  if (isProtected === ProtectedEndpoint.True) {
+  if (isProtected === ProtectedEndpoint.True && !isRunningOnServer()) {
     setAuthHeaders(headers, AtlusSessionManager);
   }
 
