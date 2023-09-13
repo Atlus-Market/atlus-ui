@@ -15,6 +15,6 @@ export const createCreateUserPayload = (
     interestCountryCodes: onboardingContext.countryCodesIds,
     dealTimeframePreference: onboardingContext.timeframe,
     dealSizePreference: onboardingContext.dealSize,
-    interestAreas: [] // TODO: Use correct onboarding value
+    interestAreas: [], // TODO: Use correct onboarding value
   };
 };

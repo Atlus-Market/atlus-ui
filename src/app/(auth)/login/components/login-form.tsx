@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { AtlusFormInputPassword } from '@/components/ui/form/atlus-form-input-password';
 import { AtlusErrorMessage } from '@/components/ui/error-message/atlus-error-message';
 import { ForgotPassword, OnboardingSelectUser } from '@/constants/routes';
+import { emailField } from '@/components/ui/form/validators/email-field';
 
 export interface LoginFormSchema {
   email: string;
@@ -18,58 +19,63 @@ export interface LoginFormSchema {
 }
 
 const schema: ObjectSchema<LoginFormSchema> = object({
-  email: string().trim().email().required(RequiredField),
-  password: string().trim().required(RequiredField)
+  email: emailField,
+  password: string().trim().required(RequiredField),
 });
 
 interface LoginFormProps {
   onSubmit: (formValues: LoginFormSchema) => void;
   errorMessage?: string;
+  isSubmitting: boolean;
 }
 
-export const LoginForm = ({ onSubmit, errorMessage }: LoginFormProps) => {
+export const LoginForm = ({ onSubmit, errorMessage, isSubmitting }: LoginFormProps) => {
   const formProps = useAtlusForm<LoginFormSchema>({
     formOptions: {
       resolver: yupResolver(schema),
-    }
+    },
   });
-  const { register, formState: { isSubmitting } } = formProps;
+  const { register } = formProps;
 
   return (
     <AtlusForm formProps={formProps} onSubmit={onSubmit}>
       <AtlusFormInput
-        label='Email'
-        placeholder='email'
-        type='email'
-        wrapperClassName='mb-[18px] md:mb-8'
+        label="Email"
+        placeholder="Enter email"
+        type="email"
+        wrapperClassName="mb-[18px] md:mb-8"
         tabIndex={1}
         {...register('email')}
       />
       <AtlusFormInputPassword
-        label='Password'
-        placeholder='password'
-        type='password'
+        label="Password"
+        placeholder="Enter password"
+        type="password"
         tabIndex={2}
         rightLabel={
           <Link
             tabIndex={3}
             href={ForgotPassword}
-            className='text-orange text-[13px] md:text-sm leading-0'>
+            className="text-orange text-[13px] md:text-sm leading-0"
+          >
             Forgot password
-          </Link>}
+          </Link>
+        }
         {...register('password')}
       />
 
       <AtlusErrorMessage errorMessage={errorMessage} />
 
-      <div className='text-center'>
-        <AtlusButton className='my-8 md:my-12' type='submit' isLoading={isSubmitting}>
+      <div className="text-center">
+        <AtlusButton className="my-8 md:my-12" type="submit" isLoading={isSubmitting}>
           Log in
         </AtlusButton>
 
-        <div className='text-[13px] md:text-base font-medium'>
-          <span className='text-dark-grey'>Don&apos;t have an account? </span>
-          <Link href={OnboardingSelectUser} className='text-orange'>Sign up</Link>
+        <div className="text-[13px] md:text-base font-medium">
+          <span className="text-dark-grey">Don&apos;t have an account? </span>
+          <Link href={OnboardingSelectUser} className="text-orange">
+            Sign up
+          </Link>
         </div>
       </div>
     </AtlusForm>

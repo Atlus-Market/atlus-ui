@@ -17,15 +17,11 @@ interface CountryCodeSearchProps {
   countryCodesDefinition: CountryCode[];
 }
 
-export const CountryCodeSearch = ({
-  countryCodesDefinition,
-}: CountryCodeSearchProps) => {
+export const CountryCodeSearch = ({ countryCodesDefinition }: CountryCodeSearchProps) => {
   const { updateCountryCodesIdsList } = useSelectCountry();
   const { countryCodesIds } = useOnboardingContext();
   const [searchText, setSearchText] = useState<string>('');
-  const [countryCodesResult, setCountryCodesResult] = useState<CountryCode[]>(
-    []
-  );
+  const [countryCodesResult, setCountryCodesResult] = useState<CountryCode[]>([]);
 
   const defaultCountryCodes = useMemo(() => {
     return getDefaultCountryCodes(countryCodesDefinition);
@@ -48,10 +44,13 @@ export const CountryCodeSearch = ({
     if (isWorldWideSelected) {
       selectedCountryCodes = [worldWide];
     } else {
-      selectedCountryCodes = countryCodesDefinition.filter(cc =>
-        countryCodesIds.includes(cc.code)
-      );
+      selectedCountryCodes = countryCodesDefinition.filter(cc => countryCodesIds.includes(cc.code));
     }
+
+    if (selectedCountryCodes.length === 0) {
+      return null;
+    }
+
     return selectedCountryCodes.map(cc => (
       <AtlusTag
         key={cc.code}
@@ -68,6 +67,7 @@ export const CountryCodeSearch = ({
         <AtlusInputSearch
           onChange={setSearchText}
           searchResults={selectedCountryCodeTags}
+          placeholder="Search country"
         />
       </div>
       <CountryCodeSelector>

@@ -40,3 +40,9 @@ If a new variable needs to be added, please update `.env.template` file.
 * Typescript
 * CSS: [Tailwindcss](https://tailwindcss.com/)
   * React classNames: [clsx](https://www.npmjs.com/package/clsx)
+
+# Production build
+Run `docker build -t nextjs-docker .` to make the container.
+
+Run `docker run -p 3000:3000 nextjs-docker` to test the container locally.
+

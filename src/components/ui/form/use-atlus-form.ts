@@ -6,9 +6,7 @@ interface AtlusFormProps<TFieldValues extends FieldValues> {
   formOptions?: UseFormProps<TFieldValues>;
 }
 
-export const useAtlusForm = <T extends FieldValues>(
-  props?: AtlusFormProps<T>
-) => {
+export const useAtlusForm = <T extends FieldValues>(props?: AtlusFormProps<T>) => {
   return useForm({
     mode: 'onTouched',
     ...props?.formOptions,

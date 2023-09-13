@@ -1,0 +1,30 @@
+.Toastify__toast-container {
+  width: fit-content;
+  right: 0;
+  left: unset;
+}
+
+.Toastify__toast-body {
+  margin: 0 !important;
+}
+
+.Toastify__toast {
+  --toastify-toast-min-height: 50px;
+  --toastify-toast-width: 100px;
+  margin: 0 0 10px 0 !important;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.08);
+}
+
+.Toastify__toast-icon {
+  margin-right: 6px;
+}
+
+@media only screen and (max-width: 480px) {
+  .Toastify__toast-container--top-left,
+  .Toastify__toast-container--top-center,
+  .Toastify__toast-container--top-right {
+    top: 20px;
+  }
+}

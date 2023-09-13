@@ -2,7 +2,7 @@
 
 import { SessionProvider } from 'next-auth/react';
 import { ReactNode } from 'react';
-import { AtlusTokenHandler } from '@/app/(auth)/session/atlus-token-handler';
+import { AtlusSessionHandler } from '@/app/(auth)/session/atlus-session-handler';
 
 /**
  * Wrapper for the next-auth session provider
@@ -12,9 +12,7 @@ import { AtlusTokenHandler } from '@/app/(auth)/session/atlus-token-handler';
 export const AtlusSessionProvider = ({ children }: { children: ReactNode }) => {
   return (
     <SessionProvider>
-      <AtlusTokenHandler>
-        {children}
-      </AtlusTokenHandler>
+      <AtlusSessionHandler>{children}</AtlusSessionHandler>
     </SessionProvider>
   );
 };

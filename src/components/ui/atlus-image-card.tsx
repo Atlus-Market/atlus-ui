@@ -1,5 +1,4 @@
-import { StaticImageData } from 'next/dist/client/image';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import clsx from 'clsx';
 import { ReactNode } from 'react';
 
@@ -29,9 +28,8 @@ export const AtlusImageCard = ({
         'border rounded-xl flex-shrink-0 cursor-pointer select-none',
         'flex flex-col justify-center items-center',
         'min-w-[250px] md:min-w-[331px]',
-        size === 'big'
-          ? 'min-h-[285px] md:min-h-[401px]'
-          : 'min-h-[140px] md:min-h-[186px]',
+        'hover:border-orange',
+        size === 'big' ? 'min-h-[285px] md:min-h-[401px]' : 'min-h-[140px] md:min-h-[186px]',
         isActive ? activeState : inactiveState
       )}
     >
@@ -45,9 +43,7 @@ export const AtlusImageCard = ({
       )}
       {icon && <div className="mb-3 md:mb-4 flex justify-center">{icon}</div>}
       <div className="text-center">
-        <h3 className="text-base md:text-xl font-semibold mb-[6px] md:mb-2">
-          {title}
-        </h3>
+        <h3 className="text-base md:text-xl font-semibold mb-[6px] md:mb-2">{title}</h3>
         <h4 className="text-xs md:text-base font-normal">{description}</h4>
       </div>
     </div>

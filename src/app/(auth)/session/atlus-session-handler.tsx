@@ -11,17 +11,17 @@ interface AtlusTokenHandlerProps {
  * @param children
  * @constructor
  */
-export const AtlusTokenHandler = ({ children }: AtlusTokenHandlerProps) => {
+export const AtlusSessionHandler = ({ children }: AtlusTokenHandlerProps) => {
   const atlusSession = useAtlusSession();
-  const accessToken = atlusSession.data?.user?.accessToken;
+  const session = atlusSession.data;
 
   useEffect(() => {
-    AtlusSessionManager.accessToken = accessToken;
-  }, [accessToken]);
+    AtlusSessionManager.session = session;
+  }, [atlusSession.status, session]);
 
-  return (
-    <>
-      {children}
-    </>
-  );
+  if (atlusSession.status === 'loading') {
+    return null;
+  }
+
+  return <>{children}</>;
 };

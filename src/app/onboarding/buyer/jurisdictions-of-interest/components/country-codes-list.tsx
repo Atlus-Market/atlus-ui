@@ -30,19 +30,11 @@ export const CountryCodesList = ({ countryCodes }: CountryCodesListProps) => {
       );
 
       return (
-        <div
-          data-tooltip-id={tooltipId}
-          key={`${cc.code}-${index}`}
-          data-tooltip-content={cc.name}
-        >
+        <div data-tooltip-id={tooltipId} key={`${cc.code}-${index}`} data-tooltip-content={cc.name}>
           <AtlusIconTag
             id={cc.code}
             text={cc.name}
-            isActive={
-              isWorldWide && isWorldWideSelected
-                ? true
-                : countryCodesIds.includes(cc.code)
-            }
+            isActive={isWorldWide && isWorldWideSelected ? true : countryCodesIds.includes(cc.code)}
             disabled={!isWorldWide && isWorldWideSelected}
             icon={iconFlag}
             className="w-full"
@@ -55,13 +47,13 @@ export const CountryCodesList = ({ countryCodes }: CountryCodesListProps) => {
   if (!existsCountries) {
     return (
       <div className="text-center text-lg leading-[22px] font-normal mt-[50px] w-full">
-        This jurisdictions isn’t available or can’t be found
+        This jurisdiction isn’t available or can’t be found
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(216px,1fr))] gap-6">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(216px,1fr))] gap-3 md:gap-6">
       {countriesListMap}
       <AtlusTooltip tooltipId={tooltipId} />
     </div>

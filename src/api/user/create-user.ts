@@ -1,8 +1,6 @@
 import { createRequest, ProtectedEndpoint } from '@/api/api';
 import { DealSize, Timeframe } from '@/models/user';
 
-export const UserApiKey = 'user';
-
 export interface CreateUserPayload {
   firstName: string;
   lastName: string;
@@ -21,5 +19,10 @@ export interface CreateUserPayload {
 }
 
 export const createUser = (userPayload: CreateUserPayload): Promise<void> => {
-  return createRequest<CreateUserPayload, void>('/user', 'POST', ProtectedEndpoint.False, userPayload);
+  return createRequest<CreateUserPayload, void>({
+    url: '/user',
+    method: 'POST',
+    isProtected: ProtectedEndpoint.False,
+    payload: userPayload,
+  });
 };

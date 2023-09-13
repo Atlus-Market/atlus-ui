@@ -7,14 +7,14 @@ export default function EmailSentPage() {
   return (
     <>
       <AuthHeader
-        title='Check your email'
-        subtitle='If your email is associated with an account, a reset password link has been sent.'
+        title="Check your email"
+        subtitle="If your email is associated with an account, a reset password link has been sent."
       />
-      <div className='text-center w-full mt-12'>
+      <div className="text-center w-full mt-12">
         <Link href={LoginRoute}>
           <AtlusButton>Back to Login</AtlusButton>
         </Link>
       </div>
     </>
   );
-};
+}

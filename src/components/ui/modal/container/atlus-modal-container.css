@@ -1,0 +1,16 @@
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 800px;
+}
+
+.modal-container-header {
+}
+
+.modal-container-body {
+  flex: 1;
+  overflow: hidden auto;
+}
+
+.modal-container-footer {
+}

@@ -1,5 +1,2 @@
-// declare module 'yup' {
-//   interface StringSchema<TType, TContext, TDefault, TFlags> {
-//     append(appendStr: string): this;
-//   }
-// }
+// Needed because the package @types/uidotdev__usehooks is not available;
+declare module '@uidotdev/usehooks';

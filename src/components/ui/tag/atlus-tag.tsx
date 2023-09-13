@@ -1,30 +1,34 @@
-'use client'; //
+'use client';
 
-import { HiX } from 'react-icons/hi';
 import clsx from 'clsx';
+import { AtlusTagRemoveButton } from '@/components/ui/tag/atlus-tag-remove-button';
 
 interface TagProps {
+  size?: 'big' | 'small';
   text: string;
   onClose?: () => void;
   className?: string;
 }
 
-export const AtlusTag = ({ text, onClose, className }: TagProps) => {
+export const AtlusTag = ({ text, onClose, className, size = 'big' }: TagProps) => {
+  const isBigSize = size === 'big';
   return (
     <div
       className={clsx(
-        'px-3 py-2 inline-flex items-center  bg-off-white rounded',
+        'inline-flex items-center bg-off-white rounded',
+        isBigSize ? 'px-3 py-2' : 'px-2 py-[6px]',
         className
       )}
     >
-      <span className="font-medium text-sm leading-[17px] text-orange inline-block">
+      <span
+        className={clsx(
+          'font-medium  text-orange inline-block',
+          isBigSize ? 'text-sm leading-[17px]' : 'text-xs leading-[15px]'
+        )}
+      >
         {text}
       </span>
-      {onClose && (
-        <button type="button" className="pt-px" onClick={onClose}>
-          <HiX size={14} className="ml-[10px] text-orange" />
-        </button>
-      )}
+      {onClose && <AtlusTagRemoveButton onClick={onClose} size={size} />}
     </div>
   );
 };

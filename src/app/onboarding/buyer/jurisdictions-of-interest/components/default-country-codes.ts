@@ -7,8 +7,6 @@ export const worldWide: CountryCode = {
   numeric: 'ww',
   featured: 1,
 };
-export const getDefaultCountryCodes = (
-  countryCodes: CountryCode[]
-): CountryCode[] => {
+export const getDefaultCountryCodes = (countryCodes: CountryCode[]): CountryCode[] => {
   return [worldWide, ...countryCodes.filter(cc => cc.featured === 1)];
 };

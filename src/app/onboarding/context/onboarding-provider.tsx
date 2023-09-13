@@ -29,8 +29,7 @@ const contextInitialState: IOnboardingContext = {
   createAccountFormSubmitter: null,
 };
 
-export const OnboardingContext =
-  createContext<IOnboardingContext>(contextInitialState);
+export const OnboardingContext = createContext<IOnboardingContext>(contextInitialState);
 
 export const OnboardingProvider = ({ children }: { children: ReactNode }) => {
   const [onboardingContext, setOnboardingContext] =
@@ -48,9 +47,5 @@ export const OnboardingProvider = ({ children }: { children: ReactNode }) => {
     };
   }, [onboardingContext]);
 
-  return (
-    <OnboardingContext.Provider value={contextValue}>
-      {children}
-    </OnboardingContext.Provider>
-  );
+  return <OnboardingContext.Provider value={contextValue}>{children}</OnboardingContext.Provider>;
 };

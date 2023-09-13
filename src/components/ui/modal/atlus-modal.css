@@ -1,0 +1,18 @@
+.atlus-modal--overlay {
+  height: 100%;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  @apply flex;
+  @apply justify-center;
+  @apply items-center;
+  z-index: 9;
+}
+
+.atlus-modal-content {
+  border: none;
+  background: rgb(255, 255, 255);
+  outline: none;
+  border-radius: 12px;
+  max-height: 792px;
+}

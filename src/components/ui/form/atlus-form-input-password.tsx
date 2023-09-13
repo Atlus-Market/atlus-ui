@@ -5,7 +5,6 @@ import { HiEyeOff } from 'react-icons/hi';
 
 type AtlusFormInputPasswordProps = AtlusFormInputProps;
 
-
 const iconClassNames = 'text-middle-grey text-base md:text-xl select-none';
 export const AtlusFormInputPassword = forwardRef<HTMLInputElement, AtlusFormInputPasswordProps>(
   function AtlusFormInputPassword({ type, ...rest }, ref) {
@@ -16,17 +15,14 @@ export const AtlusFormInputPassword = forwardRef<HTMLInputElement, AtlusFormInpu
         ref={ref}
         type={isShowingPassword ? 'text' : type}
         rightIcon={
-          isShowingPassword ?
-            <HiEyeOff
-              onClick={() => setIsShowingPassword(false)}
-              className={iconClassNames}
-            /> :
-            <HiEye
-              onClick={() => setIsShowingPassword(true)}
-              className={iconClassNames}
-            />
+          isShowingPassword ? (
+            <HiEyeOff onClick={() => setIsShowingPassword(false)} className={iconClassNames} />
+          ) : (
+            <HiEye onClick={() => setIsShowingPassword(true)} className={iconClassNames} />
+          )
         }
         {...rest}
       />
     );
-  });
+  }
+);

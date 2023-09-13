@@ -11,22 +11,17 @@ interface SelectedCardHandlerProps {
   userType: UserType;
 }
 
-export const SelectedCardHandler = ({
-                                      children,
-                                      userType
-                                    }: SelectedCardHandlerProps) => {
+export const SelectedCardHandler = ({ children, userType }: SelectedCardHandlerProps) => {
   const { updateContext } = useOnboardingContext();
 
-  const link = userType === 'broker' ?
-    OnboardingBrokerCreateAccount :
-    OnboardingBuyerInterestAreas;
+  const link = userType === 'broker' ? OnboardingBrokerCreateAccount : OnboardingBuyerInterestAreas;
 
   return (
     <Link
       href={link}
       onClick={() => {
         updateContext({
-          userType
+          userType,
         });
       }}
     >

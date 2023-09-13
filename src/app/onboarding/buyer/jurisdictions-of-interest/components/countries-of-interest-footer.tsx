@@ -5,7 +5,5 @@ import { useOnboardingContext } from '@/app/onboarding/context/use-onboarding-co
 
 export const CountriesOfInterestFooter = () => {
   const { countryCodesIds } = useOnboardingContext();
-  return (
-    <Footer nextUrl="deal-size" shouldSkip={countryCodesIds.length === 0} />
-  );
+  return <Footer nextUrl="deal-size" shouldSkip={countryCodesIds.length === 0} />;
 };

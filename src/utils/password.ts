@@ -8,7 +8,5 @@
  * @param password to validate
  */
 export const isValidPassword = (password: string): boolean => {
-  return new RegExp(
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@\$!%&\*]).{8,100}$/
-  ).test(password);
+  return new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@\$!%&\*]).{8,100}$/).test(password);
 };

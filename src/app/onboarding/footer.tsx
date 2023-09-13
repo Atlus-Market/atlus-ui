@@ -27,16 +27,9 @@ export const Footer = ({
   const router = useRouter();
   return (
     <footer
-      className={clsx(
-        'flex justify-between md:justify-center',
-        'px-[24px] pt-[15px] pb-[16px]'
-      )}
+      className={clsx('flex justify-between md:justify-center', 'px-[24px] pt-[15px] pb-[16px]')}
     >
-      <AtlusButton
-        variant="clear"
-        className="mr-[52px]"
-        onClick={() => router.back()}
-      >
+      <AtlusButton variant="clear" className="mr-[52px]" onClick={() => router.back()}>
         Back
       </AtlusButton>
       <AtlusButton

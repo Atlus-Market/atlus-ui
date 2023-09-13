@@ -9,10 +9,7 @@ interface SelectedCardHandlerProps {
   dealSize: DealSize;
 }
 
-export const DealSizeHandler = ({
-  children,
-  dealSize,
-}: SelectedCardHandlerProps) => {
+export const DealSizeHandler = ({ children, dealSize }: SelectedCardHandlerProps) => {
   const { updateContext, dealSize: currentDealSize } = useOnboardingContext();
 
   return (
