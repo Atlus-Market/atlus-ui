@@ -6,8 +6,10 @@ import { getDataroomOnServer } from '@/api/dataroom/get-dataroom-on-server';
 import { PackageDescription } from '@/app/package/[id]/components/package-description';
 import { PackageIndustries } from '@/app/package/[id]/components/package-industries';
 import { PackageKeywords } from '@/app/package/[id]/components/package-keyword';
+import { PackageSeller } from '@/app/package/[id]/components/package-seller';
+import { PackagePatents } from '@/app/package/[id]/components/package-patents/package-patents'; // export const dynamic = 'force-dynamic';
 
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';
 
 interface PackagePageProps {
   params: {
@@ -28,6 +30,8 @@ export default async function PackagePage({ params }: PackagePageProps) {
     <div>
       <PackageHeader atlusPackage={atlusPackage} />
       <PackageDivider />
+      <PackagePatents atlusPackage={atlusPackage} />
+      <PackageDivider />
       <PackageGeneralInfo atlusPackage={atlusPackage} dataroom={dataroom} />
       <PackageDivider />
       <PackageDescription description={atlusPackage.description} />
@@ -36,6 +40,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
       <PackageDivider className="bg-transparent !mt-0" />
       <PackageKeywords atlusPackage={atlusPackage} />
       <PackageDivider className="bg-transparent !mt-0" />
+      <PackageSeller atlusPackage={atlusPackage} />
       <PackageDivider />
     </div>
   );
