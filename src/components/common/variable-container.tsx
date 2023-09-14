@@ -5,6 +5,7 @@ import { AtlusExpandButton } from '@/components/ui/button/atlus-expand-button';
 import clsx from 'clsx';
 
 interface VariableContainerProps {
+  wrapperClassname?: string;
   condensedClassnames?: string;
   expandedClassnames?: string;
   children: ReactNode;
@@ -12,6 +13,7 @@ interface VariableContainerProps {
 }
 
 export const VariableContainer = ({
+  wrapperClassname,
   condensedClassnames = 'max-h-[144px]',
   expandedClassnames = 'max-h-[100%]',
   children,
@@ -19,7 +21,7 @@ export const VariableContainer = ({
 }: VariableContainerProps) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   return (
-    <div>
+    <div className={wrapperClassname}>
       <div
         className={clsx('overflow-hidden', isExpanded ? expandedClassnames : condensedClassnames)}
       >
