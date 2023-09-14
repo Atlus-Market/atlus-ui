@@ -1,13 +1,7 @@
-import {
-  CallbacksOptions,
-  EventCallbacks,
-  JWTCallback,
-  NextAuthOptions,
-  Session,
-  SessionCallback,
-  User,
-} from 'next-auth';
+import { NextAuthOptions, Session, User } from 'next-auth';
 import { LoginRoute } from '@/constants/routes';
+import { CallbacksOptions, DefaultSession, EventCallbacks } from 'next-auth/src/core/types';
+import { JWTCallback, SessionCallback } from '@/auth';
 import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { login, SignInResponse } from '@/api/auth/login';
@@ -17,7 +11,7 @@ import { accessTokenCookieName } from '@/constants/api';
 import { logout } from '@/api/auth/logout';
 import { isSecureProtocol } from '@/utils/platform';
 
-const usingSecureDomain = isSecureProtocol(process.env.NEXTAUTH_URL as string);
+const usingSecureDomain = isSecureProtocol(process.env.NEXT_PUBLIC_API_ENDPOINT as string);
 
 const providers = [
   CredentialsProvider({
@@ -41,6 +35,8 @@ const providers = [
         cookies().set(accessTokenCookieName, loginResponse.accessTokenCookie, {
           httpOnly: true,
           secure: usingSecureDomain,
+          domain: process.env.COOKIE_DOMAIN,
+          path: '/',
         });
 
         return {
@@ -79,7 +75,7 @@ const callbacks: Partial<CallbacksOptions> = {
   },
 
   // called from client
-  async session({ session, token, user }: SessionCallback): Promise<Session> {
+  async session({ session, token, user }: SessionCallback): Promise<Session | DefaultSession> {
     session.user = token.user;
     return session;
   },
