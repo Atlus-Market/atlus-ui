@@ -5,6 +5,7 @@ import { PackageGeneralInfo } from '@/app/package/[id]/components/general-info/p
 import { getDataroomOnServer } from '@/api/dataroom/get-dataroom-on-server';
 import { PackageDescription } from '@/app/package/[id]/components/package-description';
 import { PackageIndustries } from '@/app/package/[id]/components/package-industries';
+import { PackageKeywords } from '@/app/package/[id]/components/package-keyword';
 
 export const dynamic = 'force-dynamic';
 
@@ -30,7 +31,11 @@ export default async function PackagePage({ params }: PackagePageProps) {
       <PackageGeneralInfo atlusPackage={atlusPackage} dataroom={dataroom} />
       <PackageDivider />
       <PackageDescription description={atlusPackage.description} />
+      <PackageDivider className="bg-transparent !mt-0" />
       <PackageIndustries atlusPackage={atlusPackage} />
+      <PackageDivider className="bg-transparent !mt-0" />
+      <PackageKeywords atlusPackage={atlusPackage} />
+      <PackageDivider className="bg-transparent !mt-0" />
       <PackageDivider />
     </div>
   );

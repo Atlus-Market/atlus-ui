@@ -1,3 +1,10 @@
 import { AtlusDivider } from '@/components/ui/divider/atlus-divider';
+import clsx from 'clsx';
 
-export const PackageDivider = () => <AtlusDivider className="my-6 md:my-8" />;
+interface PackageDividerProps {
+  className?: string;
+}
+
+export const PackageDivider = ({ className }: PackageDividerProps) => (
+  <AtlusDivider className={clsx('my-6 md:my-8', className)} />
+);
