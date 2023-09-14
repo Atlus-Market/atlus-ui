@@ -2,6 +2,7 @@ import { Patent } from '@/models/patent';
 import { getPatentId, groupPatentsByFamily } from '@/utils/patents';
 import { PatentsInFamilyLink } from '@/app/package/[id]/components/package-patents/components/patents-in-family-link';
 import { Fragment } from 'react';
+import { TableHeaderTitle } from '@/app/package/[id]/components/package-patents/components/table-header-title';
 
 interface PackagePatentsTableCompactProps {
   patents: Patent[];
@@ -14,9 +15,15 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
     <div>
       <div className="hidden md:block">
         <div className="grid grid-cols-4">
-          <div className="col-span-2">Title</div>
-          <div>Publication/Patent no.</div>
-          <div>Filling date</div>
+          <div className="col-span-2">
+            <TableHeaderTitle title="Title" />
+          </div>
+          <div>
+            <TableHeaderTitle title="Publication/Patent no." />
+          </div>
+          <div>
+            <TableHeaderTitle title="Filling date" />
+          </div>
           {patentsGroups.map(patents => {
             const patent = patents[0];
             const patentId = getPatentId(patent);
@@ -43,14 +50,20 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
           return (
             <div key={patentId}>
               <div className="grid grid-rows-3 grid-col-2">
-                <div className="col-span-2">Family {index + 1}</div>
+                <div className="col-span-2">
+                  <TableHeaderTitle title={`Family ${index + 1}`} />
+                </div>
                 <div className="col-span-2">{patent.title}</div>
                 <div>
-                  <div>Pub/Patent no.</div>
+                  <div>
+                    <TableHeaderTitle title="Pub/Patent no." />
+                  </div>
                   <div>{patentId}</div>
                 </div>
                 <div>
-                  <div>Filling date</div>
+                  <div>
+                    <TableHeaderTitle title="Filling date" />
+                  </div>
                   <div>{patent.applicationDate}</div>
                 </div>
               </div>
