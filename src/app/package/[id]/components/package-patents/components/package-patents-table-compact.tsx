@@ -6,6 +6,7 @@ import { TableHeaderTitle } from '@/app/package/[id]/components/package-patents/
 import { PackageTableApplicationDate } from '@/app/package/[id]/components/package-patents/components/package-table-application-date';
 import { PackageTablePatentId } from '@/app/package/[id]/components/package-patents/components/package-table-patent-id';
 import { PackageTableTitle } from '@/app/package/[id]/components/package-patents/components/package-table-title';
+import { PackageTableHeader } from '@/app/package/[id]/components/package-patents/components/package-table-header';
 
 interface PackagePatentsTableCompactProps {
   patents: Patent[];
@@ -17,16 +18,16 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
   return (
     <div>
       <div className="hidden md:block">
-        <div className="grid grid-cols-4">
-          <div className="col-span-2">
+        <div className="grid grid-cols-4 items-center">
+          <PackageTableHeader className="col-span-2" position="start">
             <TableHeaderTitle title="Title" />
-          </div>
-          <div>
+          </PackageTableHeader>
+          <PackageTableHeader position="middle">
             <TableHeaderTitle title="Publication/Patent no." />
-          </div>
-          <div>
+          </PackageTableHeader>
+          <PackageTableHeader position="end">
             <TableHeaderTitle title="Filling date" />
-          </div>
+          </PackageTableHeader>
           {patentsGroups.map(patents => {
             const patent = patents[0];
             const patentId = getPatentId(patent);
@@ -58,10 +59,10 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
           const patentId = getPatentId(patent);
           return (
             <div key={patentId}>
-              <div className="grid grid-rows-3 grid-col-2">
-                <div className="col-span-2">
+              <div className="grid grid-rows-3 grid-col-2 items-center">
+                <PackageTableHeader className="col-span-2" position="only">
                   <TableHeaderTitle title={`Family ${index + 1}`} />
-                </div>
+                </PackageTableHeader>
                 <div className="col-span-2">
                   <PackageTableTitle title={patent.title} />
                 </div>
