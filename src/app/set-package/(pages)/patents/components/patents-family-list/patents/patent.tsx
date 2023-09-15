@@ -23,7 +23,7 @@ export const Patent = ({ patent }: PatentProps) => {
         </div>
         <div>
           <div className="mb-1">
-            <span className="text-sm text-[#0E7580]">{getPatentId(patent)}</span>
+            <span className="text-sm text-dark-cyan">{getPatentId(patent)}</span>
           </div>
           <div className="mb-7">
             <span className="text-soft-black text-[15px] leading-5 font-medium">
