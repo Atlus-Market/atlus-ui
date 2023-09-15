@@ -1,4 +1,7 @@
-import { VariableContainer } from '@/components/common/variable-container';
+'use client';
+
+import ShowMoreText from 'react-show-more-text';
+import { AtlusExpandButton } from '@/components/ui/button/atlus-expand-button';
 
 interface PackageDescriptionProps {
   description: string;
@@ -6,8 +9,14 @@ interface PackageDescriptionProps {
 
 export const PackageDescription = ({ description }: PackageDescriptionProps) => {
   return (
-    <VariableContainer>
-      <p className="text-black font-normal text-sm md:text-base mb-4">{description}</p>
-    </VariableContainer>
+    <ShowMoreText
+      lines={5}
+      more={<AtlusExpandButton text="See more" isExpanded={false} />}
+      less={<AtlusExpandButton text="See more" isExpanded={true} />}
+      anchorClass="block mt-4"
+      className="text-black font-normal text-sm md:text-base"
+    >
+      {description}
+    </ShowMoreText>
   );
 };
