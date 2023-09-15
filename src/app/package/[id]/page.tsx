@@ -2,12 +2,12 @@ import { getPackageOnServer } from '@/api/package/get-package-on-server';
 import { PackageHeader } from '@/app/package/[id]/components/package-header';
 import { PackageDivider } from '@/app/package/[id]/components/package-divider';
 import { PackageGeneralInfo } from '@/app/package/[id]/components/general-info/package-general-info';
-import { getDataroomOnServer } from '@/api/dataroom/get-dataroom-on-server';
 import { PackageDescription } from '@/app/package/[id]/components/package-description';
 import { PackageIndustries } from '@/app/package/[id]/components/package-industries';
 import { PackageKeywords } from '@/app/package/[id]/components/package-keyword';
 import { PackageSeller } from '@/app/package/[id]/components/package-seller';
-import { PackagePatents } from '@/app/package/[id]/components/package-patents/package-patents'; // export const dynamic = 'force-dynamic';
+import { PackagePatents } from '@/app/package/[id]/components/package-patents/package-patents';
+import { getDataroomByPackageIdOnServer } from '@/api/dataroom/get-dataroom-by-package-id-on-server'; // export const dynamic = 'force-dynamic';
 
 // export const dynamic = 'force-dynamic';
 
@@ -18,12 +18,17 @@ interface PackagePageProps {
 }
 
 export default async function PackagePage({ params }: PackagePageProps) {
-  console.log('Page params: ', params);
-  const packageResponse = await getPackageOnServer(params.id);
-  const atlusPackage = packageResponse.package;
-  console.log('Package: ', atlusPackage);
+  console.log('View package page params: ', params);
 
-  const dataroom = await getDataroomOnServer(atlusPackage.dataroomId);
+  const packageData = await Promise.all([
+    getPackageOnServer(params.id),
+    getDataroomByPackageIdOnServer(params.id),
+  ]);
+
+  const atlusPackage = packageData[0].package;
+  console.log('package: ', atlusPackage);
+
+  const dataroom = packageData[1];
   console.log('dataroom: ', dataroom);
 
   return (
