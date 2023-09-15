@@ -3,6 +3,9 @@ import { getPatentId, groupPatentsByFamily } from '@/utils/patents';
 import { PatentsInFamilyLink } from '@/app/package/[id]/components/package-patents/components/patents-in-family-link';
 import { Fragment } from 'react';
 import { TableHeaderTitle } from '@/app/package/[id]/components/package-patents/components/table-header-title';
+import { PackageTableApplicationDate } from '@/app/package/[id]/components/package-patents/components/package-table-application-date';
+import { PackageTablePatentId } from '@/app/package/[id]/components/package-patents/components/package-table-patent-id';
+import { PackageTableTitle } from '@/app/package/[id]/components/package-patents/components/package-table-title';
 
 interface PackagePatentsTableCompactProps {
   patents: Patent[];
@@ -31,12 +34,18 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
               <Fragment key={patentId}>
                 <div className="col-span-2">
                   <div>
-                    <div className="mb-[17px]">{patent.title}</div>
+                    <div className="mb-[17px]">
+                      <PackageTableTitle title={patent.title} />
+                    </div>
                     <PatentsInFamilyLink totalPatents={patents.length} />
                   </div>
                 </div>
-                <div>{patentId}</div>
-                <div>{patent.applicationDate}</div>
+                <div>
+                  <PackageTablePatentId patentId={patentId} />
+                </div>
+                <div>
+                  <PackageTableApplicationDate gmtDate={patent.applicationDate} />
+                </div>
               </Fragment>
             );
           })}
@@ -53,18 +62,24 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
                 <div className="col-span-2">
                   <TableHeaderTitle title={`Family ${index + 1}`} />
                 </div>
-                <div className="col-span-2">{patent.title}</div>
-                <div>
-                  <div>
-                    <TableHeaderTitle title="Pub/Patent no." />
-                  </div>
-                  <div>{patentId}</div>
+                <div className="col-span-2">
+                  <PackageTableTitle title={patent.title} />
                 </div>
                 <div>
                   <div>
-                    <TableHeaderTitle title="Filling date" />
+                    <TableHeaderTitle title="Pub/Patent no." classNames="!text-[11px]" />
                   </div>
-                  <div>{patent.applicationDate}</div>
+                  <div>
+                    <PackageTablePatentId patentId={patentId} />
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <TableHeaderTitle title="Filling date" classNames="!text-[11px]" />
+                  </div>
+                  <div>
+                    <PackageTableApplicationDate gmtDate={patent.applicationDate} />
+                  </div>
                 </div>
               </div>
               <PatentsInFamilyLink totalPatents={patents.length} />
