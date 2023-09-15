@@ -7,10 +7,14 @@ import { PackageTableApplicationDate } from '@/app/package/[id]/components/packa
 import { PackageTablePatentId } from '@/app/package/[id]/components/package-patents/components/package-table-patent-id';
 import { PackageTableTitle } from '@/app/package/[id]/components/package-patents/components/package-table-title';
 import { PackageTableHeader } from '@/app/package/[id]/components/package-patents/components/package-table-header';
+import { PackageTableCell } from '@/app/package/[id]/components/package-patents/components/package-table-cell';
+import clsx from 'clsx';
 
 interface PackagePatentsTableCompactProps {
   patents: Patent[];
 }
+
+const gridBroder = 'rounded-tl-lg rounded-tr-lg border border-[#FCFCFC] overflow-hidden';
 
 export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompactProps) => {
   const familyPatents = groupPatentsByFamily(patents);
@@ -18,7 +22,7 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
   return (
     <div>
       <div className="hidden md:block">
-        <div className="grid grid-cols-4 items-center">
+        <div className={clsx('grid grid-cols-4', gridBroder)}>
           <PackageTableHeader className="col-span-2" position="start">
             <TableHeaderTitle title="Title" />
           </PackageTableHeader>
@@ -33,20 +37,20 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
             const patentId = getPatentId(patent);
             return (
               <Fragment key={patentId}>
-                <div className="col-span-2">
+                <PackageTableCell className="col-span-2">
                   <div>
                     <div className="mb-[17px]">
                       <PackageTableTitle title={patent.title} />
                     </div>
                     <PatentsInFamilyLink totalPatents={patents.length} />
                   </div>
-                </div>
-                <div>
+                </PackageTableCell>
+                <PackageTableCell>
                   <PackageTablePatentId patentId={patentId} />
-                </div>
-                <div>
+                </PackageTableCell>
+                <PackageTableCell>
                   <PackageTableApplicationDate gmtDate={patent.applicationDate} />
-                </div>
+                </PackageTableCell>
               </Fragment>
             );
           })}
@@ -59,7 +63,7 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
           const patentId = getPatentId(patent);
           return (
             <div key={patentId}>
-              <div className="grid grid-rows-3 grid-col-2 items-center">
+              <div className={clsx('grid grid-col-2', gridBroder)}>
                 <PackageTableHeader className="col-span-2" position="only">
                   <TableHeaderTitle title={`Family ${index + 1}`} />
                 </PackageTableHeader>

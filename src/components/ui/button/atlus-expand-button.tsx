@@ -1,21 +1,24 @@
 'use client';
 
 import { HiChevronDown, HiChevronUp } from 'react-icons/hi2';
+import clsx from 'clsx';
 
 interface AtlusExpandButtonProps {
   isExpanded?: boolean;
   text: string;
   onClick?: () => void;
+  classNames?: string;
 }
 
 export const AtlusExpandButton = ({
   text,
   isExpanded = false,
   onClick,
+  classNames,
 }: AtlusExpandButtonProps) => {
   return (
     <button
-      className="text-orange text-sm font-medium leading-5 flex items-center"
+      className={clsx('text-orange text-sm font-medium leading-5 flex items-center', classNames)}
       onClick={onClick}
     >
       {text}

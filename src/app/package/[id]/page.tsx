@@ -9,8 +9,6 @@ import { PackageSeller } from '@/app/package/[id]/components/package-seller';
 import { PackagePatents } from '@/app/package/[id]/components/package-patents/package-patents';
 import { getDataroomByPackageIdOnServer } from '@/api/dataroom/get-dataroom-by-package-id-on-server'; // export const dynamic = 'force-dynamic';
 
-// export const dynamic = 'force-dynamic';
-
 interface PackagePageProps {
   params: {
     id: string;
@@ -35,8 +33,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
     <div>
       <PackageHeader atlusPackage={atlusPackage} />
       <PackageDivider />
-      <PackagePatents atlusPackage={atlusPackage} />
-      <PackageDivider />
+
       <PackageGeneralInfo atlusPackage={atlusPackage} dataroom={dataroom} />
       <PackageDivider />
       <PackageDescription description={atlusPackage.description} />
@@ -46,6 +43,9 @@ export default async function PackagePage({ params }: PackagePageProps) {
       <PackageKeywords atlusPackage={atlusPackage} />
       <PackageDivider className="bg-transparent !mt-0" />
       <PackageSeller atlusPackage={atlusPackage} />
+      <PackageDivider />
+
+      <PackagePatents atlusPackage={atlusPackage} />
       <PackageDivider />
     </div>
   );
