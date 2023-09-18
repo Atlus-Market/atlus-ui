@@ -1,5 +1,5 @@
-import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { pluralize } from '@/utils/words';
+import clsx from 'clsx';
 
 interface PatentsInFamilyLinkProps {
   totalPatents: number;
@@ -11,8 +11,8 @@ export const PatentsInFamilyLink = ({ totalPatents }: PatentsInFamilyLinkProps) 
   }
   const label = `${totalPatents} ${pluralize('patent', totalPatents)} in this family`;
   return (
-    <AtlusButton variant="clear" color="orange">
+    <button className={clsx('text-orange', 'text-xs md:text-[13px]', 'font-medium')}>
       {label}
-    </AtlusButton>
+    </button>
   );
 };
