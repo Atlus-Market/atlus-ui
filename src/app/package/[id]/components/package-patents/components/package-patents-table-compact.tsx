@@ -28,13 +28,13 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
     <div>
       <div className="hidden md:block">
         <div className={clsx('grid grid-cols-4', gridBorderStyles)}>
-          <PackageTableHeader className="col-span-2" position="start">
+          <PackageTableHeader className="col-span-2">
             <TableHeaderTitle title="Title" />
           </PackageTableHeader>
-          <PackageTableHeader position="middle">
+          <PackageTableHeader>
             <TableHeaderTitle title="Publication/Patent no." />
           </PackageTableHeader>
-          <PackageTableHeader position="end">
+          <PackageTableHeader>
             <TableHeaderTitle title="Filling date" />
           </PackageTableHeader>
           {patentsGroups.map(patents => {
@@ -69,7 +69,7 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
           return (
             <div key={patentId}>
               <div className={clsx('grid grid-col-2 mt-6 mb-2', gridBorderStyles)}>
-                <PackageTableHeader className="col-span-2" position="only">
+                <PackageTableHeader className="col-span-2">
                   <TableHeaderTitle title={`Family ${index + 1}`} />
                 </PackageTableHeader>
                 <PackageTableCell className="col-span-2">
