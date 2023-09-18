@@ -10,7 +10,6 @@ export type HtmlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 export interface AtlusButtonProps extends HtmlButtonProps {
   variant?: 'clear' | 'solid' | 'outline';
-  size?: 'big' | 'medium';
   children: ReactNode;
   className?: string;
   isLoading?: boolean;
@@ -46,17 +45,22 @@ const outlineWhiteVariant = clsx(
 );
 
 const getButtonSize = (props: AtlusButtonProps): string => {
-  const { variant, size } = props;
+  const { variant } = props;
   if (variant === 'clear') {
     return '';
   }
 
-  if (size === 'medium') {
-    return clsx('min-w-[100px] py-[10px] px-6', 'text-[13px] font-bold leading-[16px]');
-  }
+  return clsx(
+    'font-bold',
 
-  // big
-  return clsx('min-w-[200px] py-[15px] px-9', 'text-lg font-bold leading-[23px]');
+    // small/mobile
+    'min-w-[100px] py-[10px] px-6',
+    'text-[13px] leading-[16px]',
+
+    // big
+    'md:min-w-[200px] md:py-[15px] md:px-9',
+    'md:text-lg md:leading-[23px]'
+  );
 };
 
 const getLoadingSpinnerColor = ({ variant }: AtlusButtonProps) => {
@@ -73,7 +77,6 @@ export const AtlusButton = forwardRef<HTMLButtonElement, AtlusButtonProps>(funct
 ) {
   const {
     variant = 'solid',
-    size = 'big',
     children,
     type = 'button',
     isLoading = false,
