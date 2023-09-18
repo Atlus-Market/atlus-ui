@@ -14,7 +14,12 @@ interface PackagePatentsTableCompactProps {
   patents: Patent[];
 }
 
-const gridBroder = 'rounded-tl-lg rounded-tr-lg border border-[#FCFCFC] overflow-hidden';
+const gridBorderStyles = clsx(
+  // 'border border-[#FCFCFC] overflow-hidden',
+  'border border-peach overflow-hidden',
+  'rounded-tl-lg rounded-tr-lg md:rounded-tl-xl md:rounded-tr-xl',
+  'rounded-br-xl rounded-bl-xl'
+);
 
 export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompactProps) => {
   const familyPatents = groupPatentsByFamily(patents);
@@ -22,7 +27,7 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
   return (
     <div>
       <div className="hidden md:block">
-        <div className={clsx('grid grid-cols-4', gridBroder)}>
+        <div className={clsx('grid grid-cols-4', gridBorderStyles)}>
           <PackageTableHeader className="col-span-2" position="start">
             <TableHeaderTitle title="Title" />
           </PackageTableHeader>
@@ -38,12 +43,12 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
             return (
               <Fragment key={patentId}>
                 <PackageTableCell className="col-span-2">
-                  <div>
-                    <div className="mb-[17px]">
-                      <PackageTableTitle title={patent.title} />
+                  <PackageTableTitle title={patent.title} />
+                  {patents.length > 1 && (
+                    <div className="mt-3">
+                      <PatentsInFamilyLink totalPatents={patents.length} />
                     </div>
-                    <PatentsInFamilyLink totalPatents={patents.length} />
-                  </div>
+                  )}
                 </PackageTableCell>
                 <PackageTableCell>
                   <PackageTablePatentId patentId={patentId} />
@@ -63,31 +68,29 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
           const patentId = getPatentId(patent);
           return (
             <div key={patentId}>
-              <div className={clsx('grid grid-col-2', gridBroder)}>
+              <div className={clsx('grid grid-col-2 mt-6 mb-2', gridBorderStyles)}>
                 <PackageTableHeader className="col-span-2" position="only">
                   <TableHeaderTitle title={`Family ${index + 1}`} />
                 </PackageTableHeader>
-                <div className="col-span-2">
+                <PackageTableCell className="col-span-2">
                   <PackageTableTitle title={patent.title} />
-                </div>
-                <div>
+                </PackageTableCell>
+                <PackageTableCell>
                   <div>
                     <TableHeaderTitle title="Pub/Patent no." classNames="!text-[11px]" />
                   </div>
-                  <div>
-                    <PackageTablePatentId patentId={patentId} />
-                  </div>
-                </div>
-                <div>
+                  <PackageTablePatentId patentId={patentId} />
+                </PackageTableCell>
+                <PackageTableCell>
                   <div>
                     <TableHeaderTitle title="Filling date" classNames="!text-[11px]" />
                   </div>
-                  <div>
-                    <PackageTableApplicationDate gmtDate={patent.applicationDate} />
-                  </div>
-                </div>
+                  <PackageTableApplicationDate gmtDate={patent.applicationDate} />
+                </PackageTableCell>
               </div>
-              <PatentsInFamilyLink totalPatents={patents.length} />
+              <div className="pl-3">
+                <PatentsInFamilyLink totalPatents={patents.length} />
+              </div>
             </div>
           );
         })}

@@ -7,5 +7,15 @@ interface PackageTableRowProps {
 }
 
 export const PackageTableCell = ({ children, className }: PackageTableRowProps) => {
-  return <div className={clsx(className)}>{children}</div>;
+  return (
+    <div
+      className={clsx(
+        'px-3 md:px-6',
+        'pb-3 pt-0 md:pb-6 md:pt-6 md:border-b md:border-b-peach',
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
 };
