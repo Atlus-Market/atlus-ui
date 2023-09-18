@@ -37,12 +37,13 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
           <PackageTableHeader>
             <TableHeaderTitle title="Filling date" />
           </PackageTableHeader>
-          {patentsGroups.map(patents => {
+          {patentsGroups.map((patents, index) => {
             const patent = patents[0];
             const patentId = getPatentId(patent);
+            const isLastRow = patentsGroups.length - 1 === index;
             return (
               <Fragment key={patentId}>
-                <PackageTableCell className="col-span-2">
+                <PackageTableCell className={clsx('col-span-2', { '!border-b-0': isLastRow })}>
                   <PackageTableTitle title={patent.title} />
                   {patents.length > 1 && (
                     <div className="mt-3">
@@ -50,10 +51,10 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
                     </div>
                   )}
                 </PackageTableCell>
-                <PackageTableCell>
+                <PackageTableCell className={clsx({ '!border-b-0': isLastRow })}>
                   <PackageTablePatentId patentId={patentId} />
                 </PackageTableCell>
-                <PackageTableCell>
+                <PackageTableCell className={clsx({ '!border-b-0': isLastRow })}>
                   <PackageTableApplicationDate gmtDate={patent.applicationDate} />
                 </PackageTableCell>
               </Fragment>
