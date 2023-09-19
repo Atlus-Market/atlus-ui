@@ -143,6 +143,7 @@ export const usePatentsColumns = ({
               <div>
                 <AtlusButton
                   variant="outline"
+                  size="small"
                   onClick={() =>
                     editPatent({
                       publicationNumber: getPatentId(row.original),
