@@ -1,7 +1,5 @@
 import { Patent } from '@/models/patent';
 import clsx from 'clsx';
-import './package-table.css';
-import { ReactNode } from 'react';
 
 export type PackagePatentsTableType = 'compact' | 'full';
 
