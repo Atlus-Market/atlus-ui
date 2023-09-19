@@ -18,12 +18,12 @@ export const showSuccessNotification = ({ text, toastId }: AtlusNotificationProp
   toast.success(text, {
     ...defaultToastProps,
     toastId,
-    icon: <HiOutlineCheckCircle color="#1CA843" size={18} />,
+    icon: <HiOutlineCheckCircle className="text-green" size={18} />,
   });
 
 export const showErrorNotification = ({ text, toastId }: AtlusNotificationProps) =>
   toast.success(text, {
     ...defaultToastProps,
     toastId,
-    icon: <HiOutlineExclamationCircle color="var(--color-red)" size={18} />,
+    icon: <HiOutlineExclamationCircle className="text-red" size={18} />,
   });

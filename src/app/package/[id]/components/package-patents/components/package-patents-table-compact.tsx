@@ -5,7 +5,7 @@ import { Fragment } from 'react';
 import { TableHeaderTitle } from '@/app/package/[id]/components/package-patents/components/table-header-title';
 import { PackageTableApplicationDate } from '@/app/package/[id]/components/package-patents/components/package-table-application-date';
 import { PackageTablePatentId } from '@/app/package/[id]/components/package-patents/components/package-table-patent-id';
-import { PackageTableTitle } from '@/app/package/[id]/components/package-patents/components/package-table-title';
+import { PackageTablePatentTitle } from '@/app/package/[id]/components/package-patents/components/package-table-patent-title';
 import { PackageTableHeader } from '@/app/package/[id]/components/package-patents/components/package-table-header';
 import { PackageTableCell } from '@/app/package/[id]/components/package-patents/components/package-table-cell';
 import clsx from 'clsx';
@@ -44,7 +44,7 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
             return (
               <Fragment key={patentId}>
                 <PackageTableCell className={clsx('col-span-2', { '!border-b-0': isLastRow })}>
-                  <PackageTableTitle title={patent.title} />
+                  <PackageTablePatentTitle title={patent.title} />
                   {patents.length > 1 && (
                     <div className="mt-3">
                       <PatentsInFamilyLink totalPatents={patents.length} />
@@ -74,7 +74,7 @@ export const PackagePatentsTableCompact = ({ patents }: PackagePatentsTableCompa
                   <TableHeaderTitle title={`Family ${index + 1}`} />
                 </PackageTableHeader>
                 <PackageTableCell className="col-span-2">
-                  <PackageTableTitle title={patent.title} />
+                  <PackageTablePatentTitle title={patent.title} />
                 </PackageTableCell>
                 <PackageTableCell>
                   <div>

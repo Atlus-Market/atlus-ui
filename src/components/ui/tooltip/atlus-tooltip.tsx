@@ -1,3 +1,5 @@
+'use client';
+
 import { PlacesType, Tooltip } from 'react-tooltip';
 
 interface AtlusTooltipProps {
@@ -20,7 +22,7 @@ interface AtlusTooltipProps {
 export const AtlusTooltip = ({ tooltipId, place = 'top' }: AtlusTooltipProps) => {
   return (
     // Hide tooltip pn small screens (mobile)
-    <div className="hidden md:inline-block">
+    <div className="hidden md:inline-block absolute">
       <Tooltip
         id={tooltipId}
         place={place}

@@ -35,7 +35,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
       <PackageHeader atlusPackage={atlusPackage} />
       <PackageDivider />
 
-      <PackageDocuments />
+      <PackageDocuments dataroom={dataroom} />
       <PackageDivider />
 
       <PackageGeneralInfo atlusPackage={atlusPackage} dataroom={dataroom} />
