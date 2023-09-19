@@ -11,5 +11,6 @@ module.exports = {
   'middle-grey': 'var(--color-middle-grey)',
   'dark-grey': 'var(--color-dark-grey)',
   'dark-cyan': 'var(--color-dark-cyan)',
+  green: 'var(--color-green)',
   transparent: 'transparent', // create the color to use it
 };
