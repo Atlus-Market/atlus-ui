@@ -42,17 +42,22 @@ export const SavePackageButton = () => {
     <AtlusButton
       onClick={async () => {
         const res = await (dispatch as ThunkDispatch<RootState, void, AnyAction>)(persistPackage());
+
         // @ts-ignore
-        const packageRes = res.payload.package as Package;
+        if (res.error) {
+          return;
+        }
+
+        showSuccessNotification({ text: 'Package saved successfully!' });
+
         // @ts-ignore
         const hasCreatedPackage = res.payload.createdPackage as boolean;
 
-        if (packageRes) {
-          showSuccessNotification({ text: 'Package saved successfully!' });
+        if (hasCreatedPackage) {
+          // @ts-ignore
+          const packageRes = res.payload.package as Package;
           dispatch(setActivePackage(packageRes));
-          if (hasCreatedPackage) {
-            router.push(SetPackageDocuments);
-          }
+          router.push(SetPackageDocuments);
         }
       }}
       isLoading={isPersistingPackage}
