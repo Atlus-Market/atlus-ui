@@ -42,6 +42,7 @@ export const persistPackage = createAsyncThunk<PersistPackageResult, void, { sta
         const res = await updatePackage(activePackage.id, payload);
         console.log('UPDATE package Response: ', res);
         return {
+          // No need to return the updated package since it's already loaded
           createdPackage: false,
         };
       } else {
