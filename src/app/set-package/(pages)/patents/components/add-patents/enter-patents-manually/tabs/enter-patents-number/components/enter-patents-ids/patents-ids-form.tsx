@@ -98,7 +98,7 @@ export const PatentsIdsForm = ({ initialFormValues, onFormChange }: PatentsIdsFo
             <Highlighter
               className={clsx(textStyles, 'flex')}
               highlightClassName="bg-transparent text-red"
-              unhighlightClassName="bg-transparent"
+              unhighlightClassName="bg-transparent word-break-break-word"
               searchWords={getInvalidPatentsIds(patentsIds)}
               autoEscape={true}
               textToHighlight={patentsIds}
