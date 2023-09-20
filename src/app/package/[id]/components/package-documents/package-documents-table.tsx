@@ -41,7 +41,7 @@ export const PackageDocumentsTable = ({ dataroom }: PackageDocumentsTableProps) 
             <DocumentsCheckboxHeader allFileIds={allFileIds} />
           </div>
           <div className="col-span-2 flex items-center bg-peach rounded-tr-lg rounded-br-lg">
-            <DownloadDocumentsLink />
+            <DownloadDocumentsLink directoryTreeName={dataroom.directoryTree.name} />
           </div>
           {files.map((file, index) => {
             const isLastRow = index + 1 === files.length;
