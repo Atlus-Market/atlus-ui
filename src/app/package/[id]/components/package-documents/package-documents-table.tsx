@@ -1,14 +1,15 @@
 import { Dataroom } from '@/models/dataroom';
 import { Fragment } from 'react';
-import { AtlusCheckbox } from '@/components/ui/checkbox/atlus-checkbox';
 import { FileName } from '@/components/common/file/file-name';
 import { HiDownload } from 'react-icons/hi';
 import clsx from 'clsx';
 import { TableHeaderTitle } from '@/app/package/[id]/components/package-patents/components/table-header-title';
-import { SelectDocumentsProvider } from '@/app/package/[id]/components/package-documents/select-documents-provider';
 
 import './package-documents-table.css';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
+import { DownloadDocumentsProvider } from '@/app/package/[id]/components/package-documents/download-documents/download-documents-provider';
+import { DocumentCheckbox } from '@/app/package/[id]/components/package-documents/document-checkbox';
+import { DocumentsCheckboxHeader } from '@/app/package/[id]/components/package-documents/documents-checkhox-header';
 
 interface PackageDocumentsTableProps {
   dataroom: Dataroom;
@@ -20,11 +21,16 @@ const MIN_FILES_TO_SHOW = 5;
 
 export const PackageDocumentsTable = ({ dataroom }: PackageDocumentsTableProps) => {
   const files = dataroom.directoryTree.children;
+  const allFileIds = files.map(file => file.id);
   const diffCountToShow = files.length - MIN_FILES_TO_SHOW;
+
+  if (!files.length) {
+    return <span className="text-soft-black text-sm md:text-base">No documents uploaded</span>;
+  }
 
   return (
     <div>
-      <SelectDocumentsProvider>
+      <DownloadDocumentsProvider>
         <div className="documents-grid grid grid-cols-[44px_minmax(100px,_1fr)_auto] grid-rows-[40px] md:grid-rows-[44px]">
           <input type="checkbox" id="show" className="hidden" />
           <div
@@ -32,7 +38,7 @@ export const PackageDocumentsTable = ({ dataroom }: PackageDocumentsTableProps) 
               'flex items-center justify-center bg-peach rounded-tl-lg rounded-bl-lg'
             )}
           >
-            <AtlusCheckbox />
+            <DocumentsCheckboxHeader allFileIds={allFileIds} />
           </div>
           <div className="col-span-2 flex items-center bg-peach rounded-tr-lg rounded-br-lg">
             <TableHeaderTitle title="Name" />
@@ -51,7 +57,7 @@ export const PackageDocumentsTable = ({ dataroom }: PackageDocumentsTableProps) 
                     'flex items-center justify-center'
                   )}
                 >
-                  <AtlusCheckbox />
+                  <DocumentCheckbox fileId={file.id} />
                 </div>
                 <div className={clsx(cellClassnames, borderBottomClassname, toggleClass)}>
                   <FileName
@@ -92,7 +98,7 @@ export const PackageDocumentsTable = ({ dataroom }: PackageDocumentsTableProps) 
             </div>
           )}
         </div>
-      </SelectDocumentsProvider>
+      </DownloadDocumentsProvider>
     </div>
   );
 };
