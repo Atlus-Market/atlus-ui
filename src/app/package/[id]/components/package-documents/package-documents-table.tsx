@@ -3,13 +3,13 @@ import { Fragment } from 'react';
 import { FileName } from '@/components/common/file/file-name';
 import { HiDownload } from 'react-icons/hi';
 import clsx from 'clsx';
-import { TableHeaderTitle } from '@/app/package/[id]/components/package-patents/components/table-header-title';
 
 import './package-documents-table.css';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { DownloadDocumentsProvider } from '@/app/package/[id]/components/package-documents/download-documents/download-documents-provider';
 import { DocumentCheckbox } from '@/app/package/[id]/components/package-documents/document-checkbox';
 import { DocumentsCheckboxHeader } from '@/app/package/[id]/components/package-documents/documents-checkhox-header';
+import { DownloadDocumentsLink } from '@/app/package/[id]/components/package-documents/download-documents/download-documents-link';
 
 interface PackageDocumentsTableProps {
   dataroom: Dataroom;
@@ -41,7 +41,7 @@ export const PackageDocumentsTable = ({ dataroom }: PackageDocumentsTableProps) 
             <DocumentsCheckboxHeader allFileIds={allFileIds} />
           </div>
           <div className="col-span-2 flex items-center bg-peach rounded-tr-lg rounded-br-lg">
-            <TableHeaderTitle title="Name" />
+            <DownloadDocumentsLink />
           </div>
           {files.map((file, index) => {
             const isLastRow = index + 1 === files.length;

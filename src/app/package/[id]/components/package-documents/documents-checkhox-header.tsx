@@ -8,12 +8,19 @@ interface DocumentsCheckboxProps {
 }
 
 export const DocumentsCheckboxHeader = ({ allFileIds }: DocumentsCheckboxProps) => {
-  const { selectedDocumentsIds, addDocument, removeDocument } = useDownloadDocumentsContext();
+  const { selectedDocumentsIds, setDocuments, clear } = useDownloadDocumentsContext();
   const allSelected = selectedDocumentsIds.length === allFileIds.length;
   return (
     <AtlusCheckbox
       checked={allSelected}
       indeterminate={!allSelected && selectedDocumentsIds.length > 0}
+      onChange={() => {
+        if (allSelected) {
+          clear();
+        } else {
+          setDocuments(allFileIds);
+        }
+      }}
     />
   );
 };
