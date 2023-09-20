@@ -32,7 +32,7 @@ export const FileName = ({
 }: FileNameProps) => {
   const fileExtension = getFileExtension(fileName);
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center gap-4 overflow-hidden">
       {showTooltip && <AtlusTooltip tooltipId={tooltipId} />}
       <FileIcon extension={fileExtension} />
       <div className="whitespace-nowrap overflow-hidden overflow-ellipsis">
