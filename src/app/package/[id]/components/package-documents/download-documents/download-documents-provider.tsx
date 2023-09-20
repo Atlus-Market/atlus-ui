@@ -11,12 +11,16 @@ interface DownloadDocumentsContextState {
   selectedDocumentsIds: string[];
   addDocument: (documentId: string) => void;
   removeDocument: (documentId: string) => void;
+  setDocuments: (documentsIds: string[]) => void;
+  clear: () => void;
 }
 
 const contextInitialState: DownloadDocumentsContextState = {
   selectedDocumentsIds: [],
   addDocument: noop,
   removeDocument: noop,
+  setDocuments: noop,
+  clear: noop,
 };
 
 export const DownloadDocumentsContext =
@@ -43,6 +47,18 @@ export const DownloadDocumentsProvider = ({ children }: SelectDocumentsProviderP
           selectedDocumentsIds: documentsContextState.selectedDocumentsIds.filter(
             docId => docId !== documentId
           ),
+        });
+      },
+      setDocuments: (documentsIds: string[]) => {
+        setDocumentsContextState({
+          ...documentsContextState,
+          selectedDocumentsIds: [...documentsIds],
+        });
+      },
+      clear: () => {
+        setDocumentsContextState({
+          ...documentsContextState,
+          selectedDocumentsIds: [],
         });
       },
     };
