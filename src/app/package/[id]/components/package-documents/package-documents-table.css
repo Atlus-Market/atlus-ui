@@ -1,8 +1,8 @@
-.toggle {
+.show-more-cells {
     display: none;
 }
 
-#show:checked ~ .toggle {
+#show:checked ~ .show-more-cells {
     display: flex;
 }
 

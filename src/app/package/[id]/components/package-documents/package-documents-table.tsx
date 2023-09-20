@@ -40,7 +40,7 @@ export const PackageDocumentsTable = ({ dataroom }: PackageDocumentsTableProps) 
           {files.map((file, index) => {
             const isLastRow = index + 1 === files.length;
             const borderBottomClassname = !isLastRow ? 'md:border-b md:border-peach' : '';
-            const toggleClass = index >= MIN_FILES_TO_SHOW ? 'toggle' : '';
+            const toggleClass = index >= MIN_FILES_TO_SHOW ? 'show-more-cells' : '';
             return (
               <Fragment key={file.id}>
                 <div
