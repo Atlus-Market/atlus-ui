@@ -1,8 +1,8 @@
 import { AtlusInput, AtlusInputProps } from '@/components/ui/input/atlus-input';
-import { ForwardedRef, forwardRef, Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import { ForwardedRef, forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 import { isArray } from 'lodash';
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
-import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
+import { pascalCase } from 'pascal-case';
 
 export interface AtlusInputWithTagsProps extends AtlusInputProps {
   onTagsChange?: (tags: string[]) => void;
@@ -30,7 +30,7 @@ export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTag
           if (inputRef.current) {
             inputRef.current.value = '';
           }
-          setTags([...tags, value.replace(/[^a-z0-9]/gi, '')]);
+          setTags([...tags, pascalCase(value)]);
         }
       }
     };
