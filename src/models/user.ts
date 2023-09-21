@@ -3,22 +3,22 @@ export type Timeframe = 'now' | 'soon' | 'browsing';
 
 export interface User {
   broker: false;
-  business_phone: string;
-  cell_phone: string;
-  company_name: string;
-  confirmed_email: boolean;
-  deal_size_preference: DealSize;
-  deal_timeframe_preference: Timeframe;
+  businessPhone: string;
+  cellPhone: string;
+  companyName: string;
+  confirmedEmail: boolean;
+  dealSizePreference: DealSize;
+  dealTimeframePreference: Timeframe;
   description: string;
   email: string;
-  external_url: string;
-  first_name: string;
-  full_name: string;
+  externalUrl: string;
+  firstName: string;
+  fullName: string;
   id: string;
-  interest_countries: string[];
-  last_name: string;
-  notification_preferences: {
-    email_notifications: boolean;
+  interestCountries: string[];
+  lastName: string;
+  notificationPreferences: {
+    emailNotifications: boolean;
   };
   timezone: string;
   title: string;
