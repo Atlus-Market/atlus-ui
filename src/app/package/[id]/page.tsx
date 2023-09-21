@@ -8,7 +8,8 @@ import { PackageKeywords } from '@/app/package/[id]/components/package-keyword';
 import { PackageSeller } from '@/app/package/[id]/components/package-seller';
 import { PackagePatents } from '@/app/package/[id]/components/package-patents/package-patents';
 import { getDataroomByPackageIdOnServer } from '@/api/dataroom/get-dataroom-by-package-id-on-server';
-import { PackageDocuments } from '@/app/package/[id]/components/package-documents/package-documents'; // export const dynamic = 'force-dynamic';
+import { PackageDocuments } from '@/app/package/[id]/components/package-documents/package-documents';
+import { PackageListedBy } from '@/app/package/[id]/components/package-owner/package-listed-by'; // export const dynamic = 'force-dynamic';
 
 interface PackagePageProps {
   params: {
@@ -48,6 +49,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
       <PackageDivider />
       <PackageDocuments dataroom={dataroom} />
       <PackageDivider />
+      <PackageListedBy brokerId={atlusPackage.brokerUserId} />
     </div>
   );
 }
