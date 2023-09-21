@@ -38,7 +38,7 @@ export const DownloadDocumentsLink = ({ directoryTreeName }: DownloadDocumentsLi
         console.log(res);
 
         //needed to call charCodeAt so e.g. '3' in FileBinaryString[150] is converted to 51 (ASCII value) instead of 3
-        let my_uint8_array = Uint8Array.from(res.data as string, c => c.charCodeAt(0));
+        //et my_uint8_array = Uint8Array.from(res.data as string, c => c.charCodeAt(0));
         //note that this uses Uint8Array.from; Array.from won't give a correct file in the end.
 
         // @ts-ignore
@@ -49,6 +49,7 @@ export const DownloadDocumentsLink = ({ directoryTreeName }: DownloadDocumentsLi
 
         let myUrl = window.URL.createObjectURL(blob);
 
+        // download link
         const link = document.createElement('a');
         link.href = myUrl;
         link.setAttribute('download', 'documents.zip');
