@@ -10,7 +10,7 @@ export type HtmlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 export interface AtlusButtonProps extends HtmlButtonProps {
   variant?: 'clear' | 'solid' | 'outline';
-  size?: 'small' | 'big';
+  size?: 'small' | 'medium' | 'big';
   children: ReactNode;
   className?: string;
   isLoading?: boolean;
@@ -48,6 +48,9 @@ const outlineWhiteVariant = clsx(
 // small/mobile
 const smallSizeClasses = 'min-w-[100px] py-[10px] px-6 text-[13px] leading-[16px]';
 
+// medium size
+const mediumSizeClasses = 'md:min-w-[180px] md:py-[13px] md:px-9 md:text-[15px] md:leading-[17px]';
+
 // big md screen or bigger
 const bigSizeClasses = 'md:min-w-[200px] md:py-[15px] md:px-9 md:text-lg md:leading-[23px]';
 
@@ -61,9 +64,15 @@ const getButtonSize = (props: AtlusButtonProps): string => {
     return smallSizeClasses;
   }
 
+  if (size === 'medium') {
+    return mediumSizeClasses;
+  }
+
   if (size === 'big') {
     return bigSizeClasses;
   }
+
+  const isOutlineVariant = variant === 'outline';
 
   // responsive size
   return clsx(
@@ -71,7 +80,7 @@ const getButtonSize = (props: AtlusButtonProps): string => {
     smallSizeClasses,
 
     // big
-    bigSizeClasses
+    isOutlineVariant ? mediumSizeClasses : bigSizeClasses
   );
 };
 
