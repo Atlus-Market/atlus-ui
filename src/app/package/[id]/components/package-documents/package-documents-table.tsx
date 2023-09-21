@@ -3,18 +3,17 @@ import { Fragment } from 'react';
 import { FileName } from '@/components/common/file/file-name';
 import { HiDownload } from 'react-icons/hi';
 import clsx from 'clsx';
-
-import './package-documents-table.css';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { DownloadDocumentsProvider } from '@/app/package/[id]/components/package-documents/download-documents/download-documents-provider';
 import { DocumentCheckbox } from '@/app/package/[id]/components/package-documents/document-checkbox';
 import { DocumentsCheckboxHeader } from '@/app/package/[id]/components/package-documents/documents-checkhox-header';
 import { DownloadDocumentsLink } from '@/app/package/[id]/components/package-documents/download-documents/download-documents-link';
+import './package-documents-table.css';
 
 interface PackageDocumentsTableProps {
   dataroom: Dataroom;
 }
-
+const outlineVariantActiveColor = 'bg-[#F5F5F5]';
 const cellClassnames = 'py-3 md:py-6';
 
 const MIN_FILES_TO_SHOW = 5;
@@ -89,7 +88,15 @@ export const PackageDocumentsTable = ({ dataroom }: PackageDocumentsTableProps) 
           {/* It needs to be part of the table in order to be selected with the hidden input */}
           {diffCountToShow > 0 && (
             <div className="col-span-3">
-              <label htmlFor="show" className="mt-4 inline-block cursor-pointer">
+              <label
+                htmlFor="show"
+                className={clsx(
+                  'mt-4 inline-block cursor-pointer',
+                  // Add styles to the button
+                  '[&:hover>*]:bg-[var(--atlus-button-outline-hover)]',
+                  '[&:active>*]:!bg-[var(--atlus-button-outline-active)]'
+                )}
+              >
                 <AtlusButton variant="outline" className="pointer-events-none select-none">
                   <span className="show-more">Show {diffCountToShow} more</span>
                   <span className="show-less">Show less</span>
