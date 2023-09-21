@@ -4,17 +4,17 @@ export interface DownloadDataroomFilesRequestPayload {
   fileIds: string[];
 }
 
-export type BinaryZipContent = string;
+type BinaryZipContent = string;
 
 export const downloadDataroomFiles = (
-  directoryTreeName: string,
+  directoryTreeId: string,
   payload: DownloadDataroomFilesRequestPayload
-): Promise<BinaryZipContent> => {
+): Promise<Blob> => {
   return createRequest<DownloadDataroomFilesRequestPayload, BinaryZipContent>({
-    url: `/dataroom/${directoryTreeName}/files/download`,
+    url: `/dataroom/${directoryTreeId}/files/download`,
     method: 'POST',
     isProtected: ProtectedEndpoint.True,
     responseType: 'arraybuffer',
     data: payload,
-  });
+  }).then(zipFileContent => new Blob([zipFileContent ?? ''], { type: 'application/zip' }));
 };
