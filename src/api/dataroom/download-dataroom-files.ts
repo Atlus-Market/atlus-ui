@@ -14,6 +14,7 @@ export const downloadDataroomFiles = (
     url: `/dataroom/${directoryTreeName}/files/download`,
     method: 'POST',
     isProtected: ProtectedEndpoint.True,
+    responseType: 'arraybuffer',
     data: payload,
   });
 };
