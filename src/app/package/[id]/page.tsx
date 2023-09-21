@@ -34,10 +34,6 @@ export default async function PackagePage({ params }: PackagePageProps) {
     <div>
       <PackageHeader atlusPackage={atlusPackage} />
       <PackageDivider />
-
-      <PackageDocuments dataroom={dataroom} />
-      <PackageDivider />
-
       <PackageGeneralInfo atlusPackage={atlusPackage} dataroom={dataroom} />
       <PackageDivider />
       <PackageDescription description={atlusPackage.description} />
@@ -50,7 +46,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
       <PackageDivider />
       <PackagePatents atlusPackage={atlusPackage} />
       <PackageDivider />
-      {/*<PackageDocuments />*/}
+      <PackageDocuments dataroom={dataroom} />
       <PackageDivider />
     </div>
   );

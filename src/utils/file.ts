@@ -31,3 +31,17 @@ export const getFileExtension = (fileName: string): string => {
 export const cleanSerializedFile = (serializedFile: SerializedFile) => {
   window.URL.revokeObjectURL(serializedFile.objectUrl);
 };
+
+export const downloadBlobFile = (blob: Blob): void => {
+  const documentsZipFileUrl = window.URL.createObjectURL(blob);
+
+  // download link
+  const link = document.createElement('a');
+  link.href = documentsZipFileUrl;
+  document.body.appendChild(link);
+  link.click();
+
+  // clean up
+  link.remove();
+  window.URL.revokeObjectURL(documentsZipFileUrl);
+};
