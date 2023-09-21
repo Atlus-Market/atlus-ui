@@ -41,7 +41,7 @@ const outlineWhiteVariant = clsx(
   baseButton,
   'bg-white font-bold',
   'border border-soft-black rounded-[32px]',
-  'hover:bg-[#FCFCFC] active:bg-[#F5F5F5]',
+  'hover:bg-[var(--atlus-button-outline-hover)] active:bg-[var(--atlus-button-outline-active)]',
   'disabled:bg-middle-grey'
 );
 

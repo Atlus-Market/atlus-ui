@@ -17,6 +17,10 @@
     --color-dark-grey: #605b56;
     --color-dark-cyan: #0E7580;
     --color-green: #1CA843;
+
+    /* Button */
+    --atlus-button-outline-hover: #FCFCFC;
+    --atlus-button-outline-active: #F5F5F5;
 }
 
 html,
@@ -24,7 +28,6 @@ body {
     height: 100%;
     background: var(--color-white);
 }
-
 
 .word-break-break-word {
     word-break: break-word;

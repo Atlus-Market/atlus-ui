@@ -9,11 +9,15 @@ import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
 export interface AtlusTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   wrapperClassName?: string;
+  textAreaClassName?: string;
   errors?: FieldErrors;
 }
 
 export const AtlusTextarea = forwardRef<HTMLTextAreaElement, AtlusTextareaProps>(
-  function AtlusTextarea({ id, label, name, wrapperClassName, errors, ...rest }, ref) {
+  function AtlusTextarea(
+    { id, label, name, wrapperClassName, textAreaClassName, errors, ...rest },
+    ref
+  ) {
     const textareaId = id || name;
     return (
       <div className={clsx('mb-4 md:mb-6', wrapperClassName)}>
@@ -36,7 +40,8 @@ export const AtlusTextarea = forwardRef<HTMLTextAreaElement, AtlusTextareaProps>
               'py-[18px] pl-4 pr-[27px]',
               'outline-0',
               'placeholder:text-dark-grey',
-              'resize-none min-h-[230px]'
+              'resize-none min-h-[230px]',
+              textAreaClassName
             )}
             ref={ref}
             {...rest}
