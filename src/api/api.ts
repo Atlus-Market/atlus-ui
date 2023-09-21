@@ -45,6 +45,7 @@ export const createRequest = <Payload, Response>({
   headers = {},
   method,
   payload,
+  responseType = 'json', // Default to JSON response
   ...restConfig
 }: AtlusRequestConfig<Payload>): Promise<Response> => {
   if (isProtected === ProtectedEndpoint.True && !isRunningOnServer()) {
@@ -57,6 +58,7 @@ export const createRequest = <Payload, Response>({
     headers,
     data: payload,
     withCredentials: isProtected === ProtectedEndpoint.True,
+    responseType, // Set responseType based on the expected response type
     ...restConfig,
   }).then(response => {
     return response.data;
