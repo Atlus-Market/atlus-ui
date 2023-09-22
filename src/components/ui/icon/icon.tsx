@@ -45,8 +45,11 @@ export const Icon = ({ name, size = 20, color = 'orange' }: IconProps) => {
           setImageData(icon);
         }
       } catch (err) {
-        setImageData(null);
         console.error(`Error loading icon "${iconName}"`);
+        if (!mounted) {
+          return;
+        }
+        setImageData(null);
         if (iconName !== DefaultIconName) {
           setIconName(DefaultIconName);
         }

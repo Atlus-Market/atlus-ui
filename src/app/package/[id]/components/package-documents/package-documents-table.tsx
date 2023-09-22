@@ -1,7 +1,6 @@
 import { Dataroom } from '@/models/dataroom';
 import { Fragment } from 'react';
 import { FileName } from '@/components/common/file/file-name';
-import { HiDownload } from 'react-icons/hi';
 import clsx from 'clsx';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { DownloadDocumentsProvider } from '@/app/package/[id]/components/package-documents/download-documents/download-documents-provider';
@@ -9,10 +8,13 @@ import { DocumentCheckbox } from '@/app/package/[id]/components/package-document
 import { DocumentsCheckboxHeader } from '@/app/package/[id]/components/package-documents/documents-checkhox-header';
 import { DownloadDocumentsLink } from '@/app/package/[id]/components/package-documents/download-documents/download-documents-link';
 import './package-documents-table.css';
+import { DownloadSingleFile } from '@/app/package/[id]/components/package-documents/download-documents/download-single-file';
+import { HiDownload } from 'react-icons/hi';
 
 interface PackageDocumentsTableProps {
   dataroom: Dataroom;
 }
+
 const outlineVariantActiveColor = 'bg-[#F5F5F5]';
 const cellClassnames = 'py-3 md:py-6';
 
@@ -74,12 +76,14 @@ export const PackageDocumentsTable = ({ dataroom }: PackageDocumentsTableProps) 
                     'flex items-center justify-end px-[10px]'
                   )}
                 >
-                  <button className="flex items-center gap-[10px]">
-                    <HiDownload className="text-dark-grey" size={20} />
-                    <span className="hidden md:inline-block text-dark-grey text-[15px] font-semibold">
-                      Download
-                    </span>
-                  </button>
+                  <DownloadSingleFile directoryTreeId={dataroom.directoryTree.name} file={file}>
+                    <button className="flex items-center gap-[10px]">
+                      <HiDownload className="text-dark-grey" size={20} />
+                      <span className="hidden md:inline-block text-dark-grey text-[15px] font-semibold">
+                        Download
+                      </span>
+                    </button>
+                  </DownloadSingleFile>
                 </div>
               </Fragment>
             );
