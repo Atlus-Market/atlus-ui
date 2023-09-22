@@ -34,17 +34,17 @@ export const PackageDocumentsTable = ({ dataroom }: PackageDocumentsTableProps) 
           <input type="checkbox" id="show" className="hidden" />
           <div
             className={clsx(
-              'flex items-center justify-center bg-peach rounded-tl-lg rounded-bl-lg'
+              'flex items-center justify-center bg-light-grey-2 rounded-tl-lg rounded-bl-lg'
             )}
           >
             <DocumentsCheckboxHeader allFileIds={allFileIds} />
           </div>
-          <div className="col-span-2 flex items-center bg-peach rounded-tr-lg rounded-br-lg">
+          <div className="col-span-2 flex items-center bg-light-grey-2 rounded-tr-lg rounded-br-lg">
             <DownloadDocumentsLink directoryTreeId={dataroom.directoryTree.name} />
           </div>
           {files.map((file, index) => {
             const isLastRow = index + 1 === files.length;
-            const borderBottomClassname = !isLastRow ? 'md:border-b md:border-peach' : '';
+            const borderBottomClassname = !isLastRow ? 'md:border-b md:border-light-grey-2' : '';
             const toggleClass = index >= MIN_FILES_TO_SHOW ? 'show-more-cells' : '';
             return (
               <Fragment key={file.id}>

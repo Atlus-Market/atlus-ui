@@ -15,8 +15,7 @@ interface PackagePatentsTableCompactProps {
 }
 
 const gridBorderStyles = clsx(
-  // 'border border-[#FCFCFC] overflow-hidden',
-  'border border-peach overflow-hidden',
+  'border border-light-grey-2 overflow-hidden',
   'rounded-tl-lg rounded-tr-lg md:rounded-tl-xl md:rounded-tr-xl',
   'rounded-br-xl rounded-bl-xl'
 );
