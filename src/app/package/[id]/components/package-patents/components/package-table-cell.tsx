@@ -11,7 +11,7 @@ export const PackageTableCell = ({ children, className }: PackageTableRowProps) 
     <div
       className={clsx(
         'px-3 md:px-6',
-        'pb-3 pt-0 md:pb-6 md:pt-6 md:border-b md:border-b-peach',
+        'pb-3 pt-0 md:pb-6 md:pt-6 md:border-b md:border-b-light-grey-2',
         className
       )}
     >

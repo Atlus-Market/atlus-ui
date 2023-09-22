@@ -19,7 +19,7 @@ export const PackagePatentsTable = ({ patents, type }: PackagePatentsTableProps)
       })}
     >
       <div
-        className={clsx('bg-peach', {
+        className={clsx('bg-light-grey-2', {
           'col-span-2 md:col-span-1': isCompact,
         })}
       >

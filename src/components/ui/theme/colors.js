@@ -8,6 +8,7 @@ module.exports = {
   red: 'var(--color-red)',
   'lightest-grey': 'var(--color-lightest-grey)',
   'light-grey': 'var(--color-light-grey)',
+  'light-grey-2': 'var(--color-light-grey-2)',
   'middle-grey': 'var(--color-middle-grey)',
   'dark-grey': 'var(--color-dark-grey)',
   'dark-cyan': 'var(--color-dark-cyan)',
