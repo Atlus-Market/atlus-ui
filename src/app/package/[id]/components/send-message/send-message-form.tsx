@@ -43,7 +43,7 @@ export const SendMessageForm = ({ atlusPackage }: SendMessageFormProps) => {
   return (
     <AtlusForm formProps={formProps} onSubmit={onSubmit}>
       <AtlusFormTextarea
-        textAreaClassName="min-h-[150px]"
+        textAreaClassName="!min-h-[170px] md:!min-h-[150px]"
         placeholder="Write a message..."
         {...formProps.register('message')}
       />
