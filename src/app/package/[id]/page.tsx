@@ -52,7 +52,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
       <PackageDivider />
       <PackageListedBy brokerId={atlusPackage.brokerUserId} />
       <PackageDivider className="bg-transparent !mt-0" />
-      <SendMessage />
+      <SendMessage atlusPackage={atlusPackage} />
     </div>
   );
 }

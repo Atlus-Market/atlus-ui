@@ -1,11 +1,10 @@
 import { SendMessageForm } from '@/app/package/[id]/components/send-message/send-message-form';
+import { Package } from '@/models/package';
 
-interface SendMessageProps {}
+interface SendMessageProps {
+  atlusPackage: Package;
+}
 
-export const SendMessage = ({}: SendMessageProps) => {
-  return (
-    <div>
-      <SendMessageForm />
-    </div>
-  );
+export const SendMessage = ({ atlusPackage }: SendMessageProps) => {
+  return <SendMessageForm atlusPackage={atlusPackage} />;
 };
