@@ -1,13 +1,12 @@
 import { PackageOwner } from '@/app/package/[id]/components/package-owner/package-owner';
 import { PackageSectionTitle } from '@/app/package/[id]/components/package-section-title';
-import { getUserByIdOnServer } from '@/api/user/get-user-by-id-on-server';
+import { User } from '@/models/user';
 
 interface PackageListedByProps {
-  brokerId: string;
+  user: User;
 }
 
-export const PackageListedBy = async ({ brokerId }: PackageListedByProps) => {
-  const user = await getUserByIdOnServer(brokerId);
+export const PackageListedBy = ({ user }: PackageListedByProps) => {
   return (
     <div>
       <PackageSectionTitle title={`Listed by ${user.fullName}`} />

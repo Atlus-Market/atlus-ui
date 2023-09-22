@@ -1,7 +1,7 @@
 import { Package } from '@/models/package';
-import { AtlusTitle } from '@/components/ui/typography/atlus-title';
 import { getInterestAreas } from '@/api/interest-areas/get-interest-areas';
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
+import { PackageSubSectionTitle } from '@/app/package/[id]/components/package-sub-section-title';
 
 interface PackageIndustriesProps {
   atlusPackage: Package;
@@ -15,10 +15,7 @@ export const PackageIndustries = async ({ atlusPackage }: PackageIndustriesProps
 
   return (
     <div>
-      <AtlusTitle
-        text="Industry"
-        className="!text-[13px] md:!text-sm text-dark-grey mb-2 md:mb-[11px]"
-      />
+      <PackageSubSectionTitle title="Industry" />
       <div className="flex gap-2 flex-wrap">
         {packageInterestAreas.map(area => (
           <AtlusTag key={area.id} text={area.name} />

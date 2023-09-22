@@ -10,7 +10,7 @@ export const PackageSectionTitle = ({ title, classNames }: PackageSectionTitlePr
   return (
     <AtlusTitle
       text={title}
-      className={clsx('!font-normal !text-base md:!text-xl text-black mb-4 md:mb-6')}
+      className={clsx('!font-normal !text-base md:!text-xl text-black mb-4 md:mb-6', classNames)}
     />
   );
 };
