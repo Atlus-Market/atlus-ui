@@ -1,16 +1,15 @@
 import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { BinaryContent } from '@/types';
 
 export interface DownloadDataroomFilesRequestPayload {
   fileIds: string[];
 }
 
-type BinaryZipContent = string;
-
 export const downloadDataroomFiles = (
   directoryTreeId: string,
   payload: DownloadDataroomFilesRequestPayload
 ): Promise<Blob> => {
-  return createRequest<DownloadDataroomFilesRequestPayload, BinaryZipContent>({
+  return createRequest<DownloadDataroomFilesRequestPayload, BinaryContent>({
     url: `/dataroom/${directoryTreeId}/files/download`,
     method: 'POST',
     isProtected: ProtectedEndpoint.True,

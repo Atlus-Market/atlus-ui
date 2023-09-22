@@ -37,22 +37,24 @@ export interface AtlusRequestConfig<T extends unknown> extends CreateAxiosDefaul
   isProtected?: ProtectedEndpoint;
   headers?: Record<string, string>;
   payload?: T;
+  returnRawResponse?: boolean;
 }
 
-export const createRequest = <Payload, Response>({
+export const createRequest = <Payload, ResponsePayload>({
   url,
   isProtected = ProtectedEndpoint.False,
   headers = {},
   method,
   payload,
   responseType = 'json', // Default to JSON response
+  returnRawResponse = false,
   ...restConfig
-}: AtlusRequestConfig<Payload>): Promise<Response> => {
+}: AtlusRequestConfig<Payload>): Promise<ResponsePayload> => {
   if (isProtected === ProtectedEndpoint.True && !isRunningOnServer()) {
     setAuthHeaders(headers, AtlusSessionManager);
   }
 
-  return axios<Payload, AxiosResponse<Response>>({
+  return axios<Payload, AxiosResponse<ResponsePayload> | ResponsePayload>({
     method,
     url: createUrl(url),
     headers,
@@ -61,7 +63,10 @@ export const createRequest = <Payload, Response>({
     responseType, // Set responseType based on the expected response type
     ...restConfig,
   }).then(response => {
-    return response.data;
+    if (returnRawResponse) {
+      return response;
+    }
+    return (response as AxiosResponse).data;
   });
 };
 

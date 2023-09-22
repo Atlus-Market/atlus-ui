@@ -32,12 +32,13 @@ export const cleanSerializedFile = (serializedFile: SerializedFile) => {
   window.URL.revokeObjectURL(serializedFile.objectUrl);
 };
 
-export const downloadBlobFile = (blob: Blob): void => {
+export const downloadBlobFile = (blob: Blob, fileName?: string): void => {
   const documentsZipFileUrl = window.URL.createObjectURL(blob);
 
   // download link
   const link = document.createElement('a');
   link.href = documentsZipFileUrl;
+  link.setAttribute('download', fileName ?? '');
   document.body.appendChild(link);
   link.click();
 
