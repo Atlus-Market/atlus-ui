@@ -10,7 +10,8 @@ import { PackagePatents } from '@/app/package/[id]/components/package-patents/pa
 import { getDataroomByPackageIdOnServer } from '@/api/dataroom/get-dataroom-by-package-id-on-server';
 import { PackageDocuments } from '@/app/package/[id]/components/package-documents/package-documents';
 import { PackageListedBy } from '@/app/package/[id]/components/package-owner/package-listed-by';
-import { SendMessage } from '@/app/package/[id]/components/send-message/send-message'; // export const dynamic = 'force-dynamic';
+import { SendMessage } from '@/app/package/[id]/components/send-message/send-message';
+import { getUserByIdOnServer } from '@/api/user/get-user-by-id-on-server'; // export const dynamic = 'force-dynamic';
 
 interface PackagePageProps {
   params: {
@@ -32,9 +33,11 @@ export default async function PackagePage({ params }: PackagePageProps) {
   const dataroom = packageData[1];
   console.log('dataroom: ', dataroom);
 
+  const broker = await getUserByIdOnServer(atlusPackage.brokerUserId);
+
   return (
     <div>
-      <PackageHeader atlusPackage={atlusPackage} />
+      <PackageHeader atlusPackage={atlusPackage} broker={broker} />
       <PackageDivider />
       <PackageGeneralInfo atlusPackage={atlusPackage} dataroom={dataroom} />
       <PackageDivider />
@@ -44,13 +47,13 @@ export default async function PackagePage({ params }: PackagePageProps) {
       <PackageDivider className="bg-transparent !mt-0" />
       <PackageKeywords atlusPackage={atlusPackage} />
       <PackageDivider className="bg-transparent !mt-0" />
-      <PackageSeller atlusPackage={atlusPackage} />
+      <PackageSeller companyName={broker.companyName} />
       <PackageDivider />
       <PackagePatents atlusPackage={atlusPackage} />
       <PackageDivider />
       <PackageDocuments dataroom={dataroom} />
       <PackageDivider />
-      <PackageListedBy brokerId={atlusPackage.brokerUserId} />
+      <PackageListedBy user={broker} />
       <PackageDivider className="bg-transparent !mt-0" />
       <SendMessage atlusPackage={atlusPackage} />
     </div>

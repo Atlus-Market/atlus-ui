@@ -1,6 +1,6 @@
 import { Package } from '@/models/package';
-import { AtlusTitle } from '@/components/ui/typography/atlus-title';
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
+import { PackageSubSectionTitle } from '@/app/package/[id]/components/package-sub-section-title';
 
 interface PackageKeywordsProps {
   atlusPackage: Package;
@@ -9,10 +9,7 @@ interface PackageKeywordsProps {
 export const PackageKeywords = ({ atlusPackage }: PackageKeywordsProps) => {
   return (
     <div>
-      <AtlusTitle
-        text="Keywords"
-        className="!text-[13px] md:!text-sm text-dark-grey mb-2 md:mb-[11px]"
-      />
+      <PackageSubSectionTitle title="Keywords" />
       <div className="flex gap-2 flex-wrap">
         {atlusPackage.keywords.split(',').map((keyword, index) => (
           <AtlusTag key={`${index}-${keyword}`} text={keyword} />
