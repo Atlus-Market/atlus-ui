@@ -1,14 +1,14 @@
-import { Patent } from '@/models/patent';
 import clsx from 'clsx';
-import { PackageTableHeader } from '@/app/package/[id]/components/package-patents/components/package-table-header';
-import { TableHeaderTitle } from '@/app/package/[id]/components/package-patents/components/table-header-title';
+import { PackageTableHeader } from '@/app/package/[id]/components/package-patents/components/table-components/package-table-header';
+import { TableHeaderTitle } from '@/app/package/[id]/components/package-patents/components/table-components/table-header-title';
 import { getPatentId, getPatentReadableAssignees, groupPatentsByFamily } from '@/utils/patents';
 import { Fragment } from 'react';
-import { PackageTableCell } from '@/app/package/[id]/components/package-patents/components/package-table-cell';
-import { PackageTablePatentTitle } from '@/app/package/[id]/components/package-patents/components/package-table-patent-title';
+import { PackageTableCell } from '@/app/package/[id]/components/package-patents/components/table-components/package-table-cell';
+import { PackageTablePatentTitle } from '@/app/package/[id]/components/package-patents/components/table-components/package-table-patent-title';
 import { PatentsInFamilyLink } from '@/app/package/[id]/components/package-patents/components/patents-in-family-link';
-import { PackageTablePatentId } from '@/app/package/[id]/components/package-patents/components/package-table-patent-id';
-import { PackageTableApplicationDate } from '@/app/package/[id]/components/package-patents/components/package-table-application-date';
+import { PackageTablePatentId } from '@/app/package/[id]/components/package-patents/components/table-components/package-table-patent-id';
+import { PackageTableApplicationDate } from '@/app/package/[id]/components/package-patents/components/table-components/package-table-application-date';
+import { Patent } from '@/models/patent';
 
 export type PackagePatentsTableType = 'compact' | 'full';
 
@@ -36,7 +36,7 @@ export const PackagePatentsTable = ({ patents, type }: PackagePatentsTableProps)
           'hidden md:grid': isCompact,
           'grid w-max': isFull,
           'grid-cols-4': isCompact,
-          'grid-cols-[repeat(5,_200px)] overflow-x-auto': isFull,
+          'grid-cols-[repeat(5,minmax(50px,200px))] overflow-x-auto': isFull,
         },
         gridBorderStyles
       )}
