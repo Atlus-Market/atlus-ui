@@ -30,6 +30,10 @@ body {
     background: var(--color-white);
 }
 
+body.ReactModal__Body--open {
+    overflow: hidden;
+}
+
 .word-break-break-word {
     word-break: break-word;
 }

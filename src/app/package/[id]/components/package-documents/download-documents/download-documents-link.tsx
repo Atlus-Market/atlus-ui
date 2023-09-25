@@ -1,6 +1,6 @@
 'use client';
 
-import { useDownloadDocumentsContext } from '@/app/package/[id]/components/package-documents/download-documents/download-documents-context';
+import { useDownloadDocumentsContext } from '@/app/package/[id]/components/package-documents/download-documents/use-download-documents-context';
 import { TableHeaderTitle } from '@/app/package/[id]/components/package-patents/components/table-header-title';
 import { pluralize } from '@/utils/words';
 import { useQuery } from '@tanstack/react-query';
