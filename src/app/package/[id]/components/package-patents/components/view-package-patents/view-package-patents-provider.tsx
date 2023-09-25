@@ -8,14 +8,22 @@ interface ViewPackagePatentsProviderProps {
   children: ReactNode;
 }
 
-interface ViewPackagePatentsContextState {
+export type PatentsFamily = {
   patents: Patent[];
-  setPatents: (patents: Patent[]) => void;
+  familyNumber: number | null;
+};
+
+interface ViewPackagePatentsContextState {
+  patentsFamily: PatentsFamily;
+  setPatents: (patentsFamily: PatentsFamily) => void;
   clear: () => void;
 }
 
 const contextInitialState: ViewPackagePatentsContextState = {
-  patents: [],
+  patentsFamily: {
+    patents: [],
+    familyNumber: null,
+  },
   setPatents: noop,
   clear: noop,
 };
@@ -30,10 +38,10 @@ export const ViewPackagePatentsProvider = ({ children }: ViewPackagePatentsProvi
   const contextValue = useMemo<ViewPackagePatentsContextState>(() => {
     return {
       ...viewPackagePatentsContextState,
-      setPatents: (patents: Patent[]) => {
+      setPatents: (patentsFamily: PatentsFamily) => {
         setViewPackagePatentsContextState({
           ...viewPackagePatentsContextState,
-          patents,
+          patentsFamily,
         });
       },
       clear: () => {

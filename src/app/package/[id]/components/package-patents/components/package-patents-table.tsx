@@ -66,6 +66,7 @@ export const PackagePatentsTable = ({ patents, type }: PackagePatentsTableProps)
       </PackageTableHeader>
 
       {patentsGroups.map((patentsGroup, index) => {
+        const familyNumber = index + 1;
         const patentsToRender = isCompact ? [patentsGroup[0]] : patentsGroup;
         return patentsToRender.map(patent => {
           const patentId = getPatentId(patent);
@@ -81,7 +82,7 @@ export const PackagePatentsTable = ({ patents, type }: PackagePatentsTableProps)
                 <PackageTablePatentTitle title={patent.title} />
                 {isCompact && patentsGroup.length > 1 && (
                   <div className="mt-3">
-                    <PatentsInFamilyLink patents={patentsGroup} />
+                    <PatentsInFamilyLink patents={patentsGroup} familyNumber={familyNumber} />
                   </div>
                 )}
               </PackageTableCell>
