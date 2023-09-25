@@ -23,10 +23,12 @@ export const PatentsInFamilyLink = ({ patents, familyNumber }: PatentsInFamilyLi
     <button
       className={clsx('text-orange', 'text-xs md:text-[13px]', 'font-medium')}
       onClick={() => {
-        setPatents({
-          patents,
-          familyNumber,
-        });
+        setPatents([
+          {
+            patents,
+            familyNumber,
+          },
+        ]);
       }}
     >
       {label}

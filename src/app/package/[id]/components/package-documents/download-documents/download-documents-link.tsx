@@ -1,13 +1,13 @@
 'use client';
 
 import { useDownloadDocumentsContext } from '@/app/package/[id]/components/package-documents/download-documents/use-download-documents-context';
-import { TableHeaderTitle } from '@/app/package/[id]/components/package-patents/components/table-header-title';
 import { pluralize } from '@/utils/words';
 import { useQuery } from '@tanstack/react-query';
 import { downloadDataroomFiles } from '@/api/dataroom/download-dataroom-files';
 import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loading-spinner';
 import clsx from 'clsx';
 import { downloadBlobFile } from '@/utils/file';
+import { TableHeaderTitle } from '@/app/package/[id]/components/package-patents/components/table-components/table-header-title';
 
 interface DownloadDocumentsLinkProps {
   directoryTreeId: string;
