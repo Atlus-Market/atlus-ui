@@ -8,6 +8,7 @@ import { AtlusModalTitle } from '@/components/ui/modal/atlus-modal-title';
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
 import { AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
 import { useViewPackagePatentsContext } from '@/app/package/[id]/components/package-patents/components/view-package-patents/use-view-package-patents-context';
+import { PackagePatentsTable } from '@/app/package/[id]/components/package-patents/components/package-patents-table';
 
 export const ViewPackagePatentsModal = () => {
   const { patents, clear } = useViewPackagePatentsContext();
@@ -21,9 +22,11 @@ export const ViewPackagePatentsModal = () => {
       isOpen={true}
       overlayClassName="z-[2]"
       onRequestClose={clear}
-      modalBodyClassName="max-h-[80%]"
+      modalBodyClassName="h-screen !max-h-none"
     >
       <AtlusModalContainer
+        className="!h-full !max-h-min"
+        containerClassName="w-screen lg:w-auto lg:max-w-[1200px] !overflow-x-auto"
         header={
           <AtlusModalHeader rightContent={<AtlusCloseModalButton onClick={clear} />}>
             <AtlusModalTitle text="Patents in this package" />
@@ -35,7 +38,9 @@ export const ViewPackagePatentsModal = () => {
           </AtlusModalFooter>
         }
       >
-        <AtlusModalBody className="w-[650px]">Patents table</AtlusModalBody>
+        <AtlusModalBody className="overflow-x-auto">
+          <PackagePatentsTable patents={patents} type="full" />
+        </AtlusModalBody>
       </AtlusModalContainer>
     </AtlusModal>
   );

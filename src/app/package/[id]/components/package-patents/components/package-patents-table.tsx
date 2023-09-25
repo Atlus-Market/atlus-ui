@@ -30,73 +30,81 @@ export const PackagePatentsTable = ({ patents, type }: PackagePatentsTableProps)
   const isFull = type === 'full';
 
   return (
-    <div className="hidden md:block">
-      <div
-        className={clsx(
-          'grid',
-          {
-            'grid-cols-4': isCompact,
-            'grid-cols-6': isFull,
-          },
-          gridBorderStyles
-        )}
-      >
-        <PackageTableHeader className="col-span-2">
-          <TableHeaderTitle title="Title" />
-        </PackageTableHeader>
-        <PackageTableHeader>
-          <TableHeaderTitle title="Publication/Patent no." />
-        </PackageTableHeader>
-        {isFull && (
-          <PackageTableHeader>
-            <TableHeaderTitle title="Assignee" />
-          </PackageTableHeader>
-        )}
-        {isFull && (
-          <PackageTableHeader>
-            <TableHeaderTitle title="Application no." />
-          </PackageTableHeader>
-        )}
-        <PackageTableHeader>
-          <TableHeaderTitle title="Filling date" />
-        </PackageTableHeader>
-
-        {patentsGroups.map((patentsGroup, index) => {
-          const patentsToRender = isCompact ? [patentsGroup[0]] : patentsGroup;
-          return patentsToRender.map(patent => {
-            const patentId = getPatentId(patent);
-            const isLastRow = patentsGroups.length - 1 === index;
-            return (
-              <Fragment key={patentId}>
-                <PackageTableCell className={clsx('col-span-2', { '!border-b-0': isLastRow })}>
-                  <PackageTablePatentTitle title={patent.title} />
-                  {isCompact && patentsGroup.length > 1 && (
-                    <div className="mt-3">
-                      <PatentsInFamilyLink patents={patentsGroup} />
-                    </div>
-                  )}
-                </PackageTableCell>
-                <PackageTableCell className={clsx({ '!border-b-0': isLastRow })}>
-                  <PackageTablePatentId patentId={patentId} />
-                </PackageTableCell>
-                {isFull && (
-                  <PackageTableCell className={clsx({ '!border-b-0': isLastRow })}>
-                    {getPatentReadableAssignees(patent)}
-                  </PackageTableCell>
-                )}
-                {isFull && (
-                  <PackageTableCell className={clsx({ '!border-b-0': isLastRow })}>
-                    {patent.applicationNumber}
-                  </PackageTableCell>
-                )}
-                <PackageTableCell className={clsx({ '!border-b-0': isLastRow })}>
-                  <PackageTableApplicationDate gmtDate={patent.applicationDate} />
-                </PackageTableCell>
-              </Fragment>
-            );
-          });
+    <div
+      className={clsx(
+        {
+          'hidden md:grid': isCompact,
+          'grid w-max': isFull,
+          'grid-cols-4': isCompact,
+          'grid-cols-[repeat(5,_200px)] overflow-x-auto': isFull,
+        },
+        gridBorderStyles
+      )}
+    >
+      <PackageTableHeader
+        className={clsx({
+          'col-span-2': isCompact,
         })}
-      </div>
+      >
+        <TableHeaderTitle title="Title" />
+      </PackageTableHeader>
+      <PackageTableHeader>
+        <TableHeaderTitle title="Publication/Patent no." />
+      </PackageTableHeader>
+      {isFull && (
+        <PackageTableHeader>
+          <TableHeaderTitle title="Assignee" />
+        </PackageTableHeader>
+      )}
+      {isFull && (
+        <PackageTableHeader>
+          <TableHeaderTitle title="Application no." />
+        </PackageTableHeader>
+      )}
+      <PackageTableHeader>
+        <TableHeaderTitle title="Filling date" />
+      </PackageTableHeader>
+
+      {patentsGroups.map((patentsGroup, index) => {
+        const patentsToRender = isCompact ? [patentsGroup[0]] : patentsGroup;
+        return patentsToRender.map(patent => {
+          const patentId = getPatentId(patent);
+          const isLastRow = patentsGroups.length - 1 === index;
+          return (
+            <Fragment key={patentId}>
+              <PackageTableCell
+                className={clsx({
+                  'col-span-2': isCompact,
+                  '!border-b-0': isLastRow,
+                })}
+              >
+                <PackageTablePatentTitle title={patent.title} />
+                {isCompact && patentsGroup.length > 1 && (
+                  <div className="mt-3">
+                    <PatentsInFamilyLink patents={patentsGroup} />
+                  </div>
+                )}
+              </PackageTableCell>
+              <PackageTableCell className={clsx({ '!border-b-0': isLastRow })}>
+                <PackageTablePatentId patentId={patentId} />
+              </PackageTableCell>
+              {isFull && (
+                <PackageTableCell className={clsx({ '!border-b-0': isLastRow })}>
+                  {getPatentReadableAssignees(patent)}
+                </PackageTableCell>
+              )}
+              {isFull && (
+                <PackageTableCell className={clsx({ '!border-b-0': isLastRow })}>
+                  {patent.applicationNumber}
+                </PackageTableCell>
+              )}
+              <PackageTableCell className={clsx({ '!border-b-0': isLastRow })}>
+                <PackageTableApplicationDate gmtDate={patent.applicationDate} />
+              </PackageTableCell>
+            </Fragment>
+          );
+        });
+      })}
     </div>
   );
 };
