@@ -1,7 +1,7 @@
 import { Package } from '@/models/package';
 import { groupPatentsByFamily } from '@/utils/patents';
 import { pluralize } from '@/utils/words';
-import { PackagePatentsTableCompact } from '@/app/package/[id]/components/package-patents/components/package-patents-table-compact';
+import { PackagePatentsReducedTable } from '@/app/package/[id]/components/package-patents/components/package-patents-reduced-table';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { PackageSectionTitle } from '@/app/package/[id]/components/package-section-title';
 
@@ -17,7 +17,7 @@ export const PackagePatents = ({ atlusPackage }: PackagePatentsTableProps) => {
   return (
     <div>
       <PackageSectionTitle title={familyTitle} />
-      <PackagePatentsTableCompact patents={allPatents} />
+      <PackagePatentsReducedTable patents={allPatents} />
       <AtlusButton variant="outline" className="mt-4 md:mt-6">
         See all patents
       </AtlusButton>
