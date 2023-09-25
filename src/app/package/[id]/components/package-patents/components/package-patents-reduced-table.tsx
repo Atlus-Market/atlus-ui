@@ -28,13 +28,14 @@ export const PackagePatentsReducedTable = ({ patents }: PackagePatentsTableCompa
         <PackagePatentsTable patents={patents} type="compact" />
         <div className="md:hidden">
           {patentsGroups.map((patents, index) => {
+            const familyNumber = index + 1;
             const patent = patents[0];
             const patentId = getPatentId(patent);
             return (
               <div key={patentId}>
                 <div className={clsx('grid grid-col-2 mt-6 mb-2', gridBorderStyles)}>
                   <PackageTableHeader className="col-span-2">
-                    <TableHeaderTitle title={`Family ${index + 1}`} />
+                    <TableHeaderTitle title={`Family ${familyNumber}`} />
                   </PackageTableHeader>
                   <PackageTableCell className="col-span-2">
                     <PackageTablePatentTitle title={patent.title} />
@@ -53,7 +54,7 @@ export const PackagePatentsReducedTable = ({ patents }: PackagePatentsTableCompa
                   </PackageTableCell>
                 </div>
                 <div className="pl-3">
-                  <PatentsInFamilyLink patents={patents} />
+                  <PatentsInFamilyLink patents={patents} familyNumber={familyNumber} />
                 </div>
               </div>
             );

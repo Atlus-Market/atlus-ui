@@ -7,9 +7,10 @@ import { Patent } from '@/models/patent';
 
 interface PatentsInFamilyLinkProps {
   patents: Patent[];
+  familyNumber: number;
 }
 
-export const PatentsInFamilyLink = ({ patents }: PatentsInFamilyLinkProps) => {
+export const PatentsInFamilyLink = ({ patents, familyNumber }: PatentsInFamilyLinkProps) => {
   const { setPatents } = useViewPackagePatentsContext();
   const totalPatents = patents.length;
 
@@ -22,7 +23,10 @@ export const PatentsInFamilyLink = ({ patents }: PatentsInFamilyLinkProps) => {
     <button
       className={clsx('text-orange', 'text-xs md:text-[13px]', 'font-medium')}
       onClick={() => {
-        setPatents(patents);
+        setPatents({
+          patents,
+          familyNumber,
+        });
       }}
     >
       {label}
