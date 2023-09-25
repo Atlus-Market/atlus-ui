@@ -1,7 +1,7 @@
 'use client';
 
 import { AtlusCheckbox } from '@/components/ui/checkbox/atlus-checkbox';
-import { useDownloadDocumentsContext } from '@/app/package/[id]/components/package-documents/download-documents/download-documents-context';
+import { useDownloadDocumentsContext } from '@/app/package/[id]/components/package-documents/download-documents/use-download-documents-context';
 
 interface DocumentsCheckboxProps {
   allFileIds: string[];
