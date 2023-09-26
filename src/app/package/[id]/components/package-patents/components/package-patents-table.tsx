@@ -65,15 +65,15 @@ export const PackagePatentsTable = ({ patents, type }: PackagePatentsTableProps)
         <TableHeaderTitle title="Filling date" />
       </PackageTableHeader>
 
-      {patentsGroups.map((patentsGroup, index) => {
-        const familyNumber = index + 1;
+      {patentsGroups.map((patentsGroup, patentsGroupIndex) => {
+        const familyNumber = patentsGroupIndex + 1;
         const patentsToRender = isCompact ? [patentsGroup[0]] : patentsGroup;
-        return patentsToRender.map(patent => {
+        return patentsToRender.map((patent, patentIndex) => {
           const patentId = getPatentId(patent);
-          const isLastRow = patentsGroups.length - 1 === index;
+          const isLastRow = patentsToRender.length - 1 === patentIndex;
 
           const cellBorderBottom = {
-            '!border-b-0': !isFull && isLastRow,
+            '!border-b-0': isFull && isLastRow,
             // '!border-b-light-grey': isFull,
           };
           return (
