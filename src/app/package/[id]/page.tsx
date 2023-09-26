@@ -1,17 +1,8 @@
 import { getPackageOnServer } from '@/api/package/get-package-on-server';
-import { PackageHeader } from '@/app/package/[id]/components/package-header';
-import { PackageDivider } from '@/app/package/[id]/components/package-divider';
-import { PackageGeneralInfo } from '@/app/package/[id]/components/general-info/package-general-info';
-import { PackageDescription } from '@/app/package/[id]/components/package-description';
-import { PackageIndustries } from '@/app/package/[id]/components/package-industries';
-import { PackageKeywords } from '@/app/package/[id]/components/package-keyword';
-import { PackageSeller } from '@/app/package/[id]/components/package-seller';
-import { PackagePatents } from '@/app/package/[id]/components/package-patents/package-patents';
 import { getDataroomByPackageIdOnServer } from '@/api/dataroom/get-dataroom-by-package-id-on-server';
-import { PackageDocuments } from '@/app/package/[id]/components/package-documents/package-documents';
-import { PackageListedBy } from '@/app/package/[id]/components/package-owner/package-listed-by';
-import { SendMessage } from '@/app/package/[id]/components/send-message/send-message';
-import { getUserByIdOnServer } from '@/api/user/get-user-by-id-on-server'; // export const dynamic = 'force-dynamic';
+import { getUserByIdOnServer } from '@/api/user/get-user-by-id-on-server';
+import { PackageRightPanel } from '@/app/package/[id]/components/right-panel/package-right-panel';
+import { MainPanel } from '@/app/package/[id]/main-panel'; // export const dynamic = 'force-dynamic';
 
 interface PackagePageProps {
   params: {
@@ -36,26 +27,11 @@ export default async function PackagePage({ params }: PackagePageProps) {
   const broker = await getUserByIdOnServer(atlusPackage.brokerUserId);
 
   return (
-    <div>
-      <PackageHeader atlusPackage={atlusPackage} broker={broker} />
-      <PackageDivider />
-      <PackageGeneralInfo atlusPackage={atlusPackage} dataroom={dataroom} />
-      <PackageDivider />
-      <PackageDescription description={atlusPackage.description} />
-      <PackageDivider className="bg-transparent !mt-0" />
-      <PackageIndustries atlusPackage={atlusPackage} />
-      <PackageDivider className="bg-transparent !mt-0" />
-      <PackageKeywords atlusPackage={atlusPackage} />
-      <PackageDivider className="bg-transparent !mt-0" />
-      <PackageSeller companyName={broker.companyName} />
-      <PackageDivider />
-      <PackagePatents atlusPackage={atlusPackage} />
-      <PackageDivider />
-      <PackageDocuments dataroom={dataroom} />
-      <PackageDivider />
-      <PackageListedBy user={broker} />
-      <PackageDivider className="bg-transparent !mt-0" />
-      <SendMessage atlusPackage={atlusPackage} />
+    <div className="grid grid-cols-[1fr] lg:grid-cols-[1fr_380px] gap-[80px] px-[18px] pb-[18px] lg:px-[80px]">
+      <MainPanel atlusPackage={atlusPackage} dataroom={dataroom} broker={broker} />
+      <div className="hidden lg:block">
+        <PackageRightPanel broker={broker} />
+      </div>
     </div>
   );
 }
