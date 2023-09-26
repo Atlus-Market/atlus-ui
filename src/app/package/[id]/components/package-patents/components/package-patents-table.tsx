@@ -68,13 +68,15 @@ export const PackagePatentsTable = ({ patents, type }: PackagePatentsTableProps)
       {patentsGroups.map((patentsGroup, patentsGroupIndex) => {
         const familyNumber = patentsGroupIndex + 1;
         const patentsToRender = isCompact ? [patentsGroup[0]] : patentsGroup;
+        console.log('PatentsToRender: ', patentsToRender);
+
         return patentsToRender.map((patent, patentIndex) => {
           const patentId = getPatentId(patent);
           const isLastRow = patentsToRender.length - 1 === patentIndex;
-
+          console.log('patentIndex: ', patentIndex);
           const cellBorderBottom = {
-            '!border-b-0': isFull && isLastRow,
-            // '!border-b-light-grey': isFull,
+            'border-b border-b-light-grey': true,
+            '!border-b-0': isLastRow,
           };
           return (
             <Fragment key={patentId}>
