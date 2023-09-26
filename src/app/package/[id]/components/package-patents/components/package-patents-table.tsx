@@ -18,7 +18,7 @@ interface PackagePatentsTableProps {
 }
 
 export const gridBorderStyles = clsx(
-  'border border-light-grey-2 overflow-hidden',
+  'border border-light-grey overflow-hidden',
   'rounded-tl-lg rounded-tr-lg md:rounded-tl-xl md:rounded-tr-xl',
   'rounded-br-xl rounded-bl-xl'
 );
@@ -71,13 +71,21 @@ export const PackagePatentsTable = ({ patents, type }: PackagePatentsTableProps)
         return patentsToRender.map(patent => {
           const patentId = getPatentId(patent);
           const isLastRow = patentsGroups.length - 1 === index;
+
+          const cellBorderBottom = {
+            '!border-b-0': !isFull && isLastRow,
+            // '!border-b-light-grey': isFull,
+          };
           return (
             <Fragment key={patentId}>
               <PackageTableCell
-                className={clsx({
-                  'col-span-2': isCompact,
-                  '!border-b-0': isLastRow,
-                })}
+                className={clsx(
+                  {
+                    'col-span-2': isCompact,
+                    '!border-l-light-grey': isFull,
+                  },
+                  cellBorderBottom
+                )}
               >
                 <PackageTablePatentTitle title={patent.title} />
                 {isCompact && patentsGroup.length > 1 && (
@@ -86,20 +94,20 @@ export const PackagePatentsTable = ({ patents, type }: PackagePatentsTableProps)
                   </div>
                 )}
               </PackageTableCell>
-              <PackageTableCell className={clsx({ '!border-b-0': isLastRow })}>
+              <PackageTableCell className={clsx(cellBorderBottom)}>
                 <PackageTablePatentId patentId={patentId} />
               </PackageTableCell>
               {isFull && (
-                <PackageTableCell className={clsx({ '!border-b-0': isLastRow })}>
+                <PackageTableCell className={clsx(cellBorderBottom)}>
                   {getPatentReadableAssignees(patent)}
                 </PackageTableCell>
               )}
               {isFull && (
-                <PackageTableCell className={clsx({ '!border-b-0': isLastRow })}>
+                <PackageTableCell className={clsx(cellBorderBottom)}>
                   {patent.applicationNumber}
                 </PackageTableCell>
               )}
-              <PackageTableCell className={clsx({ '!border-b-0': isLastRow })}>
+              <PackageTableCell className={clsx(cellBorderBottom)}>
                 <PackageTableApplicationDate gmtDate={patent.applicationDate} />
               </PackageTableCell>
             </Fragment>
