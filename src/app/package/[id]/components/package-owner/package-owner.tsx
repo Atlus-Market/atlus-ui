@@ -1,10 +1,13 @@
 import { OwnerProfilePicture } from '@/app/package/[id]/components/package-owner/owner-profile-picture';
 import { ReactNode } from 'react';
 
-interface PackageOwnerProps {
+export interface BrokerAvatarInfo {
   profilePictureUrl?: string;
   fullName: string;
   companyName: string;
+}
+
+interface PackageOwnerProps extends BrokerAvatarInfo {
   footer?: ReactNode;
 }
 
