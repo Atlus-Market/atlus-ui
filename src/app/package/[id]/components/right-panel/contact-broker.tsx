@@ -20,11 +20,7 @@ export const ContactBroker = ({ broker }: ContactBrokerProps) => {
         Contact the broker for this listing
       </span>
 
-      <PackageOwner
-        fullName={broker.fullName}
-        companyName={broker.companyName}
-        profilePictureUrl={broker.profilePictureUrl}
-      />
+      <PackageOwner broker={broker} />
 
       <AtlusButton variant="solid" className="mt-6 w-full">
         Contact broker
