@@ -8,4 +8,5 @@ export interface Patent {
   status: string;
   title: string;
   assignees: string[];
+  thumbnail: string;
 }
