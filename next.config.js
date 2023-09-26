@@ -13,10 +13,10 @@ const nextConfig = {
       {
         source: '/', // Matches '/' & ''
         destination: '/login',
-        permanent: true
-      }
+        permanent: true,
+      },
     ];
-  }
+  },
 };
 
 module.exports = nextConfig;
