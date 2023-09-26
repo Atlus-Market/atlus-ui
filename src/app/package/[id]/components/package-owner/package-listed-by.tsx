@@ -10,7 +10,7 @@ export const PackageListedBy = ({ user }: PackageListedByProps) => {
   return (
     <div>
       <PackageSectionTitle title={`Listed by ${user.fullName}`} />
-      <PackageOwner fullName={user.fullName} companyName={user.companyName} />
+      <PackageOwner broker={user} />
     </div>
   );
 };

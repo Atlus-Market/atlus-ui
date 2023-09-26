@@ -7,24 +7,20 @@ export interface BrokerAvatarInfo {
   companyName: string;
 }
 
-interface PackageOwnerProps extends BrokerAvatarInfo {
+interface PackageOwnerProps {
+  broker: BrokerAvatarInfo;
   footer?: ReactNode;
 }
 
-export const PackageOwner = ({
-  fullName,
-  companyName,
-  profilePictureUrl,
-  footer,
-}: PackageOwnerProps) => {
+export const PackageOwner = ({ broker, footer }: PackageOwnerProps) => {
   return (
     <div className="flex items-center">
-      <OwnerProfilePicture pictureUrl={profilePictureUrl} />
+      <OwnerProfilePicture pictureUrl={broker.profilePictureUrl} />
       <div className="ml-[18px]">
         <span className="text-base md:text-lg text-black font-normal mb-1 md:mb-[2px] block leading-none">
-          {fullName}
+          {broker.fullName}
         </span>
-        <span className="text-sm text-dark-grey block leading-none">{companyName}</span>
+        <span className="text-sm text-dark-grey block leading-none">{broker.companyName}</span>
         {footer}
       </div>
     </div>
