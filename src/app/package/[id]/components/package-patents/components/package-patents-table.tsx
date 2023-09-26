@@ -35,7 +35,7 @@ export const PackagePatentsTable = ({ patents, type }: PackagePatentsTableProps)
         {
           'hidden md:grid': isCompact,
           'grid w-max': isFull,
-          'grid-cols-4': isCompact,
+          'grid-cols-[repeat(4,minmax(50px,1fr))]': isCompact,
           'grid-cols-[repeat(5,minmax(50px,200px))] overflow-x-auto': isFull,
         },
         gridBorderStyles
