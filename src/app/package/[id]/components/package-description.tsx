@@ -12,7 +12,7 @@ export const PackageDescription = ({ description }: PackageDescriptionProps) => 
     <ShowMoreText
       lines={5}
       more={<AtlusExpandButton text="See more" isExpanded={false} />}
-      less={<AtlusExpandButton text="See more" isExpanded={true} />}
+      less={<AtlusExpandButton text="See less" isExpanded={true} />}
       anchorClass="block mt-4"
       className="text-black font-normal text-sm md:text-base"
     >
