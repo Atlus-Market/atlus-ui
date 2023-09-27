@@ -3,16 +3,15 @@
 import { pluralize } from '@/utils/words';
 import clsx from 'clsx';
 import { useViewPackagePatentsContext } from '@/app/package/[id]/components/package-patents/components/view-package-patents/use-view-package-patents-context';
-import { Patent } from '@/models/patent';
+import { FamilyPatentGroup } from '@/app/set-package/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
 
 interface PatentsInFamilyLinkProps {
-  patents: Patent[];
-  familyNumber: number;
+  familyPatentGroup: FamilyPatentGroup;
 }
 
-export const PatentsInFamilyLink = ({ patents, familyNumber }: PatentsInFamilyLinkProps) => {
+export const PatentsInFamilyLink = ({ familyPatentGroup }: PatentsInFamilyLinkProps) => {
   const { setPatents } = useViewPackagePatentsContext();
-  const totalPatents = patents.length;
+  const totalPatents = Object.values(familyPatentGroup).flat().length;
 
   if (totalPatents <= 1) {
     return null;
@@ -23,12 +22,7 @@ export const PatentsInFamilyLink = ({ patents, familyNumber }: PatentsInFamilyLi
     <button
       className={clsx('text-orange', 'text-xs md:text-[13px]', 'font-medium')}
       onClick={() => {
-        setPatents([
-          {
-            patents,
-            familyNumber,
-          },
-        ]);
+        setPatents(familyPatentGroup);
       }}
     >
       {label}

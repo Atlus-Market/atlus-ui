@@ -44,6 +44,7 @@ export const mapCustomPatentToPatent = (customPatent: CustomPatentPayload): Pate
     publicationNumber: '',
     familyId: '',
     applicants: [],
+    thumbnail: '',
   };
 };
 

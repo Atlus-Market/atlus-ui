@@ -1,19 +1,19 @@
 import clsx from 'clsx';
 import { PackageTableHeader } from '@/app/package/[id]/components/package-patents/components/table-components/package-table-header';
 import { TableHeaderTitle } from '@/app/package/[id]/components/package-patents/components/table-components/table-header-title';
-import { getPatentId, getPatentReadableAssignees, groupPatentsByFamily } from '@/utils/patents';
+import { getPatentId, getPatentReadableAssignees } from '@/utils/patents';
 import { Fragment } from 'react';
 import { PackageTableCell } from '@/app/package/[id]/components/package-patents/components/table-components/package-table-cell';
 import { PackageTablePatentTitle } from '@/app/package/[id]/components/package-patents/components/table-components/package-table-patent-title';
 import { PatentsInFamilyLink } from '@/app/package/[id]/components/package-patents/components/patents-in-family-link';
 import { PackageTablePatentId } from '@/app/package/[id]/components/package-patents/components/table-components/package-table-patent-id';
 import { PackageTableApplicationDate } from '@/app/package/[id]/components/package-patents/components/table-components/package-table-application-date';
-import { Patent } from '@/models/patent';
+import { FamilyPatentGroup } from '@/app/set-package/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
 
 export type PackagePatentsTableType = 'compact' | 'full';
 
 interface PackagePatentsTableProps {
-  patents: Patent[];
+  familyPatents: FamilyPatentGroup;
   type: PackagePatentsTableType;
 }
 
@@ -23,9 +23,8 @@ export const gridBorderStyles = clsx(
   'rounded-br-xl rounded-bl-xl'
 );
 
-export const PackagePatentsTable = ({ patents, type }: PackagePatentsTableProps) => {
-  const familyPatents = groupPatentsByFamily(patents);
-  const patentsGroups = Object.values(familyPatents);
+export const PackagePatentsTable = ({ familyPatents, type }: PackagePatentsTableProps) => {
+  const patentsFamilyId = Object.keys(familyPatents);
   const isCompact = type === 'compact';
   const isFull = type === 'full';
 
@@ -65,17 +64,18 @@ export const PackagePatentsTable = ({ patents, type }: PackagePatentsTableProps)
         <TableHeaderTitle title="Filling date" />
       </PackageTableHeader>
 
-      {patentsGroups.map((patentsGroup, patentsGroupIndex) => {
-        const familyNumber = patentsGroupIndex + 1;
-        const patentsToRender = isCompact ? [patentsGroup[0]] : patentsGroup;
-        const isLastGroup = patentsGroups.length - 1 === patentsGroupIndex;
+      {patentsFamilyId.map((familyId, patentsGroupIndex) => {
+        const patents = familyPatents[familyId];
+        // const familyNumber = patentsGroupIndex + 1;
+        const patentsToRender = isCompact ? [patents[0]] : patents;
+        const isLastFamily = patentsFamilyId.length - 1 === patentsGroupIndex;
 
         return patentsToRender.map((patent, patentIndex) => {
           const patentId = getPatentId(patent);
           const isLastRow = patentsToRender.length - 1 === patentIndex;
           const cellBorderBottom = {
             'border-b border-b-light-grey': true,
-            '!border-b-0': (isFull && isLastRow) || (isCompact && isLastGroup),
+            '!border-b-0': (isFull && isLastRow) || (isCompact && isLastFamily),
           };
 
           return (
@@ -90,9 +90,9 @@ export const PackagePatentsTable = ({ patents, type }: PackagePatentsTableProps)
                 )}
               >
                 <PackageTablePatentTitle title={patent.title} />
-                {isCompact && patentsGroup.length > 1 && (
+                {isCompact && familyId.length > 1 && (
                   <div className="mt-3">
-                    <PatentsInFamilyLink patents={patentsGroup} familyNumber={familyNumber} />
+                    <PatentsInFamilyLink familyPatentGroup={{ [familyId]: patents }} />
                   </div>
                 )}
               </PackageTableCell>

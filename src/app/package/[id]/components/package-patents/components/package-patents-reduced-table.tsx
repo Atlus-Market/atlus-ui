@@ -1,5 +1,4 @@
 import { getPatentId } from '@/utils/patents';
-import { PatentsInFamilyLink } from '@/app/package/[id]/components/package-patents/components/patents-in-family-link';
 import { TableHeaderTitle } from '@/app/package/[id]/components/package-patents/components/table-components/table-header-title';
 import { PackageTableApplicationDate } from '@/app/package/[id]/components/package-patents/components/table-components/package-table-application-date';
 import { PackageTablePatentId } from '@/app/package/[id]/components/package-patents/components/table-components/package-table-patent-id';
@@ -12,27 +11,27 @@ import {
   PackagePatentsTable,
 } from '@/app/package/[id]/components/package-patents/components/package-patents-table';
 import { FamilyPatentGroup } from '@/app/set-package/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
+import { PatentsInFamilyLink } from '@/app/package/[id]/components/package-patents/components/patents-in-family-link';
 
 interface PackagePatentsTableCompactProps {
   familyPatents: FamilyPatentGroup;
 }
 
 export const PackagePatentsReducedTable = ({ familyPatents }: PackagePatentsTableCompactProps) => {
-  const patentsGroups = Object.values(familyPatents);
-  const allPatents = patentsGroups.flat();
+  const patentsFamilyIds = Object.keys(familyPatents);
   return (
     <div>
-      <PackagePatentsTable patents={allPatents} type="compact" />
+      <PackagePatentsTable familyPatents={familyPatents} type="compact" />
       <div className="md:hidden">
-        {patentsGroups.map((patents, index) => {
-          const familyNumber = index + 1;
+        {patentsFamilyIds.map(familyId => {
+          const patents = familyPatents[familyId];
           const patent = patents[0];
           const patentId = getPatentId(patent);
           return (
             <div key={patentId}>
               <div className={clsx('grid grid-col-2 mt-6 mb-2', gridBorderStyles)}>
                 <PackageTableHeader className="col-span-2">
-                  <TableHeaderTitle title={`Family ${familyNumber}`} />
+                  <TableHeaderTitle title={`Family ${familyId}`} />
                 </PackageTableHeader>
                 <PackageTableCell className="col-span-2">
                   <PackageTablePatentTitle title={patent.title} />
@@ -51,7 +50,7 @@ export const PackagePatentsReducedTable = ({ familyPatents }: PackagePatentsTabl
                 </PackageTableCell>
               </div>
               <div className="pl-3">
-                <PatentsInFamilyLink patents={patents} familyNumber={familyNumber} />
+                <PatentsInFamilyLink familyPatentGroup={{ [familyId]: patents }} />
               </div>
             </div>
           );

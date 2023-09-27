@@ -20,12 +20,14 @@ interface ViewPackagePatentsModalProps {
 }
 
 export const ViewPackagePatentsModal = ({ packageId }: ViewPackagePatentsModalProps) => {
-  const { patentsFamilies, clear } = useViewPackagePatentsContext();
+  const { familyPatentsGroup, clear } = useViewPackagePatentsContext();
   const { isFetching, exportPackage } = useDownloadPatents(packageId);
+  const familyIds = Object.keys(familyPatentsGroup);
+  const hasPatentsToShow = familyIds.length > 0;
 
   return (
     <AtlusModal
-      isOpen={patentsFamilies.length > 0}
+      isOpen={hasPatentsToShow}
       overlayClassName="z-[2]"
       onRequestClose={clear}
       modalBodyClassName="h-screen !max-h-none"
@@ -65,9 +67,12 @@ export const ViewPackagePatentsModal = ({ packageId }: ViewPackagePatentsModalPr
         }
       >
         <AtlusModalBody className="overflow-x-auto">
-          {patentsFamilies.map((patentFamily, index) => (
-            <Fragment key={`${index}-${patentFamily.familyNumber}`}>
-              <ViewPackagePatentsModalTable patentsFamily={patentFamily} />
+          {familyIds.map(familyId => (
+            <Fragment key={familyId}>
+              <ViewPackagePatentsModalTable
+                familyId={familyId}
+                patents={familyPatentsGroup[familyId]}
+              />
             </Fragment>
           ))}
         </AtlusModalBody>

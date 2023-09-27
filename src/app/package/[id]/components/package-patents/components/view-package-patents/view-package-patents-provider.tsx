@@ -2,25 +2,20 @@
 
 import { createContext, ReactNode, useMemo, useState } from 'react';
 import { noop } from '@/utils/noop';
-import { Patent } from '@/models/patent';
+import { FamilyPatentGroup } from '@/app/set-package/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
 
 interface ViewPackagePatentsProviderProps {
   children: ReactNode;
 }
 
-export type PatentsFamily = {
-  patents: Patent[];
-  familyNumber: number | null;
-};
-
 interface ViewPackagePatentsContextState {
-  patentsFamilies: PatentsFamily[];
-  setPatents: (patentsFamilies: PatentsFamily[]) => void;
+  familyPatentsGroup: FamilyPatentGroup;
+  setPatents: (patentsFamilies: FamilyPatentGroup) => void;
   clear: () => void;
 }
 
 const contextInitialState: ViewPackagePatentsContextState = {
-  patentsFamilies: [],
+  familyPatentsGroup: {},
   setPatents: noop,
   clear: noop,
 };
@@ -35,10 +30,10 @@ export const ViewPackagePatentsProvider = ({ children }: ViewPackagePatentsProvi
   const contextValue = useMemo<ViewPackagePatentsContextState>(() => {
     return {
       ...viewPackagePatentsContextState,
-      setPatents: (patentsFamilies: PatentsFamily[]) => {
+      setPatents: (familyPatentsGroup: FamilyPatentGroup) => {
         setViewPackagePatentsContextState({
           ...viewPackagePatentsContextState,
-          patentsFamilies: patentsFamilies,
+          familyPatentsGroup,
         });
       },
       clear: () => {
