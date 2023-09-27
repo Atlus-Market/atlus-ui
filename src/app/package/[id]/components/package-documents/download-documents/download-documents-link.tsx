@@ -43,7 +43,7 @@ export const DownloadDocumentsLink = ({ directoryTreeId }: DownloadDocumentsLink
       }}
     >
       Download {selectedDocumentsCount} {pluralize('file', selectedDocumentsCount)}
-      {isFetching && <AtlusLoadingSpinner hexColor="#ef503a" size={14} />}
+      {isFetching && <AtlusLoadingSpinner color="orange" size={14} />}
     </a>
   );
 };
