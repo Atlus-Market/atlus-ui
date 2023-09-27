@@ -23,7 +23,6 @@ export const AtlusTextarea = forwardRef<HTMLTextAreaElement, AtlusTextareaProps>
         <div
           className={clsx(
             'border border-light-grey rounded-lg',
-            'py-[18px] pl-4 pr-[27px]',
             'flex justify-start items-center',
             '[&:has(textarea:focus)]:border-orange'
           )}
@@ -33,7 +32,8 @@ export const AtlusTextarea = forwardRef<HTMLTextAreaElement, AtlusTextareaProps>
             name={name}
             className={clsx(
               'block w-full',
-              'font-normal text-sm leading-[17px]',
+              'font-normal text-sm leading-[17px] rounded-lg',
+              'py-[18px] pl-4 pr-[27px]',
               'outline-0',
               'placeholder:text-dark-grey',
               'resize-none min-h-[230px]'
