@@ -9,7 +9,6 @@ export const patentIdValidator: Validator<string> = {
 };
 
 const isValidPatentId = (patentId: string): boolean => {
-  console.log('testing: ', patentId);
   return new RegExp(/^[a-zA-Z]{2}[0-9]{1,12}[a-zA-Z0-9 ]{1,2}$/).test(patentId.trim());
 };
 

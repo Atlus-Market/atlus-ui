@@ -22,7 +22,7 @@ export const PackagePatents = ({ atlusPackage }: PackagePatentsTableProps) => {
       <ViewPackagePatentsProvider>
         <PackagePatentsReducedTable familyPatents={familyPatents} />
         <SeeAllPatentsButton familyPatents={familyPatents} />
-        <ViewPackagePatentsModal />
+        <ViewPackagePatentsModal packageId={atlusPackage.id} />
       </ViewPackagePatentsProvider>
     </div>
   );
