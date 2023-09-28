@@ -5,14 +5,14 @@ import { AtlusTagRemoveButton } from '@/components/ui/tag/atlus-tag-remove-butto
 
 export type AtlusTagSize = 'big' | 'small' | 'auto';
 
-export type AtlusTagColor = 'orange' | 'green' | 'brown' | 'red';
+export type AtlusTagColor = 'orange' | 'green' | 'brown' | 'red' | 'yellow' | 'gray';
 
 interface TagColorDefinition {
   backgroundColor: string;
   textColor: string;
 }
 
-const tagsColorsDefinition: Record<AtlusTagColor, TagColorDefinition> = {
+export const tagsColorsDefinition: Readonly<Record<AtlusTagColor, Readonly<TagColorDefinition>>> = {
   orange: {
     backgroundColor: 'bg-off-white',
     textColor: 'text-orange',
@@ -28,6 +28,14 @@ const tagsColorsDefinition: Record<AtlusTagColor, TagColorDefinition> = {
   red: {
     backgroundColor: 'bg-[#FFEFF7]',
     textColor: 'text-red',
+  },
+  yellow: {
+    backgroundColor: 'bg-[#F9F8DA]',
+    textColor: 'text-[#9F9919]',
+  },
+  gray: {
+    backgroundColor: 'bg-lightest-grey',
+    textColor: 'text-dark-grey',
   },
 };
 
@@ -74,7 +82,7 @@ export const AtlusTag = ({
       >
         {text}
       </span>
-      {onClose && <AtlusTagRemoveButton onClick={onClose} size={size} />}
+      {onClose && <AtlusTagRemoveButton onClick={onClose} size={size} color={color} />}
     </div>
   );
 };
