@@ -24,8 +24,8 @@ export interface IPackageDetailsForm {
 export const packageDetailsSchema: ObjectSchema<IPackageDetailsForm> = object({
   title: string().default('').trim().required(RequiredField),
   description: string().default('').trim().required(RequiredField),
-  industryIds: array().min(1).required(RequiredField),
-  keywords: array().min(1).required(RequiredField).typeError('Enter at least one keyword'),
+  industryIds: array().min(1, 'Select at least one industry').required(RequiredField),
+  keywords: array().min(1, 'Enter at least one keyword').required(RequiredField),
   visibility: string().required(RequiredField),
   priceUsd: number().min(0, 'Price must be greater than $0').default(0).required(RequiredField),
   openToLicensing: boolean().default(false).required(RequiredField),

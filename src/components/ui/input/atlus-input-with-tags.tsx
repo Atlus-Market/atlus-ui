@@ -3,6 +3,7 @@ import { ForwardedRef, forwardRef, useEffect, useMemo, useRef, useState } from '
 import { isArray } from 'lodash';
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
 import { pascalCase } from 'pascal-case';
+import { useFormState } from 'react-hook-form';
 
 export interface AtlusInputWithTagsProps extends AtlusInputProps {
   onTagsChange?: (tags: string[]) => void;
@@ -16,6 +17,11 @@ export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTag
   ) {
     const [tags, setTags] = useState<string[]>(initialValue);
     const inputRef = useRef<HTMLInputElement>(null);
+
+    const { errors } = useFormState({
+      name: name,
+      exact: true,
+    });
 
     useEffect(() => {
       onTagsChange?.(tags);
@@ -59,6 +65,7 @@ export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTag
         leftCmp={tagsList}
         onKeyDown={handleKeyDown}
         inputClassName="min-w-[260px]"
+        errors={errors}
       />
     );
   }

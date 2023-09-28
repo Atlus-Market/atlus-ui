@@ -17,7 +17,7 @@ export const AtlusFormInputWithTags = (props: AtlusFormInputWithTagsProps) => {
 
   const onTagsChange = useCallback(
     (tags: string[]) => {
-      setValue(name, tags);
+      setValue(name, tags, { shouldValidate: true });
     },
     [name, setValue]
   );
