@@ -28,7 +28,7 @@ export const MainPanel = ({ atlusPackage, dataroom, broker }: MainPanelProps) =>
       <PackageDivider />
       <PackageGeneralInfo atlusPackage={atlusPackage} dataroom={dataroom} />
       <PackageDivider />
-      <SharePackage />
+      {/*<SharePackage />*/}
       <PackageDescription description={atlusPackage.description} />
       <PackageDivider className="bg-transparent !mt-0" />
       <PackageIndustries atlusPackage={atlusPackage} />

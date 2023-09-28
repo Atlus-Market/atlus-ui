@@ -15,7 +15,7 @@ export const PackageRightPanel = ({ broker }: PackageRightPanelProps) => {
         <AtlusButton variant="clear">
           <HiPencil className="mr-[10px]" /> Edit
         </AtlusButton>
-        {/*<SharePackage />*/}
+        <SharePackage />
       </div>
       <ContactBroker broker={broker} />
     </div>
