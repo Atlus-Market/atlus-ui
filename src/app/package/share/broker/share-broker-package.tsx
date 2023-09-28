@@ -5,6 +5,8 @@ import { AtlusCloseModalButton } from '@/components/ui/modal/atlus-close-modal-b
 import { AtlusModalTitle } from '@/components/ui/modal/atlus-modal-title';
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
 import { AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
+import { SharePackageFooter } from '@/app/package/share/commom/share-package-footer';
+import { ShareBrokerPackageBody } from '@/app/package/share/broker/share-broker-package-body';
 
 interface ShareBrokerPackageProps {
   isShowingModal?: boolean;
@@ -24,13 +26,13 @@ export const ShareBrokerPackage = ({
           </AtlusModalHeader>
         }
         footer={
-          <AtlusModalFooter>
-            <div>footer</div>
+          <AtlusModalFooter className="w-full">
+            <SharePackageFooter />
           </AtlusModalFooter>
         }
       >
         <AtlusModalBody className="w-[650px] !py-0">
-          <div>Body</div>
+          <ShareBrokerPackageBody />
         </AtlusModalBody>
       </AtlusModalContainer>
     </AtlusModal>

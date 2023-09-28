@@ -16,7 +16,8 @@ export const AtlusModalFooter = ({ children, className }: AtlusModalFooterProps)
 
         // [&:has(:nth-child(2))]:justify-between justify-end does not work on Safari.
         // It doesn't update after first render.
-        validChildrenCount > 1 ? 'justify-between' : 'justify-end'
+        validChildrenCount > 1 ? 'justify-between' : 'justify-end',
+        className
       )}
     >
       {children}

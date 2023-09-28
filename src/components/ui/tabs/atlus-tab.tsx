@@ -8,7 +8,7 @@ interface SectionTabProps {
   onSelected?: () => void;
 }
 
-export const AddPatentTab = ({ isActive, text, onSelected }: SectionTabProps) => {
+export const AtlusTab = ({ isActive, text, onSelected }: SectionTabProps) => {
   return (
     <div
       onClick={onSelected}
