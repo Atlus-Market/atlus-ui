@@ -34,7 +34,7 @@ export const ViewPackagePatentsModal = ({ packageId }: ViewPackagePatentsModalPr
     >
       <AtlusModalContainer
         className="!h-full !max-h-min"
-        containerClassName="w-screen lg:w-auto lg:max-w-[1200px] !overflow-x-auto"
+        containerClassName="w-screen !lg:w-auto lg:max-w-[1200px] !overflow-x-auto"
         header={
           <AtlusModalHeader
             rightContent={

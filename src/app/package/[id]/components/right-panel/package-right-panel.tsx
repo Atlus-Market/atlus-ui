@@ -1,7 +1,8 @@
 import { ContactBroker } from '@/app/package/[id]/components/right-panel/contact-broker';
 import { User } from '@/models/user';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
-import { HiPencil, HiShare } from 'react-icons/hi2';
+import { HiPencil } from 'react-icons/hi2';
+import { SharePackage } from '@/app/package/[id]/components/right-panel/share-package';
 
 interface PackageRightPanelProps {
   broker: User;
@@ -14,9 +15,7 @@ export const PackageRightPanel = ({ broker }: PackageRightPanelProps) => {
         <AtlusButton variant="clear">
           <HiPencil className="mr-[10px]" /> Edit
         </AtlusButton>
-        <AtlusButton variant="clear">
-          <HiShare className="mr-[10px]" /> Share
-        </AtlusButton>
+        {/*<SharePackage />*/}
       </div>
       <ContactBroker broker={broker} />
     </div>

@@ -1,3 +1,5 @@
+'use client';
+
 import 'src/components/ui/loading-spinner/atlus-loading-spinner.css';
 import { useEffect, useRef } from 'react';
 import hexToRgba from 'hex-to-rgba';

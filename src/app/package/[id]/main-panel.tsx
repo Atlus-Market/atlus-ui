@@ -13,6 +13,7 @@ import { PackagePatents } from '@/app/package/[id]/components/package-patents/pa
 import { PackageDocuments } from '@/app/package/[id]/components/package-documents/package-documents';
 import { PackageListedBy } from '@/app/package/[id]/components/package-owner/package-listed-by';
 import { SendMessage } from '@/app/package/[id]/components/send-message/send-message';
+import { SharePackage } from '@/app/package/[id]/components/right-panel/share-package';
 
 interface MainPanelProps {
   atlusPackage: Package;
@@ -27,6 +28,7 @@ export const MainPanel = ({ atlusPackage, dataroom, broker }: MainPanelProps) =>
       <PackageDivider />
       <PackageGeneralInfo atlusPackage={atlusPackage} dataroom={dataroom} />
       <PackageDivider />
+      <SharePackage />
       <PackageDescription description={atlusPackage.description} />
       <PackageDivider className="bg-transparent !mt-0" />
       <PackageIndustries atlusPackage={atlusPackage} />

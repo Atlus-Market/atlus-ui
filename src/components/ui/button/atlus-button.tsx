@@ -1,6 +1,4 @@
-'use client';
-
-import { ButtonHTMLAttributes, forwardRef, ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import clsx from 'clsx';
 import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loading-spinner';
 import { AtlusColor } from '@/components/ui/theme';
@@ -92,10 +90,7 @@ const getLoadingSpinnerColor = ({ variant }: AtlusButtonProps) => {
   return '';
 };
 
-export const AtlusButton = forwardRef<HTMLButtonElement, AtlusButtonProps>(function AtlusButton(
-  props,
-  ref
-) {
+export const AtlusButton = (props: AtlusButtonProps) => {
   const {
     variant = 'solid',
     children,
@@ -117,10 +112,9 @@ export const AtlusButton = forwardRef<HTMLButtonElement, AtlusButtonProps>(funct
       type={type}
       className={clsx(classVariant, className, getButtonSize(props), isClearVariant && color)}
       disabled={isLoading || disabled}
-      ref={ref}
       {...restProps}
     >
       {isLoading ? <AtlusLoadingSpinner hexColor={getLoadingSpinnerColor(props)} /> : children}
     </button>
   );
-});
+};
