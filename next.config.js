@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 const nextConfig = {
   output: 'standalone',
   reactStrictMode: false,
@@ -8,6 +8,22 @@ const nextConfig = {
     // your project has type errors.
     // !! WARN !!
     ignoreBuildErrors: true,
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: process.env.API_DOMAIN,
+        port: process.env.API_PORT,
+        pathname: '**',
+      },
+      {
+        protocol: 'http',
+        hostname: process.env.API_DOMAIN,
+        port: process.env.API_PORT,
+        pathname: '**',
+      },
+    ],
   },
   async redirects() {
     return [

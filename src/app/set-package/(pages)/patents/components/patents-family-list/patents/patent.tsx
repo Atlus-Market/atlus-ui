@@ -1,9 +1,7 @@
 import { Patent as PatentModel } from '@/models/patent';
-import DocumentSVG from '@/public/assets/images/document.svg';
-import Image from 'next/image';
 import { ManageEditedPatent } from '@/app/set-package/(pages)/patents/components/patents-family-list/patents/manage-edited-patent';
 import { getPatentId, getPatentReadableAssignees } from '@/utils/patents';
-import { AtlusImageZoom } from '@/components/common/atlus-image-zoom';
+import { PatentImage } from '@/app/set-package/(pages)/patents/components/patents-family-list/patents/patent-image';
 
 interface PatentProps {
   patent: PatentModel;
@@ -14,29 +12,7 @@ export const Patent = ({ patent }: PatentProps) => {
     <div className="flex item-start justify-between px-6 py-4">
       <div className="flex item-start justify-between">
         <div className="inline-block mr-[43px] flex-shrink-0">
-          {patent.thumbnail ? (
-            <AtlusImageZoom>
-              <img
-                src={patent.thumbnail}
-                alt="patent thumbnail"
-                width="auto"
-                height={126}
-                className="!h-[126px]"
-              />
-            </AtlusImageZoom>
-          ) : (
-            <Image
-              src={DocumentSVG}
-              alt="Document"
-              width={126}
-              height={126}
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}
-              className="h-full max-h-[126px]"
-            />
-          )}
+          <PatentImage publicationNumber={patent.publicationNumber} />
         </div>
         <div>
           <div className="mb-1">
