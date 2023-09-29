@@ -13,18 +13,20 @@ interface PackagePageProps {
 export default async function PackagePage({ params }: PackagePageProps) {
   console.log('View package page params: ', params);
 
-  const packageData = await Promise.all([
-    getPackageOnServer(params.id),
-    getDataroomByPackageIdOnServer(params.id),
-  ]);
+  const getDataroomPromise = getDataroomByPackageIdOnServer(params.id);
+  const getPackageResponse = await getPackageOnServer(params.id);
 
-  const atlusPackage = packageData[0].package;
+  const atlusPackage = getPackageResponse.package;
   console.log('package: ', atlusPackage);
 
-  const dataroom = packageData[1];
-  console.log('dataroom: ', dataroom);
+  const promises = await Promise.all([
+    getUserByIdOnServer(atlusPackage.brokerUserId),
+    getDataroomPromise,
+  ]);
 
-  const broker = await getUserByIdOnServer(atlusPackage.brokerUserId);
+  const [broker, dataroom] = promises;
+  console.log('broker: ', broker);
+  console.log('dataroom: ', dataroom);
 
   return (
     <div className="grid grid-cols-[1fr] lg:grid-cols-[1fr_380px] gap-[80px] px-[18px] pb-[18px] lg:px-[80px]">
