@@ -41,6 +41,8 @@ const providers = [
         cookies().set(accessTokenCookieName, loginResponse.accessTokenCookie, {
           httpOnly: true,
           secure: usingSecureDomain,
+          domain: process.env.COOKIE_DOMAIN,
+          path: '/',
         });
 
         return {
