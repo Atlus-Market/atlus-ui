@@ -4,6 +4,8 @@ import { configureStore, createListenerMiddleware } from '@reduxjs/toolkit';
 import setPackageReducer from '@/redux/features/set-package/set-package';
 import packagesReducer from '@/redux/features/packages/packages';
 import { startListeners } from '@/redux/store-listeners';
+import { isRunningProd } from '@/utils/env';
+import LogRocket from 'logrocket';
 
 export const listenerMiddleware = createListenerMiddleware();
 export type ListenersMiddleware = typeof listenerMiddleware;
@@ -15,8 +17,9 @@ export const store = configureStore({
   },
   middleware: getDefaultMiddleware => [
     ...getDefaultMiddleware().prepend(listenerMiddleware.middleware),
+    isRunningProd ? LogRocket.reduxMiddleware() : [],
   ],
-  devTools: process.env.NODE_ENV !== 'production',
+  devTools: !isRunningProd,
 });
 
 export type RootState = ReturnType<typeof store.getState>;
