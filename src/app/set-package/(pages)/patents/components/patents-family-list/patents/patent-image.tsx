@@ -31,7 +31,7 @@ export const PatentImage = ({ publicationNumber }: PatentImageProps) => {
         width={400}
         height={400}
         objectFit="contain"
-        className={clsx('h-full max-w-[126px] max-h-[126px]', {
+        className={clsx('h-full max-w-[126px] max-h-[126px] select-none', {
           'pointer-events-none': disableZoom,
         })}
         onError={setDefaultImage}
