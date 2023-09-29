@@ -16,8 +16,9 @@ export const store = configureStore({
     packagesReducer,
   },
   middleware: getDefaultMiddleware => [
-    ...getDefaultMiddleware().prepend(listenerMiddleware.middleware),
-    isRunningProd ? LogRocket.reduxMiddleware() : [],
+    ...getDefaultMiddleware()
+      .prepend(listenerMiddleware.middleware)
+      .concat(isRunningProd ? LogRocket.reduxMiddleware() : []),
   ],
   devTools: !isRunningProd,
 });
