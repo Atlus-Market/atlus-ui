@@ -27,13 +27,17 @@ export const PatentImage = ({ publicationNumber }: PatentImageProps) => {
     <AtlusImageZoom>
       <NextImage
         src={imageSrc}
-        alt="Patent image"
+        alt=""
         width={400}
         height={400}
         objectFit="contain"
-        className={clsx('h-full max-w-[126px] max-h-[126px] select-none', {
-          'pointer-events-none': disableZoom,
-        })}
+        className={clsx(
+          'h-full max-w-[126px] max-h-[126px] select-none',
+          'indent-[-10000px]', // hide broken image
+          {
+            'pointer-events-none': disableZoom,
+          }
+        )}
         onError={setDefaultImage}
         placeholder={DataImage}
       />
