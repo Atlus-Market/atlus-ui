@@ -36,14 +36,19 @@ export const login = async (loginPayload: LoginPayload): Promise<LoginResponse> 
   });
   const cookies: string[] = (response.headers?.['set-cookie'] as string[]) ?? [];
   const accessTokenCookie = cookies.find(cookie => cookie.includes(`${accessTokenCookieName}=`));
+
+  // Parse the cookie string and extract the access token value
+  const parsedCookie = cookieParser.parse(accessTokenCookie || '');
+  const accessTokenValue = parsedCookie[accessTokenCookieName] || '';
+
   const csrfAccessTokenCookie = cookies.find(cookie_1 =>
     cookie_1.includes(`${csrfAccessTokenName}=`)
   );
-  const parsedCsrfAccessToken = cookieParser.parse(csrfAccessTokenCookie ?? '') as ParsedCookie;
-  const parsedAccessTokenCookie = cookieParser.parse(accessTokenCookie ?? '') as ParsedCookie;
+  const csrfAccessToken = cookieParser.parse(csrfAccessTokenCookie ?? '') as ParsedCookie;
+
   return {
     ...response.data,
-    accessTokenCookie: parsedAccessTokenCookie[accessTokenCookieName] ?? '',
-    csrfAccessToken: parsedCsrfAccessToken[csrfAccessTokenName] ?? '',
+    accessTokenCookie: accessTokenValue, // Use the extracted cookie value
+    csrfAccessToken: csrfAccessToken[csrfAccessTokenName] ?? '',
   };
 };
