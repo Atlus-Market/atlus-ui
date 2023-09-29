@@ -47,10 +47,10 @@ const outlineWhiteVariant = clsx(
 const smallSizeClasses = 'min-w-[100px] py-[10px] px-6 text-[13px] leading-[16px]';
 
 // medium size
-const mediumSizeClasses = 'md:min-w-[180px] md:py-[13px] md:px-9 md:text-[15px] md:leading-[17px]';
+const mediumSizeClasses = 'min-w-[180px] py-[13px] px-9 text-[15px] leading-[17px]';
 
 // big md screen or bigger
-const bigSizeClasses = 'md:min-w-[200px] md:py-[15px] md:px-9 md:text-lg md:leading-[23px]';
+const bigSizeClasses = 'min-w-[200px] py-[15px] px-9 text-lg leading-[23px]';
 
 const getButtonSize = (props: AtlusButtonProps): string => {
   const { variant, size } = props;
