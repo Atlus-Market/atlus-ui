@@ -10,6 +10,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
+    domains: ['localhost', process.env.API_DOMAIN],
     remotePatterns: [
       {
         protocol: 'https',
