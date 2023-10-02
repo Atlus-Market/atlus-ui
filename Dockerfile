@@ -27,6 +27,7 @@ COPY . .
 # Set environment variable
 ARG NEXT_PUBLIC_API_ENDPOINT
 ARG NEXT_PUBLIC_LOG_ROCKET_TOKEN
+ARG API_DOMAIN
 ENV NODE_ENV=production
 
 # Disable telemetry
@@ -51,6 +52,7 @@ RUN addgroup --system --gid 1001 nodejs \
 # Copy files from the builder stage
 COPY --from=builder /app/public ./public
 # COPY --from=builder --chown=nextjs:nodejs /app/.next ./app/.next
+COPY --from=builder /app/next.config.js ./.next/next.config.js
 
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static

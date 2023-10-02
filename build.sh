@@ -22,10 +22,19 @@ else
   exit 1
 fi
 
-# Build Docker image and pass the local IP as a build argument
+# Define additional build arguments
+extra_build_args=""
+
+# Check if version is "staging" and set additional build arguments
+if [ "$version" == "staging" ]; then
+  extra_build_args="--build-arg API_DOMAIN=atlusmarket.com"
+fi
+
+# Build Docker image with conditional extra build arguments
 docker buildx build --no-cache --platform linux/arm64 \
   --build-arg NEXT_PUBLIC_LOG_ROCKET_TOKEN="$logrocket_token" \
-  --build-arg NEXT_PUBLIC_API_ENDPOINT="$public_api_endpoint" --progress=plain -t "$repo_prefix:$version" .
+  --build-arg NEXT_PUBLIC_API_ENDPOINT="$public_api_endpoint"  \
+  $extra_build_args --progress=plain -t "$repo_prefix:$version" .
 
 # Push Docker image
 docker push "$repo_prefix:$version"
