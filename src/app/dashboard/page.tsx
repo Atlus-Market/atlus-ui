@@ -3,6 +3,7 @@ import { PackagesListProvider } from '@/app/dashboard/packages/packages-list-pro
 import { PackagesList } from '@/app/dashboard/packages/packages-list';
 import Link from 'next/link';
 import { SetPackagePatent } from '@/constants/routes';
+import { AtlusButton } from '@/components/ui/button/atlus-button';
 
 export default async function DashboardPage() {
   return (
@@ -11,7 +12,7 @@ export default async function DashboardPage() {
 
       <div className="my-6">
         <Link href={SetPackagePatent} className="text-orange underline">
-          Create new package
+          <AtlusButton size="small">Create new package</AtlusButton>
         </Link>
       </div>
       {/*<TestComponentsHelper />*/}

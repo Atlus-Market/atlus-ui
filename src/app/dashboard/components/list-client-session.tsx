@@ -3,9 +3,9 @@ import Link from 'next/link';
 
 export const ListClientSession = () => {
   return (
-    <div>
+    <div className="absolute bottom-[50px]">
       <Link href="/logout">
-        <AtlusButton>Logout</AtlusButton>
+        <AtlusButton variant="outline">Logout</AtlusButton>
       </Link>
     </div>
   );

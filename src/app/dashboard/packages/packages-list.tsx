@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 import { PackagePage, SetPackagePatent } from '@/constants/routes';
 import { setActivePackage } from '@/redux/features/set-package/set-package';
 import { Package } from '@/models/package';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import Link from 'next/link';
 
@@ -29,37 +29,38 @@ export const PackagesList = () => {
   return (
     <div className="p-4">
       <AtlusTitle text="Packages" />
-      <ol className="list-decimal p-4">
+      <div className="list-decimal grid grid-cols-[max-content_60px]">
         {packagesList.map(packageListItem => {
           return (
-            <li className="cursor-pointer select-none" key={packageListItem.id}>
-              <div className="flex gap-6">
-                {packageListItem.title}
-                <AtlusButton
-                  variant="clear"
-                  onClick={async () => {
-                    setActivePackageId(packageListItem.id);
-                    // @ts-ignore
-                    const res = await dispatch(fetchPackage(packageListItem.id));
-                    console.log('dispatch fetchPackage response: ', res);
-
-                    if (res.payload) {
-                      dispatch(setActivePackage(res.payload as Package));
-                      router.push(SetPackagePatent);
-                    }
-                  }}
-                >
-                  Edit
-                </AtlusButton>
+            <Fragment key={packageListItem.id}>
+              {/*<div className="cursor-pointer select-none">*/}
+              <div>
                 <Link href={`${PackagePage}/${packageListItem.id}`}>
-                  <AtlusButton variant="clear">View</AtlusButton>
+                  <AtlusButton variant="clear">{packageListItem.title}</AtlusButton>
                 </Link>
               </div>
-              {isFetchingPackage && activePackageId === packageListItem.id ? ' - Loading...' : null}
-            </li>
+
+              <AtlusButton
+                variant="clear"
+                onClick={async () => {
+                  setActivePackageId(packageListItem.id);
+                  // @ts-ignore
+                  const res = await dispatch(fetchPackage(packageListItem.id));
+                  console.log('dispatch fetchPackage response: ', res);
+
+                  if (res.payload) {
+                    dispatch(setActivePackage(res.payload as Package));
+                    router.push(SetPackagePatent);
+                  }
+                }}
+                isLoading={isFetchingPackage && activePackageId === packageListItem.id}
+              >
+                Edit
+              </AtlusButton>
+            </Fragment>
           );
         })}
-      </ol>
+      </div>
     </div>
   );
 };
