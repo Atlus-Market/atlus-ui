@@ -13,7 +13,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { login, SignInResponse } from '@/api/auth/login';
 import { isAxiosError } from 'axios';
 import { cookies } from 'next/headers';
-import { accessTokenCookieName } from '@/constants/api';
+import { accessTokenCookieName, csrfAccessTokenName } from '@/constants/api';
 import { logout } from '@/api/auth/logout';
 import { isSecureProtocol } from '@/utils/platform';
 
@@ -41,6 +41,8 @@ const providers = [
         cookies().set(accessTokenCookieName, loginResponse.accessTokenCookie, {
           httpOnly: true,
           secure: usingSecureDomain,
+          domain: process.env.COOKIE_DOMAIN,
+          path: '/',
         });
 
         return {

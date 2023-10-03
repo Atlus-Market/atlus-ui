@@ -10,18 +10,15 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
+    domains: ['localhost', process.env.API_DOMAIN],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: process.env.API_DOMAIN,
-        port: process.env.API_PORT,
-        pathname: '**',
+        hostname: '**.' + process.env.API_DOMAIN,
       },
       {
         protocol: 'http',
-        hostname: process.env.API_DOMAIN,
-        port: process.env.API_PORT,
-        pathname: '**',
+        hostname: '**.' + process.env.API_DOMAIN,
       },
     ],
   },
