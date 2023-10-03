@@ -1,33 +1,33 @@
 'use client';
 
-import { AtlusTabs } from '@/components/ui/tabs/atlus-tabs';
-import { AtlusTab } from '@/components/ui/tabs/atlus-tab';
+import { reset } from '@/redux/features/share-package/share-package';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setSharePackageActiveTab } from '@/redux/features/share-package/share-package';
-import { SharePackageTab } from '@/app/package/share/commom/share-package-tab';
+import { SharePackageTabsHeader } from '@/app/package/share/broker/components/share-package-tabs-header';
 import { useAppSelector } from '@/redux/hooks';
 import { selectActiveTab } from '@/redux/features/share-package/selectors/share-package.selectors';
+import { SharePackageTab } from '@/app/package/share/commom/share-package-tab';
+import { ContactsTab } from '@/app/package/share/broker/components/contacts-tab/contacts-tab';
+import { DirectoryTab } from '@/app/package/share/broker/components/directory-tab/directory-tab';
+import { SharedWithTab } from '@/app/package/share/broker/components/shared-with-tab/shared-with-tab';
 
 export const ShareBrokerPackageBody = () => {
   const dispatch = useDispatch();
   const activeTab = useAppSelector(selectActiveTab);
+
+  // Reset share package store
+  useEffect(() => {
+    dispatch(reset());
+  }, [dispatch]);
+
   return (
-    <AtlusTabs>
-      <AtlusTab
-        isActive={activeTab === SharePackageTab.Contacts}
-        text="Contacts"
-        onSelected={() => dispatch(setSharePackageActiveTab(SharePackageTab.Contacts))}
-      />
-      <AtlusTab
-        isActive={activeTab === SharePackageTab.Directory}
-        text="Directory"
-        onSelected={() => dispatch(setSharePackageActiveTab(SharePackageTab.Directory))}
-      />
-      <AtlusTab
-        isActive={activeTab === SharePackageTab.SharedWith}
-        text="Shared with"
-        onSelected={() => dispatch(setSharePackageActiveTab(SharePackageTab.SharedWith))}
-      />
-    </AtlusTabs>
+    <div>
+      <SharePackageTabsHeader />
+      <div className="py-5">
+        {activeTab === SharePackageTab.Contacts && <ContactsTab />}
+        {activeTab === SharePackageTab.Directory && <DirectoryTab />}
+        {activeTab === SharePackageTab.SharedWith && <SharedWithTab />}
+      </div>
+    </div>
   );
 };
