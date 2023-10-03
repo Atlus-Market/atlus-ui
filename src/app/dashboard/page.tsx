@@ -7,7 +7,7 @@ import { AtlusButton } from '@/components/ui/button/atlus-button';
 
 export default async function DashboardPage() {
   return (
-    <div className="p-16">
+    <div className="p-4">
       <h1 className="text-3xl mb-4">Atlus Dashboard</h1>
 
       <div className="my-6">

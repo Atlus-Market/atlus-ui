@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Header() {
   return (
-    <header className="p-6 md:p-8  bg-white md:sticky md:top-0">
+    <header className="p-6 md:p-8 bg-white">
       <Link href="/">
         <AtlusLogo />
       </Link>
