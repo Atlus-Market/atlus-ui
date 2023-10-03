@@ -1,12 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SharePackageTab } from '@/app/package/share/commom/share-package-tab';
+import {
+  contactsInitialState,
+  contactsReducer,
+  ContactsState,
+} from '@/redux/features/share-package/slices/contacts';
+import { searchContactsExtraReducers } from '@/redux/features/share-package/extra-reducers/search-contacts.extra-reducers';
 
 export interface SharePackageState {
   activeTab: SharePackageTab;
+  contactsTab: ContactsState;
 }
 
 const initialState: SharePackageState = {
   activeTab: SharePackageTab.Contacts,
+  contactsTab: contactsInitialState,
 };
 
 export const sharePackage = createSlice({
@@ -16,15 +24,18 @@ export const sharePackage = createSlice({
     reset: () => initialState,
     setSharePackageActiveTab: (
       state: SharePackageState,
-      payload: PayloadAction<SharePackageTab>
+      action: PayloadAction<SharePackageTab>
     ) => {
-      state.activeTab = payload.payload;
+      state.activeTab = action.payload;
     },
+
+    //Contacts tabs
+    ...contactsReducer,
   },
 
-  // extraReducers: builder => {
-  //   getPackageExtraReducers(builder);
-  // },
+  extraReducers: builder => {
+    searchContactsExtraReducers(builder);
+  },
 });
 
 export const {
@@ -33,5 +44,6 @@ export const {
   setSharePackageActiveTab,
 
   // Contacts
+  setContactsSearchValue,
 } = sharePackage.actions;
 export default sharePackage.reducer;

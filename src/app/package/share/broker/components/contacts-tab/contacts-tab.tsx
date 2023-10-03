@@ -1,9 +1,9 @@
-import { AtlusInput } from '@/components/ui/input/atlus-input';
+import { SearchContactsInput } from '@/app/package/share/broker/components/contacts-tab/search-contacts-input';
 
 export const ContactsTab = () => {
   return (
     <div>
-      <AtlusInput placeholder="Enter an email address or contact" />
+      <SearchContactsInput />
     </div>
   );
 };
