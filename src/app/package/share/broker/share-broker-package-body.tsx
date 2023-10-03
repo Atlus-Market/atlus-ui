@@ -1,8 +1,5 @@
 'use client';
 
-import { reset } from '@/redux/features/share-package/share-package';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { SharePackageTabsHeader } from '@/app/package/share/broker/components/share-package-tabs-header';
 import { useAppSelector } from '@/redux/hooks';
 import { SharePackageFindRecipientsTab } from '@/app/package/share/commom/share-package-find-recipients-tab';
@@ -12,13 +9,7 @@ import { SharedWithTab } from '@/app/package/share/broker/components/shared-with
 import { selectFindRecipientsActiveTab } from '@/redux/features/share-package/selectors/find-recipients.selectors';
 
 export const ShareBrokerPackageBody = () => {
-  const dispatch = useDispatch();
   const activeTab = useAppSelector(selectFindRecipientsActiveTab);
-
-  // Reset share package store
-  useEffect(() => {
-    dispatch(reset());
-  }, [dispatch]);
 
   return (
     <div>

@@ -29,6 +29,10 @@ export const SearchContactsInput = () => {
   const onChangedDebounced = useCallback(debounce(onChange, 200), [onChange]);
 
   return (
-    <AtlusInput placeholder="Enter an email address or contact" onChange={onChangedDebounced} />
+    <AtlusInput
+      placeholder="Enter an email address or contact"
+      onChange={onChangedDebounced}
+      wrapperClassName="!mb-0"
+    />
   );
 };

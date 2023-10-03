@@ -44,7 +44,7 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
 
   const { isFetching, data } = useQuery({
     queryKey: ['contacts'],
-    queryFn: getContacts,
+    queryFn: () => getContacts(),
     refetchOnWindowFocus: true,
   });
 
