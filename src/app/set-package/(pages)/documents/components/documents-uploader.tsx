@@ -14,11 +14,10 @@ import {
   UploadingDocumentStatus,
 } from '@/app/set-package/(pages)/documents/components/uploading-document/uploading-document-status';
 import { removeQueuedFile } from '@/redux/features/set-package/set-package';
-
-type Abort = (reason?: string) => void;
+import { AbortThunkRequest } from '@/types';
 
 interface UploadingFilesExtraOption {
-  [requestId: string]: { abort: Abort };
+  [requestId: string]: { abort: AbortThunkRequest };
 }
 
 export const DocumentsUploader = () => {

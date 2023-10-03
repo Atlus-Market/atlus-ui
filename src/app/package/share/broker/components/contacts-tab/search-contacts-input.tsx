@@ -1,19 +1,21 @@
 'use client';
 
 import { AtlusInput } from '@/components/ui/input/atlus-input';
-import { ChangeEvent, useCallback } from 'react';
+import { ChangeEvent, useCallback, useRef } from 'react';
 import { debounce } from 'lodash';
 import { useAppDispatch } from '@/redux/hooks';
 import { searchContacts } from '@/redux/features/share-package/thunks/search-contacts.thunk';
 
 export const SearchContactsInput = () => {
   const dispatch = useAppDispatch();
+  const activeThunk = useRef<any | null>();
 
   const onChange = useCallback(
     (e: ChangeEvent<HTMLInputElement> | undefined) => {
+      activeThunk.current?.abort?.();
       console.log('debouncedOnChange: ', e?.target?.value);
       // @ts-ignore
-      dispatch(searchContacts(e?.target?.value ?? ''));
+      activeThunk.current = dispatch(searchContacts(e?.target?.value ?? ''));
     },
     [dispatch]
   );
