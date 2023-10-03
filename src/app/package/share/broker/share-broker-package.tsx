@@ -43,7 +43,7 @@ export const ShareBrokerPackage = ({
           </AtlusModalFooter>
         }
       >
-        <AtlusModalBody className="md:w-[540px] !py-0">
+        <AtlusModalBody className="md:!w-[540px] !py-0">
           <ShareBrokerPackageBody />
         </AtlusModalBody>
       </AtlusModalContainer>

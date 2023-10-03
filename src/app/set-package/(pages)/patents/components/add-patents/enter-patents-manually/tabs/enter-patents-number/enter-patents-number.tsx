@@ -21,7 +21,7 @@ export const EnterPatentsNumber = () => {
         </AtlusModalFooter>
       }
     >
-      <AtlusModalBody className="w-[650px] !py-0">
+      <AtlusModalBody className="!w-[650px] !py-0">
         <EnterPatentsNumberBody />
       </AtlusModalBody>
     </AtlusModalContainer>

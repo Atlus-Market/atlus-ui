@@ -29,7 +29,7 @@ export const SelectPatents = () => {
         </AtlusModalFooter>
       }
     >
-      <AtlusModalBody className="w-[1240px] bg-[#FCFCFC] !py-0">
+      <AtlusModalBody className="!w-[1240px] bg-[#FCFCFC] !py-0">
         <PatentsTable />
         <SelectPatentSetPatentHandler />
       </AtlusModalBody>
