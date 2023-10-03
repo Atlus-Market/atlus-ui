@@ -26,12 +26,7 @@ export const AddContactModal = ({
   onContactAdded,
 }: AddContactModalProps) => {
   return (
-    <AtlusModal
-      isOpen={isOpen}
-      onAfterClose={onClose}
-      overlayClassName="z-[2]"
-      modalBodyClassName="max-h-[80%]"
-    >
+    <AtlusModal isOpen={isOpen} onAfterClose={onClose} overlayClassName="z-[2]">
       <AddContactForm initialValues={initialValues} onContactAdded={onContactAdded}>
         <AtlusModalContainer
           header={
@@ -45,7 +40,7 @@ export const AddContactModal = ({
             </AtlusModalFooter>
           }
         >
-          <AtlusModalBody className="w-[650px]">
+          <AtlusModalBody className="!w-[650px]">
             <AddContactFormFields />
           </AtlusModalBody>
         </AtlusModalContainer>

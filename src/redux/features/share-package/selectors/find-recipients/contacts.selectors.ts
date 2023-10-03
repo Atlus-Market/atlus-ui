@@ -16,6 +16,10 @@ export const selectSelectedContacts = createSelector(
   state => state.contactsTab.selectedContacts
 );
 
+export const selectSelectedContactsIds = createSelector(selectFindRecipientsPageState, state => {
+  return state.contactsTab.selectedContacts.map(contact => contact.id);
+});
+
 export const selectIsSearchingContacts = createSelector(
   selectContactsState,
   state => state.isSearchingContacts

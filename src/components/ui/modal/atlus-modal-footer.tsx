@@ -12,8 +12,8 @@ export const AtlusModalFooter = ({ children, className }: AtlusModalFooterProps)
   return (
     <div
       className={clsx(
-        'flex modal-footer items-center px-10 pt-4 pb-7',
-
+        'flex modal-footer items-center w-full',
+        'px-6 pt-5 pb-6 md:px-10 md:pt-4 md:pb-7',
         // [&:has(:nth-child(2))]:justify-between justify-end does not work on Safari.
         // It doesn't update after first render.
         validChildrenCount > 1 ? 'justify-between' : 'justify-end',

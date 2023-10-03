@@ -29,7 +29,10 @@ export const AtlusModal = ({
       onAfterClose={onAfterClose}
       shouldCloseOnOverlayClick={true}
       onRequestClose={onRequestClose}
-      className={clsx('atlus-modal-content', modalBodyClassName)}
+      className={clsx(
+        'atlus-modal-content h-screen md:h-auto md:max-h-[792px]',
+        modalBodyClassName
+      )}
     >
       {children}
     </Modal>

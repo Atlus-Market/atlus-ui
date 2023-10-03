@@ -38,12 +38,12 @@ export const ShareBrokerPackage = ({
           </AtlusModalHeader>
         }
         footer={
-          <AtlusModalFooter className="w-full">
+          <AtlusModalFooter className="bg-lightest-grey">
             <SharePackageFooter />
           </AtlusModalFooter>
         }
       >
-        <AtlusModalBody className="w-[650px] !py-0">
+        <AtlusModalBody className="md:w-[540px] !py-0">
           <ShareBrokerPackageBody />
         </AtlusModalBody>
       </AtlusModalContainer>

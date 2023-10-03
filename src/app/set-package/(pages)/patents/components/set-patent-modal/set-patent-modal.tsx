@@ -30,7 +30,7 @@ export const SetPatentModal = ({
 }: SetPatentModalProps) => {
   console.log('editingPatent: ', editingPatent);
   return (
-    <AtlusModal isOpen={isOpen} onRequestClose={closeModal} modalBodyClassName="max-h-[80%]">
+    <AtlusModal isOpen={isOpen} onRequestClose={closeModal}>
       <SetPatentForm initialValues={editingPatent} onSubmit={patent => onPatentAdded(patent)}>
         <AtlusModalContainer
           header={

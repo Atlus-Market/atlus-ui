@@ -33,7 +33,6 @@ export const AddPatentsModal = () => {
         isOpen={isAddPatentsModalOpen}
         onRequestClose={() => dispatch(hideAddPatentsModal())}
         onAfterClose={() => dispatch(resetAddPatents())}
-        modalBodyClassName="max-h-[80%]"
       >
         {step}
       </AtlusModal>
