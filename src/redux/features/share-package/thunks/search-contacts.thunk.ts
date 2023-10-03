@@ -8,10 +8,8 @@ export const searchContacts = createAsyncThunk<Contact[], string, { state: RootS
   async (searchValue: string, thunkAPI) => {
     try {
       const { signal } = thunkAPI;
-      console.log('searching contacts value: ', searchValue);
-      const res = await getContacts(searchValue, signal);
-      console.log('Search contacts response: ', res);
-      return res.contacts;
+      const { contacts } = await getContacts(searchValue, signal);
+      return contacts;
     } catch (e) {
       console.error(e);
       return [];

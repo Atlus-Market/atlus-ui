@@ -1,20 +1,20 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SharePackageTab } from '@/app/package/share/commom/share-package-tab';
-import {
-  contactsInitialState,
-  contactsReducer,
-  ContactsState,
-} from '@/redux/features/share-package/slices/contacts';
+import { createSlice } from '@reduxjs/toolkit';
 import { searchContactsExtraReducers } from '@/redux/features/share-package/extra-reducers/search-contacts.extra-reducers';
+import { SharePackagePage } from '@/app/package/share/commom/share-package-page';
+import {
+  findRecipientsPageInitialState,
+  FindRecipientsPageState,
+  findRecipientsReducers,
+} from '@/redux/features/share-package/slices/find-recipients/find-recipients';
 
 export interface SharePackageState {
-  activeTab: SharePackageTab;
-  contactsTab: ContactsState;
+  activePage: SharePackagePage;
+  findRecipientsPage: FindRecipientsPageState;
 }
 
 const initialState: SharePackageState = {
-  activeTab: SharePackageTab.Contacts,
-  contactsTab: contactsInitialState,
+  activePage: SharePackagePage.FindRecipients,
+  findRecipientsPage: findRecipientsPageInitialState,
 };
 
 export const sharePackage = createSlice({
@@ -22,15 +22,7 @@ export const sharePackage = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
-    setSharePackageActiveTab: (
-      state: SharePackageState,
-      action: PayloadAction<SharePackageTab>
-    ) => {
-      state.activeTab = action.payload;
-    },
-
-    //Contacts tabs
-    ...contactsReducer,
+    ...findRecipientsReducers,
   },
 
   extraReducers: builder => {
@@ -41,9 +33,10 @@ export const sharePackage = createSlice({
 export const {
   // Common
   reset,
-  setSharePackageActiveTab,
 
-  // Contacts
+  // Find recipients Page
+  setSharePackageActiveTab,
+  // // Contacts
   setContactsSearchValue,
 } = sharePackage.actions;
 export default sharePackage.reducer;

@@ -4,5 +4,3 @@ import { createSelector } from 'reselect';
 
 export const selectSharePackageState = (state: RootState): SharePackageState =>
   state.sharePackageReducer;
-
-export const selectActiveTab = createSelector(selectSharePackageState, state => state.activeTab);

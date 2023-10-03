@@ -18,6 +18,6 @@ export const contactsInitialState: ContactsState = {
 
 export const contactsReducer = {
   setContactsSearchValue: (state: SharePackageState, action: PayloadAction<string>) => {
-    state.contactsTab.searchValue = action.payload;
+    state.findRecipientsPage.contactsTab.searchValue = action.payload;
   },
 };

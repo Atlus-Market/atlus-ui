@@ -1,31 +1,37 @@
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/redux/hooks';
-import { selectActiveTab } from '@/redux/features/share-package/selectors/share-package.selectors';
 import { setSharePackageActiveTab } from '@/redux/features/share-package/share-package';
 import { AtlusTabs } from '@/components/ui/tabs/atlus-tabs';
 import { AtlusTab } from '@/components/ui/tabs/atlus-tab';
-import { SharePackageTab } from '@/app/package/share/commom/share-package-tab';
+import { SharePackageFindRecipientsTab } from '@/app/package/share/commom/share-package-find-recipients-tab';
+import { selectFindRecipientsActiveTab } from '@/redux/features/share-package/selectors/find-recipients.selectors';
 
 export const SharePackageTabsHeader = () => {
   const dispatch = useDispatch();
-  const activeTab = useAppSelector(selectActiveTab);
+  const activeTab = useAppSelector(selectFindRecipientsActiveTab);
 
   return (
     <AtlusTabs className="!mb-0">
       <AtlusTab
-        isActive={activeTab === SharePackageTab.Contacts}
+        isActive={activeTab === SharePackageFindRecipientsTab.Contacts}
         text="Contacts"
-        onSelected={() => dispatch(setSharePackageActiveTab(SharePackageTab.Contacts))}
+        onSelected={() =>
+          dispatch(setSharePackageActiveTab(SharePackageFindRecipientsTab.Contacts))
+        }
       />
       <AtlusTab
-        isActive={activeTab === SharePackageTab.Directory}
+        isActive={activeTab === SharePackageFindRecipientsTab.Directory}
         text="Directory"
-        onSelected={() => dispatch(setSharePackageActiveTab(SharePackageTab.Directory))}
+        onSelected={() =>
+          dispatch(setSharePackageActiveTab(SharePackageFindRecipientsTab.Directory))
+        }
       />
       <AtlusTab
-        isActive={activeTab === SharePackageTab.SharedWith}
+        isActive={activeTab === SharePackageFindRecipientsTab.SharedWith}
         text="Shared with"
-        onSelected={() => dispatch(setSharePackageActiveTab(SharePackageTab.SharedWith))}
+        onSelected={() =>
+          dispatch(setSharePackageActiveTab(SharePackageFindRecipientsTab.SharedWith))
+        }
       />
     </AtlusTabs>
   );

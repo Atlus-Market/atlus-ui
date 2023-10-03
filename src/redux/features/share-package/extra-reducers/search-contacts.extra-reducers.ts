@@ -9,25 +9,25 @@ export const searchContactsExtraReducers = (
     const { meta } = action;
     const payload = meta.arg;
     console.log('searchContacts.pending:action ', action);
-    state.contactsTab.isSearchContacts = true;
-    state.contactsTab.activeRequestId = action.meta.requestId;
+    state.findRecipientsPage.contactsTab.isSearchContacts = true;
+    state.findRecipientsPage.contactsTab.activeRequestId = action.meta.requestId;
   });
 
   // Add reducers for additional action types here, and handle loading state as needed
   builder.addCase(searchContacts.fulfilled, (state: SharePackageState, action) => {
-    if (action.meta.requestId !== state.contactsTab.activeRequestId) {
+    if (action.meta.requestId !== state.findRecipientsPage.contactsTab.activeRequestId) {
       return;
     }
     console.log('searchContacts.fulfilled:action ', action);
-    state.contactsTab.isSearchContacts = false;
-    state.contactsTab.contacts = action.payload;
+    state.findRecipientsPage.contactsTab.isSearchContacts = false;
+    state.findRecipientsPage.contactsTab.contacts = action.payload;
   });
 
   builder.addCase(searchContacts.rejected, (state: SharePackageState, action) => {
-    if (action.meta.requestId !== state.contactsTab.activeRequestId) {
+    if (action.meta.requestId !== state.findRecipientsPage.contactsTab.activeRequestId) {
       return;
     }
     console.log('searchContacts.rejected:action ', action);
-    state.contactsTab.isSearchContacts = false;
+    state.findRecipientsPage.contactsTab.isSearchContacts = false;
   });
 };
