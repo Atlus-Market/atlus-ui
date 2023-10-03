@@ -38,5 +38,7 @@ export const {
   setSharePackageActiveTab,
   // // Contacts
   setContactsSearchValue,
+  selectContact,
+  removeSelectedContact,
 } = sharePackage.actions;
 export default sharePackage.reducer;

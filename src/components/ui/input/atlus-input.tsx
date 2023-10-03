@@ -43,7 +43,8 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(function
           'border border-light-grey rounded-lg',
           'flex justify-start items-center flex-wrap gap-2',
           'overflow-hidden',
-          'p-3',
+          'min-h-[53px]',
+          'px-3 py-[9px]',
           '[&:has(input:focus)]:border-orange',
           '[&:has(input[disabled])]:bg-lightest-grey'
         )}
@@ -57,7 +58,7 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(function
             'font-normal text-sm leading-[17px]',
             'outline-0',
             'placeholder:text-dark-grey',
-            'py-[5px] flex-grow',
+            'flex-grow',
             'disabled:bg-lightest-grey',
             inputClassName
           )}

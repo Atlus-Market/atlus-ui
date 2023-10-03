@@ -9,7 +9,7 @@ export const searchContactsExtraReducers = (
     const { meta } = action;
     const payload = meta.arg;
     console.log('searchContacts.pending:action ', action);
-    state.findRecipientsPage.contactsTab.isSearchContacts = true;
+    state.findRecipientsPage.contactsTab.isSearchingContacts = true;
     state.findRecipientsPage.contactsTab.activeRequestId = action.meta.requestId;
   });
 
@@ -19,7 +19,7 @@ export const searchContactsExtraReducers = (
       return;
     }
     console.log('searchContacts.fulfilled:action ', action);
-    state.findRecipientsPage.contactsTab.isSearchContacts = false;
+    state.findRecipientsPage.contactsTab.isSearchingContacts = false;
     state.findRecipientsPage.contactsTab.contacts = action.payload;
   });
 
@@ -28,6 +28,6 @@ export const searchContactsExtraReducers = (
       return;
     }
     console.log('searchContacts.rejected:action ', action);
-    state.findRecipientsPage.contactsTab.isSearchContacts = false;
+    state.findRecipientsPage.contactsTab.isSearchingContacts = false;
   });
 };

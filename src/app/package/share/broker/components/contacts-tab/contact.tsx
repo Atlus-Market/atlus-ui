@@ -9,7 +9,7 @@ interface ContactCardProps {
 
 export const ContactCard = ({ contact }: ContactCardProps) => {
   return (
-    <div className="flex items-center py-3">
+    <div className="flex items-center py-3" data-contact-id={contact.id}>
       <div className="bg-light-grey rounded-[50%] inline-flex items-center justify-center w-16 h-16 mr-4">
         <HiUser size={64} color="#ffffff" />
       </div>

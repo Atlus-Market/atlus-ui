@@ -2,6 +2,7 @@
 
 import clsx from 'clsx';
 import { AtlusTagRemoveButton } from '@/components/ui/tag/atlus-tag-remove-button';
+import { ReactNode } from 'react';
 
 export type AtlusTagSize = 'big' | 'small' | 'auto';
 
@@ -41,7 +42,7 @@ export const tagsColorsDefinition: Readonly<Record<AtlusTagColor, Readonly<TagCo
 
 interface TagProps {
   size?: AtlusTagSize;
-  text: string;
+  text: ReactNode;
   onClose?: () => void;
   className?: string;
   color?: AtlusTagColor;
