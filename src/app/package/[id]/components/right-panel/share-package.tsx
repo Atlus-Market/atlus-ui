@@ -8,7 +8,7 @@ import { useToggleState } from '@/hooks/use-toggle-state';
 interface SharePackageProps {}
 
 export const SharePackage = ({}: SharePackageProps) => {
-  const { isOn: isModalOpen, setOn: setIsModalOpen, setOff: closeModal } = useToggleState(true);
+  const { isOn: isModalOpen, setOn: setIsModalOpen, setOff: closeModal } = useToggleState(false);
 
   return (
     <div>
