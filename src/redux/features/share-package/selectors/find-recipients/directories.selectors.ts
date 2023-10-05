@@ -21,3 +21,8 @@ export const selectIsSearchingDirectories = createSelector(
   selectDirectoriesState,
   state => state.isSearchingDirectories
 );
+
+export const selectDirectoriesSearchValue = createSelector(
+  selectDirectoriesState,
+  state => state.searchValue
+);

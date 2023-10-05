@@ -21,3 +21,8 @@ export const selectIsSearchingContacts = createSelector(
   selectContactsState,
   state => state.isSearchingContacts
 );
+
+export const selectContactsSearchValue = createSelector(
+  selectContactsState,
+  state => state.searchValue
+);

@@ -3,6 +3,7 @@
 import { useAppSelector } from '@/redux/hooks';
 import { searchContacts } from '@/redux/features/share-package/thunks/search-contacts.thunk';
 import {
+  selectContactsSearchValue,
   selectIsSearchingContacts,
   selectSelectedContacts,
 } from '@/redux/features/share-package/selectors/find-recipients/contacts.selectors';
@@ -12,6 +13,7 @@ import { removeSelectedContact } from '@/redux/features/share-package/share-pack
 export const SearchContactsInput = () => {
   const selectedContacts = useAppSelector(selectSelectedContacts);
   const isSearchingContacts = useAppSelector(selectIsSearchingContacts);
+  const searchValue = useAppSelector(selectContactsSearchValue);
 
   return (
     <SearchRecipientsInput
@@ -20,6 +22,7 @@ export const SearchContactsInput = () => {
       recipients={selectedContacts}
       removeRecipientAction={removeSelectedContact}
       searchRecipientAction={searchContacts}
+      searchValue={searchValue}
     />
   );
 };

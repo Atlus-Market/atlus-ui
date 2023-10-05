@@ -7,11 +7,11 @@ import { AtlusTag } from '@/components/ui/tag/atlus-tag';
 import { debounce } from 'lodash';
 import clsx from 'clsx';
 import { atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
-import { searchDirectories } from '@/redux/features/share-package/thunks/search-directories.thunk';
 import { useAppDispatch } from '@/redux/hooks';
 import { Action } from 'redux';
 import { AsyncThunkAction } from '@reduxjs/toolkit';
 import { Recipient } from '@/app/package/share/broker/components/recipients-list';
+import { HiX } from 'react-icons/hi';
 
 interface SearchRecipientsInputProps {
   placeholder: string;
@@ -19,6 +19,7 @@ interface SearchRecipientsInputProps {
   isSearching: boolean;
   searchRecipientAction: (searchValue: string) => AsyncThunkAction<any, any, any>;
   removeRecipientAction: (data: { id: string }) => Action;
+  searchValue: string;
 }
 
 export const SearchRecipientsInput = ({
@@ -27,14 +28,23 @@ export const SearchRecipientsInput = ({
   placeholder,
   searchRecipientAction,
   removeRecipientAction,
+  searchValue,
 }: SearchRecipientsInputProps) => {
   const dispatch = useAppDispatch();
   const activeThunk = useRef<any | null>();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const searchAll = useCallback(() => {
+    if (inputRef.current) {
+      inputRef.current.value = '';
+    }
+    // @ts-ignore
+    activeThunk.current = dispatch(searchRecipientAction(''));
+  }, [dispatch, searchRecipientAction]);
 
   useEffect(() => {
-    // @ts-ignore
-    activeThunk.current = dispatch(searchDirectories(''));
-  }, [dispatch]);
+    searchAll();
+  }, []);
 
   const removeRecipient = useCallback(
     (recipientId: string) => {
@@ -72,13 +82,26 @@ export const SearchRecipientsInput = ({
   }, [removeRecipient, recipients]);
 
   const hasRecipients = recipients.length > 0;
+
+  let rightIcon = null;
+  if (isSearching) {
+    rightIcon = <AtlusLoadingSpinner color="orange" />;
+  } else if (searchValue) {
+    rightIcon = (
+      <button>
+        <HiX onClick={searchAll} />
+      </button>
+    );
+  }
+
   return (
     <AtlusInput
       placeholder={!hasRecipients ? placeholder : undefined}
       onChange={onChangedDebounced}
       wrapperClassName={clsx('!mb-[10px]', atlusModalBodyPaddingX)}
       leftCmp={selectedRecipientsTags}
-      rightIcon={isSearching && <AtlusLoadingSpinner color="orange" />}
+      rightIcon={rightIcon}
+      ref={inputRef}
     />
   );
 };

@@ -10,6 +10,7 @@ export const searchContactsExtraReducers = (
     const payload = meta.arg;
     console.log('searchContacts.pending:action ', action);
     state.findRecipientsPage.contactsTab.isSearchingContacts = true;
+    state.findRecipientsPage.contactsTab.searchValue = action.meta.arg;
     state.findRecipientsPage.contactsTab.activeRequestId = action.meta.requestId;
   });
 

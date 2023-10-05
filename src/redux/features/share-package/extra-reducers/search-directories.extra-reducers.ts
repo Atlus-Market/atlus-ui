@@ -10,6 +10,7 @@ export const searchDirectoriesExtraReducers = (
     const payload = meta.arg;
     console.log('searchDirectories.pending:action ', action);
     state.findRecipientsPage.directoriesTab.isSearchingDirectories = true;
+    state.findRecipientsPage.directoriesTab.searchValue = action.meta.arg;
     state.findRecipientsPage.directoriesTab.activeRequestId = action.meta.requestId;
   });
 
