@@ -27,8 +27,8 @@ export const AtlusAvatar = ({ size = 'medium', word }: AtlusAvatarProps) => {
       <span
         className={clsx(avatarColor.textColor, 'uppercase', {
           'text-[24px] md:text-[28px]': size === 'big',
-          'text-[26px]': size === 'medium',
-          'text-[12px] md:text-[20px]': size === 'small',
+          'text-[18px]': size === 'medium',
+          'text-[12px] md:text-[14px]': size === 'small',
         })}
       >
         {char || <HiUser />}
