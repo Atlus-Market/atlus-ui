@@ -3,6 +3,7 @@ import { HiCheckCircle, HiUser } from 'react-icons/hi2';
 import CircleSVG from '@/public/assets/images/circle.svg';
 import Image from 'next/image';
 import clsx from 'clsx';
+import { atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
 
 interface ContactCardProps {
   contact: Contact;
@@ -12,7 +13,7 @@ interface ContactCardProps {
 export const ContactCard = ({ contact, isActive }: ContactCardProps) => {
   return (
     <div
-      className={clsx('flex items-center py-3', {
+      className={clsx('flex items-center py-3', atlusModalBodyPaddingX, {
         'bg-off-white': isActive,
       })}
       data-contact-id={contact.id}

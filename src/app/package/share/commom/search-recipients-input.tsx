@@ -3,6 +3,8 @@ import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loadi
 import { ChangeEvent, useCallback, useMemo } from 'react';
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
 import { debounce } from 'lodash';
+import clsx from 'clsx';
+import { atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
 
 interface SearchRecipientsInputProps {
   placeholder: string;
@@ -50,7 +52,7 @@ export const SearchRecipientsInput = ({
     <AtlusInput
       placeholder={!hasRecipients ? placeholder : undefined}
       onChange={onChangedDebounced}
-      wrapperClassName="!mb-0"
+      wrapperClassName={clsx('!mb-[10px]', atlusModalBodyPaddingX)}
       leftCmp={selectedRecipientsTags}
       rightIcon={isSearching && <AtlusLoadingSpinner color="orange" />}
     />

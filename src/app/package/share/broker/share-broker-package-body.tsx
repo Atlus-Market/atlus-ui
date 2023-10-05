@@ -7,14 +7,18 @@ import { ContactsTab } from '@/app/package/share/broker/components/contacts-tab/
 import { DirectoryTab } from '@/app/package/share/broker/components/directory-tab/directory-tab';
 import { SharedWithTab } from '@/app/package/share/broker/components/shared-with-tab/shared-with-tab';
 import { selectFindRecipientsActiveTab } from '@/redux/features/share-package/selectors/find-recipients.selectors';
+import clsx from 'clsx';
+import { atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
 
 export const ShareBrokerPackageBody = () => {
   const activeTab = useAppSelector(selectFindRecipientsActiveTab);
 
   return (
     <div>
-      <SharePackageTabsHeader />
-      <div className="py-5">
+      <div className={clsx(atlusModalBodyPaddingX)}>
+        <SharePackageTabsHeader />
+      </div>
+      <div className="py-5 min-h-[500px]">
         {activeTab === SharePackageFindRecipientsTab.Contacts && <ContactsTab />}
         {activeTab === SharePackageFindRecipientsTab.Directory && <DirectoryTab />}
         {activeTab === SharePackageFindRecipientsTab.SharedWith && <SharedWithTab />}
