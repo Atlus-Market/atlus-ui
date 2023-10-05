@@ -4,3 +4,5 @@ import { createSelector } from 'reselect';
 
 export const selectSharePackageState = (state: RootState): SharePackageState =>
   state.sharePackageReducer;
+
+export const selectActivePage = createSelector(selectSharePackageState, state => state.activePage);

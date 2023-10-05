@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { searchContactsExtraReducers } from '@/redux/features/share-package/extra-reducers/search-contacts.extra-reducers';
 import { SharePackagePage } from '@/app/package/share/broker/components/commom/share-package-page';
 import {
@@ -23,6 +23,9 @@ export const sharePackage = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
+    setActivePage: (state: SharePackageState, action: PayloadAction<SharePackagePage>) => {
+      state.activePage = action.payload;
+    },
     ...findRecipientsReducers,
   },
 
@@ -35,6 +38,7 @@ export const sharePackage = createSlice({
 export const {
   // Common
   reset,
+  setActivePage,
 
   // Find recipients Page
   setSharePackageActiveTab,
