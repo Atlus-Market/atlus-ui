@@ -6,7 +6,7 @@ import {
   selectContacts,
   selectSelectedContactsIds,
 } from '@/redux/features/share-package/selectors/find-recipients/contacts.selectors';
-import { RecipientsList } from '@/app/package/share/broker/components/recipients-list';
+import { Recipient, RecipientsList } from '@/app/package/share/broker/components/recipients-list';
 
 export const ContactsList = () => {
   const contacts = useAppSelector(selectContacts);
@@ -18,6 +18,7 @@ export const ContactsList = () => {
       recipients={contacts}
       selectRecipientAction={selectContact}
       removeRecipientAction={removeSelectedContact}
+      recipientSubLinesFn={(recipient: Recipient) => [recipient.companyName, recipient.email]}
     />
   );
 };

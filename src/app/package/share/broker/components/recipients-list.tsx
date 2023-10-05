@@ -2,8 +2,8 @@
 
 import { useAppDispatch } from '@/redux/hooks';
 import { MouseEvent, useCallback } from 'react';
-import { ContactCard } from '@/app/package/share/broker/components/contacts-tab/contact';
 import { Action } from 'redux';
+import { AtlusContact } from '@/components/common/atlus-contact';
 
 export type Recipient = {
   id: string;
@@ -18,6 +18,7 @@ interface RecipientsListProps<T extends Recipient> {
   removeRecipientAction: (payload: { id: string }) => Action;
   recipients: T[];
   selectedRecipientsIds: string[];
+  recipientSubLinesFn: (recipient: Recipient) => string[];
 }
 
 export const RecipientsList = <T extends Recipient>({
@@ -25,6 +26,7 @@ export const RecipientsList = <T extends Recipient>({
   selectedRecipientsIds,
   selectRecipientAction,
   removeRecipientAction,
+  recipientSubLinesFn,
 }: RecipientsListProps<T>) => {
   const dispatch = useAppDispatch();
 
@@ -65,9 +67,11 @@ export const RecipientsList = <T extends Recipient>({
     <div onClick={onRecipientCardClicked}>
       {recipients.map((recipient: Recipient) => (
         <a href="" key={recipient.id}>
-          <ContactCard
+          <AtlusContact
+            size="big"
             recipient={recipient}
             isActive={selectedRecipientsIds.includes(recipient.id)}
+            subLines={recipientSubLinesFn(recipient)}
           />
         </a>
       ))}

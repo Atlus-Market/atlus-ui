@@ -11,7 +11,8 @@ import { useAppDispatch } from '@/redux/hooks';
 import { Action } from 'redux';
 import { AsyncThunkAction } from '@reduxjs/toolkit';
 import { Recipient } from '@/app/package/share/broker/components/recipients-list';
-import { HiX } from 'react-icons/hi';
+import { AtlusContact } from '@/components/common/atlus-contact';
+import { AtlusAvatar } from '@/components/common/atlus-avatar';
 
 interface SearchRecipientsInputProps {
   placeholder: string;
@@ -71,28 +72,28 @@ export const SearchRecipientsInput = ({
       <AtlusTag
         key={recipient.id}
         text={
-          <span>
-            {recipient.firstName} {recipient.lastName}
-          </span>
+          <div className="flex items-center gap-2">
+            <AtlusAvatar size="small" /> {recipient.firstName} {recipient.lastName}
+          </div>
         }
         size="small"
         onClose={() => removeRecipient(recipient.id)}
       />
     ));
   }, [removeRecipient, recipients]);
-
   const hasRecipients = recipients.length > 0;
 
   let rightIcon = null;
   if (isSearching) {
     rightIcon = <AtlusLoadingSpinner color="orange" />;
-  } else if (searchValue) {
-    rightIcon = (
-      <button>
-        <HiX onClick={searchAll} />
-      </button>
-    );
   }
+  // else if (searchValue) {
+  //   rightIcon = (
+  //     <button>
+  //       <HiX onClick={searchAll} />
+  //     </button>
+  //   );
+  // }
 
   return (
     <AtlusInput

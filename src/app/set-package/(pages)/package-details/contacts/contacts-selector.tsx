@@ -9,7 +9,6 @@ import { AddContactModal } from '@/app/set-package/(pages)/package-details/conta
 import { useQuery } from '@tanstack/react-query';
 import { getContacts } from '@/api/contacts/get-contacts';
 import { useCallback, useEffect, useMemo, useRef } from 'react';
-import { AtlusContact } from '@/components/ui/contact/atlus-contact';
 import { Contact } from '@/models/contact';
 import { FilterOptionOption } from 'react-select/dist/declarations/src/filters';
 import { HiSearch, HiX } from 'react-icons/hi';
@@ -28,6 +27,7 @@ import {
 } from '@/redux/features/set-package/selectors/package-details.selectors';
 import { HiPencil } from 'react-icons/hi2';
 import { ActiveContact } from '@/app/set-package/(pages)/package-details/contacts/active-contact';
+import { AtlusContact } from '@/components/common/atlus-contact';
 
 interface SellerSelectorProps {
   onSellerSelected: (sellerId: string) => void;
@@ -58,7 +58,14 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
       data: {
         contact: c,
       },
-      label: <AtlusContact contact={c} />,
+      label: (
+        <AtlusContact
+          size="medium"
+          recipient={c}
+          subLines={[c.companyName]}
+          wrapperClassnames="!p-0"
+        />
+      ),
     }));
 
     return [

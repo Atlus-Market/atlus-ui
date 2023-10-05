@@ -1,7 +1,7 @@
 'use client';
 
 import { useAppSelector } from '@/redux/hooks';
-import { RecipientsList } from '@/app/package/share/broker/components/recipients-list';
+import { Recipient, RecipientsList } from '@/app/package/share/broker/components/recipients-list';
 import {
   removeSelectedDirectory,
   selectDirectory,
@@ -21,6 +21,7 @@ export const DirectoriesList = () => {
       recipients={directories}
       selectRecipientAction={selectDirectory}
       removeRecipientAction={removeSelectedDirectory}
+      recipientSubLinesFn={(recipient: Recipient) => [recipient.companyName]}
     />
   );
 };
