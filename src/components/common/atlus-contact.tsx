@@ -5,8 +5,8 @@ import clsx from 'clsx';
 import { Recipient } from '@/app/package/share/broker/components/recipients-list';
 import { atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
 import { Size } from '@/components/components.types';
-import { AtlusAvatar } from '@/components/common/atlus-avatar';
 import { Fragment } from 'react';
+import { AtlusAvatar } from '@/components/common/avatar/atlus-avatar';
 
 interface ContactCardProps {
   size?: Size;
@@ -37,7 +37,7 @@ export const AtlusContact = ({
       })}
       data-contact-id={recipient.id}
     >
-      <AtlusAvatar size={size} />
+      <AtlusAvatar size={size} word={recipient.firstName} />
       <div className="flex justify-between items-center w-full">
         <div>
           <div

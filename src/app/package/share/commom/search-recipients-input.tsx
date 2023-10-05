@@ -11,8 +11,7 @@ import { useAppDispatch } from '@/redux/hooks';
 import { Action } from 'redux';
 import { AsyncThunkAction } from '@reduxjs/toolkit';
 import { Recipient } from '@/app/package/share/broker/components/recipients-list';
-import { AtlusContact } from '@/components/common/atlus-contact';
-import { AtlusAvatar } from '@/components/common/atlus-avatar';
+import { AtlusAvatar } from '@/components/common/avatar/atlus-avatar';
 
 interface SearchRecipientsInputProps {
   placeholder: string;
@@ -73,7 +72,8 @@ export const SearchRecipientsInput = ({
         key={recipient.id}
         text={
           <div className="flex items-center gap-2">
-            <AtlusAvatar size="small" /> {recipient.firstName} {recipient.lastName}
+            <AtlusAvatar size="small" word={recipient.firstName} /> {recipient.firstName}{' '}
+            {recipient.lastName}
           </div>
         }
         size="small"
