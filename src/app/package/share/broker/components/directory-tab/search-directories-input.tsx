@@ -1,7 +1,7 @@
 'use client';
 
 import { useAppSelector } from '@/redux/hooks';
-import { SearchRecipientsInput } from '@/app/package/share/commom/search-recipients-input';
+import { SearchRecipientsInput } from '@/app/package/share/broker/components/commom/search-recipients-input';
 import { removeSelectedDirectory } from '@/redux/features/share-package/share-package';
 import {
   selectDirectoriesSearchValue,

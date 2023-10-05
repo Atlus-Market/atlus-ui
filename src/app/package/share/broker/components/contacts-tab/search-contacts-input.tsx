@@ -7,7 +7,7 @@ import {
   selectIsSearchingContacts,
   selectSelectedContacts,
 } from '@/redux/features/share-package/selectors/find-recipients/contacts.selectors';
-import { SearchRecipientsInput } from '@/app/package/share/commom/search-recipients-input';
+import { SearchRecipientsInput } from '@/app/package/share/broker/components/commom/search-recipients-input';
 import { removeSelectedContact } from '@/redux/features/share-package/share-package';
 
 export const SearchContactsInput = () => {

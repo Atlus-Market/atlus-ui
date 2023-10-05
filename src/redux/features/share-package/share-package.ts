@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { searchContactsExtraReducers } from '@/redux/features/share-package/extra-reducers/search-contacts.extra-reducers';
-import { SharePackagePage } from '@/app/package/share/commom/share-package-page';
+import { SharePackagePage } from '@/app/package/share/broker/components/commom/share-package-page';
 import {
   findRecipientsPageInitialState,
   FindRecipientsPageState,

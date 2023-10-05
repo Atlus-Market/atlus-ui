@@ -15,7 +15,7 @@ export const AtlusAvatar = ({ size = 'medium', word }: AtlusAvatarProps) => {
     <div
       className={clsx(
         avatarColor.backgroundColor,
-        'bg-light-grey rounded-[50%] inline-flex items-center justify-center flex-shrink-0',
+        'rounded-[50%] inline-flex items-center justify-center flex-shrink-0',
         {
           'mt-[-2px]': !char,
           'w-[40px] h-[40px] md:w-16 md:h-16': size === 'big',

@@ -2,7 +2,7 @@
 
 import { SharePackageTabsHeader } from '@/app/package/share/broker/components/share-package-tabs-header';
 import { useAppSelector } from '@/redux/hooks';
-import { SharePackageFindRecipientsTab } from '@/app/package/share/commom/share-package-find-recipients-tab';
+import { SharePackageFindRecipientsTab } from '@/app/package/share/broker/components/commom/share-package-find-recipients-tab';
 import { ContactsTab } from '@/app/package/share/broker/components/contacts-tab/contacts-tab';
 import { DirectoryTab } from '@/app/package/share/broker/components/directory-tab/directory-tab';
 import { SharedWithTab } from '@/app/package/share/broker/components/shared-with-tab/shared-with-tab';

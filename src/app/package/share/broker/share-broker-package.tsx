@@ -7,7 +7,7 @@ import { AtlusCloseModalButton } from '@/components/ui/modal/atlus-close-modal-b
 import { AtlusModalTitle } from '@/components/ui/modal/atlus-modal-title';
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
 import { AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
-import { SharePackageFooter } from '@/app/package/share/commom/share-package-footer';
+import { SharePackageFooter } from '@/app/package/share/broker/components/commom/share-package-footer';
 import { ShareBrokerPackageBody } from '@/app/package/share/broker/share-broker-package-body';
 import { useCallback } from 'react';
 import { useAppDispatch } from '@/redux/hooks';

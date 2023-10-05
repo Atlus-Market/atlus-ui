@@ -3,7 +3,7 @@ import { useAppSelector } from '@/redux/hooks';
 import { setSharePackageActiveTab } from '@/redux/features/share-package/share-package';
 import { AtlusTabs } from '@/components/ui/tabs/atlus-tabs';
 import { AtlusTab } from '@/components/ui/tabs/atlus-tab';
-import { SharePackageFindRecipientsTab } from '@/app/package/share/commom/share-package-find-recipients-tab';
+import { SharePackageFindRecipientsTab } from '@/app/package/share/broker/components/commom/share-package-find-recipients-tab';
 import { selectFindRecipientsActiveTab } from '@/redux/features/share-package/selectors/find-recipients.selectors';
 
 export const SharePackageTabsHeader = () => {
