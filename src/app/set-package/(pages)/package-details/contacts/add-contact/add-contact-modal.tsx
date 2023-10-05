@@ -31,7 +31,7 @@ export const AddContactModal = ({
         <AtlusModalContainer
           header={
             <AtlusModalHeader leftContent={<AtlusCloseModalButton onClick={onClose} />}>
-              <AtlusModalTitle text="Add new contact" />
+              <AtlusModalTitle text={`${!initialValues ? 'Add' : 'Edit'} contact`} />
             </AtlusModalHeader>
           }
           footer={
