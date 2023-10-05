@@ -36,12 +36,12 @@ export const contactsReducer = {
   removeSelectedContact: (
     state: SharePackageState,
     action: PayloadAction<{
-      contactId: string;
+      id: string;
     }>
   ) => {
     state.findRecipientsPage.contactsTab.selectedContacts =
       state.findRecipientsPage.contactsTab.selectedContacts.filter(
-        contact => contact.id !== action.payload.contactId
+        contact => contact.id !== action.payload.id
       );
   },
 };

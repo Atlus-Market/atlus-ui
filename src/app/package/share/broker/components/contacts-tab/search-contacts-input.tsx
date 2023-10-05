@@ -23,7 +23,7 @@ export const SearchContactsInput = () => {
 
   const removeContact = useCallback(
     (contactId: string) => {
-      dispatch(removeSelectedContact({ contactId }));
+      dispatch(removeSelectedContact({ id: contactId }));
     },
     [dispatch]
   );

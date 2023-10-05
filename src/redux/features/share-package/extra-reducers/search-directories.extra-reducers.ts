@@ -20,7 +20,12 @@ export const searchDirectoriesExtraReducers = (
     }
     console.log('searchDirectories.fulfilled:action ', action);
     state.findRecipientsPage.directoriesTab.isSearchingDirectories = false;
-    state.findRecipientsPage.directoriesTab.directories = action.payload;
+    if (!action.payload) {
+      return;
+    }
+    state.findRecipientsPage.directoriesTab.directories = action.payload.users;
+    const { users, ...rest } = action.payload;
+    state.findRecipientsPage.directoriesTab.searchPageResult = rest;
   });
 
   builder.addCase(searchDirectories.rejected, (state: SharePackageState, action) => {

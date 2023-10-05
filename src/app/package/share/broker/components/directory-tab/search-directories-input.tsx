@@ -23,7 +23,7 @@ export const SearchDirectoriesInput = () => {
 
   const removeDirectory = useCallback(
     (directoryId: string) => {
-      dispatch(removeSelectedDirectory({ contactId: directoryId }));
+      dispatch(removeSelectedDirectory({ id: directoryId }));
     },
     [dispatch]
   );

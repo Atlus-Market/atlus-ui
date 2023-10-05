@@ -1,22 +1,22 @@
-import { Contact } from '@/models/contact';
 import { HiCheckCircle, HiUser } from 'react-icons/hi2';
 import CircleSVG from '@/public/assets/images/circle.svg';
 import Image from 'next/image';
 import clsx from 'clsx';
 import { atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
+import { Recipient } from '@/app/package/share/broker/components/recipients-list';
 
 interface ContactCardProps {
-  contact: Contact;
+  recipient: Recipient;
   isActive?: boolean;
 }
 
-export const ContactCard = ({ contact, isActive }: ContactCardProps) => {
+export const ContactCard = ({ recipient, isActive }: ContactCardProps) => {
   return (
     <div
       className={clsx('flex items-center py-3', atlusModalBodyPaddingX, {
         'bg-off-white': isActive,
       })}
-      data-contact-id={contact.id}
+      data-contact-id={recipient.id}
     >
       <div className="bg-light-grey rounded-[50%] inline-flex items-center justify-center w-16 h-16 mr-4">
         <HiUser size={64} color="#ffffff" />
@@ -24,12 +24,12 @@ export const ContactCard = ({ contact, isActive }: ContactCardProps) => {
       <div className="flex justify-between items-center w-full">
         <div>
           <div className="text-base text-black mb-1 leading-5">
-            {contact.firstName} {contact.lastName}
+            {recipient.firstName} {recipient.lastName}
           </div>
           <div className="text-sm text-dark-grey leading-[17px]">
-            {contact.companyName}
+            {recipient.companyName}
             <Image src={CircleSVG} alt="circle" className="inline-block mx-[11px]" />
-            {contact.email}
+            {recipient.email}
           </div>
         </div>
         {isActive && <HiCheckCircle className="text-orange" size={20} />}
