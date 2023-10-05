@@ -1,3 +1,9 @@
+import { SearchDirectoriesInput } from '@/app/package/share/broker/components/directory-tab/search-directories-input';
+
 export const DirectoryTab = () => {
-  return <div>Directory Tabs</div>;
+  return (
+    <div>
+      <SearchDirectoriesInput />
+    </div>
+  );
 };

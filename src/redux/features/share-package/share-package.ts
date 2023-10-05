@@ -6,6 +6,7 @@ import {
   FindRecipientsPageState,
   findRecipientsReducers,
 } from '@/redux/features/share-package/slices/find-recipients/find-recipients';
+import { searchDirectoriesExtraReducers } from '@/redux/features/share-package/extra-reducers/search-directories.extra-reducers';
 
 export interface SharePackageState {
   activePage: SharePackagePage;
@@ -27,6 +28,7 @@ export const sharePackage = createSlice({
 
   extraReducers: builder => {
     searchContactsExtraReducers(builder);
+    searchDirectoriesExtraReducers(builder);
   },
 });
 
@@ -36,9 +38,15 @@ export const {
 
   // Find recipients Page
   setSharePackageActiveTab,
-  // // Contacts
+
+  // Contacts tab
   setContactsSearchValue,
   selectContact,
   removeSelectedContact,
+
+  // Directories tab
+  setDirectoriesSearchValue,
+  selectDirectory,
+  removeSelectedDirectory,
 } = sharePackage.actions;
 export default sharePackage.reducer;
