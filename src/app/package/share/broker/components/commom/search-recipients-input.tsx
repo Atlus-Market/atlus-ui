@@ -32,12 +32,11 @@ export const SearchRecipientsInput = ({
 }: SearchRecipientsInputProps) => {
   const dispatch = useAppDispatch();
   const activeThunk = useRef<any | null>();
-  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const searchAll = useCallback(() => {
-    if (inputRef.current) {
-      inputRef.current.value = '';
-    }
+    // if (inputRef.current) {
+    //   inputRef.current.value = '';
+    // }
     // @ts-ignore
     activeThunk.current = dispatch(searchRecipientAction(''));
   }, [dispatch, searchRecipientAction]);
@@ -102,7 +101,6 @@ export const SearchRecipientsInput = ({
       wrapperClassName={clsx('!mb-[10px]', atlusModalBodyPaddingX)}
       leftCmp={selectedRecipientsTags}
       rightIcon={rightIcon}
-      ref={inputRef}
     />
   );
 };

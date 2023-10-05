@@ -3,26 +3,49 @@
 import { useAppSelector } from '@/redux/hooks';
 import { selectFindRecipientsActiveTab } from '@/redux/features/share-package/selectors/find-recipients.selectors';
 import clsx from 'clsx';
-import { atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
+import { AtlusModalBody, atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
 import { SharePackageTabsHeader } from '@/app/package/share/broker/components/share-package-tabs-header';
 import { SharePackageFindRecipientsTab } from '@/app/package/share/broker/components/commom/share-package-find-recipients-tab';
 import { ContactsTab } from '@/app/package/share/broker/components/contacts-tab/contacts-tab';
 import { DirectoryTab } from '@/app/package/share/broker/components/directory-tab/directory-tab';
 import { SharedWithTab } from '@/app/package/share/broker/components/shared-with-tab/shared-with-tab';
+import { AtlusModalContainer } from '@/components/ui/modal/container/atlus-modal-container';
+import { AtlusModalHeader } from '@/components/ui/modal/atlus-modal-header';
+import { AtlusCloseModalButton } from '@/components/ui/modal/atlus-close-modal-button';
+import { AtlusModalTitle } from '@/components/ui/modal/atlus-modal-title';
+import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
+import { SharePackageFooter } from '@/app/package/share/broker/components/commom/share-package-footer';
+import { useSharePackageBrokerVisibility } from '@/app/package/share/broker/use-share-package-broker-visibility';
 
 export const FindRecipientsPage = () => {
+  const { hideSharePackageBroker } = useSharePackageBrokerVisibility();
   const activeTab = useAppSelector(selectFindRecipientsActiveTab);
 
   return (
-    <div>
-      <div className={clsx(atlusModalBodyPaddingX)}>
-        <SharePackageTabsHeader />
-      </div>
-      <div className="py-5">
-        {activeTab === SharePackageFindRecipientsTab.Contacts && <ContactsTab />}
-        {activeTab === SharePackageFindRecipientsTab.Directory && <DirectoryTab />}
-        {activeTab === SharePackageFindRecipientsTab.SharedWith && <SharedWithTab />}
-      </div>
-    </div>
+    <AtlusModalContainer
+      header={
+        <AtlusModalHeader rightContent={<AtlusCloseModalButton onClick={hideSharePackageBroker} />}>
+          <AtlusModalTitle text="Share package" />
+        </AtlusModalHeader>
+      }
+      footer={
+        <AtlusModalFooter className="bg-lightest-grey">
+          <SharePackageFooter />
+        </AtlusModalFooter>
+      }
+    >
+      <AtlusModalBody className="md:!w-[540px] !py-0 !px-0">
+        <div>
+          <div className={clsx(atlusModalBodyPaddingX)}>
+            <SharePackageTabsHeader />
+          </div>
+          <div className="py-5">
+            {activeTab === SharePackageFindRecipientsTab.Contacts && <ContactsTab />}
+            {activeTab === SharePackageFindRecipientsTab.Directory && <DirectoryTab />}
+            {activeTab === SharePackageFindRecipientsTab.SharedWith && <SharedWithTab />}
+          </div>
+        </div>
+      </AtlusModalBody>
+    </AtlusModalContainer>
   );
 };

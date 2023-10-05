@@ -6,3 +6,8 @@ export const selectSharePackageState = (state: RootState): SharePackageState =>
   state.sharePackageReducer;
 
 export const selectActivePage = createSelector(selectSharePackageState, state => state.activePage);
+
+export const selectIsShareModalOpen = createSelector(
+  selectSharePackageState,
+  state => state.isShareModalOpen
+);
