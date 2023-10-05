@@ -18,7 +18,7 @@ export const ShareBrokerPackageBody = () => {
       <div className={clsx(atlusModalBodyPaddingX)}>
         <SharePackageTabsHeader />
       </div>
-      <div className="py-5 min-h-[500px]">
+      <div className="py-5">
         {activeTab === SharePackageFindRecipientsTab.Contacts && <ContactsTab />}
         {activeTab === SharePackageFindRecipientsTab.Directory && <DirectoryTab />}
         {activeTab === SharePackageFindRecipientsTab.SharedWith && <SharedWithTab />}
