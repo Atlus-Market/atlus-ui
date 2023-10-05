@@ -8,14 +8,21 @@ import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
 import { SharePackageFooter } from '@/app/package/share/broker/components/commom/share-package-footer';
 import { AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
 import { useSharePackageBrokerVisibility } from '@/app/package/share/broker/use-share-package-broker-visibility';
+import { AtlusModalBackButton } from '@/components/ui/modal/atlus-modal-back-button';
+import { useAppDispatch } from '@/redux/hooks';
+import { setActivePage } from '@/redux/features/share-package/share-package';
+import { SharePackagePage } from '@/app/package/share/broker/components/commom/share-package-page';
 
 export const SendMessagePage = () => {
+  const dispatch = useAppDispatch();
   const { hideSharePackageBroker } = useSharePackageBrokerVisibility();
+  const goBack = () => dispatch(setActivePage(SharePackagePage.FindRecipients));
+
   return (
     <AtlusModalContainer
       header={
         <AtlusModalHeader
-          // leftContent={<BackButtonModal />}
+          leftContent={<AtlusModalBackButton onClick={goBack} />}
           rightContent={<AtlusCloseModalButton onClick={hideSharePackageBroker} />}
         >
           <AtlusModalTitle text="Share package" />
