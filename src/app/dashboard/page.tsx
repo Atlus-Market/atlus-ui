@@ -11,7 +11,7 @@ export default async function DashboardPage() {
       <h1 className="text-3xl mb-4">Atlus Dashboard</h1>
 
       <div className="my-6">
-        <Link href={SetPackagePatent} className="text-orange underline">
+        <Link href={`/set-package/new/patents`} className="text-orange underline">
           <AtlusButton size="small">Create new package</AtlusButton>
         </Link>
       </div>

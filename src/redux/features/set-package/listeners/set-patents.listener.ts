@@ -1,7 +1,7 @@
 import { ListenersMiddleware } from '@/redux/store';
 import { patentsFetchedSuccessfully } from '@/redux/features/set-package/slices/add-patents/slices/enter-patents';
 import { setAddPatentsStep, setPatents } from '@/redux/features/set-package/set-package';
-import { AddPatentsStep } from '@/app/set-package/(pages)/patents/components/add-patents/add-patents-step';
+import { AddPatentsStep } from '@/app/set-package/[id]/(pages)/patents/components/add-patents/add-patents-step';
 
 export const setPatentsListener = (appStartListening: ListenersMiddleware) => {
   appStartListening.startListening({

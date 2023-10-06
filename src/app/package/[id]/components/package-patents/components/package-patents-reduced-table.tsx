@@ -10,7 +10,7 @@ import {
   gridBorderStyles,
   PackagePatentsTable,
 } from '@/app/package/[id]/components/package-patents/components/package-patents-table';
-import { FamilyPatentGroup } from '@/app/set-package/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
+import { FamilyPatentGroup } from '@/app/set-package/[id]/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
 import { PatentsInFamilyLink } from '@/app/package/[id]/components/package-patents/components/patents-in-family-link';
 
 interface PackagePatentsTableCompactProps {

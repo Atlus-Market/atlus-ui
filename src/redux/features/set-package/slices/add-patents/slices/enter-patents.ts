@@ -1,5 +1,5 @@
-import { EnterPatentsNumberTab } from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
-import { PatentsIdsForm } from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-ids/patents-ids-form';
+import { EnterPatentsNumberTab } from '@/app/set-package/[id]/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
+import { PatentsIdsForm } from '@/app/set-package/[id]/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-ids/patents-ids-form';
 import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { createAction, PayloadAction } from '@reduxjs/toolkit';
 import { SerializedFile } from '@/redux/features/set-package/slices/documents';
