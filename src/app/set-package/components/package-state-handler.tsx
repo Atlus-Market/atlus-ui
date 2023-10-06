@@ -11,11 +11,13 @@ interface PackageStateHandlerProps {
 export const PackageStateHandler = ({ children }: PackageStateHandlerProps) => {
   const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   return () => {
-  //     dispatch(resetSetPackageState());
-  //   };
-  // }, [dispatch]);
+  useEffect(() => {
+    console.log('[Layout:PackageStateHandler] ---------------------------------------------------');
+    // dispatch(resetSetPackageState());
+    // return () => {
+    //   dispatch(resetSetPackageState());
+    // };
+  }, [dispatch]);
 
   return <>{children}</>;
 };

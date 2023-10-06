@@ -37,12 +37,18 @@ export const LoadPackageInStore = ({
 
     if (atlusPackage) {
       console.log('Setting package in store');
-      dispatch(resetSetPackageState());
+      // dispatch(resetSetPackageState());
       dispatch(setActivePackage(atlusPackage));
     }
   }, [activePackage, atlusPackage, dispatch]);
 
+  if (isNewPackage) {
+    console.log('Returning isNew Package');
+    return <>{children}</>;
+  }
+
   if (atlusPackage && !activePackage) {
+    console.log('Returning NULL');
     return null;
   }
 
