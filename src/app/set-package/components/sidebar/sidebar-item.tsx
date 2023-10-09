@@ -15,7 +15,7 @@ const LinkWrapper = ({ href, children, disabled }: SideBarItemProps & { children
     return <>{children}</>;
   }
   return (
-    <Link href={href} className="block">
+    <Link href={href} className="block" shallow={true}>
       {children}
     </Link>
   );

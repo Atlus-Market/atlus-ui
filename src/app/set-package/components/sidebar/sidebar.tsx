@@ -2,36 +2,34 @@
 
 import { SidebarItem } from '@/app/set-package/components/sidebar/sidebar-item';
 import { usePathname } from 'next/navigation';
-import {
-  SetPackageDocuments,
-  SetPackagePackageDetails,
-  SetPackagePatent,
-} from '@/constants/routes';
 import { useAppSelector } from '@/redux/hooks';
 import { selectPackage } from '@/redux/features/set-package/selectors/set-package.selectors';
+import { useSetPackageUrls } from '@/app/set-package/hooks/use-set-package-urls';
 
 export const Sidebar = () => {
   const pathname = usePathname();
   const activePackage = useAppSelector(selectPackage);
+  const setPackageUrls = useSetPackageUrls();
+
   return (
     <div className="pt-[99px] p-4 [&>*:not(:last-child)]:mb-4">
       <SidebarItem
         itemNumber={1}
         text="Patents"
-        href={SetPackagePatent}
-        isActive={pathname === SetPackagePatent}
+        href={setPackageUrls.patents}
+        isActive={pathname === setPackageUrls.patents}
       />
       <SidebarItem
         itemNumber={2}
         text="Package details"
-        href={SetPackagePackageDetails}
-        isActive={pathname === SetPackagePackageDetails}
+        href={setPackageUrls.packageDetails}
+        isActive={pathname === setPackageUrls.packageDetails}
       />
       <SidebarItem
         itemNumber={3}
         text="Documents"
-        href={SetPackageDocuments}
-        isActive={pathname === SetPackageDocuments}
+        href={setPackageUrls.documents}
+        isActive={pathname === setPackageUrls.documents}
         disabled={!activePackage}
       />
     </div>

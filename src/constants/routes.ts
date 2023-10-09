@@ -14,10 +14,28 @@ export const OnboardingBrokerCreateAccount = '/onboarding/broker/create-account'
 export const OnboardingBuyerInterestAreas = '/onboarding/buyer/areas-of-interest';
 
 // Set Package
+export const SetNewPackageParam = 'new';
 const SetPackageBaseRoute = 'set-package';
-export const SetPackagePatent = `/${SetPackageBaseRoute}/patents`;
-export const SetPackagePackageDetails = `/${SetPackageBaseRoute}/package-details`;
-export const SetPackageDocuments = `/${SetPackageBaseRoute}/documents`;
+
+const createSetPackageUrl = function (packageId: string, page: string) {
+  return `/${SetPackageBaseRoute}/${packageId}/${page}`;
+};
+
+export const SetPackagePatent = function (packageId: string) {
+  return createSetPackageUrl(packageId, 'patents');
+};
+
+export const SetNewPackageUrl = SetPackagePatent(SetNewPackageParam);
+
+export const SetPackagePackageDetails = function (packageId: string) {
+  return createSetPackageUrl(packageId, 'package-details');
+};
+
+export const SetPackageDocuments = function (packageId: string) {
+  return createSetPackageUrl(packageId, 'documents');
+};
 
 // View Package
-export const PackagePage = '/package';
+export const PackagePageUrl = function (packageId: string) {
+  return `/package/${packageId}`;
+};

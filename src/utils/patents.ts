@@ -1,6 +1,6 @@
 import { Patent } from '@/models/patent';
 import { CustomPatentPayload } from '@/api/package/create-package';
-import { FamilyPatentGroup } from '@/app/set-package/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
+import { FamilyPatentGroup } from '@/app/set-package/[id]/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
 import { groupBy } from 'lodash';
 
 export const sortPatentsByPublicationNumber = (patents: Patent[]): Patent[] => {

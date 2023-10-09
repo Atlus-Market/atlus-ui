@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
-import { EnterPatentsNumberTab } from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
+import { EnterPatentsNumberTab } from '@/app/set-package/[id]/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
 import { selectSetPackageState } from '@/redux/features/set-package/selectors/set-package.selectors';
-import { mapPatentsIdsToPatentIdsArray } from '@/app/set-package/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-ids/patent-id-validator';
+import { mapPatentsIdsToPatentIdsArray } from '@/app/set-package/[id]/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/enter-patents-ids/patent-id-validator';
 import { AddPatentsState } from '@/redux/features/set-package/slices/add-patents/add-patents';
 import { getPatentId } from '@/utils/patents';
 

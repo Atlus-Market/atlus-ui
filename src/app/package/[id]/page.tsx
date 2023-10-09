@@ -32,7 +32,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
     <div className="grid grid-cols-[1fr] lg:grid-cols-[1fr_380px] gap-[80px] px-[18px] pb-[18px] lg:px-[80px]">
       <MainPanel atlusPackage={atlusPackage} dataroom={dataroom} broker={broker} />
       <div className="hidden lg:block">
-        <PackageRightPanel broker={broker} />
+        <PackageRightPanel packageId={atlusPackage.id} broker={broker} />
       </div>
     </div>
   );

@@ -11,14 +11,14 @@ import { RootState } from '@/redux/store';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { Package } from '@/models/package';
 import { useRouter } from 'next/navigation';
-import { SetPackageDocuments } from '@/constants/routes';
 import { useFormContext } from 'react-hook-form';
-import { IPackageDetailsForm } from '@/app/set-package/(pages)/package-details/package-details-form';
+import { IPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
 import { selectPackageHasValidPatents } from '@/redux/features/set-package/selectors/package-validility.selectors';
 import {
   selectIsValidatingTitle,
   selectIsValidTitle,
 } from '@/redux/features/set-package/selectors/package-details.selectors';
+import { SetPackageDocuments } from '@/constants/routes';
 
 export const SavePackageButton = () => {
   const dispatch = useAppDispatch();
@@ -57,7 +57,7 @@ export const SavePackageButton = () => {
           // @ts-ignore
           const packageRes = res.payload.package as Package;
           dispatch(setActivePackage(packageRes));
-          router.push(SetPackageDocuments);
+          router.push(SetPackageDocuments(packageRes.id));
         }
       }}
       isLoading={isPersistingPackage}
