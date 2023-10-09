@@ -7,12 +7,14 @@ export interface GetPackageResponse {
 
 export const getPackage = (
   packageId: string,
-  atlusAuthRequestHeaders?: AtlusAuthRequestHeaders
+  atlusAuthRequestHeaders?: AtlusAuthRequestHeaders,
+  signal?: AbortSignal
 ) => {
   return createRequest<void, GetPackageResponse>({
     url: `/package/${packageId}`,
     method: 'GET',
     isProtected: ProtectedEndpoint.True,
+    signal,
     ...atlusAuthRequestHeaders,
   });
 };

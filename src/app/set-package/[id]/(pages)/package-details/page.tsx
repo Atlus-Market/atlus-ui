@@ -7,18 +7,11 @@ import { SetPackageFooter } from '@/app/set-package/components/set-package-foote
 import { SavePackageButton } from '@/app/set-package/components/save-package-button';
 import { PackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
 import { PackageDetailsFormFields } from '@/app/set-package/[id]/(pages)/package-details/package-details-form-fields';
-import { PackageLoader } from '@/app/set-package/components/package-loader';
 
-interface SetPackagePageProps {
-  params: {
-    id: string;
-  };
-}
-
-export default async function PackageDetailsPage({ params }: SetPackagePageProps) {
+export default async function PackageDetailsPage() {
   const interestAreasResponse: GetInterestAreasResponse = await getInterestAreas();
   return (
-    <PackageLoader packageId={params.id}>
+    <>
       <AtlusTitle text="Package Details" className="!font-normal !text-2xl mb-6" />
       <PackageDetailsForm>
         <PackageDetailsFormFields interestArea={interestAreasResponse.interestArea} />
@@ -26,6 +19,6 @@ export default async function PackageDetailsPage({ params }: SetPackagePageProps
           <SavePackageButton />
         </SetPackageFooter>
       </PackageDetailsForm>
-    </PackageLoader>
+    </>
   );
 }

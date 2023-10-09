@@ -7,7 +7,7 @@ export const fetchPackage = createAsyncThunk<Package, string, { state: RootState
   'package/get',
   async (packageId: string, thunkAPI) => {
     try {
-      const res = await getPackage(packageId);
+      const res = await getPackage(packageId, undefined, thunkAPI.signal);
       console.log('GET package Response: ', res);
       return res.package;
     } catch (e) {

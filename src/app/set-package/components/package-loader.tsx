@@ -1,27 +1,57 @@
-import 'server-only';
-import { getPackageOnServer } from '@/api/package/get-package-on-server';
+'use client';
+import { ReactNode, useEffect } from 'react';
+import { useParams } from 'next/navigation';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { fetchPackage } from '@/redux/features/packages/thunks/get-package.thunks';
+import { selectPackage } from '@/redux/features/set-package/selectors/set-package.selectors';
+import { resetSetPackageState, setActivePackage } from '@/redux/features/set-package/set-package';
 import { Package } from '@/models/package';
-import { ReactNode } from 'react';
-import { LoadPackageInStore } from '@/app/set-package/components/load-package-in-store';
+import { AbortThunkRequest } from '@/types';
+import { AtlusSplashLoader } from '@/components/ui/splash-loader/atlus-splash-loader';
 
 interface PackageLoaderProps {
-  packageId: string;
-  atlusPackage?: Package | undefined;
   children: ReactNode;
 }
 
-export const PackageLoader = async ({ children, packageId }: PackageLoaderProps) => {
-  let atlusPackage: Package | undefined;
-  if (packageId && packageId !== 'new') {
-    const getPackageResponse = await getPackageOnServer(packageId);
-    atlusPackage = getPackageResponse.package;
-    console.log(`[${Date.now()}] setPackage: `, atlusPackage);
-    console.log(`[${Date.now()}] setPackage - Done!`);
+export const PackageLoader = ({ children }: PackageLoaderProps) => {
+  const params = useParams();
+  const packageId = params.id;
+  const dispatch = useAppDispatch();
+  const activePackage = useAppSelector(selectPackage);
+  const isCreatingPackage = packageId === 'new';
+
+  useEffect(() => {
+    let mounted = true;
+    dispatch(resetSetPackageState());
+
+    if (!packageId || isCreatingPackage) {
+      return;
+    }
+
+    let abort: AbortThunkRequest;
+
+    const loadPackage = async () => {
+      // @ts-ignore
+      const thunkResponse = dispatch(fetchPackage(packageId));
+      abort = thunkResponse.abort;
+      const res = await thunkResponse;
+      const atlusPackage = res.payload as Package;
+      if (atlusPackage && mounted) {
+        dispatch(setActivePackage(atlusPackage));
+      }
+    };
+
+    loadPackage();
+
+    return () => {
+      mounted = false;
+      abort?.();
+    };
+  }, [dispatch, packageId, isCreatingPackage]);
+
+  if (!isCreatingPackage && !activePackage) {
+    return <AtlusSplashLoader />;
   }
 
-  return (
-    <LoadPackageInStore atlusPackage={atlusPackage} isNewPackage={packageId === 'new'}>
-      {children}
-    </LoadPackageInStore>
-  );
+  return <>{children}</>;
 };
