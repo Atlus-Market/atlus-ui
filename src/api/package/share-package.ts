@@ -1,7 +1,7 @@
 import { createRequest, ProtectedEndpoint } from '@/api/api';
 
-interface SharePackageRequestPayload {
-  recipients: string[];
+export interface SharePackageRequestPayload {
+  recipients: { email: string; access: number }[];
   message: string;
 }
 

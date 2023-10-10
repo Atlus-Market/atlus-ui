@@ -6,6 +6,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { array, object, ObjectSchema, string } from 'yup';
 import { RequiredField } from '@/constants/form';
 import { ReactNode } from 'react';
+import { useSharePackageMutation } from '@/app/package/share/broker/pages/send-message/useSharePackageMutation';
+import { SharePackageRequestPayload } from '@/api/package/share-package';
 
 export interface SharePackageSendMessageForm {
   message: string;
@@ -31,9 +33,19 @@ export const SharePackageSendMessageForm = ({
       resolver: yupResolver(schema),
     },
   });
-  const onSubmit = async (sendMessageForm: SharePackageSendMessageForm) => {
-    console.log('submitForm: ', sendMessageForm);
-    // await mutateAsync(sendMessageForm.message);
+
+  const { mutateAsync } = useSharePackageMutation(packageId);
+
+  const onSubmit = async (sharePackageSendMessageForm: SharePackageSendMessageForm) => {
+    console.log('submitForm: ', sharePackageSendMessageForm);
+    const shareP: SharePackageRequestPayload = {
+      message: sharePackageSendMessageForm.message,
+      recipients: sharePackageSendMessageForm.recipients.map(email => ({
+        email,
+        access: 2,
+      })),
+    };
+    await mutateAsync(shareP);
     // formProps.reset();
   };
 
