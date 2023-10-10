@@ -11,22 +11,29 @@ interface PackagePageProps {
 }
 
 export default async function PackagePage({ params }: PackagePageProps) {
-  console.log('View package page params: ', params);
+  const now = Date.now();
+  console.log(`[${now}] Loading package id: `, params.id);
 
-  const getDataroomPromise = getDataroomByPackageIdOnServer(params.id);
+  const getDataroomPromise = getDataroomByPackageIdOnServer(params.id).then(dataroom => {
+    console.log(`[${Date.now()}][${Date.now() - now}] Dataroom loaded!`);
+    return dataroom;
+  });
   const getPackageResponse = await getPackageOnServer(params.id);
 
   const atlusPackage = getPackageResponse.package;
-  console.log('package: ', atlusPackage);
+  console.log(`[${Date.now()}][${Date.now() - now}] Package loaded!`, atlusPackage.id);
 
   const promises = await Promise.all([
-    getUserByIdOnServer(atlusPackage.brokerUserId),
+    getUserByIdOnServer(atlusPackage.brokerUserId).then(user => {
+      console.log(`[${Date.now()}][${Date.now() - now}] User loaded!`);
+      return user;
+    }),
     getDataroomPromise,
   ]);
 
   const [broker, dataroom] = promises;
-  console.log('broker: ', broker);
-  console.log('dataroom: ', dataroom);
+  // console.log('broker: ', broker);
+  // console.log('dataroom: ', dataroom);
 
   return (
     <div className="grid grid-cols-[1fr] lg:grid-cols-[1fr_380px] gap-[80px] px-[18px] pb-[18px] lg:px-[80px]">

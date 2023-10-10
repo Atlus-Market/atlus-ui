@@ -32,17 +32,14 @@ export const SearchRecipientsInput = ({
 }: SearchRecipientsInputProps) => {
   const dispatch = useAppDispatch();
   const activeThunk = useRef<any | null>();
-
-  const searchAll = useCallback(() => {
-    // if (inputRef.current) {
-    //   inputRef.current.value = '';
-    // }
-    // @ts-ignore
-    activeThunk.current = dispatch(searchRecipientAction(''));
-  }, [dispatch, searchRecipientAction]);
+  // const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
-    searchAll();
+    // if (inputRef.current) {
+    //   inputRef.current.value = searchValue;
+    // }
+    // @ts-ignore
+    activeThunk.current = dispatch(searchRecipientAction(searchValue));
   }, []);
 
   const removeRecipient = useCallback(

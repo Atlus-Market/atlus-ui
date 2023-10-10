@@ -40,9 +40,27 @@ export const FindRecipientsPage = () => {
             <SharePackageTabsHeader />
           </div>
           <div className="py-5">
-            {activeTab === SharePackageFindRecipientsTab.Contacts && <ContactsTab />}
-            {activeTab === SharePackageFindRecipientsTab.Directory && <DirectoryTab />}
-            {activeTab === SharePackageFindRecipientsTab.SharedWith && <SharedWithTab />}
+            <div
+              className={clsx(
+                activeTab === SharePackageFindRecipientsTab.Contacts ? 'block' : 'hidden'
+              )}
+            >
+              <ContactsTab />
+            </div>
+            <div
+              className={clsx(
+                activeTab === SharePackageFindRecipientsTab.Directory ? 'block' : 'hidden'
+              )}
+            >
+              <DirectoryTab />
+            </div>
+            <div
+              className={clsx(
+                activeTab === SharePackageFindRecipientsTab.SharedWith ? 'block' : 'hidden'
+              )}
+            >
+              <SharedWithTab />
+            </div>
           </div>
         </div>
       </AtlusModalBody>

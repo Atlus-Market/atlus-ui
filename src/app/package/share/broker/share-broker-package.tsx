@@ -17,13 +17,12 @@ export const ShareBrokerPackage = ({
 }: ShareBrokerPackageProps) => {
   const dispatch = useAppDispatch();
 
-  const onClose = useCallback(() => {
-    closeModal?.();
+  const resetShareState = useCallback(() => {
     dispatch(reset());
-  }, [closeModal, dispatch]);
+  }, [dispatch]);
 
   return (
-    <AtlusModal isOpen={isShowingModal} onRequestClose={onClose}>
+    <AtlusModal isOpen={isShowingModal} onRequestClose={closeModal} onAfterClose={resetShareState}>
       <ShareBrokerPackageBody />
     </AtlusModal>
   );
