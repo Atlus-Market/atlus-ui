@@ -20,7 +20,7 @@ export const PackageRightPanel = ({ broker, packageId }: PackageRightPanelProps)
             <HiPencil className="mr-[10px]" /> Edit
           </AtlusButton>
         </Link>
-        <SharePackage />
+        <SharePackage packageId={packageId} />
       </div>
       <ContactBroker broker={broker} />
     </div>

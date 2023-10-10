@@ -11,3 +11,8 @@ export const selectIsShareModalOpen = createSelector(
   selectSharePackageState,
   state => state.isShareModalOpen
 );
+
+export const selectSharePackageId = createSelector(
+  selectSharePackageState,
+  state => state.packageId
+);

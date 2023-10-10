@@ -9,12 +9,14 @@ import {
 import { searchDirectoriesExtraReducers } from '@/redux/features/share-package/extra-reducers/search-directories.extra-reducers';
 
 export interface SharePackageState {
+  packageId: string;
   activePage: SharePackagePage;
   findRecipientsPage: FindRecipientsPageState;
   isShareModalOpen: boolean;
 }
 
 const initialState: SharePackageState = {
+  packageId: '',
   activePage: SharePackagePage.FindRecipients,
   findRecipientsPage: findRecipientsPageInitialState,
   isShareModalOpen: false,
@@ -25,6 +27,9 @@ export const sharePackage = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
+    setSharePackageId: (state: SharePackageState, action: PayloadAction<{ packageId: string }>) => {
+      state.packageId = action.payload.packageId;
+    },
     showSharePackageModal: (state: SharePackageState) => {
       state.isShareModalOpen = true;
     },
@@ -46,6 +51,7 @@ export const sharePackage = createSlice({
 export const {
   // Common
   reset,
+  setSharePackageId,
   setActivePage,
   showSharePackageModal,
   hideSharePackageModal,

@@ -4,11 +4,11 @@ import { useAppSelector } from '@/redux/hooks';
 import { selectFindRecipientsActiveTab } from '@/redux/features/share-package/selectors/find-recipients.selectors';
 import clsx from 'clsx';
 import { AtlusModalBody, atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
-import { SharePackageTabsHeader } from '@/app/package/share/broker/components/share-package-tabs-header';
+import { SharePackageTabsHeader } from '@/app/package/share/broker/pages/find-recipients/components/share-package-tabs-header';
 import { SharePackageFindRecipientsTab } from '@/app/package/share/broker/components/commom/share-package-find-recipients-tab';
-import { ContactsTab } from '@/app/package/share/broker/components/contacts-tab/contacts-tab';
-import { DirectoryTab } from '@/app/package/share/broker/components/directory-tab/directory-tab';
-import { SharedWithTab } from '@/app/package/share/broker/components/shared-with-tab/shared-with-tab';
+import { ContactsTab } from '@/app/package/share/broker/pages/find-recipients/components/contacts-tab/contacts-tab';
+import { DirectoryTab } from '@/app/package/share/broker/pages/find-recipients/components/directory-tab/directory-tab';
+import { SharedWithTab } from '@/app/package/share/broker/pages/find-recipients/components/shared-with-tab/shared-with-tab';
 import { AtlusModalContainer } from '@/components/ui/modal/container/atlus-modal-container';
 import { AtlusModalHeader } from '@/components/ui/modal/atlus-modal-header';
 import { AtlusCloseModalButton } from '@/components/ui/modal/atlus-close-modal-button';
@@ -16,6 +16,7 @@ import { AtlusModalTitle } from '@/components/ui/modal/atlus-modal-title';
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
 import { SharePackageFooter } from '@/app/package/share/broker/components/commom/share-package-footer';
 import { useSharePackageBrokerVisibility } from '@/app/package/share/broker/use-share-package-broker-visibility';
+import { SharePackageFindRecipientsNextButton } from '@/app/package/share/broker/pages/find-recipients/components/share-package-find-recipients-next-button';
 
 export const FindRecipientsPage = () => {
   const { hideSharePackageBroker } = useSharePackageBrokerVisibility();
@@ -30,7 +31,9 @@ export const FindRecipientsPage = () => {
       }
       footer={
         <AtlusModalFooter className="bg-lightest-grey">
-          <SharePackageFooter />
+          <SharePackageFooter>
+            <SharePackageFindRecipientsNextButton />
+          </SharePackageFooter>
         </AtlusModalFooter>
       }
     >

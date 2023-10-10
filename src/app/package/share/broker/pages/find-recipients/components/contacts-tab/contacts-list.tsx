@@ -2,7 +2,10 @@
 
 import { useAppSelector } from '@/redux/hooks';
 import { selectContacts } from '@/redux/features/share-package/selectors/find-recipients/contacts.selectors';
-import { Recipient, RecipientsList } from '@/app/package/share/broker/components/recipients-list';
+import {
+  Recipient,
+  RecipientsList,
+} from '@/app/package/share/broker/components/commom/recipients-list';
 import { selectSelectedRecipientsId } from '@/redux/features/share-package/selectors/find-recipients.selectors';
 import { addRecipient, removeRecipient } from '@/redux/features/share-package/share-package';
 

@@ -13,12 +13,13 @@ import {
 } from '@/redux/features/share-package/slices/find-recipients/directories';
 import { Contact } from '@/models/contact';
 import { User } from '@/models/user';
+import { Recipient } from '@/redux/features/share-package/slices/find-recipients/recipient';
 
 export interface FindRecipientsPageState {
   activeTab: SharePackageFindRecipientsTab;
   contactsTab: ContactsState;
   directoriesTab: DirectoryState;
-  selectedRecipients: (Contact | User)[];
+  selectedRecipients: Recipient[];
 }
 
 export const findRecipientsPageInitialState: FindRecipientsPageState = {
@@ -36,7 +37,7 @@ export const findRecipientsReducers = {
     state.findRecipientsPage.activeTab = action.payload;
   },
 
-  addRecipient: (state: SharePackageState, action: PayloadAction<Contact | User>) => {
+  addRecipient: (state: SharePackageState, action: PayloadAction<Recipient>) => {
     const recipient = state.findRecipientsPage.selectedRecipients.find(
       r => r.id === action.payload.id
     );

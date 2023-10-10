@@ -8,7 +8,7 @@ interface AtlusModalFooterProps {
 }
 
 export const AtlusModalFooter = ({ children, className }: AtlusModalFooterProps) => {
-  const validChildrenCount = countValidChildren(children);
+  const validChildrenCount = 1; //countValidChildren(children);
   return (
     <div
       className={clsx(

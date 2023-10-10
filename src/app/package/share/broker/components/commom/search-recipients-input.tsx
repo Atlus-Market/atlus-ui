@@ -2,16 +2,15 @@
 
 import { AtlusInput } from '@/components/ui/input/atlus-input';
 import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loading-spinner';
-import { ChangeEvent, useCallback, useEffect, useMemo, useRef } from 'react';
-import { AtlusTag } from '@/components/ui/tag/atlus-tag';
+import { ChangeEvent, useCallback, useEffect, useRef } from 'react';
 import { debounce } from 'lodash';
 import clsx from 'clsx';
 import { atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
 import { useAppDispatch } from '@/redux/hooks';
 import { Action } from 'redux';
 import { AsyncThunkAction } from '@reduxjs/toolkit';
-import { Recipient } from '@/app/package/share/broker/components/recipients-list';
-import { AtlusAvatar } from '@/components/common/avatar/atlus-avatar';
+import { Recipient } from '@/app/package/share/broker/components/commom/recipients-list';
+import { RecipientsTagsList } from '@/app/package/share/broker/components/commom/recipients-tags-list';
 
 interface SearchRecipientsInputProps {
   placeholder: string;
@@ -61,28 +60,13 @@ export const SearchRecipientsInput = ({
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const onChangedDebounced = useCallback(debounce(onInputChange, 200), [onInputChange]);
-
-  const selectedRecipientsTags = useMemo(() => {
-    return recipients.map(recipient => (
-      <AtlusTag
-        key={recipient.id}
-        text={
-          <div className="flex items-center gap-2">
-            <AtlusAvatar size="small" word={recipient.firstName} /> {recipient.firstName}{' '}
-            {recipient.lastName}
-          </div>
-        }
-        size="small"
-        onClose={() => removeRecipient(recipient.id)}
-      />
-    ));
-  }, [removeRecipient, recipients]);
   const hasRecipients = recipients.length > 0;
 
   let rightIcon = null;
   if (isSearching) {
     rightIcon = <AtlusLoadingSpinner color="orange" />;
   }
+
   // else if (searchValue) {
   //   rightIcon = (
   //     <button>
@@ -96,7 +80,7 @@ export const SearchRecipientsInput = ({
       placeholder={!hasRecipients ? placeholder : undefined}
       onChange={onChangedDebounced}
       wrapperClassName={clsx('!mb-[10px]', atlusModalBodyPaddingX)}
-      leftCmp={selectedRecipientsTags}
+      leftCmp={<RecipientsTagsList recipients={recipients} onRemoveRecipient={removeRecipient} />}
       rightIcon={rightIcon}
     />
   );
