@@ -8,15 +8,6 @@ export const selectContactsState = createSelector(
 
 export const selectContacts = createSelector(selectContactsState, state => state.contacts);
 
-export const selectSelectedContacts = createSelector(
-  selectContactsState,
-  state => state.selectedContacts
-);
-
-export const selectSelectedContactsIds = createSelector(selectContactsState, state => {
-  return state.selectedContacts.map(contact => contact.id);
-});
-
 export const selectIsSearchingContacts = createSelector(
   selectContactsState,
   state => state.isSearchingContacts

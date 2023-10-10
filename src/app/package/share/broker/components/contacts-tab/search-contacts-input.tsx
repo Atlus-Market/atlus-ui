@@ -5,13 +5,13 @@ import { searchContacts } from '@/redux/features/share-package/thunks/search-con
 import {
   selectContactsSearchValue,
   selectIsSearchingContacts,
-  selectSelectedContacts,
 } from '@/redux/features/share-package/selectors/find-recipients/contacts.selectors';
 import { SearchRecipientsInput } from '@/app/package/share/broker/components/commom/search-recipients-input';
-import { removeSelectedContact } from '@/redux/features/share-package/share-package';
+import { selectSelectedRecipients } from '@/redux/features/share-package/selectors/find-recipients.selectors';
+import { removeRecipient } from '@/redux/features/share-package/share-package';
 
 export const SearchContactsInput = () => {
-  const selectedContacts = useAppSelector(selectSelectedContacts);
+  const selectedContacts = useAppSelector(selectSelectedRecipients);
   const isSearchingContacts = useAppSelector(selectIsSearchingContacts);
   const searchValue = useAppSelector(selectContactsSearchValue);
 
@@ -20,7 +20,7 @@ export const SearchContactsInput = () => {
       placeholder="Enter an email address or contact"
       isSearching={isSearchingContacts}
       recipients={selectedContacts}
-      removeRecipientAction={removeSelectedContact}
+      removeRecipientAction={removeRecipient}
       searchRecipientAction={searchContacts}
       searchValue={searchValue}
     />

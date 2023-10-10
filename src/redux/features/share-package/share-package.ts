@@ -52,15 +52,13 @@ export const {
 
   // Find recipients Page
   setSharePackageActiveTab,
+  addRecipient,
+  removeRecipient,
 
   // Contacts tab
   setContactsSearchValue,
-  selectContact,
-  removeSelectedContact,
 
   // Directories tab
   setDirectoriesSearchValue,
-  selectDirectory,
-  removeSelectedDirectory,
 } = sharePackage.actions;
 export default sharePackage.reducer;
