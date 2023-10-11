@@ -6,6 +6,7 @@ import { PageWrapper } from '@/components/common/page-wrapper';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useRouter } from 'next/navigation';
 import { LoginRoute } from '@/constants/routes';
+import { defaultErrorMessage } from '@/constants/api';
 
 interface ErrorProps {
   error: Error;
@@ -23,7 +24,7 @@ export default function Error({ error, reset }: ErrorProps) {
     <div>
       <Header />
       <PageWrapper className="w-full text-center">
-        <h2>Something went wrong!</h2>
+        <h2>{defaultErrorMessage}</h2>
 
         <AtlusButton
           variant="clear"

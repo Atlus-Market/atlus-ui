@@ -11,18 +11,15 @@ export const SharePackageSendMessageSendButton = () => {
   const dispatch = useAppDispatch();
   const formProps = useFormContext<SharePackageSendMessageForm>();
   const {
-    getValues,
-    formState: { isValid, errors },
+    formState: { isValid, isSubmitting, errors },
   } = formProps;
-
-  console.log('errors: ', errors);
-  console.log('values: ', getValues());
 
   return (
     <AtlusButton
       type="submit"
       variant="solid"
       disabled={!isValid}
+      isLoading={isSubmitting}
       onClick={() => dispatch(setActivePage(SharePackagePage.SendMessage))}
     >
       Send

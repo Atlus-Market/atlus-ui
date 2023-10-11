@@ -37,16 +37,18 @@ export const SharePackageSendMessageForm = ({
   const { mutateAsync } = useSharePackageMutation(packageId);
 
   const onSubmit = async (sharePackageSendMessageForm: SharePackageSendMessageForm) => {
-    console.log('submitForm: ', sharePackageSendMessageForm);
-    const shareP: SharePackageRequestPayload = {
-      message: sharePackageSendMessageForm.message,
-      recipients: sharePackageSendMessageForm.recipients.map(email => ({
-        email,
-        access: 2,
-      })),
-    };
-    await mutateAsync(shareP);
-    // formProps.reset();
+    try {
+      const shareP: SharePackageRequestPayload = {
+        message: sharePackageSendMessageForm.message,
+        recipients: sharePackageSendMessageForm.recipients.map(email => ({
+          email,
+          access: 2,
+        })),
+      };
+      await mutateAsync(shareP);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (

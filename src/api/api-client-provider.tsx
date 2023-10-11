@@ -7,6 +7,7 @@ import axios, { AxiosError, HttpStatusCode } from 'axios';
 import { showErrorNotification } from '@/components/ui/notification/atlus-notification';
 import { LogoutRoute } from '@/constants/routes';
 import { StatusCodes } from 'http-status-codes';
+import { defaultErrorMessage } from '@/constants/api';
 
 interface ApiClientProviderProps {
   children: ReactNode;
@@ -30,7 +31,7 @@ axios.interceptors.response.use(
         return Promise.reject(error);
       }
       showErrorNotification({
-        text: 'Something went wrong.',
+        text: defaultErrorMessage,
         toastId: error.code,
       });
     } else if (error.response?.status === HttpStatusCode.Unauthorized) {
@@ -41,7 +42,8 @@ axios.interceptors.response.use(
       });
       (window as Window).location = LogoutRoute;
     } else if (error.response?.data) {
-      const errorMessage = error.response.data.error || error.response.data.msg;
+      const errorMessage =
+        error.response.data.error || error.response.data.msg || defaultErrorMessage;
       showErrorNotification({ text: errorMessage, toastId: error.config.url });
     }
 
