@@ -4,7 +4,7 @@ import {
   BrokerAvatarInfo,
   PackageOwner,
 } from '@/app/package/[id]/components/package-owner/package-owner';
-import { AtlusButton } from '@/components/ui/button/atlus-button';
+import { ContactBrokerButton } from '@/app/package/[id]/components/right-panel/contact-broker-button';
 
 interface ContactBrokerProps {
   broker: BrokerAvatarInfo;
@@ -22,9 +22,7 @@ export const ContactBroker = ({ broker }: ContactBrokerProps) => {
 
       <PackageOwner broker={broker} />
 
-      <AtlusButton variant="solid" className="mt-6 w-full">
-        Contact broker
-      </AtlusButton>
+      <ContactBrokerButton />
     </div>
   );
 };
