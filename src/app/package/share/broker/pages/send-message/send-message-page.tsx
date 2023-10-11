@@ -24,7 +24,7 @@ export const SendMessagePage = () => {
   const goBack = () => dispatch(setActivePage(SharePackagePage.FindRecipients));
 
   return (
-    <SharePackageSendMessageForm packageId={packageId}>
+    <SharePackageSendMessageForm packageId={packageId} onMessageSent={hideSharePackageBroker}>
       <AtlusModalContainer
         header={
           <AtlusModalHeader

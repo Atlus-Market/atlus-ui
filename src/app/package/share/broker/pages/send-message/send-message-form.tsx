@@ -22,11 +22,13 @@ const schema: ObjectSchema<SharePackageSendMessageForm> = object({
 interface SharePackageSendMessageFormProps {
   packageId: string;
   children: ReactNode;
+  onMessageSent?: () => void;
 }
 
 export const SharePackageSendMessageForm = ({
   packageId,
   children,
+  onMessageSent,
 }: SharePackageSendMessageFormProps) => {
   const formProps = useAtlusForm<SharePackageSendMessageForm>({
     formOptions: {
@@ -46,6 +48,7 @@ export const SharePackageSendMessageForm = ({
         })),
       };
       await mutateAsync(shareP);
+      onMessageSent?.();
     } catch (e) {
       console.error(e);
     }
