@@ -14,7 +14,6 @@ export const searchContactsExtraReducers = (
     state.findRecipientsPage.contactsTab.activeRequestId = action.meta.requestId;
   });
 
-  // Add reducers for additional action types here, and handle loading state as needed
   builder.addCase(searchContacts.fulfilled, (state: SharePackageState, action) => {
     if (action.meta.requestId !== state.findRecipientsPage.contactsTab.activeRequestId) {
       return;

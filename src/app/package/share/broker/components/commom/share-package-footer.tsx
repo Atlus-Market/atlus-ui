@@ -16,7 +16,7 @@ export const SharePackageFooter = ({ children }: SharePackageFooterProps) => {
   const packageId = useAppSelector(selectSharePackageId);
   const packageUrl = `${window.location.origin}/${PackagePageUrl(packageId)}`;
   return (
-    <div className="flex justify-between items-center w-full">
+    <div className="flex justify-between items-center w-full min-h-[28px]">
       <AtlusCopyToClipboard textToCopy={packageUrl} onCopiedText="Link copied!">
         <AtlusButton variant="clear">
           <HiLink size={20} className="mr-[10px]" /> Copy Link

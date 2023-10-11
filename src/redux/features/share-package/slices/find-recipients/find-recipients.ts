@@ -11,8 +11,6 @@ import {
   directoriesReducer,
   DirectoryState,
 } from '@/redux/features/share-package/slices/find-recipients/directories';
-import { Contact } from '@/models/contact';
-import { User } from '@/models/user';
 import { Recipient } from '@/redux/features/share-package/slices/find-recipients/recipient';
 
 export interface FindRecipientsPageState {

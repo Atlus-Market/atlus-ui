@@ -7,11 +7,18 @@ import {
   findRecipientsReducers,
 } from '@/redux/features/share-package/slices/find-recipients/find-recipients';
 import { searchDirectoriesExtraReducers } from '@/redux/features/share-package/extra-reducers/search-directories.extra-reducers';
+import {
+  sharedWithInitialState,
+  sharedWithReducer,
+  SharedWithState,
+} from '@/redux/features/share-package/slices/shared-with';
+import { fetchPackageAccessExtraReducers } from '@/redux/features/share-package/extra-reducers/shared-with.extra-reducers';
 
 export interface SharePackageState {
   packageId: string;
   activePage: SharePackagePage;
   findRecipientsPage: FindRecipientsPageState;
+  sharedWithPage: SharedWithState;
   isShareModalOpen: boolean;
 }
 
@@ -19,6 +26,7 @@ const initialState: SharePackageState = {
   packageId: '',
   activePage: SharePackagePage.FindRecipients,
   findRecipientsPage: findRecipientsPageInitialState,
+  sharedWithPage: sharedWithInitialState,
   isShareModalOpen: false,
 };
 
@@ -40,11 +48,13 @@ export const sharePackage = createSlice({
       state.activePage = action.payload;
     },
     ...findRecipientsReducers,
+    ...sharedWithReducer,
   },
 
   extraReducers: builder => {
     searchContactsExtraReducers(builder);
     searchDirectoriesExtraReducers(builder);
+    fetchPackageAccessExtraReducers(builder);
   },
 });
 
@@ -66,5 +76,7 @@ export const {
 
   // Directories tab
   setDirectoriesSearchValue,
+
+  // SharedWith
 } = sharePackage.actions;
 export default sharePackage.reducer;

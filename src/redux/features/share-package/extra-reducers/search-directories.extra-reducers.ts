@@ -14,7 +14,6 @@ export const searchDirectoriesExtraReducers = (
     state.findRecipientsPage.directoriesTab.activeRequestId = action.meta.requestId;
   });
 
-  // Add reducers for additional action types here, and handle loading state as needed
   builder.addCase(searchDirectories.fulfilled, (state: SharePackageState, action) => {
     if (action.meta.requestId !== state.findRecipientsPage.directoriesTab.activeRequestId) {
       return;
