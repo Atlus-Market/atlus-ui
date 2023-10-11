@@ -44,7 +44,7 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(function
           'flex justify-start items-center flex-wrap gap-2',
           'overflow-hidden',
           'min-h-[53px]',
-          'px-3 py-[9px]',
+          'px-3 py-[7px]',
           '[&:has(input:focus)]:border-orange',
           '[&:has(input[disabled])]:bg-lightest-grey'
         )}

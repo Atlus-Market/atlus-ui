@@ -50,7 +50,7 @@ export const SharePackageSendMessageForm = ({
   };
 
   return (
-    <AtlusForm formProps={formProps} onSubmit={onSubmit}>
+    <AtlusForm formProps={formProps} onSubmit={onSubmit} className="h-full">
       {children}
     </AtlusForm>
   );

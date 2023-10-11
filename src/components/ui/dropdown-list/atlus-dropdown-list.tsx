@@ -136,6 +136,7 @@ export const AtlusDropdownList = forwardRef<
       control: (props: ControlProps<DropdownOption, boolean, GroupBase<DropdownOption>>) => {
         return clsx(
           'px-4 m-0',
+          isMulti ? 'py-[7px]' : '',
           size === 'big' ? '!min-h-[53px]' : '!min-h-[48px]',
           'rounded-lg border border-solid',
           isFocused ? 'border-orange' : 'border-light-grey'
