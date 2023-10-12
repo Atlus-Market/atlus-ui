@@ -2,7 +2,7 @@ import { PackageAccess } from '@/models/package-access';
 import { AtlusAvatar } from '@/components/common/avatar/atlus-avatar';
 import { AccessIconStatus } from '@/app/package/share/broker/pages/find-recipients/components/directory-tab/access-icon-status';
 import { AccessStatus } from '@/app/package/share/broker/pages/find-recipients/components/shared-with-tab/access-status';
-import { ChangePackageAccessButton } from '@/app/package/share/broker/pages/find-recipients/components/shared-with-tab/change-package-access-button';
+import { ChangePackageAccessButton } from '@/app/package/share/broker/pages/find-recipients/components/shared-with-tab/change-package-access/change-package-access-button';
 
 interface ContactAccessProp {
   packageAccess: PackageAccess;
@@ -31,7 +31,7 @@ export const ContactPackageAccess = ({ packageAccess }: ContactAccessProp) => {
           </div>
         </div>
       </div>
-      <ChangePackageAccessButton />
+      <ChangePackageAccessButton packageAccessValue={packageAccess.access} />
     </div>
   );
 };
