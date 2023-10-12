@@ -31,7 +31,10 @@ export const ContactPackageAccess = ({ packageAccess }: ContactAccessProp) => {
           </div>
         </div>
       </div>
-      <ChangePackageAccessButton packageAccessValue={packageAccess.access} />
+      <ChangePackageAccessButton
+        packageAccessValue={packageAccess.access}
+        email={packageAccess.email}
+      />
     </div>
   );
 };

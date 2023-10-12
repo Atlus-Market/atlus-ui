@@ -9,6 +9,7 @@ import clsx from 'clsx';
 interface PackageAccessDropdownProps {
   packageAccessValue: PackageAccessValue;
   className?: string;
+  onAccessSelected: (access: PackageAccessValue) => void;
 }
 
 const packageAccessDropdownOptions: DropdownOption[] = [
@@ -29,6 +30,7 @@ const packageAccessDropdownOptions: DropdownOption[] = [
 export const PackageAccessDropdown = ({
   packageAccessValue,
   className,
+  onAccessSelected,
 }: PackageAccessDropdownProps) => {
   return (
     <AtlusDropdownList
@@ -36,6 +38,7 @@ export const PackageAccessDropdown = ({
       options={packageAccessDropdownOptions}
       onChange={(value: string | string[]) => {
         console.log('option: ', value);
+        onAccessSelected(parseInt(value as string, 10));
       }}
       showDropdownIndicator={true}
       wrapperClassName={clsx('w-[170px]', className)}
