@@ -32,7 +32,7 @@ export const PackageDocumentsTable = ({ dataroom }: PackageDocumentsTableProps) 
   return (
     <div>
       <DownloadDocumentsProvider>
-        <div className="documents-grid grid grid-cols-[44px_minmax(100px,_1fr)_auto] grid-rows-[40px] md:grid-rows-[44px]">
+        <div className="grid grid-cols-[44px_minmax(100px,_1fr)_auto] grid-rows-[40px] md:grid-rows-[44px]">
           <input type="checkbox" id="show" className="hidden" />
           <div
             className={clsx(
