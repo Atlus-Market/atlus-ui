@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import { fetchPackageAccess } from '@/redux/features/share-package/thunks/get-package-access';
 import { selectPackageAccess } from '@/redux/features/share-package/selectors/find-recipients/shared-with.selectors';
 import { ContactPackageAccess } from '@/app/package/share/broker/pages/find-recipients/components/shared-with-tab/contact-package-access';
+import clsx from 'clsx';
+import { atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
 
 export const SharedWithTab = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +18,7 @@ export const SharedWithTab = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className={clsx(atlusModalBodyPaddingX)}>
       {packageAccess.map(contactPackageAccess => (
         <ContactPackageAccess
           key={contactPackageAccess.email}

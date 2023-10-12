@@ -1,5 +1,7 @@
+import { PackageAccessValue } from '@/models/package-access-value';
+
 export interface PackageAccess {
-  access: boolean;
+  access: PackageAccessValue;
   avatar: string;
   clickedLink: boolean;
   clickedLinkTimestamp: string;
