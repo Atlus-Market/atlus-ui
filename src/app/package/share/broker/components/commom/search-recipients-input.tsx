@@ -31,16 +31,6 @@ export const SearchRecipientsInput = ({
 }: SearchRecipientsInputProps) => {
   const dispatch = useAppDispatch();
   const activeThunk = useRef<any | null>();
-  // const inputRef = useRef<HTMLInputElement | null>(null);
-
-  useEffect(() => {
-    // if (inputRef.current) {
-    //   inputRef.current.value = searchValue;
-    // }
-    // @ts-ignore
-    activeThunk.current = dispatch(searchRecipientAction(searchValue));
-  }, []);
-
   const removeRecipient = useCallback(
     (recipientId: string) => {
       dispatch(removeRecipientAction({ id: recipientId }));
@@ -66,14 +56,6 @@ export const SearchRecipientsInput = ({
   if (isSearching) {
     rightIcon = <AtlusLoadingSpinner color="orange" />;
   }
-
-  // else if (searchValue) {
-  //   rightIcon = (
-  //     <button>
-  //       <HiX onClick={searchAll} />
-  //     </button>
-  //   );
-  // }
 
   return (
     <AtlusInput
