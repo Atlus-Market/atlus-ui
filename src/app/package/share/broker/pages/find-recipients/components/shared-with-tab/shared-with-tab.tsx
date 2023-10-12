@@ -18,7 +18,7 @@ export const SharedWithTab = () => {
   }, [dispatch]);
 
   return (
-    <div className={clsx(atlusModalBodyPaddingX)}>
+    <div className={clsx(atlusModalBodyPaddingX, 'min-h-[400px]')}>
       {packageAccess.map(contactPackageAccess => (
         <ContactPackageAccess
           key={contactPackageAccess.email}

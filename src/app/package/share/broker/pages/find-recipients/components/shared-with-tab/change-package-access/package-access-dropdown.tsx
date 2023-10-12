@@ -1,3 +1,4 @@
+'use client';
 import { PackageAccessValue } from '@/models/package-access-value';
 import {
   AtlusDropdownList,
@@ -19,6 +20,10 @@ const packageAccessDropdownOptions: DropdownOption[] = [
     label: 'Limited',
     value: PackageAccessValue.LimitedAccess.toString(),
   },
+  {
+    label: 'Remove access',
+    value: PackageAccessValue.NoAccess.toString(),
+  },
 ];
 
 export const PackageAccessDropdown = ({
@@ -33,7 +38,7 @@ export const PackageAccessDropdown = ({
         console.log('option: ', value);
       }}
       showDropdownIndicator={true}
-      wrapperClassName={clsx('w-[140px]', className)}
+      wrapperClassName={clsx('w-[170px]', className)}
     />
   );
 };

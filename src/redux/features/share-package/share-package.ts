@@ -12,7 +12,8 @@ import {
   sharedWithReducer,
   SharedWithState,
 } from '@/redux/features/share-package/slices/shared-with';
-import { fetchPackageAccessExtraReducers } from '@/redux/features/share-package/extra-reducers/shared-with.extra-reducers';
+import { fetchPackageAccessExtraReducers } from '@/redux/features/share-package/extra-reducers/fetch-package-access.extra-reducers';
+import { changePackageAccessExtraReducers } from '@/redux/features/share-package/extra-reducers/change-package-access.extra-reducers';
 
 export interface SharePackageState {
   packageId: string;
@@ -55,6 +56,7 @@ export const sharePackage = createSlice({
     searchContactsExtraReducers(builder);
     searchDirectoriesExtraReducers(builder);
     fetchPackageAccessExtraReducers(builder);
+    changePackageAccessExtraReducers(builder);
   },
 });
 
