@@ -36,24 +36,22 @@ export const RemoveDocumentButton = ({ dataroomId, documentId }: RemoveDocumentB
 
   return (
     <>
-      {isShowingAlertModal && (
-        <AtlusAlertModal
-          isOpen={isShowingAlertModal}
-          title="Delete file?"
-          text="This file will be deleted from your package."
-          mainButton={{
-            text: 'Delete',
-            onClick: () => {
-              hideAlertModal();
-              deleteDocument();
-            },
-          }}
-          secondaryButton={{
-            text: 'Cancel',
-            onClick: hideAlertModal,
-          }}
-        />
-      )}
+      <AtlusAlertModal
+        isOpen={isShowingAlertModal}
+        title="Delete file?"
+        text="This file will be deleted from your package."
+        mainButton={{
+          text: 'Delete',
+          onClick: () => {
+            hideAlertModal();
+            deleteDocument();
+          },
+        }}
+        secondaryButton={{
+          text: 'Cancel',
+          onClick: hideAlertModal,
+        }}
+      />
       <AtlusButton
         variant="clear"
         onClick={showAlertModal}

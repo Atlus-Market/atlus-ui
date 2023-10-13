@@ -3,6 +3,8 @@
 import { Menu, MenuProps } from '@szhsin/react-menu';
 import clsx from 'clsx';
 
+import './atlus-menu.css';
+
 interface AtlusMenuProps {
   menuButton: MenuProps['menuButton'];
   menuItems: MenuProps['children'];

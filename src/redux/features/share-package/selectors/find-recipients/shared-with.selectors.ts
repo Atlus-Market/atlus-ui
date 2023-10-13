@@ -10,3 +10,6 @@ export const selectPackageAccess = createSelector(
   selectSharedWithState,
   state => state.packageAccess
 );
+
+export const selectIsChangingPackageAccessForEmail = (email: string) =>
+  createSelector(selectSharedWithState, state => state.changingPackageAccessEmails.includes(email));

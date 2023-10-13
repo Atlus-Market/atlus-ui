@@ -17,7 +17,7 @@ export const changePackageAccess = (
 ) => {
   return createRequest<ChangePackageAccessPayload, ChangePackageAccessResponse>({
     url: `/package/${packageId}/change-access/${email}`,
-    method: 'POST',
+    method: 'PATCH',
     isProtected: ProtectedEndpoint.True,
     data: payload,
   });

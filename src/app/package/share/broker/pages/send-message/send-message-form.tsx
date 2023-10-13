@@ -8,6 +8,7 @@ import { RequiredField } from '@/constants/form';
 import { ReactNode } from 'react';
 import { useSharePackageMutation } from '@/app/package/share/broker/pages/send-message/useSharePackageMutation';
 import { SharePackageRequestPayload } from '@/api/package/share-package';
+import { PackageAccessValue } from '@/models/package-access-value';
 
 export interface SharePackageSendMessageForm {
   message: string;
@@ -44,7 +45,7 @@ export const SharePackageSendMessageForm = ({
         message: sharePackageSendMessageForm.message,
         recipients: sharePackageSendMessageForm.recipients.map(email => ({
           email,
-          access: 2,
+          access: PackageAccessValue.LimitedAccess,
         })),
       };
       await mutateAsync(shareP);

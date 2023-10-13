@@ -72,6 +72,7 @@ export interface AtlusDropdownListProps {
   bottomText?: string;
   showDropdownIndicator?: boolean;
   isMulti?: boolean;
+  isDisabled?: boolean;
 
   // Components
   groupHeadingHeader?: ReactNode;
@@ -115,6 +116,7 @@ export const AtlusDropdownList = forwardRef<
     isMulti = false,
     errors,
     size = 'big',
+    isDisabled,
   },
   ref
 ) {
@@ -170,6 +172,7 @@ export const AtlusDropdownList = forwardRef<
         isMulti={isMulti}
         defaultValue={memoDefaultValue}
         options={options}
+        isDisabled={isDisabled}
         placeholder={placeholder}
         classNames={dynamicClassNames}
         onFocus={() => setIsFocused(true)}

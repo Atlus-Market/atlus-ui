@@ -7,7 +7,7 @@ export interface SharedWithState {
 
   // Change Package Access
   changePackageRequestId: string | undefined;
-  isChangingPackageAccess: boolean;
+  changingPackageAccessEmails: string[];
 }
 
 export const sharedWithInitialState: SharedWithState = {
@@ -17,7 +17,7 @@ export const sharedWithInitialState: SharedWithState = {
 
   // Change Package Access
   changePackageRequestId: undefined,
-  isChangingPackageAccess: false,
+  changingPackageAccessEmails: [],
 };
 
 export const sharedWithReducer = {};

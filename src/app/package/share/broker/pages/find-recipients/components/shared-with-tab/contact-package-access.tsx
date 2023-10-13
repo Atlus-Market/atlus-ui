@@ -32,7 +32,7 @@ export const ContactPackageAccess = ({ packageAccess }: ContactAccessProp) => {
         </div>
       </div>
       <ChangePackageAccessButton
-        packageAccessValue={packageAccess.access}
+        currentPackageAccessValue={packageAccess.access}
         email={packageAccess.email}
       />
     </div>

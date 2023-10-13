@@ -9,8 +9,13 @@ interface ChangePackageAccessPayload {
   access: PackageAccessValue;
 }
 
+export interface ChangePackageAccessResultPayload {
+  email: string;
+  access: PackageAccessValue;
+}
+
 export const changePackageAccess = createAsyncThunk<
-  void,
+  ChangePackageAccessResultPayload,
   ChangePackageAccessPayload,
   {
     state: RootState;
@@ -19,13 +24,15 @@ export const changePackageAccess = createAsyncThunk<
   try {
     const packageId = selectSharePackageId(thunkAPI.getState());
     const { email, access } = payload;
-    const response = await changePackageAccessAPI(packageId, email, {
+    await changePackageAccessAPI(packageId, email, {
       access,
     });
-    console.log('Change package access response: ', response);
-    return undefined;
   } catch (e) {
     console.error(e);
-    return undefined;
+  } finally {
+    return {
+      email: payload.email,
+      access: payload.access,
+    };
   }
 });

@@ -27,8 +27,9 @@ export const AtlusAlertModal = ({
   secondaryButton,
 }: AtlusAlertModalProps) => {
   return (
-    <AtlusModal isOpen={isOpen}>
+    <AtlusModal isOpen={isOpen} modalBodyClassName="!h-auto">
       <AtlusModalContainer
+        className="!w-auto"
         header={
           <AtlusModalHeader>
             <AtlusModalTitle text={title} classNames="!text-2xl" />
