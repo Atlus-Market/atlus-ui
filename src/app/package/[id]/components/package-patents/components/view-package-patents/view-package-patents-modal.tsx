@@ -30,11 +30,11 @@ export const ViewPackagePatentsModal = ({ packageId }: ViewPackagePatentsModalPr
       isOpen={hasPatentsToShow}
       overlayClassName="z-[2]"
       onRequestClose={clear}
-      modalBodyClassName="h-screen !max-h-none"
+      modalBodyClassName="h-screen !max-h-none !overflow-x-hidden !overflow-y-scroll"
     >
       <AtlusModalContainer
         className="!h-full !max-h-min"
-        containerClassName="w-screen !lg:w-auto lg:max-w-[1200px] !overflow-x-auto"
+        containerClassName="w-screen !lg:w-auto lg:max-w-[1200px] !overflow-visible"
         header={
           <AtlusModalHeader
             rightContent={
