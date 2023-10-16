@@ -31,7 +31,7 @@ export const SharedWithTab = () => {
           />
         ))
       ) : (
-        <div className="w-full flex justify-center my-[100px]">
+        <div className="w-full flex justify-center items-center min-h-[inherit]">
           <AtlusPlaceholderImage
             image={SharedWithImage}
             imageAltText=""
