@@ -11,7 +11,10 @@ import {
   selectSelectedRecipientsId,
 } from '@/redux/features/share-package/selectors/find-recipients.selectors';
 import { addRecipient, removeRecipient } from '@/redux/features/share-package/share-package';
-import { Recipient } from '@/redux/features/share-package/slices/find-recipients/recipient';
+import {
+  isCustomRecipient,
+  Recipient,
+} from '@/redux/features/share-package/slices/find-recipients/recipient';
 
 export const ContactsList = () => {
   const contacts = useAppSelector(selectContacts);
@@ -26,7 +29,12 @@ export const ContactsList = () => {
       customRecipient={customRecipient}
       selectRecipientAction={addRecipient}
       removeRecipientAction={removeRecipient}
-      recipientSubLinesFn={(recipient: Recipient) => [recipient.companyName, recipient.email]}
+      recipientSubLinesFn={(recipient: Recipient) => {
+        if (isCustomRecipient(recipient)) {
+          return [];
+        }
+        return [recipient.companyName, recipient.email];
+      }}
       searchValue={searchValue}
     />
   );

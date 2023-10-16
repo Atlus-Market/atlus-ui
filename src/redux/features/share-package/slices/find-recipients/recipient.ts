@@ -5,3 +5,6 @@ export interface Recipient {
   email: string;
   companyName: string;
 }
+
+export const isCustomRecipient = (recipient: Recipient): boolean =>
+  recipient.id === recipient.email;

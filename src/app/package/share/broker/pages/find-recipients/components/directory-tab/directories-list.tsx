@@ -11,7 +11,10 @@ import {
   selectSelectedRecipientsId,
 } from '@/redux/features/share-package/selectors/find-recipients.selectors';
 import { addRecipient, removeRecipient } from '@/redux/features/share-package/share-package';
-import { Recipient } from '@/redux/features/share-package/slices/find-recipients/recipient';
+import {
+  isCustomRecipient,
+  Recipient,
+} from '@/redux/features/share-package/slices/find-recipients/recipient';
 
 export const DirectoriesList = () => {
   const directories = useAppSelector(selectDirectories);
@@ -26,7 +29,12 @@ export const DirectoriesList = () => {
       customRecipient={customRecipient}
       selectRecipientAction={addRecipient}
       removeRecipientAction={removeRecipient}
-      recipientSubLinesFn={(recipient: Recipient) => [recipient.companyName]}
+      recipientSubLinesFn={(recipient: Recipient) => {
+        if (isCustomRecipient(recipient)) {
+          return [];
+        }
+        return [recipient.companyName];
+      }}
       searchValue={searchValue}
     />
   );

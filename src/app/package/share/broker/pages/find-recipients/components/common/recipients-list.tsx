@@ -84,7 +84,7 @@ export const RecipientsList = <T extends Recipient>({
           email: searchValue,
           firstName: searchValue,
           lastName: '',
-          companyName: '',
+          companyName: searchValue,
         })
       );
     } else {
