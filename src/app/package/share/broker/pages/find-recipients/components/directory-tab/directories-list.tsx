@@ -15,6 +15,8 @@ import {
   isCustomRecipient,
   Recipient,
 } from '@/redux/features/share-package/slices/find-recipients/recipient';
+import { AtlusPlaceholderImage } from '@/components/common/atlus-placeholder-image';
+import SearchSvgImage from '@/public/assets/images/search.svg';
 
 const recipientsSubLines = (recipient: Recipient) => {
   if (isCustomRecipient(recipient)) {
@@ -38,6 +40,20 @@ export const DirectoriesList = () => {
       removeRecipientAction={removeRecipient}
       recipientSubLinesFn={recipientsSubLines}
       searchValue={searchValue}
+      placeHolderNoRecipientsExists={
+        <AtlusPlaceholderImage
+          image={SearchSvgImage}
+          imageAltText="No contacts"
+          bottomText="Find someone on Atlus by typing in their name or company"
+        />
+      }
+      placeHolderNoRecipientsFound={
+        <AtlusPlaceholderImage
+          image={SearchSvgImage}
+          imageAltText="No results found"
+          bottomText="No results found"
+        />
+      }
     />
   );
 };

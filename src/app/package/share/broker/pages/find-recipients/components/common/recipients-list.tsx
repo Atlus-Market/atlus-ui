@@ -16,8 +16,8 @@ interface RecipientsListProps<T extends Recipient> {
   selectedRecipientsIds: string[];
   recipientSubLinesFn: (recipient: Recipient) => string[];
   searchValue: string;
-  placeHolderNoRecipientsFound?: ReactNode;
-  placeHolderNoRecipientsExists?: ReactNode;
+  placeHolderNoRecipientsFound: ReactNode;
+  placeHolderNoRecipientsExists: ReactNode;
 }
 
 export const RecipientsList = <T extends Recipient>({
@@ -28,12 +28,17 @@ export const RecipientsList = <T extends Recipient>({
   removeRecipientAction,
   recipientSubLinesFn,
   searchValue,
+  placeHolderNoRecipientsFound,
+  placeHolderNoRecipientsExists,
 }: RecipientsListProps<T>) => {
   const dispatch = useAppDispatch();
 
   const recipientsToRender = useMemo(() => {
     return recipients.length > 0 ? recipients : customRecipient ? [customRecipient] : [];
   }, [customRecipient, recipients]);
+
+  const hasRecipientsToRender = recipientsToRender.length > 0;
+  const isEmptySearch = searchValue.length === 0;
 
   const onRecipientCardClicked = useCallback(
     (event: MouseEvent | undefined) => {
@@ -91,6 +96,14 @@ export const RecipientsList = <T extends Recipient>({
       dispatch(setCustomRecipient(undefined));
     }
   }, [searchValue, recipients, dispatch]);
+
+  if (!hasRecipientsToRender) {
+    return (
+      <div className="w-full flex justify-center items-center h-[inherit]">
+        {isEmptySearch ? placeHolderNoRecipientsExists : placeHolderNoRecipientsFound}
+      </div>
+    );
+  }
 
   return (
     <div onClick={onRecipientCardClicked}>

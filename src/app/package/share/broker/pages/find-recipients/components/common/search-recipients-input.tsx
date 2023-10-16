@@ -9,8 +9,8 @@ import { atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
 import { useAppDispatch } from '@/redux/hooks';
 import { Action } from 'redux';
 import { AsyncThunkAction } from '@reduxjs/toolkit';
-import { Recipient } from '@/app/package/share/broker/pages/find-recipients/components/common/recipients-list';
 import { RecipientsTagsList } from '@/app/package/share/broker/pages/find-recipients/components/common/recipients-tags-list';
+import { Recipient } from '@/redux/features/share-package/slices/find-recipients/recipient';
 
 interface SearchRecipientsInputProps {
   placeholder: string;
@@ -41,7 +41,7 @@ export const SearchRecipientsInput = ({
   const onInputChange = useCallback(
     (e: ChangeEvent<HTMLInputElement> | undefined) => {
       activeThunk.current?.abort?.();
-      const searchValue = e?.target?.value ?? '';
+      const searchValue = e?.target?.value?.trim() ?? '';
       // @ts-ignore
       activeThunk.current = dispatch(searchRecipientAction(searchValue));
     },
