@@ -1,36 +1,39 @@
 'use client';
 
 import { useAppDispatch } from '@/redux/hooks';
-import { MouseEvent, ReactNode, useCallback } from 'react';
+import { MouseEvent, ReactNode, useCallback, useEffect, useMemo } from 'react';
 import { Action } from 'redux';
 import { AtlusContact } from '@/components/common/atlus-contact';
-
-export type Recipient = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  companyName: string;
-  email: string;
-};
+import { isValidEmail } from '@/utils/email';
+import { setCustomRecipient } from '@/redux/features/share-package/share-package';
+import { Recipient } from '@/redux/features/share-package/slices/find-recipients/recipient';
 
 interface RecipientsListProps<T extends Recipient> {
   selectRecipientAction: (recipient: T) => Action;
   removeRecipientAction: (payload: { id: string }) => Action;
   recipients: T[];
+  customRecipient: T | undefined;
   selectedRecipientsIds: string[];
   recipientSubLinesFn: (recipient: Recipient) => string[];
+  searchValue: string;
   placeHolderNoRecipientsFound?: ReactNode;
   placeHolderNoRecipientsExists?: ReactNode;
 }
 
 export const RecipientsList = <T extends Recipient>({
   recipients,
+  customRecipient,
   selectedRecipientsIds,
   selectRecipientAction,
   removeRecipientAction,
   recipientSubLinesFn,
+  searchValue,
 }: RecipientsListProps<T>) => {
   const dispatch = useAppDispatch();
+
+  const recipientsToRender = useMemo(() => {
+    return recipients.length > 0 ? recipients : customRecipient ? [customRecipient] : [];
+  }, [customRecipient, recipients]);
 
   const onRecipientCardClicked = useCallback(
     (event: MouseEvent | undefined) => {
@@ -43,11 +46,9 @@ export const RecipientsList = <T extends Recipient>({
 
       const target = event?.target as HTMLElement;
       const dataSet = target?.closest<HTMLElement>('[data-contact-id]')?.dataset;
-      console.log('contact card dataSet: ', dataSet);
 
       if (dataSet) {
         const recipientId = dataSet.contactId;
-        console.log('recipientId: ', recipientId);
         if (!recipientId) {
           return;
         }
@@ -55,19 +56,45 @@ export const RecipientsList = <T extends Recipient>({
         if (selectedRecipientsIds.includes(recipientId)) {
           dispatch(removeRecipientAction({ id: recipientId }));
         } else {
-          const recipient = recipients.find(c => c.id === recipientId);
+          const recipient = recipientsToRender.find(c => c.id === recipientId);
           if (recipient) {
             dispatch(selectRecipientAction(recipient));
           }
         }
       }
     },
-    [selectedRecipientsIds, dispatch, removeRecipientAction, recipients, selectRecipientAction]
+    [
+      selectedRecipientsIds,
+      dispatch,
+      removeRecipientAction,
+      recipientsToRender,
+      selectRecipientAction,
+    ]
   );
+
+  // Set/Remove custom recipient
+  useEffect(() => {
+    const isSearchValueValidEmail = isValidEmail(searchValue);
+    const hasRecipients = recipients.length > 0;
+
+    if (!hasRecipients && isSearchValueValidEmail && searchValue.trim().length > 0) {
+      dispatch(
+        setCustomRecipient({
+          id: searchValue,
+          email: searchValue,
+          firstName: searchValue,
+          lastName: '',
+          companyName: '',
+        })
+      );
+    } else {
+      dispatch(setCustomRecipient(undefined));
+    }
+  }, [searchValue, recipients, dispatch]);
 
   return (
     <div onClick={onRecipientCardClicked}>
-      {recipients.map((recipient: Recipient) => (
+      {recipientsToRender.map((recipient: Recipient) => (
         <a href="" key={recipient.id}>
           <AtlusContact
             size="big"

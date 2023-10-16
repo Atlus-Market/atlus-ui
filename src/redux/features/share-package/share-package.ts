@@ -72,6 +72,7 @@ export const {
   setSharePackageActiveTab,
   addRecipient,
   removeRecipient,
+  setCustomRecipient,
 
   // Contacts tab
   setContactsSearchValue,

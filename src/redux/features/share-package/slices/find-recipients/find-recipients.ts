@@ -18,6 +18,7 @@ export interface FindRecipientsPageState {
   contactsTab: ContactsState;
   directoriesTab: DirectoryState;
   selectedRecipients: Recipient[];
+  customRecipient: Recipient | undefined;
 }
 
 export const findRecipientsPageInitialState: FindRecipientsPageState = {
@@ -25,6 +26,7 @@ export const findRecipientsPageInitialState: FindRecipientsPageState = {
   contactsTab: contactsInitialState,
   directoriesTab: directoriesInitialState,
   selectedRecipients: [],
+  customRecipient: undefined,
 };
 
 export const findRecipientsReducers = {
@@ -54,6 +56,10 @@ export const findRecipientsReducers = {
       state.findRecipientsPage.selectedRecipients.filter(
         recipient => recipient.id !== action.payload.id
       );
+  },
+
+  setCustomRecipient: (state: SharePackageState, action: PayloadAction<Recipient | undefined>) => {
+    state.findRecipientsPage.customRecipient = action.payload;
   },
 
   //Contacts tab

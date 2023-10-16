@@ -19,3 +19,8 @@ export const selectSelectedRecipients = createSelector(
 export const selectSelectedRecipientsId = createSelector(selectFindRecipientsPageState, state =>
   state.selectedRecipients.map(r => r.id)
 );
+
+export const selectCustomRecipient = createSelector(
+  selectFindRecipientsPageState,
+  state => state.customRecipient
+);
