@@ -8,7 +8,7 @@ export interface AtlusModalContainerProps {
   footer?: ReactNode;
   children: ReactNode;
   className?: string;
-  containerClassName?: string;
+  bodyContainerClassName?: string;
 }
 
 export const AtlusModalContainer = ({
@@ -16,12 +16,12 @@ export const AtlusModalContainer = ({
   footer,
   children,
   className,
-  containerClassName,
+  bodyContainerClassName,
 }: AtlusModalContainerProps) => {
   return (
     <div className={clsx('modal-container w-screen md:w-auto h-full md:!max-h-[800px]', className)}>
       {header && <div className="modal-container-header">{header}</div>}
-      <div className={clsx('modal-container-body', containerClassName)}>{children}</div>
+      <div className={clsx('modal-container-body', bodyContainerClassName)}>{children}</div>
       {footer && <div className="modal-container-footer">{footer}</div>}
     </div>
   );

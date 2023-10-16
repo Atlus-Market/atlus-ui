@@ -30,11 +30,11 @@ export const ViewPackagePatentsModal = ({ packageId }: ViewPackagePatentsModalPr
       isOpen={hasPatentsToShow}
       overlayClassName="z-[2]"
       onRequestClose={clear}
-      modalBodyClassName="h-screen !max-h-none !overflow-x-hidden !overflow-y-scroll"
+      modalBodyClassName="h-screen !max-h-none"
     >
       <AtlusModalContainer
         className="!h-full !max-h-min"
-        containerClassName="w-screen !lg:w-auto lg:max-w-[1200px] !overflow-visible"
+        bodyContainerClassName="w-screen !lg:w-auto lg:max-w-[1200px] !overflow-x-auto !basis-auto"
         header={
           <AtlusModalHeader
             rightContent={
@@ -66,7 +66,7 @@ export const ViewPackagePatentsModal = ({ packageId }: ViewPackagePatentsModalPr
           </AtlusModalHeader>
         }
       >
-        <AtlusModalBody className="overflow-x-auto">
+        <AtlusModalBody className="overflow-x-auto !w-fit">
           {familyIds.map(familyId => (
             <Fragment key={familyId}>
               <ViewPackagePatentsModalTable

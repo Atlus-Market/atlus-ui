@@ -38,7 +38,7 @@ export const ViewPackagePatentsModalTable = ({
       </div>
       <PackagePatentsTable familyPatents={{ [familyId]: patentsToShow }} type="full" />
       {patentsCountDiff > 0 && (
-        <div className="w-full flex justify-center mt-3 md:mt-4">
+        <div className="w-screen flex justify-center mt-3 md:mt-4">
           <AtlusExpandButton
             text={isExpanded ? 'Show less' : `Show ${patentsCountDiff} more`}
             isExpanded={isExpanded}
