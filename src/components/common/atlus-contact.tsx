@@ -2,7 +2,7 @@ import { HiCheckCircle } from 'react-icons/hi2';
 import CircleSVG from '@/public/assets/images/circle.svg';
 import Image from 'next/image';
 import clsx from 'clsx';
-import { Recipient } from '@/app/package/share/broker/components/commom/recipients-list';
+import { Recipient } from '@/app/package/share/broker/pages/find-recipients/components/common/recipients-list';
 import { atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
 import { Size } from '@/components/components.types';
 import { Fragment } from 'react';

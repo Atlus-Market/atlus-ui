@@ -5,7 +5,7 @@ import { selectContacts } from '@/redux/features/share-package/selectors/find-re
 import {
   Recipient,
   RecipientsList,
-} from '@/app/package/share/broker/components/commom/recipients-list';
+} from '@/app/package/share/broker/pages/find-recipients/components/common/recipients-list';
 import { selectSelectedRecipientsId } from '@/redux/features/share-package/selectors/find-recipients.selectors';
 import { addRecipient, removeRecipient } from '@/redux/features/share-package/share-package';
 

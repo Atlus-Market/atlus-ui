@@ -7,6 +7,8 @@ import { selectPackageAccess } from '@/redux/features/share-package/selectors/fi
 import { ContactPackageAccess } from '@/app/package/share/broker/pages/find-recipients/components/shared-with-tab/contact-package-access';
 import clsx from 'clsx';
 import { atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
+import { AtlusPlaceholderImage } from '@/components/common/atlus-placeholder-image';
+import SharedWithImage from '@/public/assets/images/shared_width.svg';
 
 export const SharedWithTab = () => {
   const dispatch = useAppDispatch();
@@ -17,14 +19,26 @@ export const SharedWithTab = () => {
     dispatch(fetchPackageAccess());
   }, [dispatch]);
 
+  const hasPeopleAccess = packageAccess.length > 0;
+
   return (
     <div className={clsx(atlusModalBodyPaddingX, 'min-h-[400px]')}>
-      {packageAccess.map(contactPackageAccess => (
-        <ContactPackageAccess
-          key={contactPackageAccess.email}
-          packageAccess={contactPackageAccess}
-        />
-      ))}
+      {hasPeopleAccess ? (
+        packageAccess.map(contactPackageAccess => (
+          <ContactPackageAccess
+            key={contactPackageAccess.email}
+            packageAccess={contactPackageAccess}
+          />
+        ))
+      ) : (
+        <div className="w-full flex justify-center my-[100px]">
+          <AtlusPlaceholderImage
+            image={SharedWithImage}
+            imageAltText=""
+            bottomText="See who you’ve shared the package with and manage their access"
+          />
+        </div>
+      )}
     </div>
   );
 };

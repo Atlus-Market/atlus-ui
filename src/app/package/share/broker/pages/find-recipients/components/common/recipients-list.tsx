@@ -1,7 +1,7 @@
 'use client';
 
 import { useAppDispatch } from '@/redux/hooks';
-import { MouseEvent, useCallback } from 'react';
+import { MouseEvent, ReactNode, useCallback } from 'react';
 import { Action } from 'redux';
 import { AtlusContact } from '@/components/common/atlus-contact';
 
@@ -19,6 +19,8 @@ interface RecipientsListProps<T extends Recipient> {
   recipients: T[];
   selectedRecipientsIds: string[];
   recipientSubLinesFn: (recipient: Recipient) => string[];
+  placeHolderNoRecipientsFound?: ReactNode;
+  placeHolderNoRecipientsExists?: ReactNode;
 }
 
 export const RecipientsList = <T extends Recipient>({

@@ -5,7 +5,7 @@ import { selectFindRecipientsActiveTab } from '@/redux/features/share-package/se
 import clsx from 'clsx';
 import { AtlusModalBody, atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
 import { SharePackageTabsHeader } from '@/app/package/share/broker/pages/find-recipients/components/share-package-tabs-header';
-import { SharePackageFindRecipientsTab } from '@/app/package/share/broker/components/commom/share-package-find-recipients-tab';
+import { SharePackageFindRecipientsTab } from '@/app/package/share/broker/pages/find-recipients/components/common/share-package-find-recipients-tab';
 import { ContactsTab } from '@/app/package/share/broker/pages/find-recipients/components/contacts-tab/contacts-tab';
 import { DirectoryTab } from '@/app/package/share/broker/pages/find-recipients/components/directory-tab/directory-tab';
 import { SharedWithTab } from '@/app/package/share/broker/pages/find-recipients/components/shared-with-tab/shared-with-tab';

@@ -8,7 +8,7 @@ import {
   selectFindRecipientsActiveTab,
   selectSelectedRecipients,
 } from '@/redux/features/share-package/selectors/find-recipients.selectors';
-import { SharePackageFindRecipientsTab } from '@/app/package/share/broker/components/commom/share-package-find-recipients-tab';
+import { SharePackageFindRecipientsTab } from '@/app/package/share/broker/pages/find-recipients/components/common/share-package-find-recipients-tab';
 
 export const SharePackageFindRecipientsNextButton = () => {
   const dispatch = useAppDispatch();
