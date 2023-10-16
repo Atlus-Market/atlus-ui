@@ -1,6 +1,6 @@
-const colors = require('./src/components/ui/theme/colors')
+const colors = require('./src/components/ui/theme/colors');
 
-/** @type {import('tailwindcss').Config} */
+/** @type {import("tailwindcss").Config} */
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -8,10 +8,14 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        screen: ['100vh /* fallback for Opera, IE and etc. */', '100dvh'],
+      },
+    },
     colors: colors,
     fontFamily: {
-      inter: ['Inter', 'sans-serif']
+      inter: ['Inter', 'sans-serif'],
     },
     screens: {
       sm: '360px',
@@ -19,7 +23,7 @@ module.exports = {
       lg: '1024px',
       xl: '1280px',
       '2xl': '1536px',
-    }
+    },
   },
   plugins: [],
-}
+};
