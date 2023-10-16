@@ -1,5 +1,5 @@
-import { OwnerProfilePicture } from '@/app/package/[id]/components/package-owner/owner-profile-picture';
 import { ReactNode } from 'react';
+import { AtlusAvatar } from '@/components/common/avatar/atlus-avatar';
 
 export interface BrokerAvatarInfo {
   profilePictureUrl?: string;
@@ -15,7 +15,7 @@ interface PackageOwnerProps {
 export const PackageOwner = ({ broker, footer }: PackageOwnerProps) => {
   return (
     <div className="flex items-center">
-      <OwnerProfilePicture pictureUrl={broker.profilePictureUrl} />
+      <AtlusAvatar word={broker.fullName} size="big" />
       <div className="ml-[18px]">
         <span className="text-base md:text-lg text-black font-normal mb-1 md:mb-[2px] block leading-none">
           {broker.fullName}
