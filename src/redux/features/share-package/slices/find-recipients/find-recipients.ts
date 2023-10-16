@@ -36,14 +36,12 @@ export const findRecipientsReducers = {
   },
 
   addRecipient: (state: SharePackageState, action: PayloadAction<Recipient>) => {
-    const recipient = state.findRecipientsPage.selectedRecipients.find(
-      r => r.id === action.payload.id
-    );
     // Do not add it more than once
-    if (recipient) {
-      return;
-    }
-    state.findRecipientsPage.selectedRecipients.push(action.payload);
+    const recipients = state.findRecipientsPage.selectedRecipients.filter(
+      r => r.id !== action.payload.id
+    );
+    recipients.push(action.payload);
+    state.findRecipientsPage.selectedRecipients = recipients;
   },
 
   removeRecipient: (
