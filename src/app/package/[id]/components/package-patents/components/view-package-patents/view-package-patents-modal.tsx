@@ -32,9 +32,10 @@ export const ViewPackagePatentsModal = ({ packageId }: ViewPackagePatentsModalPr
       onRequestClose={clear}
       modalBodyClassName="h-screen !max-h-none"
     >
+      {/* Add !basis-auto because on safari, height is zero. */}
       <AtlusModalContainer
         className="!h-full !max-h-min"
-        bodyContainerClassName="w-screen !lg:w-auto lg:max-w-[1200px] !overflow-x-auto !basis-auto"
+        bodyContainerClassName="w-screen lg:!w-auto lg:max-w-[1200px] !overflow-x-auto !basis-auto overscroll-none"
         header={
           <AtlusModalHeader
             rightContent={
