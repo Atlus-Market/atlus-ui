@@ -14,10 +14,10 @@ interface PackageRightPanelProps {
 export const PackageRightPanel = ({ broker, packageId }: PackageRightPanelProps) => {
   return (
     <div>
-      <div className="flex justify-end items-center gap-4 mb-4">
+      <div className="hidden md:flex justify-end items-center gap-4 mb-4">
         <Link href={SetPackagePatent(packageId)}>
           <AtlusButton variant="clear">
-            <HiPencil className="mr-[10px]" /> Edit
+            <HiPencil className="mr-[10px] text-xl" /> Edit
           </AtlusButton>
         </Link>
         <SharePackage packageId={packageId} />

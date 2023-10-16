@@ -16,7 +16,8 @@ export const SharePackage = ({ packageId }: SharePackageProps) => {
   return (
     <div>
       <AtlusButton variant="clear" onClick={showSharePackageBroker}>
-        <HiShare className="mr-[10px]" /> Share
+        <HiShare className="mr-[10px] text-xl" />{' '}
+        <span className="hidden lg:inline-block">Share</span>
       </AtlusButton>
       <ShareBrokerPackage
         packageId={packageId}
