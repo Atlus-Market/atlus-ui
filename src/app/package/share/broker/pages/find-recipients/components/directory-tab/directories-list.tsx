@@ -16,6 +16,13 @@ import {
   Recipient,
 } from '@/redux/features/share-package/slices/find-recipients/recipient';
 
+const recipientsSubLines = (recipient: Recipient) => {
+  if (isCustomRecipient(recipient)) {
+    return [];
+  }
+  return [recipient.companyName];
+};
+
 export const DirectoriesList = () => {
   const directories = useAppSelector(selectDirectories);
   const selectedContactsId = useAppSelector(selectSelectedRecipientsId);
@@ -29,12 +36,7 @@ export const DirectoriesList = () => {
       customRecipient={customRecipient}
       selectRecipientAction={addRecipient}
       removeRecipientAction={removeRecipient}
-      recipientSubLinesFn={(recipient: Recipient) => {
-        if (isCustomRecipient(recipient)) {
-          return [];
-        }
-        return [recipient.companyName];
-      }}
+      recipientSubLinesFn={recipientsSubLines}
       searchValue={searchValue}
     />
   );
