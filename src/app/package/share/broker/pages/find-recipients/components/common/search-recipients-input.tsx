@@ -2,7 +2,7 @@
 
 import { AtlusInput } from '@/components/ui/input/atlus-input';
 import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loading-spinner';
-import { ChangeEvent, useCallback, useEffect, useRef } from 'react';
+import { ChangeEvent, useCallback, useRef } from 'react';
 import { debounce } from 'lodash';
 import clsx from 'clsx';
 import { atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
@@ -18,7 +18,7 @@ interface SearchRecipientsInputProps {
   isSearching: boolean;
   searchRecipientAction: (searchValue: string) => AsyncThunkAction<any, any, any>;
   removeRecipientAction: (data: { id: string }) => Action;
-  searchValue: string;
+  resetSearchAction: () => Action;
 }
 
 export const SearchRecipientsInput = ({
@@ -27,7 +27,7 @@ export const SearchRecipientsInput = ({
   placeholder,
   searchRecipientAction,
   removeRecipientAction,
-  searchValue,
+  resetSearchAction,
 }: SearchRecipientsInputProps) => {
   const dispatch = useAppDispatch();
   const activeThunk = useRef<any | null>();
@@ -42,8 +42,13 @@ export const SearchRecipientsInput = ({
     (e: ChangeEvent<HTMLInputElement> | undefined) => {
       activeThunk.current?.abort?.();
       const searchValue = e?.target?.value?.trim() ?? '';
-      // @ts-ignore
-      activeThunk.current = dispatch(searchRecipientAction(searchValue));
+      if (searchValue.length === 0) {
+        dispatch(resetSearchAction());
+        return;
+      } else {
+        // @ts-ignore
+        activeThunk.current = dispatch(searchRecipientAction(searchValue));
+      }
     },
     [dispatch, searchRecipientAction]
   );

@@ -1,5 +1,4 @@
 import { SharePackageState } from '@/redux/features/share-package/share-package';
-import { PayloadAction } from '@reduxjs/toolkit';
 import { Contact } from '@/models/contact';
 
 export interface ContactsState {
@@ -17,7 +16,8 @@ export const contactsInitialState: ContactsState = {
 };
 
 export const contactsReducer = {
-  setContactsSearchValue: (state: SharePackageState, action: PayloadAction<string>) => {
-    state.findRecipientsPage.contactsTab.searchValue = action.payload;
+  resetContactsSearch: (state: SharePackageState) => {
+    state.findRecipientsPage.contactsTab.searchValue = '';
+    state.findRecipientsPage.contactsTab.contacts = [];
   },
 };

@@ -20,7 +20,8 @@ export const directoriesInitialState: DirectoryState = {
 };
 
 export const directoriesReducer = {
-  setDirectoriesSearchValue: (state: SharePackageState, action: PayloadAction<string>) => {
-    state.findRecipientsPage.contactsTab.searchValue = action.payload;
+  resetDirectoriesSearch: (state: SharePackageState) => {
+    state.findRecipientsPage.directoriesTab.searchValue = '';
+    state.findRecipientsPage.directoriesTab.directories = [];
   },
 };

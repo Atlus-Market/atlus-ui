@@ -75,10 +75,10 @@ export const {
   setCustomRecipient,
 
   // Contacts tab
-  setContactsSearchValue,
+  resetContactsSearch,
 
   // Directories tab
-  setDirectoriesSearchValue,
+  resetDirectoriesSearch,
 
   // SharedWith
 } = sharePackage.actions;
