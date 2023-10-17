@@ -1,13 +1,11 @@
 import clsx from 'clsx';
 import { geologica, inter } from '@/components/ui/theme/fonts';
-import {
-  BrokerAvatarInfo,
-  PackageOwner,
-} from '@/app/package/[id]/components/package-owner/package-owner';
+import { PackageOwner } from '@/app/package/[id]/components/package-owner/package-owner';
 import { ContactBrokerButton } from '@/app/package/[id]/components/right-panel/contact-broker-button';
+import { User } from '@/models/user';
 
 interface ContactBrokerProps {
-  broker: BrokerAvatarInfo;
+  broker: User;
 }
 
 export const ContactBroker = ({ broker }: ContactBrokerProps) => {

@@ -6,9 +6,10 @@ import { HiUser } from 'react-icons/hi2';
 interface AtlusAvatarProps {
   size?: Size;
   word?: string;
+  className?: string;
 }
 
-export const AtlusAvatar = ({ size = 'medium', word }: AtlusAvatarProps) => {
+export const AtlusAvatar = ({ size = 'medium', word, className }: AtlusAvatarProps) => {
   const char = word?.at(0);
   const avatarColor = AvatarColorPicker.getColor(char);
   return (
@@ -21,7 +22,8 @@ export const AtlusAvatar = ({ size = 'medium', word }: AtlusAvatarProps) => {
           'w-[40px] h-[40px] md:w-16 md:h-16': size === 'big',
           'w-8 h-8': size === 'medium',
           'w-5 h-5 md:w-6 md:h-6': size === 'small',
-        }
+        },
+        className
       )}
     >
       <span

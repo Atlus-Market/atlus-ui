@@ -3,7 +3,7 @@ import { getDataroomByPackageIdOnServer } from '@/api/dataroom/get-dataroom-by-p
 import { getUserByIdOnServer } from '@/api/user/get-user-by-id-on-server';
 import { PackageRightPanel } from '@/app/package/[id]/components/right-panel/package-right-panel';
 import { MainPanel } from '@/app/package/[id]/main-panel';
-import { SharePackageModal } from '@/app/package/[id]/components/share-package-modal'; // export const dynamic = 'force-dynamic';
+import { SharePackageModal } from '@/app/package/[id]/components/share-package-modal';
 
 interface PackagePageProps {
   params: {
@@ -26,7 +26,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
 
   const promises = await Promise.all([
     getUserByIdOnServer(atlusPackage.brokerUserId).then(user => {
-      console.log(`[${Date.now()}][${Date.now() - now}] User loaded!`);
+      console.log(`[${Date.now()}][${Date.now() - now}] User loaded!`, user);
       return user;
     }),
     getDataroomPromise,
