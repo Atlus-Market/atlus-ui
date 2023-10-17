@@ -5,19 +5,19 @@ import { ShareBrokerPackageBody } from '@/app/package/share/broker/share-broker-
 import { useCallback, useEffect } from 'react';
 import { useAppDispatch } from '@/redux/hooks';
 import { reset, setSharePackageId } from '@/redux/features/share-package/share-package';
+import { useSharePackageBrokerVisibility } from '@/app/package/share/broker/use-share-package-broker-visibility';
 
 interface ShareBrokerPackageProps {
   packageId: string;
   isShowingModal?: boolean;
-  closeModal?: () => void;
 }
 
 export const ShareBrokerPackage = ({
   packageId,
   isShowingModal = false,
-  closeModal,
 }: ShareBrokerPackageProps) => {
   const dispatch = useAppDispatch();
+  const { hideSharePackageBroker } = useSharePackageBrokerVisibility();
 
   const resetShareState = useCallback(() => {
     dispatch(reset());
@@ -30,7 +30,11 @@ export const ShareBrokerPackage = ({
   }, [packageId, dispatch, isShowingModal]);
 
   return (
-    <AtlusModal isOpen={isShowingModal} onRequestClose={closeModal} onAfterClose={resetShareState}>
+    <AtlusModal
+      isOpen={isShowingModal}
+      onRequestClose={hideSharePackageBroker}
+      onAfterClose={resetShareState}
+    >
       <ShareBrokerPackageBody />
     </AtlusModal>
   );

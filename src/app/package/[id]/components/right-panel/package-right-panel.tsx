@@ -2,7 +2,7 @@ import { ContactBroker } from '@/app/package/[id]/components/right-panel/contact
 import { User } from '@/models/user';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { HiPencil } from 'react-icons/hi2';
-import { SharePackage } from '@/app/package/[id]/components/right-panel/share-package';
+import { SharePackageButton } from '@/app/package/[id]/components/right-panel/share-package-button';
 import Link from 'next/link';
 import { SetPackagePatent } from '@/constants/routes';
 
@@ -20,7 +20,7 @@ export const PackageRightPanel = ({ broker, packageId }: PackageRightPanelProps)
             <HiPencil className="mr-[10px] text-xl" /> Edit
           </AtlusButton>
         </Link>
-        <SharePackage packageId={packageId} />
+        <SharePackageButton />
       </div>
       <ContactBroker broker={broker} />
     </div>

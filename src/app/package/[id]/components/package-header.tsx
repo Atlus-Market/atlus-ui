@@ -3,7 +3,7 @@ import { Package } from '@/models/package';
 import { parseGMTDate } from '@/utils/date';
 import format from 'date-fns/format';
 import { User } from '@/models/user';
-import { SharePackage } from '@/app/package/[id]/components/right-panel/share-package';
+import { SharePackageButton } from '@/app/package/[id]/components/right-panel/share-package-button';
 
 interface PackageHeaderProps {
   atlusPackage: Package;
@@ -20,7 +20,7 @@ export const PackageHeader = ({
       <div className="flex justify-between items-center">
         <AtlusTitle text={broker.companyName} className="mb-1 !text-xl" />
         <div className="block lg:hidden">
-          <SharePackage packageId={id} />
+          <SharePackageButton />
         </div>
       </div>
 
