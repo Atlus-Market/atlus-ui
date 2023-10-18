@@ -8,20 +8,24 @@ import { SharePackageButton } from '@/app/package/[id]/components/right-panel/sh
 interface PackageHeaderProps {
   atlusPackage: Package;
   broker: User;
+  renderLimitedContent: boolean;
 }
 
 export const PackageHeader = ({
-  atlusPackage: { id, title, createdTimestamp },
+  atlusPackage: { title, createdTimestamp },
   broker,
+  renderLimitedContent,
 }: PackageHeaderProps) => {
   const createdDate = parseGMTDate(createdTimestamp);
   return (
     <div>
       <div className="flex justify-between items-center">
         <AtlusTitle text={broker.companyName} className="mb-1 !text-xl" />
-        <div className="block lg:hidden">
-          <SharePackageButton />
-        </div>
+        {!renderLimitedContent && (
+          <div className="block lg:hidden">
+            <SharePackageButton />
+          </div>
+        )}
       </div>
 
       <AtlusTitle text={title} className="text-lg md:text-2xl font-normal mb-2" />

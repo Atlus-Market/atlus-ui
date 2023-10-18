@@ -45,11 +45,13 @@ export default async function PackagePage({ params }: PackagePageProps) {
           broker={broker}
           userHasAccessToPackage={true}
         />
-        <div className="hidden lg:block">
-          <PackageRightPanel packageId={atlusPackage.id} broker={broker} />
-        </div>
-        {!renderLimitedContent && <SharePackageModal packageId={atlusPackage.id} />}
+        <PackageRightPanel
+          packageId={atlusPackage.id}
+          broker={broker}
+          renderLimitedContent={renderLimitedContent}
+        />
       </div>
+      {!renderLimitedContent && <SharePackageModal packageId={atlusPackage.id} />}
       {renderLimitedContent && <NoPackagePermissionFooter />}
     </div>
   );

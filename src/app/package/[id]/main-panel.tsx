@@ -31,7 +31,11 @@ export const MainPanel = ({
 
   return (
     <div>
-      <PackageHeader atlusPackage={atlusPackage} broker={broker} />
+      <PackageHeader
+        atlusPackage={atlusPackage}
+        broker={broker}
+        renderLimitedContent={renderLimitedContent}
+      />
       <PackageDivider />
       <PackageGeneralInfo atlusPackage={atlusPackage} dataroom={dataroom} />
       <PackageDivider />

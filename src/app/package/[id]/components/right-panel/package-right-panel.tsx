@@ -9,19 +9,26 @@ import { SetPackagePatent } from '@/constants/routes';
 interface PackageRightPanelProps {
   packageId: string;
   broker: User;
+  renderLimitedContent: boolean;
 }
 
-export const PackageRightPanel = ({ broker, packageId }: PackageRightPanelProps) => {
+export const PackageRightPanel = ({
+  broker,
+  packageId,
+  renderLimitedContent,
+}: PackageRightPanelProps) => {
   return (
-    <div>
-      <div className="hidden md:flex justify-end items-center gap-4 mb-4">
-        <Link href={SetPackagePatent(packageId)}>
-          <AtlusButton variant="clear">
-            <HiPencil className="mr-[10px] text-xl" /> Edit
-          </AtlusButton>
-        </Link>
-        <SharePackageButton />
-      </div>
+    <div className="hidden lg:block">
+      {!renderLimitedContent && (
+        <div className="hidden md:flex justify-end items-center gap-4 mb-4">
+          <Link href={SetPackagePatent(packageId)}>
+            <AtlusButton variant="clear">
+              <HiPencil className="mr-[10px] text-xl" /> Edit
+            </AtlusButton>
+          </Link>
+          <SharePackageButton />
+        </div>
+      )}
       <ContactBroker broker={broker} />
     </div>
   );
