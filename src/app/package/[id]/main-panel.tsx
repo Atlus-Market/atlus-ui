@@ -13,39 +13,47 @@ import { PackagePatents } from '@/app/package/[id]/components/package-patents/pa
 import { PackageDocuments } from '@/app/package/[id]/components/package-documents/package-documents';
 import { PackageListedBy } from '@/app/package/[id]/components/package-owner/package-listed-by';
 import { SendMessage } from '@/app/package/[id]/components/send-message/send-message';
-import { NoPackagePermissionFooter } from '@/app/package/[id]/components/no-package-permission-footer';
 
 interface MainPanelProps {
   atlusPackage: Package;
   dataroom: Dataroom;
   broker: User;
+  userHasAccessToPackage: boolean;
 }
 
-export const MainPanel = ({ atlusPackage, dataroom, broker }: MainPanelProps) => {
+export const MainPanel = ({
+  atlusPackage,
+  dataroom,
+  broker,
+  userHasAccessToPackage,
+}: MainPanelProps) => {
+  const renderLimitedContent = userHasAccessToPackage;
+
   return (
-    <>
-      <div>
-        <PackageHeader atlusPackage={atlusPackage} broker={broker} />
-        <PackageDivider />
-        <PackageGeneralInfo atlusPackage={atlusPackage} dataroom={dataroom} />
-        <PackageDivider />
-        <PackageDescription description={atlusPackage.description} />
-        <PackageDivider className="bg-transparent !mt-0" />
-        <PackageIndustries atlusPackage={atlusPackage} />
-        <PackageDivider className="bg-transparent !mt-0" />
-        <PackageKeywords atlusPackage={atlusPackage} />
-        <PackageDivider className="bg-transparent !mt-0" />
-        <PackageSeller companyName={broker.companyName} />
-        <PackageDivider />
-        <PackagePatents atlusPackage={atlusPackage} />
-        <PackageDivider />
-        <PackageDocuments dataroom={dataroom} />
-        <PackageDivider />
-        <PackageListedBy user={broker} />
-        <PackageDivider className="bg-transparent !mt-0" />
-        <SendMessage atlusPackage={atlusPackage} />
-      </div>
-      <NoPackagePermissionFooter />
-    </>
+    <div>
+      <PackageHeader atlusPackage={atlusPackage} broker={broker} />
+      <PackageDivider />
+      <PackageGeneralInfo atlusPackage={atlusPackage} dataroom={dataroom} />
+      <PackageDivider />
+      <PackageDescription description={atlusPackage.description} />
+      <PackageDivider className="bg-transparent !mt-0" />
+      <PackageIndustries atlusPackage={atlusPackage} />
+      <PackageDivider className="bg-transparent !mt-0" />
+      <PackageKeywords atlusPackage={atlusPackage} />
+      {!renderLimitedContent && (
+        <>
+          <PackageDivider className="bg-transparent !mt-0" />
+          <PackageSeller companyName={broker.companyName} />
+          <PackageDivider />
+          <PackagePatents atlusPackage={atlusPackage} />
+          <PackageDivider />
+          <PackageDocuments dataroom={dataroom} />
+          <PackageDivider />
+          <PackageListedBy user={broker} />
+          <PackageDivider className="bg-transparent !mt-0" />
+          <SendMessage atlusPackage={atlusPackage} />
+        </>
+      )}
+    </div>
   );
 };

@@ -35,13 +35,20 @@ const clearVariant = ({ variant, color }: AtlusButtonProps) => {
   );
 };
 
-const outlineWhiteVariant = clsx(
-  baseButton,
-  'bg-white font-bold',
-  'border border-soft-black rounded-[32px]',
-  'hover:bg-[var(--atlus-button-outline-hover)] active:bg-[var(--atlus-button-outline-active)]',
-  'disabled:bg-middle-grey'
-);
+// Outline
+const outlineWhiteVariant =
+  'border-soft-black hover:bg-[var(--atlus-button-outline-hover)] active:bg-[var(--atlus-button-outline-active)] disabled:bg-middle-grey';
+
+const outlineOrangeVariant =
+  'border-orange text-orange hover:bg-[#F15F4C] active:bg-[#DC422D] disabled:bg-middle-grey';
+const getOutlineVariant = (props: AtlusButtonProps): string => {
+  return clsx(
+    baseButton,
+    'bg-white font-bold',
+    'border rounded-[32px]',
+    props.color === 'orange' ? outlineOrangeVariant : outlineWhiteVariant
+  );
+};
 
 // small/mobile
 const smallSizeClasses = 'min-w-[100px] py-[10px] px-6 text-[13px] leading-[16px]';
@@ -102,11 +109,13 @@ export const AtlusButton = (props: AtlusButtonProps) => {
     ...restProps
   } = props;
   const isClearVariant = variant === 'clear';
+
   const classVariant = isClearVariant
     ? clearVariant(props)
     : variant === 'solid'
     ? solidOrangeVariant
-    : outlineWhiteVariant;
+    : getOutlineVariant(props);
+
   return (
     <button
       type={type}

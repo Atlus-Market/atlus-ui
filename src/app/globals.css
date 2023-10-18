@@ -30,6 +30,10 @@ body {
     background: var(--color-white);
 }
 
+body:has([data-prevent-scoll="true"]) {
+    overflow: hidden;
+}
+
 body.ReactModal__Body--open {
     overflow: hidden;
 }
