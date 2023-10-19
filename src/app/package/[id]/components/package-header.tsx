@@ -6,6 +6,7 @@ import { User } from '@/models/user';
 import { SharePackageButton } from '@/app/package/[id]/components/right-panel/share-package-button';
 import CircleSVG from '@/public/assets/images/circle.svg';
 import Image from 'next/image';
+import { PackageStatusTag } from '@/app/package/[id]/components/package-status-tag';
 
 interface PackageHeaderProps {
   atlusPackage: Package;
@@ -14,7 +15,7 @@ interface PackageHeaderProps {
 }
 
 export const PackageHeader = ({
-  atlusPackage: { title, createdTimestamp, lastModified },
+  atlusPackage: { title, createdTimestamp, lastModified, status },
   renderLimitedContent,
 }: PackageHeaderProps) => {
   const createdDate = parseGMTDate(createdTimestamp);
@@ -31,7 +32,7 @@ export const PackageHeader = ({
       </div>
 
       <AtlusTitle text={title} className="text-lg md:text-2xl font-normal mb-2" />
-      <div className="flex items-center">
+      <div className="flex items-center mb-2 md:mb-3">
         {createdDate && (
           <p className="text-xs md:text-sm text-dark-grey font-normal">
             Created {format(createdDate, 'LLL d, yyyy')}
@@ -47,6 +48,7 @@ export const PackageHeader = ({
           </div>
         )}
       </div>
+      <PackageStatusTag status={status} />
     </div>
   );
 };

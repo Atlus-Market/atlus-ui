@@ -1,4 +1,5 @@
 import { Patent } from '@/models/patent';
+import { PackageStatus } from '@/models/package-status';
 
 export interface Package {
   title: string;
@@ -12,6 +13,7 @@ export interface Package {
   sellerUserId: string;
   patents: Patent[];
   customPatents: Patent[];
+  status: PackageStatus;
 
   // When package is created
   id: string;

@@ -34,7 +34,9 @@ export default async function PackagePage({ params }: PackagePageProps) {
   const getPackageResponse = await getPackageOnServer(params.id);
   const atlusPackage = getPackageResponse.data.package;
   console.timeEnd(LOAD_PACKAGE);
-  console.log(atlusPackage);
+
+  const { patents, customPatents, ...restPackage } = atlusPackage;
+  console.log(restPackage);
 
   console.time(LOAD_BROKER);
   const loadUserPromise = hasValidSession
@@ -48,7 +50,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
 
   const [broker, dataroom] = promises;
 
-  const renderLimitedContent = !hasValidSession && true;
+  const renderLimitedContent = !hasValidSession;
 
   return (
     <div data-prevent-scoll={renderLimitedContent}>
@@ -69,7 +71,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
         )}
       </div>
       {!renderLimitedContent && <SharePackageModal packageId={atlusPackage.id} />}
-      {renderLimitedContent && <NoPackagePermission />}
+      {/*{renderLimitedContent && <NoPackagePermission />}*/}
       {/*{renderLimitedContent && <NoPackageSession />}*/}
     </div>
   );

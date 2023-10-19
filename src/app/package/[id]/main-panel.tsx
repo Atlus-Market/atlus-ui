@@ -27,7 +27,7 @@ export const MainPanel = ({
   broker,
   userHasAccessToPackage,
 }: MainPanelProps) => {
-  const renderLimitedContent = userHasAccessToPackage;
+  const renderLimitedContent = !userHasAccessToPackage;
 
   return (
     <div>
