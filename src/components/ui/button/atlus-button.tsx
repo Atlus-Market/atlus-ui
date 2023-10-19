@@ -51,7 +51,7 @@ const getOutlineVariant = (props: AtlusButtonProps): string => {
 };
 
 // small/mobile
-const smallSizeClasses = 'min-w-[100px] py-[10px] px-6 text-[13px] leading-[16px]';
+const smallSizeClasses = 'min-w-[100px] py-[10px] px-6 text-13 leading-[16px]';
 
 // medium size
 const mediumSizeClasses = 'min-w-[180px] py-[13px] px-9 text-[15px] leading-[17px]';

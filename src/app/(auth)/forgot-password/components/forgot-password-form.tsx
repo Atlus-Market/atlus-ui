@@ -45,7 +45,7 @@ export const ForgotPasswordForm = ({ onSubmit, errorMessage, isLoading }: Forgot
           Send reset link
         </AtlusButton>
 
-        <div className="text-[13px] md:text-base font-medium">
+        <div className="text-13 md:text-base font-medium">
           <span className="text-dark-grey">Back to </span>
           <Link href={LoginRoute} className="text-orange">
             Log in

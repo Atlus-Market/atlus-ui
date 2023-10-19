@@ -20,7 +20,7 @@ export const PatentsInFamilyLink = ({ familyPatentGroup }: PatentsInFamilyLinkPr
   const label = `${totalPatents} ${pluralize('patent', totalPatents)} in this family`;
   return (
     <button
-      className={clsx('text-orange', 'text-xs md:text-[13px]', 'font-medium')}
+      className={clsx('text-orange', 'text-xs md:text-13', 'font-medium')}
       onClick={() => {
         setPatents(familyPatentGroup);
       }}

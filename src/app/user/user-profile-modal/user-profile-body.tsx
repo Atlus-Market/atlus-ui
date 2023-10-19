@@ -23,7 +23,7 @@ export const UserProfileBody = ({ user }: UserProfileBodyProps) => {
 
       <AtlusDivider className="mt-8 md:mt-10 mb-6" />
 
-      <div className="text-dark-grey text-[13px] md:text-sm leading-5 mb-6">Contact info</div>
+      <div className="text-dark-grey text-13 md:text-sm leading-5 mb-6">Contact info</div>
 
       <div className="flex items-center gap-[18px] mb-6">
         <HiPhone className={iconClassnames} />

@@ -56,7 +56,7 @@ export const LoginForm = ({ onSubmit, errorMessage, isSubmitting }: LoginFormPro
           <Link
             tabIndex={3}
             href={ForgotPassword}
-            className="text-orange text-[13px] md:text-sm leading-0"
+            className="text-orange text-13 md:text-sm leading-0"
           >
             Forgot password
           </Link>
@@ -71,7 +71,7 @@ export const LoginForm = ({ onSubmit, errorMessage, isSubmitting }: LoginFormPro
           Log in
         </AtlusButton>
 
-        <div className="text-[13px] md:text-base font-medium">
+        <div className="text-13 md:text-base font-medium">
           <span className="text-dark-grey">Don&apos;t have an account? </span>
           <Link href={OnboardingSelectUser} className="text-orange">
             Sign up

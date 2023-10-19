@@ -45,7 +45,7 @@ export const NoPackageSession = () => {
         </AtlusButton>
       </Link>
 
-      <div className="leading-none text-[13px] font-medium">
+      <div className="leading-none text-13 font-medium">
         <span>Have an account?</span>
         <Link href={LoginRoute}>
           <span className="text-orange ml-1">Sign in</span>

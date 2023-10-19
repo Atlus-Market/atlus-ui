@@ -6,7 +6,15 @@ import { ReactNode } from 'react';
 
 export type AtlusTagSize = 'big' | 'small' | 'auto';
 
-export type AtlusTagColor = 'orange' | 'green' | 'brown' | 'red' | 'yellow' | 'gray';
+export type AtlusTagColor =
+  | 'orange'
+  | 'green-1'
+  | 'green-2'
+  | 'brown'
+  | 'red-1'
+  | 'red-2'
+  | 'yellow'
+  | 'gray';
 
 interface TagColorDefinition {
   backgroundColor: string;
@@ -18,16 +26,24 @@ export const tagsColorsDefinition: Readonly<Record<AtlusTagColor, Readonly<TagCo
     backgroundColor: 'bg-off-white',
     textColor: 'text-orange',
   },
-  green: {
+  'green-1': {
     backgroundColor: 'bg-[#DFFBE6]',
     textColor: 'text-[#139733]',
+  },
+  'green-2': {
+    backgroundColor: 'bg-[#DFFBF2]',
+    textColor: 'text-[#129F70]',
   },
   brown: {
     backgroundColor: 'bg-[#F8F5F2]',
     textColor: 'text-[#895C30]',
   },
-  red: {
+  'red-1': {
     backgroundColor: 'bg-[#FFEFF7]',
+    textColor: 'text-red',
+  },
+  'red-2': {
+    backgroundColor: 'bg-[#FCE4E8]',
     textColor: 'text-red',
   },
   yellow: {

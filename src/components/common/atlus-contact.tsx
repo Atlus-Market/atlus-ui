@@ -42,8 +42,8 @@ export const AtlusContact = ({
         <div>
           <div
             className={clsx('text-black leading-5', {
-              'text-[13px] md:text-base': isBigSize,
-              'text-[13px] md:text-sm': isMediumSize || isSmallSize,
+              'text-13 md:text-base': isBigSize,
+              'text-13 md:text-sm': isMediumSize || isSmallSize,
             })}
           >
             {recipient.firstName} {recipient.lastName}

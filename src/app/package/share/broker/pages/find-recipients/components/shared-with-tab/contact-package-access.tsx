@@ -20,9 +20,7 @@ export const ContactPackageAccess = ({ packageAccess }: ContactAccessProp) => {
           />
         </div>
         <div className="flex flex-col justify-center gap-[2px]">
-          <div className="leading-none text-black text-[13px] md:text-base">
-            {packageAccess.name}
-          </div>
+          <div className="leading-none text-black text-13 md:text-base">{packageAccess.name}</div>
           <div className="leading-none text-dark-grey text-xs md:text-sm">
             {packageAccess.email}
           </div>

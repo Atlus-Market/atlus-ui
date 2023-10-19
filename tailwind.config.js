@@ -17,6 +17,9 @@ module.exports = {
     fontFamily: {
       inter: ['Inter', 'sans-serif'],
     },
+    fontSize: {
+      13: '13px',
+    },
     screens: {
       sm: '360px',
       md: '768px',

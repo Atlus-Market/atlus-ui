@@ -14,7 +14,7 @@ export const ViewOwnerModal = ({ user }: ViewOwnerModalProps) => {
   return (
     <>
       <div
-        className="text-orange text-xs md:text-[13px] hover:cursor-pointer font-medium"
+        className="text-orange text-xs md:text-13 hover:cursor-pointer font-medium"
         onClick={setOn}
       >
         View contact details
