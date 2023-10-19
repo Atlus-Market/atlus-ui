@@ -14,7 +14,7 @@ import { ContactsSelector } from '@/app/set-package/[id]/(pages)/package-details
 import { IPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
 import { useMemo } from 'react';
 import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
-import { InterestArea } from '@/api/interest-areas/interest-area';
+import { InterestArea } from '@/models/interest-area';
 
 interface PackageDetailsFormFieldsProps {
   interestArea: InterestArea[];

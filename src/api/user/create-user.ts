@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 import { DealSize, Timeframe } from '@/models/user';
 
 export interface CreateUserPayload {
@@ -24,5 +24,5 @@ export const createUser = (userPayload: CreateUserPayload): Promise<void> => {
     method: 'POST',
     isProtected: ProtectedEndpoint.False,
     payload: userPayload,
-  });
+  }).then(getResponseData);
 };

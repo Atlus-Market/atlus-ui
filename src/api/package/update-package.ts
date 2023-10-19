@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 import { Package } from '@/models/package';
 import { CreatePackageRequestPayload } from '@/api/package/create-package';
 
@@ -17,5 +17,5 @@ export const updatePackage = (
     method: 'PUT',
     isProtected: ProtectedEndpoint.True,
     payload: updatePackagePayload,
-  });
+  }).then(getResponseData);
 };

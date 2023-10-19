@@ -1,5 +1,10 @@
 import 'server-only';
-import { AtlusAuthRequestHeaders, createRequest, ProtectedEndpoint } from '@/api/api';
+import {
+  AtlusAuthRequestHeaders,
+  createRequest,
+  getResponseData,
+  ProtectedEndpoint,
+} from '@/api/api';
 import { Dataroom } from '@/models/dataroom';
 
 export const getDataroomByPackageId = async (
@@ -11,5 +16,5 @@ export const getDataroomByPackageId = async (
     method: 'GET',
     isProtected: ProtectedEndpoint.True,
     ...authRequestHeaders,
-  });
+  }).then(getResponseData);
 };

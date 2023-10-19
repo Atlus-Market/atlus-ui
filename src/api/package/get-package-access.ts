@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 import { PackageAccess } from '@/models/package-access';
 
 export interface GetPackageAccessResponse {
@@ -11,5 +11,5 @@ export const getPackageAccess = (packageId: string, signal?: AbortSignal) => {
     method: 'GET',
     isProtected: ProtectedEndpoint.True,
     signal: signal || undefined,
-  });
+  }).then(getResponseData);
 };

@@ -15,5 +15,5 @@ export const downloadDataroomFiles = (
     isProtected: ProtectedEndpoint.True,
     responseType: 'arraybuffer',
     data: payload,
-  }).then(zipFileContent => new Blob([zipFileContent ?? ''], { type: 'application/zip' }));
+  }).then(zipFileContent => new Blob([zipFileContent.data ?? ''], { type: 'application/zip' }));
 };

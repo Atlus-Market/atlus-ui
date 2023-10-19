@@ -1,7 +1,7 @@
 'use client';
 
 import { useOnboardingContext } from '@/app/onboarding/context/use-onboarding-context';
-import { InterestArea } from '@/api/interest-areas/interest-area';
+import { InterestArea } from '@/models/interest-area';
 import { AtlusIconTag } from '@/components/ui/tag/atlus-icon-tag';
 import { InterestAreaIconsMap } from '@/app/onboarding/buyer/areas-of-interest/components/interest-area-icons-map';
 

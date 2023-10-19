@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 
 export interface SharePackageRequestPayload {
   recipients: { email: string; access: number }[];
@@ -14,5 +14,5 @@ export const sharePackage = (
     method: 'POST',
     isProtected: ProtectedEndpoint.True,
     payload: sharePackageRequestPayload,
-  });
+  }).then(getResponseData);
 };

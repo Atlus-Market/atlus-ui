@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 import { CreateUserPayload } from '@/api/user/create-user';
 
 export type UpdateUserPayload = Partial<CreateUserPayload>;
@@ -9,5 +9,5 @@ export const updateUser = (userId: string, updateUserPayload: UpdateUserPayload)
     method: 'PUT',
     isProtected: ProtectedEndpoint.True,
     payload: updateUserPayload,
-  });
+  }).then(getResponseData);
 };

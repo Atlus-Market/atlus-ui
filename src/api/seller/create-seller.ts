@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 import { Contact } from '@/models/contact';
 
 export type CreateSellerPayload = Omit<Contact, 'id'>;
@@ -13,5 +13,5 @@ export const createSeller = (userPayload: CreateSellerPayload): Promise<CreateSe
     method: 'POST',
     isProtected: ProtectedEndpoint.True,
     payload: userPayload,
-  });
+  }).then(getResponseData);
 };

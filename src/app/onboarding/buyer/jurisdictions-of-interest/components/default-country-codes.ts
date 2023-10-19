@@ -1,4 +1,4 @@
-import { CountryCode } from '@/api/country-codes/country-code';
+import { CountryCode } from '@/models/country-code';
 
 export const worldWide: CountryCode = {
   name: 'Worldwide',

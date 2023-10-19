@@ -1,4 +1,9 @@
-import { AtlusAuthRequestHeaders, createRequest, ProtectedEndpoint } from '@/api/api';
+import {
+  AtlusAuthRequestHeaders,
+  createRequest,
+  getResponseData,
+  ProtectedEndpoint,
+} from '@/api/api';
 import { CreateUserPayload } from '@/api/user/create-user';
 import { User } from '@/models/user';
 
@@ -11,5 +16,5 @@ export const getUserById = (
     method: 'GET',
     isProtected: ProtectedEndpoint.True,
     ...atlusAuthRequestHeaders,
-  });
+  }).then(getResponseData);
 };

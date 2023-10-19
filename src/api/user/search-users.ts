@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 import { User } from '@/models/user';
 
 export type SearchUsersRequestPayload = {
@@ -23,5 +23,5 @@ export const searchUsers = (
     isProtected: ProtectedEndpoint.True,
     payload: searchUsersRequestPayload,
     signal: signal || undefined,
-  });
+  }).then(getResponseData);
 };

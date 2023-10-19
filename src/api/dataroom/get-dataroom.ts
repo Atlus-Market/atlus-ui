@@ -1,4 +1,9 @@
-import { AtlusAuthRequestHeaders, createRequest, ProtectedEndpoint } from '@/api/api';
+import {
+  AtlusAuthRequestHeaders,
+  createRequest,
+  getResponseData,
+  ProtectedEndpoint,
+} from '@/api/api';
 import { Dataroom } from '@/models/dataroom';
 
 export const getDataroom = (
@@ -10,5 +15,5 @@ export const getDataroom = (
     method: 'GET',
     isProtected: ProtectedEndpoint.True,
     ...authRequestHeaders,
-  });
+  }).then(getResponseData);
 };

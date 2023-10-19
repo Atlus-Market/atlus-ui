@@ -1,4 +1,9 @@
-import { AtlusAuthRequestHeaders, createRequest, ProtectedEndpoint } from '@/api/api';
+import {
+  AtlusAuthRequestHeaders,
+  createRequest,
+  getResponseData,
+  ProtectedEndpoint,
+} from '@/api/api';
 import { Package } from '@/models/package';
 
 export interface GetPackageResponse {
@@ -16,5 +21,5 @@ export const getPackage = (
     isProtected: ProtectedEndpoint.True,
     signal,
     ...atlusAuthRequestHeaders,
-  });
+  }).then(getResponseData);
 };

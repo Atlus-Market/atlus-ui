@@ -1,7 +1,7 @@
 'use client';
 
 import { AtlusInputSearch } from '@/components/ui/input/atlus-input-search';
-import { CountryCode } from '@/api/country-codes/country-code';
+import { CountryCode } from '@/models/country-code';
 import { useEffect, useMemo, useState } from 'react';
 import { CountryCodesList } from '@/app/onboarding/buyer/jurisdictions-of-interest/components/country-codes-list';
 import {

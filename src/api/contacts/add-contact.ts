@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 
 export interface AddContactPayload {
   userId: string;
@@ -9,5 +9,5 @@ export const addContact = (addContactPayload: AddContactPayload): Promise<void> 
     url: `/user/${addContactPayload.userId}/contacts`,
     method: 'POST',
     isProtected: ProtectedEndpoint.True,
-  });
+  }).then(getResponseData);
 };

@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 
 interface ForgotPasswordPayload {
   email: string;
@@ -10,5 +10,5 @@ export const forgotPassword = (forgotPasswordPayload: ForgotPasswordPayload): Pr
     method: 'POST',
     isProtected: ProtectedEndpoint.False,
     payload: forgotPasswordPayload,
-  });
+  }).then(getResponseData);
 };

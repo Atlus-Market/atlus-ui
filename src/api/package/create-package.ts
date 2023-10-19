@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 import { Package } from '@/models/package';
 
 export interface CustomPatentPayload {
@@ -31,5 +31,5 @@ export const createPackage = (createPackageRequestPayload: CreatePackageRequestP
     method: 'POST',
     isProtected: ProtectedEndpoint.True,
     payload: createPackageRequestPayload,
-  });
+  }).then(getResponseData);
 };

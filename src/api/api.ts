@@ -37,8 +37,9 @@ export interface AtlusRequestConfig<T extends unknown> extends CreateAxiosDefaul
   isProtected?: ProtectedEndpoint;
   headers?: Record<string, string>;
   payload?: T;
-  returnRawResponse?: boolean;
 }
+
+export type AtlusResponse<T extends unknown> = AxiosResponse<T>;
 
 export const createRequest = <Payload, ResponsePayload>({
   url,
@@ -47,14 +48,13 @@ export const createRequest = <Payload, ResponsePayload>({
   method,
   payload,
   responseType = 'json', // Default to JSON response
-  returnRawResponse = false,
   ...restConfig
-}: AtlusRequestConfig<Payload>): Promise<ResponsePayload> => {
+}: AtlusRequestConfig<Payload>): Promise<AtlusResponse<ResponsePayload>> => {
   if (isProtected === ProtectedEndpoint.True && !isRunningOnServer()) {
     setAuthHeaders(headers, AtlusSessionManager);
   }
 
-  return axios<Payload, AxiosResponse<ResponsePayload> | ResponsePayload>({
+  return axios<Payload, AtlusResponse<ResponsePayload>>({
     method,
     url: createUrl(url),
     headers,
@@ -62,15 +62,11 @@ export const createRequest = <Payload, ResponsePayload>({
     withCredentials: isProtected === ProtectedEndpoint.True,
     responseType, // Set responseType based on the expected response type
     ...restConfig,
-  }).then(response => {
-    if (returnRawResponse) {
-      return response;
-    }
-    return (response as AxiosResponse).data;
   });
 };
 
 export const getProgressPercent = (progressEvent: AxiosProgressEvent): number => {
-  // @ts-ignore
-  return Math.round((progressEvent.loaded * 100) / progressEvent.total);
+  return Math.round((progressEvent.loaded * 100) / (progressEvent.total ?? 1));
 };
+
+export const getResponseData = <T extends unknown>(response: AxiosResponse<T>): T => response.data;

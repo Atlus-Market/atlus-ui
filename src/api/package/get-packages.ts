@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 import { PackageListItem } from '@/models/package-list-item';
 
 export interface GetPackagesResponse {
@@ -11,5 +11,5 @@ export const getPackages = (userId: string, signal?: AbortSignal) => {
     method: 'GET',
     isProtected: ProtectedEndpoint.True,
     signal: signal || undefined,
-  });
+  }).then(getResponseData);
 };

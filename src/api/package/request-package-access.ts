@@ -6,5 +6,5 @@ export const requestPackageAccess = async (packageId: string) => {
   //   url: `/package/${packageId}/request-access`,
   //   method: 'POST',
   //   isProtected: ProtectedEndpoint.True,
-  // });
+  // }).then(getResponseData);
 };

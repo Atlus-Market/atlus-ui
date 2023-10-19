@@ -1,4 +1,4 @@
-import { InterestArea } from '@/api/interest-areas/interest-area';
+import { InterestArea } from '@/models/interest-area';
 import { defaultRevalidationTimeSeconds } from '@/constants/api';
 import { createUrl } from '@/api/api';
 

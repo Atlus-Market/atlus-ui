@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 
 interface ResendConfirmationEmailPayload {
   email: string;
@@ -12,5 +12,5 @@ export const resendConfirmationEmail = (
     method: 'POST',
     isProtected: ProtectedEndpoint.False,
     payload: resendConfirmationEmailPayload,
-  });
+  }).then(getResponseData);
 };

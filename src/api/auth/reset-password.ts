@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 
 interface ResetPasswordPayload {
   password: string;
@@ -13,5 +13,5 @@ export const resetPassword = (
     method: 'POST',
     isProtected: ProtectedEndpoint.False,
     payload: resetPasswordPayload,
-  });
+  }).then(getResponseData);
 };

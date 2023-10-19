@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 import { Package } from '@/models/package';
 import { PackageAccessValue } from '@/models/package-access-value';
 
@@ -20,5 +20,5 @@ export const changePackageAccess = (
     method: 'PATCH',
     isProtected: ProtectedEndpoint.True,
     data: payload,
-  });
+  }).then(getResponseData);
 };

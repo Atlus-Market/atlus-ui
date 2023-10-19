@@ -1,6 +1,6 @@
 'use client';
 
-import { CountryCode } from '@/api/country-codes/country-code';
+import { CountryCode } from '@/models/country-code';
 import { Icon } from '@/components/ui/icon/icon';
 import { worldWide } from '@/app/onboarding/buyer/jurisdictions-of-interest/components/default-country-codes';
 import { HiGlobeAlt } from 'react-icons/hi2';

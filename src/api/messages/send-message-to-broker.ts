@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 
 export interface SendMessageRequestPayload {
   recipientId: string;
@@ -14,5 +14,5 @@ export const sendMessageToBroker = async (
     method: 'POST',
     isProtected: ProtectedEndpoint.True,
     data: messageRequestPayload,
-  });
+  }).then(getResponseData);
 };

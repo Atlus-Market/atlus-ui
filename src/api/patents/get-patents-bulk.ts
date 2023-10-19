@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 import { Patent } from '@/models/patent';
 
 export interface GetPatentsBulkPayload {
@@ -18,5 +18,5 @@ export const getPatentsBulk = async (
     method: 'POST',
     isProtected: ProtectedEndpoint.True,
     payload: getPatentsPayload,
-  });
+  }).then(getResponseData);
 };

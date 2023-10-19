@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 
 export interface UpdateFileRequestPayload {
   private: boolean;
@@ -14,5 +14,5 @@ export const updateFile = (
     method: 'PUT',
     isProtected: ProtectedEndpoint.True,
     data: updateFileRequestPayload,
-  });
+  }).then(getResponseData);
 };

@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 import { SearchPatentsResponse } from '@/api/patents/search-patents-response';
 
 export interface GetPatentsSimplePayload {
@@ -17,5 +17,5 @@ export const getPatentsSimpleBulk = async (
     isProtected: ProtectedEndpoint.True,
     payload: getPatentsPayload,
     signal,
-  });
+  }).then(getResponseData);
 };

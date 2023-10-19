@@ -1,4 +1,4 @@
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 import { SearchPatentsResponse } from '@/api/patents/search-patents-response';
 
 interface UploadPatentsFilePayload {
@@ -25,5 +25,5 @@ export const uploadPatentsFile = (
     payload: formData,
     headers,
     signal: abortSignal,
-  });
+  }).then(getResponseData);
 };

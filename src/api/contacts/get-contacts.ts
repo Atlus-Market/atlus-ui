@@ -1,5 +1,5 @@
 import { Contact } from '@/models/contact';
-import { createRequest, ProtectedEndpoint } from '@/api/api';
+import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 
 export interface GetContactsResponse {
   contacts: Contact[];
@@ -14,5 +14,5 @@ export const getContacts = async (
     method: 'GET',
     isProtected: ProtectedEndpoint.True,
     signal: signal || undefined,
-  });
+  }).then(getResponseData);
 };
