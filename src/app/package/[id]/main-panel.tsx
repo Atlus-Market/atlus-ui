@@ -16,8 +16,8 @@ import { SendMessage } from '@/app/package/[id]/components/send-message/send-mes
 
 interface MainPanelProps {
   atlusPackage: Package;
-  dataroom: Dataroom;
-  broker: User;
+  dataroom?: Dataroom;
+  broker?: User;
   userHasAccessToPackage: boolean;
 }
 
@@ -37,14 +37,14 @@ export const MainPanel = ({
         renderLimitedContent={renderLimitedContent}
       />
       <PackageDivider />
-      <PackageGeneralInfo atlusPackage={atlusPackage} dataroom={dataroom} />
+      {dataroom && <PackageGeneralInfo atlusPackage={atlusPackage} dataroom={dataroom} />}
       <PackageDivider />
       <PackageDescription description={atlusPackage.description} />
       <PackageDivider className="bg-transparent !mt-0" />
       <PackageIndustries atlusPackage={atlusPackage} />
       <PackageDivider className="bg-transparent !mt-0" />
       <PackageKeywords atlusPackage={atlusPackage} />
-      {!renderLimitedContent && (
+      {!renderLimitedContent && broker && dataroom && (
         <>
           <PackageDivider className="bg-transparent !mt-0" />
           <PackageSeller companyName={broker.companyName} />

@@ -4,7 +4,8 @@ import { getUserByIdOnServer } from '@/api/user/get-user-by-id-on-server';
 import { PackageRightPanel } from '@/app/package/[id]/components/right-panel/package-right-panel';
 import { MainPanel } from '@/app/package/[id]/main-panel';
 import { SharePackageModal } from '@/app/package/[id]/components/share-package-modal';
-import { NoPackageSession } from '@/app/package/[id]/components/limited-access/no-session/no-package-session';
+import { NoPackagePermission } from '@/app/package/[id]/components/limited-access/request-permission/no-package-permission';
+import { getAtlusServerSession } from '@/app/(auth)/session/get-atlus-server-session';
 
 interface PackagePageProps {
   params: {
@@ -13,28 +14,36 @@ interface PackagePageProps {
 }
 
 export default async function PackagePage({ params }: PackagePageProps) {
+  const serverSession = await getAtlusServerSession();
+  const hasValidSession = !!serverSession;
   const now = Date.now();
+
   console.log(`[${now}] Loading package id: `, params.id);
 
-  const getDataroomPromise = getDataroomByPackageIdOnServer(params.id).then(dataroom => {
-    console.log(`[${Date.now()}][${Date.now() - now}] Dataroom loaded!`);
-    return dataroom;
-  });
+  const getDataroomPromise = hasValidSession
+    ? getDataroomByPackageIdOnServer(params.id).then(dataroom => {
+        console.log(`[${Date.now()}][${Date.now() - now}] Dataroom loaded!`);
+        return dataroom;
+      })
+    : Promise.resolve(undefined);
+
   const getPackageResponse = await getPackageOnServer(params.id);
 
-  const atlusPackage = getPackageResponse.package;
+  const atlusPackage = getPackageResponse.data.package;
   console.log(`[${Date.now()}][${Date.now() - now}] Package loaded!`, atlusPackage.id);
 
-  const promises = await Promise.all([
-    getUserByIdOnServer(atlusPackage.brokerUserId).then(user => {
-      console.log(`[${Date.now()}][${Date.now() - now}] User loaded!`, user);
-      return user;
-    }),
-    getDataroomPromise,
-  ]);
+  const loadUserPromise = hasValidSession
+    ? getUserByIdOnServer(atlusPackage.brokerUserId).then(user => {
+        console.log(`[${Date.now()}][${Date.now() - now}] User loaded!`);
+        return user;
+      })
+    : Promise.resolve(undefined);
+
+  const promises = await Promise.all([loadUserPromise, getDataroomPromise]);
 
   const [broker, dataroom] = promises;
-  const renderLimitedContent = true;
+
+  const renderLimitedContent = !hasValidSession && true;
 
   return (
     <div data-prevent-scoll={renderLimitedContent}>
@@ -45,15 +54,18 @@ export default async function PackagePage({ params }: PackagePageProps) {
           broker={broker}
           userHasAccessToPackage={true}
         />
-        <PackageRightPanel
-          packageId={atlusPackage.id}
-          broker={broker}
-          renderLimitedContent={renderLimitedContent}
-        />
+        {/* TODO: Remove this check */}
+        {broker && (
+          <PackageRightPanel
+            packageId={atlusPackage.id}
+            broker={broker}
+            renderLimitedContent={renderLimitedContent}
+          />
+        )}
       </div>
       {!renderLimitedContent && <SharePackageModal packageId={atlusPackage.id} />}
-      {/*{renderLimitedContent && <NoPackagePermission />}*/}
-      {renderLimitedContent && <NoPackageSession />}
+      {renderLimitedContent && <NoPackagePermission />}
+      {/*{renderLimitedContent && <NoPackageSession />}*/}
     </div>
   );
 }

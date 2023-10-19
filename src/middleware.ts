@@ -6,11 +6,13 @@ export default async function middleware(req: NextRequest, event: NextFetchEvent
   const token = await getToken({ req });
   const isAuthenticated = !!token;
   const { pathname } = req.nextUrl;
-  const isFreePathname = isUnauthenticatedEndpoint(pathname);
+  const isUnauthenticatedPathname = isUnauthenticatedEndpoint(pathname);
+  const canRunOnAllCases = canEndpointRunOnAllCases(pathname);
 
-  if (isAuthenticated && isFreePathname) {
+  if (isAuthenticated && isUnauthenticatedPathname && !canRunOnAllCases) {
+    // Do not redirect to "/" because the redirect is being done in next.config.js
     return NextResponse.redirect(new URL('/dashboard', req.url));
-  } else if (isFreePathname) {
+  } else if (isUnauthenticatedPathname || canRunOnAllCases) {
     // Continue loading the free endpoint
     return NextResponse.next();
   }
@@ -33,7 +35,15 @@ export default async function middleware(req: NextRequest, event: NextFetchEvent
   return authMiddleware;
 }
 
-const isUnauthenticatedEndpoint = (pathname: string) => {
+/**
+ * Validates if an endpoint can run with or without session
+ * @param pathname
+ */
+const canEndpointRunOnAllCases = (pathname: string): boolean => {
+  return new RegExp(/(package\/*).*/).test(pathname);
+};
+
+const isUnauthenticatedEndpoint = (pathname: string): boolean => {
   return new RegExp(
     /(login|forgot-password|onboarding|user\/confirm\/*|password\/reset\/*).*/
   ).test(pathname);

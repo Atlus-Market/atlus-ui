@@ -1,10 +1,10 @@
 import 'server-only';
 
-import { getServerSession, Session } from 'next-auth';
-import { authOptions } from '@/app/(auth)/auht-options';
+import { Session } from 'next-auth';
 import { AuthHeadersProvider, setAuthHeaders } from '@/api/api';
 import { cookies } from 'next/headers';
 import { accessTokenCookieName } from '@/constants/api';
+import { getAtlusServerSession } from '@/app/(auth)/session/get-atlus-server-session';
 
 const mapServerSessionToAuthHeadersProvider = (serverSession: Session): AuthHeadersProvider => {
   return {
@@ -16,7 +16,7 @@ const mapServerSessionToAuthHeadersProvider = (serverSession: Session): AuthHead
 export const getServerAuthHeaders = async (
   headers: Record<string, string> = {}
 ): Promise<Record<string, string>> => {
-  const serverSession = await getServerSession(authOptions);
+  const serverSession = await getAtlusServerSession();
 
   if (!serverSession) {
     throw new Error('No server session found.');
