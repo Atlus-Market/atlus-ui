@@ -4,7 +4,7 @@ import { getUserByIdOnServer } from '@/api/user/get-user-by-id-on-server';
 import { PackageRightPanel } from '@/app/package/[id]/components/right-panel/package-right-panel';
 import { MainPanel } from '@/app/package/[id]/main-panel';
 import { SharePackageModal } from '@/app/package/[id]/components/share-package-modal';
-import { NoPackagePermissionFooter } from '@/app/package/[id]/components/limited-access/request-permission/no-package-permission-footer';
+import { NoPackageSession } from '@/app/package/[id]/components/limited-access/no-session/no-package-session';
 
 interface PackagePageProps {
   params: {
@@ -52,7 +52,8 @@ export default async function PackagePage({ params }: PackagePageProps) {
         />
       </div>
       {!renderLimitedContent && <SharePackageModal packageId={atlusPackage.id} />}
-      {renderLimitedContent && <NoPackagePermissionFooter />}
+      {/*{renderLimitedContent && <NoPackagePermission />}*/}
+      {renderLimitedContent && <NoPackageSession />}
     </div>
   );
 }
