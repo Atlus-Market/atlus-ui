@@ -25,7 +25,7 @@ export const UserProfileModal = ({ user, isModalOpen, onCloseModal }: UserProfil
           ></AtlusModalHeader>
         }
       >
-        <AtlusModalBody className="md:w-[540px]">
+        <AtlusModalBody className="md:!w-[540px]">
           <UserProfileBody user={user} />
         </AtlusModalBody>
       </AtlusModalContainer>
