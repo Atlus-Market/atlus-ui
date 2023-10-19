@@ -37,7 +37,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
   const renderLimitedContent = true;
 
   return (
-    <div className="relative h-full" data-prevent-scoll={renderLimitedContent}>
+    <div data-prevent-scoll={renderLimitedContent}>
       <div className="grid grid-cols-[1fr] lg:grid-cols-[1fr_380px] gap-[80px] px-[18px] pb-[18px] lg:px-[80px]">
         <MainPanel
           atlusPackage={atlusPackage}
