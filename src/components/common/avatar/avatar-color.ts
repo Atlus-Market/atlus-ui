@@ -66,7 +66,6 @@ export class AvatarColorPicker {
     if (!avatarColor) {
       avatarColor = AvatarColorPicker.getRandomColor();
       AvatarColorPicker.colorsMap.set(char, avatarColor);
-      console.log(`Avatar config: ${char} - ${avatarColor}`);
     }
 
     return avatarColor;

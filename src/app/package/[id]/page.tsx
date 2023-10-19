@@ -13,28 +13,33 @@ interface PackagePageProps {
   };
 }
 
+const LOAD_PACKAGE = 'Load package';
+const LOAD_DATAROOM = 'Load dataroom';
+const LOAD_BROKER = 'Load broker';
+
 export default async function PackagePage({ params }: PackagePageProps) {
+  console.log(`--------------------- Rendering packageId ${params.id} ---------------------`);
   const serverSession = await getAtlusServerSession();
   const hasValidSession = !!serverSession;
-  const now = Date.now();
 
-  console.log(`[${now}] Loading package id: `, params.id);
-
+  console.time(LOAD_DATAROOM);
   const getDataroomPromise = hasValidSession
     ? getDataroomByPackageIdOnServer(params.id).then(dataroom => {
-        console.log(`[${Date.now()}][${Date.now() - now}] Dataroom loaded!`);
+        console.timeEnd(LOAD_DATAROOM);
         return dataroom;
       })
     : Promise.resolve(undefined);
 
+  console.time(LOAD_PACKAGE);
   const getPackageResponse = await getPackageOnServer(params.id);
-
   const atlusPackage = getPackageResponse.data.package;
-  console.log(`[${Date.now()}][${Date.now() - now}] Package loaded!`, atlusPackage.id);
+  console.timeEnd(LOAD_PACKAGE);
+  console.log(atlusPackage);
 
+  console.time(LOAD_BROKER);
   const loadUserPromise = hasValidSession
     ? getUserByIdOnServer(atlusPackage.brokerUserId).then(user => {
-        console.log(`[${Date.now()}][${Date.now() - now}] User loaded!`);
+        console.timeEnd(LOAD_BROKER);
         return user;
       })
     : Promise.resolve(undefined);
