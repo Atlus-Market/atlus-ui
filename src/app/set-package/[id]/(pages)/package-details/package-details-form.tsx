@@ -8,6 +8,7 @@ import { AtlusForm } from '@/components/ui/form/atlus-form';
 import { useAppSelector } from '@/redux/hooks';
 import { selectPackageDetailsFormValues } from '@/redux/features/set-package/selectors/package-details.selectors';
 import { ReactNode } from 'react';
+import { YesNoOptions } from '@/components/common/dropdown/yes-no-options';
 
 export interface IPackageDetailsForm {
   title: string;
@@ -19,6 +20,9 @@ export interface IPackageDetailsForm {
   openToLicensing: boolean;
   showPublicPricing: boolean;
   sellerUserId: string;
+  products: string[];
+  containsSep: boolean;
+  sepStandards: string[];
 }
 
 export const packageDetailsSchema: ObjectSchema<IPackageDetailsForm> = object({
@@ -31,6 +35,15 @@ export const packageDetailsSchema: ObjectSchema<IPackageDetailsForm> = object({
   openToLicensing: boolean().default(false).required(RequiredField),
   showPublicPricing: boolean().default(false).required(RequiredField),
   sellerUserId: string().default('').required(RequiredField),
+  products: array().min(1, 'Enter at least one product').required(RequiredField),
+  containsSep: boolean().required(RequiredField),
+  sepStandards: array()
+    .default([])
+    .when('containsSep', {
+      is: (value: string) => value === YesNoOptions.Yes, // alternatively: (val) => val == true
+      then: schema => schema.required(RequiredField),
+      otherwise: schema => schema.optional(),
+    }),
 });
 
 export interface PackageDetailsFormProps {

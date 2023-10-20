@@ -15,6 +15,7 @@ import { IPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-deta
 import { useMemo } from 'react';
 import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 import { InterestArea } from '@/models/interest-area';
+import { dropdownNoOption, yesNoOptions } from '@/components/common/dropdown/yes-no-options';
 
 interface PackageDetailsFormFieldsProps {
   interestArea: InterestArea[];
@@ -56,6 +57,23 @@ export const PackageDetailsFormFields = ({ interestArea }: PackageDetailsFormFie
           placeholder="Type and press Enter to add a keyword"
           type="text"
           name="keywords"
+        />
+
+        <AtlusFormInputWithTags
+          label="Products"
+          placeholder="Enter products that use this package (e.g. YouTube, Apple, iPhone, etc.)"
+          type="text"
+          name="products"
+        />
+
+        <AtlusFormDropdownList
+          label="Package contains SEPs"
+          placeholder="Package contains SEPs"
+          name="containsSep"
+          options={yesNoOptions}
+          defaultValue={dropdownNoOption.value}
+          showDropdownIndicator={true}
+          isSearchable={false}
         />
 
         <AtlusFormDropdownList

@@ -6,6 +6,7 @@ export interface Package {
   description: string;
   industryIds: number[];
   keywords: string;
+  products: string;
   visibility: number;
   priceUsd: number;
   openToLicensing: boolean;

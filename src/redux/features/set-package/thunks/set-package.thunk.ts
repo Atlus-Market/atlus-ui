@@ -83,5 +83,6 @@ const packageDetailsFormToPersistPackagePayload = (
     visibility: packageDetails.visibility === Visibility.Public ? 1 : 0,
     patents: patentsIds,
     customPatents: getCustomPatents(customPatents),
+    products: packageDetails.products.join(','),
   };
 };

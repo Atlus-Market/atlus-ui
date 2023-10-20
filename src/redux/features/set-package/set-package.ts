@@ -118,6 +118,7 @@ export const setPackage = createSlice({
           action.payload.visibility === 1
             ? dropdownPublicOption.value
             : dropdownPrivateOption.value,
+        products: (action.payload.products ?? '').split(',').filter(p => p.length > 0),
       };
     },
 

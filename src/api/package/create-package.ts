@@ -15,6 +15,7 @@ export interface CreatePackageRequestPayload {
   title: string;
   description: string;
   keywords: string; // comma separated words
+  products: string; // comma separated words
   industryIds: number[];
   visibility: 0 | 1; // true|false
   patents: string[]; // patents IDs
