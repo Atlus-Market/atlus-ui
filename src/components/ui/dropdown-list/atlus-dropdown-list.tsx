@@ -10,7 +10,7 @@ import Select, {
 } from 'react-select';
 import AsyncSelect from 'react-select/async';
 import clsx from 'clsx';
-import { ReactNode, Ref, useEffect, useMemo, useRef, useState } from 'react';
+import { ReactNode, Ref, useMemo, useRef, useState } from 'react';
 import { FieldErrors } from 'react-hook-form';
 import { generateID } from '@/utils/id';
 import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
@@ -120,16 +120,16 @@ export function AtlusDropdownList<T extends ValueOptionType>({
   innerRef,
 }: AtlusDropdownListProps<T>) {
   const refId = useRef<string>('');
-  const [hydrated, setHydrated] = useState(false);
+  // const [hydrated, setHydrated] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
   const memoDefaultValue = useMemo(() => {
     return getDropdownOptions(options, defaultValue);
   }, [defaultValue, options]);
 
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
+  // useEffect(() => {
+  //   setHydrated(true);
+  // }, []);
 
   const dynamicClassNames = useMemo(() => {
     return {
@@ -158,10 +158,10 @@ export function AtlusDropdownList<T extends ValueOptionType>({
     return getDropdownOptions(options, value);
   }, [options, value]);
 
-  if (!hydrated) {
-    // Returns null on first render, so the client and server match
-    return null;
-  }
+  // if (!hydrated) {
+  //   // Returns null on first render, so the client and server match
+  //   return null;
+  // }
 
   refId.current = refId.current || generateID();
 
