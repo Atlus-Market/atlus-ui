@@ -30,7 +30,7 @@ export const PackageDetailsTitle = () => {
     // @ts-ignore
     const thunkValue = dispatch(packageTitleValidator({ title, userId }));
     abortRef.current = { abort: thunkValue.abort };
-  }, [dispatch, title]);
+  }, [dispatch, title, userId]);
 
   const handleInvalidTitleError = useCallback(() => {
     if (!title || isValidatingTitle) {

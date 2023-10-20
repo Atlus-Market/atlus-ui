@@ -44,7 +44,7 @@ export const SetPatentForm = ({ initialValues, children, onSubmit }: SetPatentFo
       }
     }
     return customPatentPayload;
-  }, []);
+  }, [initialValues]);
 
   const formProps = useAtlusForm<CustomPatentPayload>({
     formOptions: {

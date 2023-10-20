@@ -50,7 +50,7 @@ export const SearchRecipientsInput = ({
         activeThunk.current = dispatch(searchRecipientAction(searchValue));
       }
     },
-    [dispatch, searchRecipientAction]
+    [dispatch, resetSearchAction, searchRecipientAction]
   );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

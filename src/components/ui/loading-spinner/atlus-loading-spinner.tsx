@@ -31,7 +31,7 @@ export const AtlusLoadingSpinner = ({
     ref.current.style.setProperty('--atlus-spinner-size', `${size}px`);
     ref.current.style.setProperty('--atlus-spinner-border-color', spinnerColor05);
     ref.current.style.setProperty('--atlus-spinner-border-top-color', spinnerTopColor1);
-  }, [size, hexColor]);
+  }, [size, hexColor, color]);
 
   return <div className={clsx('spinner', classNames)} ref={ref} />;
 };
