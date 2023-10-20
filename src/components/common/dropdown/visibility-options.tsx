@@ -3,21 +3,21 @@ import { DropdownLabelWithIcon } from '@/components/ui/dropdown-list/dropdown-la
 import { HiOutlineEye, HiOutlineLockClosed } from 'react-icons/hi2';
 
 export enum Visibility {
-  Public = 'public',
-  Private = 'private',
+  Public = 1,
+  Private = 0,
 }
 
-export const dropdownPrivateOption: Readonly<DropdownOption> = {
+export const dropdownPrivateOption: Readonly<DropdownOption<Visibility>> = {
   label: <DropdownLabelWithIcon label="Private" icon={<HiOutlineLockClosed size={16} />} />,
   value: Visibility.Private,
 };
 
-export const dropdownPublicOption: Readonly<DropdownOption> = {
+export const dropdownPublicOption: Readonly<DropdownOption<Visibility>> = {
   label: <DropdownLabelWithIcon label="Public" icon={<HiOutlineEye size={16} />} />,
   value: Visibility.Public,
 };
 
-export const visibilityOptions: Readonly<DropdownOption[]> = [
+export const visibilityOptions: Readonly<DropdownOption<Visibility>[]> = [
   dropdownPublicOption,
   dropdownPrivateOption,
 ];

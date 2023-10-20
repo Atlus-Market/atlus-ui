@@ -3,6 +3,7 @@ import { PackageAccessValue } from '@/models/package-access-value';
 import {
   AtlusDropdownList,
   DropdownOption,
+  ValueOptionType,
 } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 import clsx from 'clsx';
 import { useMemo } from 'react';
@@ -14,18 +15,18 @@ interface PackageAccessDropdownProps {
   isLoading: boolean;
 }
 
-const packageAccessDropdownOptions: DropdownOption[] = [
+const packageAccessDropdownOptions: DropdownOption<PackageAccessValue>[] = [
   {
     label: 'Full',
-    value: PackageAccessValue.FullAccess.toString(),
+    value: PackageAccessValue.FullAccess,
   },
   {
     label: 'Limited',
-    value: PackageAccessValue.LimitedAccess.toString(),
+    value: PackageAccessValue.LimitedAccess,
   },
   {
     label: 'Remove access',
-    value: PackageAccessValue.NoAccess.toString(),
+    value: PackageAccessValue.NoAccess,
   },
 ];
 
@@ -36,9 +37,7 @@ export const PackageAccessDropdown = ({
   isLoading,
 }: PackageAccessDropdownProps) => {
   const value = useMemo(() => {
-    return packageAccessDropdownOptions.find(
-      option => option.value === packageAccessValue.toString()
-    );
+    return packageAccessDropdownOptions.find(option => option.value === packageAccessValue);
   }, [packageAccessValue]);
 
   return (
@@ -46,8 +45,8 @@ export const PackageAccessDropdown = ({
       defaultValue={packageAccessValue?.toString()}
       options={packageAccessDropdownOptions}
       value={value}
-      onChange={(value: string | string[]) => {
-        onChangeAccessSelected(parseInt(value as string, 10));
+      onChange={(value: ValueOptionType | ValueOptionType[]) => {
+        onChangeAccessSelected(value as number);
       }}
       showDropdownIndicator={true}
       wrapperClassName={clsx('w-[170px]', className)}

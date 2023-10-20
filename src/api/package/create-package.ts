@@ -1,5 +1,6 @@
 import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 import { Package } from '@/models/package';
+import { Visibility } from '@/components/common/dropdown/visibility-options';
 
 export interface CustomPatentPayload {
   patentNumber: string;
@@ -17,7 +18,7 @@ export interface CreatePackageRequestPayload {
   keywords: string; // comma separated words
   products: string; // comma separated words
   industryIds: number[];
-  visibility: 0 | 1; // true|false
+  visibility: Visibility;
   patents: string[]; // patents IDs
   customPatents: CustomPatentPayload[];
 }

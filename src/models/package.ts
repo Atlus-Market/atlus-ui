@@ -1,5 +1,6 @@
 import { Patent } from '@/models/patent';
 import { PackageStatus } from '@/models/package-status';
+import { Visibility } from '@/components/common/dropdown/visibility-options';
 
 export interface Package {
   title: string;
@@ -7,7 +8,9 @@ export interface Package {
   industryIds: number[];
   keywords: string;
   products: string;
-  visibility: number;
+  containsSep: boolean;
+  sepStandards: string[];
+  visibility: Visibility;
   priceUsd: number;
   openToLicensing: boolean;
   showPublicPricing: boolean;

@@ -1,18 +1,16 @@
 import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 
-export enum YesNoOptions {
-  Yes = 'true',
-  No = 'false',
-}
-
-export const dropdownNoOption: Readonly<DropdownOption> = {
+export const dropdownNoOption: Readonly<DropdownOption<boolean>> = {
   label: 'No',
-  value: YesNoOptions.No,
+  value: false,
 };
 
-export const dropdownYesOption: Readonly<DropdownOption> = {
+export const dropdownYesOption: Readonly<DropdownOption<boolean>> = {
   label: 'Yes',
-  value: YesNoOptions.Yes,
+  value: true,
 };
 
-export const yesNoOptions: Readonly<DropdownOption[]> = [dropdownYesOption, dropdownNoOption];
+export const yesNoOptions: Readonly<DropdownOption<boolean>[]> = [
+  dropdownYesOption,
+  dropdownNoOption,
+];

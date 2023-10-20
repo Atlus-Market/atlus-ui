@@ -8,14 +8,14 @@ import { AtlusForm } from '@/components/ui/form/atlus-form';
 import { useAppSelector } from '@/redux/hooks';
 import { selectPackageDetailsFormValues } from '@/redux/features/set-package/selectors/package-details.selectors';
 import { ReactNode } from 'react';
-import { YesNoOptions } from '@/components/common/dropdown/yes-no-options';
+import { Visibility } from '@/components/common/dropdown/visibility-options';
 
 export interface IPackageDetailsForm {
   title: string;
   description: string;
   industryIds: string[];
   keywords: string[];
-  visibility: string;
+  visibility: Visibility;
   priceUsd: number;
   openToLicensing: boolean;
   showPublicPricing: boolean;
@@ -30,7 +30,7 @@ export const packageDetailsSchema: ObjectSchema<IPackageDetailsForm> = object({
   description: string().default('').trim().required(RequiredField),
   industryIds: array().min(1, 'Select at least one industry').required(RequiredField),
   keywords: array().min(1, 'Enter at least one keyword').required(RequiredField),
-  visibility: string().required(RequiredField),
+  visibility: number().required(RequiredField),
   priceUsd: number().min(0, 'Price must be greater than $0').default(0).required(RequiredField),
   openToLicensing: boolean().default(false).required(RequiredField),
   showPublicPricing: boolean().default(false).required(RequiredField),
@@ -40,7 +40,7 @@ export const packageDetailsSchema: ObjectSchema<IPackageDetailsForm> = object({
   sepStandards: array()
     .default([])
     .when('containsSep', {
-      is: (value: string) => value === YesNoOptions.Yes, // alternatively: (val) => val == true
+      is: true, // alternatively: (val) => val == true
       then: schema => schema.required(RequiredField),
       otherwise: schema => schema.optional(),
     }),

@@ -114,10 +114,6 @@ export const setPackage = createSlice({
         ...action.payload,
         industryIds: action.payload.industryIds.map(industryId => industryId.toString()),
         keywords: action.payload.keywords.split(','),
-        visibility:
-          action.payload.visibility === 1
-            ? dropdownPublicOption.value
-            : dropdownPrivateOption.value,
         products: (action.payload.products ?? '').split(',').filter(p => p.length > 0),
       };
     },

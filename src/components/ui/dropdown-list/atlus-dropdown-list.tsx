@@ -5,13 +5,12 @@ import Select, {
   components,
   GroupBase,
   MultiValue,
-  SelectInstance,
   SingleValue,
   ValueContainerProps,
 } from 'react-select';
 import AsyncSelect from 'react-select/async';
 import clsx from 'clsx';
-import { forwardRef, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import { ReactNode, Ref, useEffect, useMemo, useRef, useState } from 'react';
 import { FieldErrors } from 'react-hook-form';
 import { generateID } from '@/utils/id';
 import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
@@ -21,19 +20,22 @@ import { AtlusTag } from '@/components/ui/tag/atlus-tag';
 import { AtlusTagRemoveButton } from '@/components/ui/tag/atlus-tag-remove-button';
 import { getDropdownOptions } from '@/components/ui/dropdown-list/dropdown.utils';
 import { ErrorMessage } from '@hookform/error-message';
+import { isNullOrUndefined } from '@/utils/type-guard';
 
-export interface DropdownOption {
-  readonly value: string;
+export type ValueOptionType = string | number | boolean;
+
+export interface DropdownOption<T extends ValueOptionType> {
+  readonly value: T;
   readonly label: ReactNode;
   readonly data?: Record<string, unknown>;
-  options?: Omit<DropdownOption, 'options'>[];
+  options?: Omit<DropdownOption<T>, 'options'>[];
 }
 
-const classNames = {
+const getClassNames = <T extends ValueOptionType>() => ({
   container: () => 'rounded-lg',
 
   valueContainer: (
-    props: ValueContainerProps<DropdownOption, boolean, GroupBase<DropdownOption>>
+    props: ValueContainerProps<DropdownOption<T>, boolean, GroupBase<DropdownOption<T>>>
   ) => clsx('text-soft-black text-sm font-normal leading-[16px]', props.isMulti ? 'gap-2' : ''),
   placeholder: () => 'bg-white text-sm font-normal text-dark-grey leading-[16px]',
   input: () => 'text-xs font-medium text-soft-black leading-[16px]',
@@ -51,21 +53,21 @@ const classNames = {
       'hover:bg-lightest-grey'
     );
   },
-};
+});
 
-export interface AtlusDropdownListProps {
+export interface AtlusDropdownListProps<T extends ValueOptionType> {
   isAsync?: boolean;
   isLoading?: boolean;
   isSearchable?: boolean;
   isClearable?: boolean;
   placeholder?: string;
   isOpen?: boolean;
-  options: Readonly<DropdownOption[]>;
-  value?: DropdownOption;
-  defaultValue?: DropdownOption['value'];
+  options: Readonly<DropdownOption<T>[]>;
+  value?: T | DropdownOption<T>;
+  defaultValue?: DropdownOption<T>['value'];
   name?: string;
   errors?: FieldErrors;
-  onChange?: (value: string | string[]) => void;
+  onChange?: (value: T | T[]) => void;
   onBlur?: () => void;
   leftIcon?: ReactNode;
   label?: string;
@@ -79,47 +81,44 @@ export interface AtlusDropdownListProps {
   indicatorsExtraCmp?: ReactNode;
   clearIndicator?: ReactNode;
   noOptionsMessage?: ReactNode;
-  filterOption?: (x: FilterOptionOption<DropdownOption>, y: string) => boolean;
+  filterOption?: (options: FilterOptionOption<DropdownOption<T>>, value: string) => boolean;
 
   // Styles
   size?: 'big' | 'small';
   wrapperClassName?: string;
+
+  innerRef?: Ref<any> | null;
 }
 
-export const AtlusDropdownList = forwardRef<
-  SelectInstance<DropdownOption, true | false, GroupBase<DropdownOption>>,
-  AtlusDropdownListProps
->(function AtlusDropdownList(
-  {
-    isAsync,
-    isOpen,
-    placeholder,
-    options = [],
-    value,
-    defaultValue,
-    name,
-    onChange,
-    onBlur,
-    wrapperClassName,
-    leftIcon,
-    label,
-    bottomText,
-    groupHeadingHeader,
-    indicatorsExtraCmp,
-    clearIndicator,
-    showDropdownIndicator,
-    filterOption,
-    isLoading,
-    isSearchable,
-    isClearable,
-    noOptionsMessage,
-    isMulti = false,
-    errors,
-    size = 'big',
-    isDisabled,
-  },
-  ref
-) {
+export function AtlusDropdownList<T extends ValueOptionType>({
+  isAsync,
+  isOpen,
+  placeholder,
+  options = [],
+  value,
+  defaultValue,
+  name,
+  onChange,
+  onBlur,
+  wrapperClassName,
+  leftIcon,
+  label,
+  bottomText,
+  groupHeadingHeader,
+  indicatorsExtraCmp,
+  clearIndicator,
+  showDropdownIndicator,
+  filterOption,
+  isLoading,
+  isSearchable,
+  isClearable,
+  noOptionsMessage,
+  isMulti = false,
+  errors,
+  size = 'big',
+  isDisabled,
+  innerRef,
+}: AtlusDropdownListProps<T>) {
   const refId = useRef<string>('');
   const [hydrated, setHydrated] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
@@ -134,8 +133,8 @@ export const AtlusDropdownList = forwardRef<
 
   const dynamicClassNames = useMemo(() => {
     return {
-      ...classNames,
-      control: (props: ControlProps<DropdownOption, boolean, GroupBase<DropdownOption>>) => {
+      ...getClassNames<T>(),
+      control: (props: ControlProps<DropdownOption<T>, boolean, GroupBase<DropdownOption<T>>>) => {
         return clsx(
           'px-4 m-0',
           isMulti ? 'py-[7px]' : '',
@@ -145,7 +144,21 @@ export const AtlusDropdownList = forwardRef<
         );
       },
     };
-  }, [isFocused]);
+  }, [isFocused, isMulti, size]);
+
+  const valueOption = useMemo(() => {
+    if (isNullOrUndefined(value)) {
+      return undefined;
+    }
+
+    if (typeof value === 'object' && 'value' in value) {
+      return value;
+    }
+
+    return options.find(function (option) {
+      return option.value === value;
+    });
+  }, [options, value]);
 
   if (!hydrated) {
     // Returns null on first render, so the client and server match
@@ -157,15 +170,15 @@ export const AtlusDropdownList = forwardRef<
   const Comp = isAsync ? AsyncSelect : Select;
 
   return (
-    <div className={clsx(wrapperClassName)}>
+    <div className={wrapperClassName}>
       {label && <AtlusFormLabel label={label} />}
       <Comp
-        value={value}
+        value={valueOption}
         isLoading={isLoading}
         isSearchable={isSearchable}
         id={refId.current}
         instanceId={refId.current}
-        ref={ref}
+        ref={innerRef}
         name={name}
         menuIsOpen={isOpen}
         unstyled={true}
@@ -184,15 +197,17 @@ export const AtlusDropdownList = forwardRef<
         isClearable={isClearable}
         filterOption={filterOption}
         onChange={(
-          option: MultiValue<DropdownOption> | SingleValue<DropdownOption> | null,
-          actionMeta: ActionMeta<DropdownOption>
+          option: MultiValue<DropdownOption<T>> | SingleValue<DropdownOption<T>> | null,
+          actionMeta: ActionMeta<DropdownOption<T>>
         ) => {
           if (isMulti) {
-            const values = (option as MultiValue<DropdownOption>).map(o => o.value);
+            const values = (option as MultiValue<DropdownOption<T>>).map(o => o.value);
             onChange?.(values);
           } else {
-            const value = (option as SingleValue<DropdownOption>)?.value ?? '';
-            onChange?.(value);
+            const value = (option as SingleValue<DropdownOption<T>>)?.value;
+            if (!isNullOrUndefined(value)) {
+              onChange?.(value);
+            }
           }
         }}
         components={{
@@ -274,4 +289,4 @@ export const AtlusDropdownList = forwardRef<
       )}
     </div>
   );
-});
+}

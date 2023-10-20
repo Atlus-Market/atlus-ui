@@ -48,7 +48,7 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
     refetchOnWindowFocus: true,
   });
 
-  const contactOptions = useMemo<DropdownOption[]>(() => {
+  const contactOptions = useMemo<DropdownOption<string>[]>(() => {
     if (!contacts) {
       return [];
     }
@@ -77,18 +77,21 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
     ];
   }, [contacts]);
 
-  const customFilter = useCallback((option: FilterOptionOption<DropdownOption>, input: string) => {
-    if (input) {
-      const contact = option.data.data?.contact as Contact;
-      return (
-        contact &&
-        [contact.firstName, contact.lastName, contact.companyName].some(contactValue =>
-          new RegExp(input, 'ig').test(contactValue)
-        )
-      );
-    }
-    return true; // if not search, then all match
-  }, []);
+  const customFilter = useCallback(
+    (option: FilterOptionOption<DropdownOption<string>>, input: string) => {
+      if (input) {
+        const contact = option.data.data?.contact as Contact;
+        return (
+          contact &&
+          [contact.firstName, contact.lastName, contact.companyName].some(contactValue =>
+            new RegExp(input, 'ig').test(contactValue)
+          )
+        );
+      }
+      return true; // if not search, then all match
+    },
+    []
+  );
 
   useEffect(() => {
     dispatchRef.current.dispatch(setContacts({ contacts: data?.contacts ?? [] }));

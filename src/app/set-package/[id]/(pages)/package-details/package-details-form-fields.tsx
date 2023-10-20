@@ -24,7 +24,7 @@ interface PackageDetailsFormFieldsProps {
 export const PackageDetailsFormFields = ({ interestArea }: PackageDetailsFormFieldsProps) => {
   const { register, control } = useFormContext<IPackageDetailsForm>();
 
-  const interestAreasOptions = useMemo<DropdownOption[]>(() => {
+  const interestAreasOptions = useMemo<DropdownOption<string>[]>(() => {
     return interestArea.map(ia => ({
       value: ia.id.toString(),
       label: ia.name,

@@ -4,13 +4,12 @@ import {
   PatentTableData,
   TableData,
 } from '@/app/set-package/[id]/(pages)/patents/components/add-patents/select-patents/components/patents-table';
+import { isNullOrUndefined } from '@/utils/type-guard';
 
 export interface CheckBoxState {
   checked: boolean;
   indeterminate: boolean;
 }
-
-const isNullOrUndefined = (value: unknown): boolean => value === undefined || value === null;
 
 export const getUpdatedSelectedRowsState = <T>(
   row: Row<T>,
