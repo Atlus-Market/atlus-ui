@@ -13,7 +13,7 @@ import { Visibility } from '@/components/common/dropdown/visibility-options';
 export interface IPackageDetailsForm {
   title: string;
   description: string;
-  industryIds: string[];
+  industryIds: number[];
   keywords: string[];
   visibility: Visibility;
   priceUsd: number;

@@ -20,10 +20,6 @@ import {
 } from '@/redux/features/set-package/slices/documents';
 import { createSetPackageExtraReducers } from '@/redux/features/set-package/set-package-extra-reducers';
 import { getPatentId, mergeArrays } from '@/utils/patents';
-import {
-  dropdownPrivateOption,
-  dropdownPublicOption,
-} from '@/components/common/dropdown/visibility-options';
 import { cleanSerializedFile } from '@/utils/file';
 
 export interface SetPackageState {
@@ -112,7 +108,6 @@ export const setPackage = createSlice({
       state.patents = [...action.payload.patents, ...action.payload.customPatents];
       state.packageDetails.packageDetailsForm = {
         ...action.payload,
-        industryIds: action.payload.industryIds.map(industryId => industryId.toString()),
         keywords: action.payload.keywords.split(','),
         products: (action.payload.products ?? '').split(',').filter(p => p.length > 0),
       };

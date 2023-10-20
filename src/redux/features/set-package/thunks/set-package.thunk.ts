@@ -79,7 +79,6 @@ const packageDetailsFormToPersistPackagePayload = (
   return {
     ...packageDetails,
     keywords: packageDetails.keywords.join(','),
-    industryIds: packageDetails.industryIds.map(id => parseInt(id, 10)),
     patents: patentsIds,
     customPatents: getCustomPatents(customPatents),
     products: packageDetails.products.join(','),
