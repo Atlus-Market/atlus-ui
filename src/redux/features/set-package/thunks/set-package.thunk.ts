@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '@/redux/store';
-import { selectPackageDetailsFormValues } from '@/redux/features/set-package/selectors/package-details.selectors';
 import {
   createPackage,
   CreatePackageRequestPayload,
@@ -16,49 +15,48 @@ import { updatePackage } from '@/api/package/update-package';
 import { NO_FAMILY_GROUP_ID } from '@/app/set-package/[id]/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
 import { getPatentId, mapPatentToCustomPatentPayload } from '@/utils/patents';
 import { IPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
-import { Visibility } from '@/components/common/dropdown/visibility-options';
 
 export interface PersistPackageResult {
   package?: Package;
   createdPackage: boolean;
 }
 
-export const persistPackage = createAsyncThunk<PersistPackageResult, void, { state: RootState }>(
-  'setPackage/persist',
-  async (_, thunkAPI) => {
-    try {
-      const { getState } = thunkAPI;
-      const activePackage = selectPackage(getState());
-      const allPatents: Patent[] = selectPackagePatents(getState());
-      const packageDetails = selectPackageDetailsFormValues(getState());
-      console.log('packageDetails: ', packageDetails);
+export const persistPackage = createAsyncThunk<
+  PersistPackageResult,
+  IPackageDetailsForm,
+  { state: RootState }
+>('setPackage/persist', async (packageDetailsFormValues, thunkAPI) => {
+  try {
+    const { getState } = thunkAPI;
+    const activePackage = selectPackage(getState());
+    const allPatents: Patent[] = selectPackagePatents(getState());
+    console.log('(thunk) packageDetails: ', packageDetailsFormValues);
 
-      const payload: CreatePackageRequestPayload = packageDetailsFormToPersistPackagePayload(
-        packageDetails,
-        allPatents
-      );
+    const payload: CreatePackageRequestPayload = packageDetailsFormToPersistPackagePayload(
+      packageDetailsFormValues,
+      allPatents
+    );
 
-      if (activePackage) {
-        const res = await updatePackage(activePackage.id, payload);
-        console.log('UPDATE package Response: ', res);
-        return {
-          // No need to return the updated package since it's already loaded
-          createdPackage: false,
-        };
-      } else {
-        const res = await createPackage(payload);
-        console.log('CREATE package Response: ', res);
-        return {
-          createdPackage: true,
-          package: res.package,
-        };
-      }
-    } catch (e) {
-      console.error(e);
-      throw e;
+    if (activePackage) {
+      const res = await updatePackage(activePackage.id, payload);
+      console.log('UPDATE package Response: ', res);
+      return {
+        // No need to return the updated package since it's already loaded
+        createdPackage: false,
+      };
+    } else {
+      const res = await createPackage(payload);
+      console.log('CREATE package Response: ', res);
+      return {
+        createdPackage: true,
+        package: res.package,
+      };
     }
+  } catch (e) {
+    console.error(e);
+    throw e;
   }
-);
+});
 
 const getCustomPatents = (patents: Patent[]): CustomPatentPayload[] => {
   return patents.filter(p => p.familyId === NO_FAMILY_GROUP_ID).map(mapPatentToCustomPatentPayload);

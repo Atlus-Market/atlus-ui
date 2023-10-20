@@ -1,16 +1,8 @@
 'use client';
 
 import { AtlusButton } from '@/components/ui/button/atlus-button';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { persistPackage } from '@/redux/features/set-package/thunks/set-package.thunk';
+import { useAppSelector } from '@/redux/hooks';
 import { selectIsPersistingPackage } from '@/redux/features/set-package/selectors/set-package.selectors';
-import { showSuccessNotification } from '@/components/ui/notification/atlus-notification';
-import { setActivePackage } from '@/redux/features/set-package/set-package';
-import { AnyAction } from 'redux';
-import { RootState } from '@/redux/store';
-import { ThunkDispatch } from '@reduxjs/toolkit';
-import { Package } from '@/models/package';
-import { useRouter } from 'next/navigation';
 import { useFormContext } from 'react-hook-form';
 import { IPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
 import { selectPackageHasValidPatents } from '@/redux/features/set-package/selectors/package-validility.selectors';
@@ -18,11 +10,8 @@ import {
   selectIsValidatingTitle,
   selectIsValidTitle,
 } from '@/redux/features/set-package/selectors/package-details.selectors';
-import { SetPackageDocuments } from '@/constants/routes';
 
 export const SavePackageButton = () => {
-  const dispatch = useAppDispatch();
-  const router = useRouter();
   const {
     formState: { isValid, errors },
   } = useFormContext<IPackageDetailsForm>();
@@ -40,26 +29,7 @@ export const SavePackageButton = () => {
 
   return (
     <AtlusButton
-      onClick={async () => {
-        const res = await (dispatch as ThunkDispatch<RootState, void, AnyAction>)(persistPackage());
-
-        // @ts-ignore
-        if (res.error) {
-          return;
-        }
-
-        showSuccessNotification({ text: 'Package saved successfully!' });
-
-        // @ts-ignore
-        const hasCreatedPackage = res.payload.createdPackage as boolean;
-
-        if (hasCreatedPackage) {
-          // @ts-ignore
-          const packageRes = res.payload.package as Package;
-          dispatch(setActivePackage(packageRes));
-          router.push(SetPackageDocuments(packageRes.id));
-        }
-      }}
+      type="submit"
       isLoading={isPersistingPackage}
       disabled={!isFormValid || !packageHasValidPatents}
     >

@@ -9,6 +9,7 @@ import { useAppSelector } from '@/redux/hooks';
 import { selectPackageDetailsFormValues } from '@/redux/features/set-package/selectors/package-details.selectors';
 import { ReactNode } from 'react';
 import { Visibility } from '@/components/common/dropdown/visibility-options';
+import { useSubmitPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/use-submit-package-details-form';
 
 export interface IPackageDetailsForm {
   title: string;
@@ -67,9 +68,7 @@ export const PackageDetailsForm = ({ children }: PackageDetailsFormProps) => {
   } = formProps;
   console.log('Package Details form errors:', errors);
 
-  const onSubmit = (detailsForm: IPackageDetailsForm) => {
-    console.log('onSubmit: ', detailsForm);
-  };
+  const onSubmit = useSubmitPackageDetailsForm();
 
   return (
     <AtlusForm formProps={formProps} onSubmit={onSubmit}>

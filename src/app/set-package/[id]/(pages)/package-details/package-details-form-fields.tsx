@@ -47,6 +47,8 @@ export const PackageDetailsFormFields = ({
 
   useEffect(() => {
     if (!packageContainsSep) {
+      // Setting this to keep form.sepStandards = []
+      // When submitting, yup transform returns the correct value anyway.
       setValue('sepStandards', []);
     }
   }, [packageContainsSep, setValue]);
