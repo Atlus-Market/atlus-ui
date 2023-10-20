@@ -22,7 +22,7 @@ interface PackageDetailsFormFieldsProps {
 }
 
 export const PackageDetailsFormFields = ({ interestArea }: PackageDetailsFormFieldsProps) => {
-  const { register, control } = useFormContext<IPackageDetailsForm>();
+  const { register, control, setValue } = useFormContext<IPackageDetailsForm>();
 
   const interestAreasOptions = useMemo<DropdownOption<number>[]>(() => {
     return interestArea.map(ia => ({
@@ -116,7 +116,13 @@ export const PackageDetailsFormFields = ({ interestArea }: PackageDetailsFormFie
           control={control}
           name="sellerUserId"
           render={({ field: { name, onChange, value } }) => (
-            <ContactsSelector onSellerSelected={onChange} selectedSellerId={value} />
+            <ContactsSelector
+              onSellerSelected={(sellerId: string) => {
+                onChange(sellerId);
+                setValue('sellerUserId', sellerId);
+              }}
+              selectedSellerId={value}
+            />
           )}
         />
       </div>

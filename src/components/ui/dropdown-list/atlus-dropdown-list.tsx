@@ -155,9 +155,7 @@ export function AtlusDropdownList<T extends ValueOptionType>({
       return value;
     }
 
-    return options.find(function (option) {
-      return option.value === value;
-    });
+    return getDropdownOptions(options, value);
   }, [options, value]);
 
   if (!hydrated) {
@@ -206,10 +204,8 @@ export function AtlusDropdownList<T extends ValueOptionType>({
             onChange?.(values);
           } else {
             const value = (option as SingleValue<DropdownOption<T>>)?.value;
-            if (!isNullOrUndefined(value)) {
-              // @ts-ignore
-              onChange?.(value);
-            }
+            // @ts-ignore
+            onChange?.(value);
           }
         }}
         components={{

@@ -106,11 +106,6 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
     />
   );
 
-  const dropdownValue = useMemo(() => {
-    const options = contactOptions[0]?.options ?? [];
-    return options.find(option => option.value === selectedSellerId);
-  }, [selectedSellerId, contactOptions]);
-
   const onContactAddedOk = (contact: Contact) => {
     onSellerSelected(contact.id);
     dispatch(setContact({ contact }));
@@ -134,7 +129,7 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
         leftIcon={<HiSearch size={20} color="#A4A2A0" />}
         filterOption={customFilter}
         options={contactOptions}
-        value={dropdownValue}
+        value={selectedSellerId}
         indicatorsExtraCmp={
           !isFetching &&
           isSellerSelected && (
@@ -163,8 +158,8 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
         defaultValue={selectedSellerId}
         groupHeadingHeader={<div className="pt-[10px] pb-5">{addContactElement}</div>}
         noOptionsMessage={<div className="px-4 py-[10px]">{addContactElement}</div>}
-        onChange={(contactId: string) => {
-          onSellerSelected(contactId);
+        onChange={(contactId: string | undefined) => {
+          onSellerSelected(contactId ?? '');
           dispatch(setActiveContact({ contactId }));
         }}
         bottomText="Specify which seller you’re representing. This is for your records only and cannot be seen by others."
