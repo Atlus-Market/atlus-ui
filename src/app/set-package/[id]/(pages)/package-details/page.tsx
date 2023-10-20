@@ -15,7 +15,10 @@ export default async function PackageDetailsPage() {
     <>
       <AtlusTitle text="Package Details" className="!font-normal !text-2xl mb-6" />
       <PackageDetailsForm>
-        <PackageDetailsFormFields interestArea={interestAreasResponse.interestArea} />
+        <PackageDetailsFormFields
+          interestArea={interestAreasResponse.interestArea}
+          packageStandards={packageStandards.standards}
+        />
         <SetPackageFooter>
           <SavePackageButton />
         </SetPackageFooter>

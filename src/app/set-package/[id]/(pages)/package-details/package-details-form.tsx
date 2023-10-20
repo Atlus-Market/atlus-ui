@@ -40,9 +40,12 @@ export const packageDetailsSchema: ObjectSchema<IPackageDetailsForm> = object({
   sepStandards: array()
     .default([])
     .when('containsSep', {
-      is: true, // alternatively: (val) => val == true
-      then: schema => schema.required(RequiredField),
-      otherwise: schema => schema.optional(),
+      is: (val: boolean) => val, // alternatively: (val) => val == true
+      then: schema => schema.min(1).required(RequiredField),
+      otherwise: schema =>
+        schema.max(0).transform((value, originalValue, context) => {
+          return [];
+        }),
     }),
 });
 

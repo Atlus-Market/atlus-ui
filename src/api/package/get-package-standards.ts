@@ -1,11 +1,11 @@
-import { PackageStandards } from '@/models/package-standards';
+import { PackageStandard } from '@/models/package-standard';
 import { sleep } from '@/utils/sleep';
 
 interface GetPackageStandardsResponse {
-  standards: PackageStandards[];
+  standards: PackageStandard[];
 }
 
-const packageStandards: PackageStandards[] = [
+const packageStandards: PackageStandard[] = [
   '3G (UMTS)',
   '4G (LTE)',
   '5G',

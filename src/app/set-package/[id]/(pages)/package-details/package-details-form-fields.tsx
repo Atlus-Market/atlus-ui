@@ -12,17 +12,22 @@ import { AtlusFormCheckbox } from '@/components/ui/form/atlus-form-checkbox';
 import { Controller, useFormContext } from 'react-hook-form';
 import { ContactsSelector } from '@/app/set-package/[id]/(pages)/package-details/contacts/contacts-selector';
 import { IPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 import { InterestArea } from '@/models/interest-area';
 import { dropdownNoOption, yesNoOptions } from '@/components/common/dropdown/yes-no-options';
+import { PackageStandard } from '@/models/package-standard';
 
 interface PackageDetailsFormFieldsProps {
   interestArea: InterestArea[];
+  packageStandards: PackageStandard[];
 }
 
-export const PackageDetailsFormFields = ({ interestArea }: PackageDetailsFormFieldsProps) => {
-  const { register, control, setValue } = useFormContext<IPackageDetailsForm>();
+export const PackageDetailsFormFields = ({
+  interestArea,
+  packageStandards,
+}: PackageDetailsFormFieldsProps) => {
+  const { register, getValues, control, setValue, watch } = useFormContext<IPackageDetailsForm>();
 
   const interestAreasOptions = useMemo<DropdownOption<number>[]>(() => {
     return interestArea.map(ia => ({
@@ -30,6 +35,21 @@ export const PackageDetailsFormFields = ({ interestArea }: PackageDetailsFormFie
       label: ia.name,
     }));
   }, [interestArea]);
+
+  const packageStandardsOptions = useMemo<DropdownOption<number>[]>(() => {
+    return packageStandards.map(ia => ({
+      value: ia.id,
+      label: ia.name,
+    }));
+  }, [packageStandards]);
+
+  const packageContainsSep = watch('containsSep');
+
+  useEffect(() => {
+    if (!packageContainsSep) {
+      setValue('sepStandards', []);
+    }
+  }, [packageContainsSep, setValue]);
 
   return (
     <SetPackageDetailsInStore>
@@ -75,6 +95,18 @@ export const PackageDetailsFormFields = ({ interestArea }: PackageDetailsFormFie
           showDropdownIndicator={true}
           isSearchable={false}
         />
+
+        {packageContainsSep && (
+          <AtlusFormDropdownList
+            label="Standards"
+            placeholder="Choose one or many standards"
+            name="sepStandards"
+            options={packageStandardsOptions}
+            showDropdownIndicator={true}
+            isSearchable={false}
+            isMulti={true}
+          />
+        )}
 
         <AtlusFormDropdownList
           label="Visibility"
