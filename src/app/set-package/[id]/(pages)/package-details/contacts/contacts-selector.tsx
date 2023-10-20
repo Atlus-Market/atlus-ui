@@ -163,9 +163,9 @@ export const ContactsSelector = ({ onSellerSelected, selectedSellerId }: SellerS
         defaultValue={selectedSellerId}
         groupHeadingHeader={<div className="pt-[10px] pb-5">{addContactElement}</div>}
         noOptionsMessage={<div className="px-4 py-[10px]">{addContactElement}</div>}
-        onChange={contactId => {
-          onSellerSelected(contactId as string);
-          dispatch(setActiveContact({ contactId: contactId as string }));
+        onChange={(contactId: string) => {
+          onSellerSelected(contactId);
+          dispatch(setActiveContact({ contactId }));
         }}
         bottomText="Specify which seller you’re representing. This is for your records only and cannot be seen by others."
       />

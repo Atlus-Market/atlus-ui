@@ -2,6 +2,7 @@
 
 import { AtlusDropdownList } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 import {
+  Visibility,
   dropdownPrivateOption,
   dropdownPublicOption,
   visibilityOptions,
@@ -38,7 +39,7 @@ export const DocumentVisibility = ({
       isSearchable={false}
       size="small"
       value={value}
-      onChange={async valueEvent => {
+      onChange={async (valueEvent: Visibility) => {
         if (valueEvent === value.value) {
           return;
         }

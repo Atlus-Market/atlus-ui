@@ -67,7 +67,7 @@ export interface AtlusDropdownListProps<T extends ValueOptionType> {
   defaultValue?: DropdownOption<T>['value'];
   name?: string;
   errors?: FieldErrors;
-  onChange?: (value: T | T[]) => void;
+  onChange?: ((value: T) => void) | ((value: T[]) => void);
   onBlur?: () => void;
   leftIcon?: ReactNode;
   label?: string;
@@ -202,10 +202,12 @@ export function AtlusDropdownList<T extends ValueOptionType>({
         ) => {
           if (isMulti) {
             const values = (option as MultiValue<DropdownOption<T>>).map(o => o.value);
+            // @ts-ignore
             onChange?.(values);
           } else {
             const value = (option as SingleValue<DropdownOption<T>>)?.value;
             if (!isNullOrUndefined(value)) {
+              // @ts-ignore
               onChange?.(value);
             }
           }

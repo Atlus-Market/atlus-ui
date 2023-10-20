@@ -42,12 +42,10 @@ export const PackageAccessDropdown = ({
 
   return (
     <AtlusDropdownList
-      defaultValue={packageAccessValue?.toString()}
+      defaultValue={packageAccessValue}
       options={packageAccessDropdownOptions}
       value={value}
-      onChange={(value: ValueOptionType | ValueOptionType[]) => {
-        onChangeAccessSelected(value as number);
-      }}
+      onChange={onChangeAccessSelected}
       showDropdownIndicator={true}
       wrapperClassName={clsx('w-[170px]', className)}
       isLoading={isLoading}
