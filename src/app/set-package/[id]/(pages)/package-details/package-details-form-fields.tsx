@@ -17,6 +17,8 @@ import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-lis
 import { InterestArea } from '@/models/interest-area';
 import { dropdownNoOption, yesNoOptions } from '@/components/common/dropdown/yes-no-options';
 import { PackageStandard } from '@/models/package-standard';
+import { packageStatusOptions } from '@/components/common/dropdown/package-status-options';
+import { useGetPackageStatusActiveOption } from '@/app/set-package/[id]/(pages)/package-details/use-get-package-status-active-option';
 
 interface PackageDetailsFormFieldsProps {
   interestArea: InterestArea[];
@@ -28,6 +30,7 @@ export const PackageDetailsFormFields = ({
   packageStandards,
 }: PackageDetailsFormFieldsProps) => {
   const { register, getValues, control, setValue, watch } = useFormContext<IPackageDetailsForm>();
+  const packageStatusActiveOption = useGetPackageStatusActiveOption();
 
   const interestAreasOptions = useMemo<DropdownOption<number>[]>(() => {
     return interestArea.map(ia => ({
@@ -116,6 +119,16 @@ export const PackageDetailsFormFields = ({
           name="visibility"
           options={visibilityOptions}
           bottomText="Only people you share the package with can view it."
+          showDropdownIndicator={true}
+          isSearchable={false}
+        />
+
+        <AtlusFormDropdownList
+          label="Status"
+          placeholder="Status"
+          name="status"
+          options={packageStatusOptions}
+          bottomText={packageStatusActiveOption?.data?.description as string}
           showDropdownIndicator={true}
           isSearchable={false}
         />

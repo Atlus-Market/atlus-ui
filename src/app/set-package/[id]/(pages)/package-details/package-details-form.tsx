@@ -10,6 +10,7 @@ import { selectPackageDetailsFormValues } from '@/redux/features/set-package/sel
 import { ReactNode } from 'react';
 import { Visibility } from '@/components/common/dropdown/visibility-options';
 import { useSubmitPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/use-submit-package-details-form';
+import { PackageStatus } from '@/models/package-status';
 
 export interface IPackageDetailsForm {
   title: string;
@@ -24,6 +25,7 @@ export interface IPackageDetailsForm {
   products: string[];
   containsSep: boolean;
   sepStandards: string[];
+  status: PackageStatus;
 }
 
 export const packageDetailsSchema: ObjectSchema<IPackageDetailsForm> = object({
@@ -48,6 +50,7 @@ export const packageDetailsSchema: ObjectSchema<IPackageDetailsForm> = object({
           return [];
         }),
     }),
+  status: number().required(),
 });
 
 export interface PackageDetailsFormProps {

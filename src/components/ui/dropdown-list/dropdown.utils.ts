@@ -2,7 +2,7 @@ import { DropdownOption, ValueOptionType } from '@/components/ui/dropdown-list/a
 import { isArray } from 'lodash';
 import { isNullOrUndefined } from '@/utils/type-guard';
 
-export const searchDropdownOption = <T extends ValueOptionType>(
+const searchDropdownOption = <T extends ValueOptionType>(
   options: Readonly<DropdownOption<T>[]>,
   value: T
 ): DropdownOption<T> | undefined => {
