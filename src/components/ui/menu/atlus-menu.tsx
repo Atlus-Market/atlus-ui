@@ -1,5 +1,3 @@
-'use client';
-
 import { Menu, MenuProps } from '@szhsin/react-menu';
 import clsx from 'clsx';
 
