@@ -6,8 +6,8 @@ export interface Package {
   title: string;
   description: string;
   industryIds: number[];
-  keywords: string;
-  products: string;
+  keywords: string[];
+  products: string[];
   containsSep: boolean;
   sepStandards: string[];
   visibility: Visibility;

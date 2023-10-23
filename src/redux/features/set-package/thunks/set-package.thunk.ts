@@ -76,9 +76,7 @@ const packageDetailsFormToPersistPackagePayload = (
 
   return {
     ...packageDetails,
-    keywords: packageDetails.keywords.join(','),
     patents: patentsIds,
     customPatents: getCustomPatents(customPatents),
-    products: packageDetails.products.join(','),
   };
 };

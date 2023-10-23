@@ -106,11 +106,7 @@ export const setPackage = createSlice({
     setActivePackage: (state: SetPackageState, action: PayloadAction<Package>) => {
       state.package = action.payload;
       state.patents = [...action.payload.patents, ...action.payload.customPatents];
-      state.packageDetails.packageDetailsForm = {
-        ...action.payload,
-        keywords: action.payload.keywords.split(','),
-        products: (action.payload.products ?? '').split(',').filter(p => p.length > 0),
-      };
+      state.packageDetails.packageDetailsForm = action.payload;
     },
 
     ...addPatentesReducer,

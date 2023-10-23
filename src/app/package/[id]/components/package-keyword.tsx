@@ -11,7 +11,7 @@ export const PackageKeywords = ({ atlusPackage }: PackageKeywordsProps) => {
     <div>
       <PackageSubSectionTitle title="Keywords" />
       <div className="flex gap-2 flex-wrap">
-        {atlusPackage.keywords.split(',').map((keyword, index) => (
+        {atlusPackage.keywords.map((keyword, index) => (
           <AtlusTag key={`${index}-${keyword}`} text={keyword} />
         ))}
       </div>

@@ -15,8 +15,8 @@ export interface CreatePackageRequestPayload {
   sellerUserId: string;
   title: string;
   description: string;
-  keywords: string; // comma separated words
-  products: string; // comma separated words
+  keywords: string[];
+  products: string[];
   industryIds: number[];
   visibility: Visibility;
   patents: string[]; // patents IDs
