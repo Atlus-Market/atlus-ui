@@ -8,7 +8,6 @@ export enum PackageStatus {
 }
 
 export interface PackageStatusStyle {
-  // backgroundColor: string;
   tagColor: AtlusTagColor;
 }
 
