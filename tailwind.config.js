@@ -1,4 +1,5 @@
 const colors = require('./src/components/ui/theme/colors');
+const screens = require('./src/components/ui/theme/screens');
 
 /** @type {import("tailwindcss").Config} */
 module.exports = {
@@ -20,13 +21,7 @@ module.exports = {
     fontSize: {
       13: '13px',
     },
-    screens: {
-      sm: '360px',
-      md: '768px',
-      lg: '1024px',
-      xl: '1280px',
-      '2xl': '1536px',
-    },
+    screens,
   },
   plugins: [],
 };
