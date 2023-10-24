@@ -8,7 +8,7 @@ export type HtmlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
 export type AtlusButtonVariant = 'solid' | 'outline' | 'clear';
 export type AtlusButtonSize = '36' | '38' | '40' | '45' | '53';
-export type AtlusButtonColor = 'orange' | 'black' | 'grey';
+export type AtlusButtonColor = 'orange' | 'black' | 'dark-grey';
 
 export interface AtlusButtonProps extends HtmlButtonProps {
   variant?: AtlusButtonVariant;
@@ -26,19 +26,19 @@ export interface AtlusButtonProps extends HtmlButtonProps {
 
 export const AtlusButton = (props: AtlusButtonProps) => {
   const {
-    variant = 'solid',
-    children,
-    type = 'button',
+    variant,
+    size,
+    color,
     isLoading = false,
     disabled = false,
-    color,
     className,
-    size = '38',
+    children,
     ...restProps
   } = props;
+
+  const isLoadingState = !disabled && isLoading;
   return (
     <button
-      type={type}
       className={clsx(
         'font-geologica',
         'atlus-button',
@@ -47,9 +47,16 @@ export const AtlusButton = (props: AtlusButtonProps) => {
         `atlus-button-variant-${variant}-${color}`
       )}
       disabled={disabled}
+      data-loading={isLoadingState}
       {...restProps}
     >
-      {isLoading ? <AtlusLoadingSpinner size="1em" /> : children}
+      {isLoadingState ? (
+        <div className="flex justify-center items-center">
+          <AtlusLoadingSpinner size="1em" />
+        </div>
+      ) : (
+        children
+      )}
     </button>
   );
 };

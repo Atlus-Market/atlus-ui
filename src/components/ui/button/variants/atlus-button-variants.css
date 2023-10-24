@@ -6,6 +6,10 @@
     @apply border rounded-32 border-middle-grey bg-middle-grey text-white cursor-not-allowed;
 }
 
+.atlus-button[data-loading] {
+    @apply pointer-events-none
+}
+
 /* Solid */
 .atlus-button-variant-solid {
     @apply border rounded-32;
