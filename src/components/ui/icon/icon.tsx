@@ -21,19 +21,19 @@ const iconContainerSize: Readonly<Record<IconSize, string>> = {
 
 const DefaultIconName = 'default_icon.svg';
 
+const iconMap = new Map<string, StaticImageData>();
+
 export const Icon = ({ name, size = 20, color = 'orange' }: IconProps) => {
   const [iconName, setIconName] = useState<string>(name);
   const [imageData, setImageData] = useState<StaticImageData | null>(null);
 
-  useEffect(() => {
-    if (iconName === name || iconName === DefaultIconName) {
-      return;
-    }
+  if (!(iconName === name || iconName === DefaultIconName)) {
     setIconName(name);
-  }, [name, iconName]);
+  }
 
   useEffect((): (() => void) => {
     let mounted = true;
+    const iconUrl = `@/public/assets/icons/${iconName}`;
 
     const importIcon = async (): Promise<void> => {
       try {
@@ -43,6 +43,7 @@ export const Icon = ({ name, size = 20, color = 'orange' }: IconProps) => {
         // then don't update the state.
         if (mounted) {
           setImageData(icon);
+          iconMap.set(iconUrl, icon);
         }
       } catch (err) {
         console.error(`Error loading icon "${iconName}"`);
@@ -56,7 +57,12 @@ export const Icon = ({ name, size = 20, color = 'orange' }: IconProps) => {
       }
     };
 
-    importIcon();
+    const iconData = iconMap.get(iconUrl);
+    if (iconData) {
+      setImageData(iconData);
+    } else {
+      importIcon();
+    }
 
     return () => {
       mounted = false;
