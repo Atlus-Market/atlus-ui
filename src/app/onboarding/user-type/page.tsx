@@ -28,15 +28,15 @@ export default function UserTypePage() {
       <div className="flex justify-center">
         <span className="text-dark-grey text-xs font-normal leading-normal">
           By continuing, you agree to our{' '}
-          <AtlusLink href="https://ofinno.com" target="_blank">
+          <AtlusLink href="https://ofinno.com" target="_blank" classNames="!text-[11px]">
             Terms of Service
           </AtlusLink>
           ,{' '}
-          <AtlusLink href="https://ofinno.com" target="_blank">
+          <AtlusLink href="https://ofinno.com" target="_blank" classNames="!text-[11px]">
             Privacy Policy
           </AtlusLink>{' '}
           and{' '}
-          <AtlusLink href="https://ofinno.com" target="_blank">
+          <AtlusLink href="https://ofinno.com" target="_blank" classNames="!text-[11px]">
             Cookies Policy
           </AtlusLink>
           .
