@@ -42,7 +42,7 @@ export const ViewPackagePatentsModal = ({ packageId }: ViewPackagePatentsModalPr
               <div className="hidden md:flex items-center gap-5">
                 <AtlusButton
                   variant="outline"
-                  size="medium"
+                  sizeOld="medium"
                   onClick={exportPackage}
                   isLoading={isFetching}
                 >

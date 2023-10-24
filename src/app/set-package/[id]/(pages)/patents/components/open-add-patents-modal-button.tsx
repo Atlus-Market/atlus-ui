@@ -7,7 +7,7 @@ export const OpenAddPatentsModalButton = () => {
   const { showAddPatentsModal } = useShowAddPatentsModal();
 
   return (
-    <AtlusButton variant="solid" size="big" onClick={showAddPatentsModal}>
+    <AtlusButton variant="solid" sizeOld="big" onClick={showAddPatentsModal}>
       Add patents
     </AtlusButton>
   );

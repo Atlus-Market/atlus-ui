@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.atlus-button[disabled] {
+    @apply border rounded-32 border-middle-grey bg-middle-grey text-white cursor-not-allowed;
+}
+
+/* Solid */
+.atlus-button-variant-solid {
+    @apply border rounded-32;
+}
+
+.atlus-button-variant-solid-orange:not([disabled]) {
+    @apply bg-orange text-white border-orange;
+    @apply hover:bg-[#F15F4C];
+    @apply active:bg-[#DC422D];
+}
+
+/* Outline */
+.atlus-button-variant-outline {
+    @apply bg-white border rounded-32;
+}
+
+.atlus-button-variant-outline-orange:not([disabled]) {
+    @apply text-orange border-orange ;
+    @apply hover:bg-[#FFFCFA];
+    @apply active:bg-off-white;
+}
+
+.atlus-button-variant-outline-black:not([disabled]) {
+    @apply text-black border-black;
+    @apply hover:bg-[#FCFCFC];
+    @apply active:bg-[#F5F5F5];
+}
+
+/* Clear */
+.atlus-button-variant-clear:not([disabled]) {
+    @apply bg-transparent text-dark-grey border border-transparent;
+    @apply hover:bg-[#F5F5F5] hover:border hover:border-[#F5F5F5] hover:rounded-32;
+    @apply active:bg-[#EDEDED];
+}

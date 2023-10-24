@@ -6,7 +6,7 @@ import hexToRgba from 'hex-to-rgba';
 import clsx from 'clsx';
 
 interface AtlusLoadingSpinnerProps {
-  size?: number;
+  size?: number | string;
   hexColor?: string; // Must start with #
   classNames?: string;
   color?: 'orange';
@@ -25,10 +25,11 @@ export const AtlusLoadingSpinner = ({
       return;
     }
 
+    const spinnerSize = typeof size === 'number' ? `${size}px` : size;
     const spinnerColor = color === 'orange' ? '#ef503a' : hexColor || '#FFFFFF';
     const spinnerColor05 = hexToRgba(spinnerColor, 0.5);
     const spinnerTopColor1 = hexToRgba(spinnerColor, 1);
-    ref.current.style.setProperty('--atlus-spinner-size', `${size}px`);
+    ref.current.style.setProperty('--atlus-spinner-size', spinnerSize);
     ref.current.style.setProperty('--atlus-spinner-border-color', spinnerColor05);
     ref.current.style.setProperty('--atlus-spinner-border-top-color', spinnerTopColor1);
   }, [size, hexColor, color]);

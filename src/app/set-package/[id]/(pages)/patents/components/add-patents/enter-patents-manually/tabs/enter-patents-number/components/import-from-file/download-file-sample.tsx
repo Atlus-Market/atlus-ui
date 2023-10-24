@@ -21,7 +21,7 @@ export const DownloadFileSample = () => {
         </div>
       </div>
       <a href="/assets/sample/Atlus_Marketplace_Patent_Template.xlsx" download>
-        <AtlusButton variant="outline" size="small">
+        <AtlusButton variant="outline" sizeOld="small">
           Download
         </AtlusButton>
       </a>

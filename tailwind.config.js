@@ -13,15 +13,19 @@ module.exports = {
       height: {
         screen: ['100vh /* fallback for Opera, IE and etc. */', '100dvh'],
       },
+      fontSize: {
+        13: '13px',
+        15: '15px',
+      },
+      fontFamily: {
+        inter: ['var(--font-inter)'],
+        geologica: ['var(--font-geologica)'],
+      },
+      borderRadius: {
+        32: '32px',
+      },
     },
     colors: colors,
-    fontFamily: {
-      inter: ['var(--font-inter)'],
-      geologica: ['var(--font-geologica)'],
-    },
-    fontSize: {
-      13: '13px',
-    },
     screens,
   },
   plugins: [],
