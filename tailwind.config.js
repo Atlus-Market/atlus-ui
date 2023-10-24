@@ -16,7 +16,8 @@ module.exports = {
     },
     colors: colors,
     fontFamily: {
-      inter: ['Inter', 'sans-serif'],
+      inter: ['var(--font-inter)'],
+      geologica: ['var(--font-geologica)'],
     },
     fontSize: {
       13: '13px',

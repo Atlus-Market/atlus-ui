@@ -2,7 +2,6 @@ import { ButtonHTMLAttributes, ReactNode } from 'react';
 import clsx from 'clsx';
 import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loading-spinner';
 import { AtlusColor } from '@/components/ui/theme';
-import { geologica } from '@/components/ui/theme/fonts';
 
 export type HtmlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -15,7 +14,7 @@ export interface AtlusButtonProps extends HtmlButtonProps {
   color?: AtlusColor;
 }
 
-const baseButton = clsx('inline-flex justify-center items-center', geologica.className);
+const baseButton = 'inline-flex justify-center items-center font-geologica';
 
 const solidOrangeVariant = clsx(
   baseButton,

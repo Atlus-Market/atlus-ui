@@ -5,7 +5,8 @@ import { AtlusSessionProvider } from '@/app/(auth)/session/atlus-session-provide
 import { StoreProvider } from '@/redux/store-provider';
 import { LogRocketProvider } from '@/app/log-rocket-provider';
 import { AtlusNotificationProvider } from '@/components/ui/notification/atlus-notification-provider';
-import { inter } from '@/components/ui/theme/fonts';
+import { geologica, inter } from '@/components/ui/theme/fonts';
+import clsx from 'clsx';
 
 export const metadata = {
   title: 'Atlus',
@@ -14,8 +15,8 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className={clsx(inter.variable, geologica.variable)}>
+      <body className="font-inter">
         <StoreProvider>
           <AtlusNotificationProvider>
             <AtlusSessionProvider>
