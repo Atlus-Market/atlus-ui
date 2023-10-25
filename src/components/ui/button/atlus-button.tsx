@@ -3,6 +3,7 @@ import './variants/atlus-button-sizes.css';
 import './variants/atlus-button-variants.css';
 import clsx from 'clsx';
 import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loading-spinner';
+import { getSpinnerColor } from '@/components/ui/button/variants/atlus-button-spinner';
 
 export type HtmlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -27,12 +28,13 @@ export interface AtlusButtonProps extends HtmlButtonProps {
 export const AtlusButton = (props: AtlusButtonProps) => {
   const {
     variant,
-    size,
+    size = '45',
     color,
     isLoading = false,
     disabled = false,
     className,
     children,
+    sizeOld,
     ...restProps
   } = props;
 
@@ -52,7 +54,7 @@ export const AtlusButton = (props: AtlusButtonProps) => {
     >
       {isLoadingState ? (
         <div className="flex justify-center items-center">
-          <AtlusLoadingSpinner size="1em" />
+          <AtlusLoadingSpinner size="1.2em" color={getSpinnerColor(props)} />
         </div>
       ) : (
         children

@@ -6,7 +6,7 @@
     @apply border rounded-32 border-middle-grey bg-middle-grey text-white cursor-not-allowed;
 }
 
-.atlus-button[data-loading] {
+.atlus-button[data-loading="true"] {
     @apply pointer-events-none
 }
 

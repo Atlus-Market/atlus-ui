@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { AtlusButton } from './atlus-button';
+import { AtlusLoadingSpinner } from './atlus-loading-spinner';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: 'Atlus/Button',
-  component: AtlusButton,
+  title: 'Atlus/Spinner',
+  component: AtlusLoadingSpinner,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'centered',
@@ -15,19 +15,12 @@ const meta = {
   argTypes: {
     // backgroundColor: { control: 'color' },
   },
-} satisfies Meta<typeof AtlusButton>;
+} satisfies Meta<typeof AtlusLoadingSpinner>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Primary: Story = {
-  args: {
-    children: 'Button',
-    // primary: true,
-    // label: 'Button',
-    onClick: () => {
-      console.log('button clicked!');
-    },
-  },
+  args: {},
 };

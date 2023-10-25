@@ -1,38 +1,48 @@
 'use client';
 
-import './atlus-loading-spinner.css';
-import { useEffect, useRef } from 'react';
-import hexToRgba from 'hex-to-rgba';
-import clsx from 'clsx';
+import colors from '@/components/ui/theme/colors';
+import { Oval } from 'react-loader-spinner';
+
+export type AtlusSpinnerColor = 'orange' | 'white' | 'black' | 'dark-grey';
 
 interface AtlusLoadingSpinnerProps {
   size?: number | string;
-  hexColor?: string; // Must start with #
+  hexColor?: string; // Must start with # // TODO: delete
   classNames?: string;
-  color?: 'orange';
+  color?: AtlusSpinnerColor;
 }
+
+const spinnerColors: Record<
+  AtlusSpinnerColor,
+  {
+    primaryColor: string;
+    secondaryColor: string;
+  }
+> = {
+  orange: { primaryColor: colors.orange, secondaryColor: 'rgba(239,80,58,0.5)' },
+  white: { primaryColor: colors.white, secondaryColor: 'rgba(255,255,255,0.5)' },
+  black: { primaryColor: colors.black, secondaryColor: 'rgba(0,0,0,0.5)' },
+  'dark-grey': { primaryColor: colors['dark-grey'], secondaryColor: 'rgba(164,162,160,0.5)' },
+};
 
 export const AtlusLoadingSpinner = ({
   size = 22,
-  hexColor,
   classNames,
-  color,
+  color = 'orange',
 }: AtlusLoadingSpinnerProps) => {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const spinnerColor = spinnerColors[color];
 
-  useEffect(() => {
-    if (!ref.current) {
-      return;
-    }
-
-    const spinnerSize = typeof size === 'number' ? `${size}px` : size;
-    const spinnerColor = color === 'orange' ? '#ef503a' : hexColor || '#FFFFFF';
-    const spinnerColor05 = hexToRgba(spinnerColor, 0.5);
-    const spinnerTopColor1 = hexToRgba(spinnerColor, 1);
-    ref.current.style.setProperty('--atlus-spinner-size', spinnerSize);
-    ref.current.style.setProperty('--atlus-spinner-border-color', spinnerColor05);
-    ref.current.style.setProperty('--atlus-spinner-border-top-color', spinnerTopColor1);
-  }, [size, hexColor, color]);
-
-  return <div className={clsx('spinner', classNames)} ref={ref} />;
+  return (
+    <Oval
+      height={size}
+      width={size}
+      color={spinnerColor.primaryColor}
+      wrapperClass={classNames}
+      visible={true}
+      ariaLabel="loading"
+      secondaryColor={spinnerColor.secondaryColor}
+      strokeWidth={3.33}
+      strokeWidthSecondary={3.33}
+    />
+  );
 };

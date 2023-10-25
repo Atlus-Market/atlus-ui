@@ -52,6 +52,7 @@
     "react-highlight-words": "^0.20.0",
     "react-hook-form": "^7.47.0",
     "react-icons": "^4.11.0",
+    "react-loader-spinner": "^5.4.5",
     "react-medium-image-zoom": "^5.1.8",
     "react-modal": "^3.16.1",
     "react-number-format": "^5.3.1",

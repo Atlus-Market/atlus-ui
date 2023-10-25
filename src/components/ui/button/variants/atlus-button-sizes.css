@@ -4,22 +4,22 @@
 
 
 .atlus-button-size-36 {
-    @apply px-6 py-[9px] text-13 leading-4;
+    @apply px-6 py-[9px] text-13 leading-4 min-h-[36px];
 }
 
 .atlus-button-size-38 {
-    @apply px-6 py-[9px] text-sm leading-[18px];
+    @apply px-6 py-[9px] text-sm leading-[18px] min-h-[38px];
 }
 
 .atlus-button-size-40 {
-    @apply px-4 py-[9px] text-15 leading-5;
+    @apply px-4 py-[9px] text-15 leading-5 min-h-[40px];
 }
 
 .atlus-button-size-45 {
-    @apply px-8 py-3 text-15 leading-[19px];
+    @apply px-8 py-3 text-15 leading-[19px] min-h-[45px];
 }
 
 .atlus-button-size-53 {
-    @apply px-[60px] py-[14px] text-lg leading-[23px];
+    @apply px-[60px] py-[14px] text-lg leading-[23px] min-h-[53px];
 }
 
