@@ -28,11 +28,7 @@ export const SavePackageButton = () => {
   const isFormValid = !isValidatingTitle && isValidTitle && isValid;
 
   return (
-    <AtlusButton
-      type="submit"
-      isLoading={isPersistingPackage}
-      disabled={!isFormValid || !packageHasValidPatents}
-    >
+    <AtlusButton type="submit" isLoading={isPersistingPackage}>
       Save
     </AtlusButton>
   );

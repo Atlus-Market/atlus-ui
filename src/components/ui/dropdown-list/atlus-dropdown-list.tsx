@@ -2,7 +2,6 @@
 
 import Select, {
   ActionMeta,
-  components,
   GroupBase,
   MultiValue,
   SingleValue,
@@ -10,17 +9,15 @@ import Select, {
 } from 'react-select';
 import AsyncSelect from 'react-select/async';
 import clsx from 'clsx';
-import { ReactNode, Ref, useMemo, useRef, useState } from 'react';
+import { ReactNode, Ref, useId, useMemo } from 'react';
 import { FieldErrors } from 'react-hook-form';
-import { generateID } from '@/utils/id';
 import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
 import { FilterOptionOption } from 'react-select/dist/declarations/src/filters';
 import { ControlProps } from 'react-select/dist/declarations/src/components/Control';
-import { AtlusTag } from '@/components/ui/tag/atlus-tag';
-import { AtlusTagRemoveButton } from '@/components/ui/tag/atlus-tag-remove-button';
 import { getDropdownOptions } from '@/components/ui/dropdown-list/dropdown.utils';
 import { ErrorMessage } from '@hookform/error-message';
 import { isNullOrUndefined } from '@/utils/type-guard';
+import { controls } from '@/components/ui/dropdown-list/controls';
 
 export type ValueOptionType = string | number | boolean;
 
@@ -90,46 +87,35 @@ export interface AtlusDropdownListProps<T extends ValueOptionType> {
   innerRef?: Ref<any> | null;
 }
 
-export function AtlusDropdownList<T extends ValueOptionType>({
-  isAsync,
-  isOpen,
-  placeholder,
-  options = [],
-  value,
-  defaultValue,
-  name,
-  onChange,
-  onBlur,
-  wrapperClassName,
-  leftIcon,
-  label,
-  bottomText,
-  groupHeadingHeader,
-  indicatorsExtraCmp,
-  clearIndicator,
-  showDropdownIndicator,
-  filterOption,
-  isLoading,
-  isSearchable,
-  isClearable,
-  noOptionsMessage,
-  isMulti = false,
-  errors,
-  size = 'big',
-  isDisabled,
-  innerRef,
-}: AtlusDropdownListProps<T>) {
-  const refId = useRef<string>('');
-  // const [hydrated, setHydrated] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
+export function AtlusDropdownList<T extends ValueOptionType>(props: AtlusDropdownListProps<T>) {
+  const {
+    isAsync,
+    isOpen,
+    placeholder,
+    options = [],
+    value,
+    defaultValue,
+    name,
+    onChange,
+    onBlur,
+    wrapperClassName,
+    label,
+    bottomText,
+    filterOption,
+    isLoading,
+    isSearchable,
+    isClearable,
+    isMulti = false,
+    errors,
+    size = 'big',
+    isDisabled,
+    innerRef,
+  } = props;
+  const id = useId();
 
   const memoDefaultValue = useMemo(() => {
     return getDropdownOptions(options, defaultValue);
   }, [defaultValue, options]);
-
-  // useEffect(() => {
-  //   setHydrated(true);
-  // }, []);
 
   const dynamicClassNames = useMemo(() => {
     return {
@@ -140,11 +126,11 @@ export function AtlusDropdownList<T extends ValueOptionType>({
           isMulti ? 'py-[7px]' : '',
           size === 'big' ? '!min-h-[53px]' : '!min-h-[48px]',
           'rounded-lg border border-solid',
-          isFocused ? 'border-orange' : 'border-light-grey'
+          props.isFocused ? 'border-orange' : 'border-light-grey'
         );
       },
     };
-  }, [isFocused, isMulti, size]);
+  }, [isMulti, size]);
 
   const valueOption = useMemo(() => {
     if (isNullOrUndefined(value)) {
@@ -158,24 +144,18 @@ export function AtlusDropdownList<T extends ValueOptionType>({
     return getDropdownOptions(options, value);
   }, [options, value]);
 
-  // if (!hydrated) {
-  //   // Returns null on first render, so the client and server match
-  //   return null;
-  // }
-
-  refId.current = refId.current || generateID();
-
   const Comp = isAsync ? AsyncSelect : Select;
 
   return (
     <div className={wrapperClassName}>
       {label && <AtlusFormLabel label={label} />}
       <Comp
+        atlusDropdownProps={props}
         value={valueOption}
         isLoading={isLoading}
         isSearchable={isSearchable}
-        id={refId.current}
-        instanceId={refId.current}
+        id={id}
+        instanceId={id}
         ref={innerRef}
         name={name}
         menuIsOpen={isOpen}
@@ -186,12 +166,7 @@ export function AtlusDropdownList<T extends ValueOptionType>({
         isDisabled={isDisabled}
         placeholder={placeholder}
         classNames={dynamicClassNames}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => {
-          setIsFocused(false);
-          onBlur?.();
-        }}
-        onMenuClose={() => setIsFocused(false)} // onBlur is not called when selecting an option
+        onBlur={onBlur}
         isClearable={isClearable}
         filterOption={filterOption}
         onChange={(
@@ -208,68 +183,7 @@ export function AtlusDropdownList<T extends ValueOptionType>({
             onChange?.(value);
           }
         }}
-        components={{
-          Control: ({ children, ...rest }) => (
-            <components.Control {...rest}>
-              {leftIcon && <div className="inline-block mr-3">{leftIcon}</div>}
-              {children}
-            </components.Control>
-          ),
-          GroupHeading: ({ children, ...rest }) => (
-            <components.GroupHeading {...rest}>
-              {groupHeadingHeader}
-              {children}
-            </components.GroupHeading>
-          ),
-          IndicatorsContainer: ({ children, ...rest }) => {
-            // Renders CleanIndicator & DropdownIndicator
-            return (
-              <components.IndicatorsContainer {...rest}>
-                {indicatorsExtraCmp}
-                {children}
-              </components.IndicatorsContainer>
-            );
-          },
-          DropdownIndicator: ({ children, ...rest }) => {
-            return (
-              <components.DropdownIndicator {...rest}>
-                {showDropdownIndicator ? children : <div />}
-              </components.DropdownIndicator>
-            );
-          },
-          ClearIndicator: ({ children, ...rest }) => {
-            if (isMulti) {
-              return null;
-            }
-            return (
-              <components.ClearIndicator {...rest}>
-                {clearIndicator ? clearIndicator : children}
-              </components.ClearIndicator>
-            );
-          },
-          NoOptionsMessage: ({ children, ...rest }) => {
-            return (
-              <components.NoOptionsMessage {...rest}>
-                {noOptionsMessage ? noOptionsMessage : children}
-              </components.NoOptionsMessage>
-            );
-          },
-          IndicatorSeparator: () => null,
-          MultiValue: ({ children, ...rest }) => {
-            return (
-              <components.MultiValue {...rest}>
-                <AtlusTag text={children as string} className="!pr-0 !rounded-r-[0]" />
-              </components.MultiValue>
-            );
-          },
-          MultiValueRemove: ({ children, ...rest }) => {
-            return (
-              <components.MultiValueRemove {...rest}>
-                <AtlusTagRemoveButton classNames="!rounded-l-[0] pr-[12px] h-full" />
-              </components.MultiValueRemove>
-            );
-          },
-        }}
+        components={controls}
       />
       {name && errors && errors[name] && (
         <div className="mt-[5px]">
