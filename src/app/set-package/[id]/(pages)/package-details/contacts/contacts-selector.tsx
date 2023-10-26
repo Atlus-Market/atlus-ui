@@ -47,9 +47,6 @@ export const ContactsSelector = () => {
   const selectedSellerId = useWatch({ name });
   const isSellerSelected = !!selectedSellerId;
 
-  console.log('activeContact: ', selectedContact);
-  console.log('selectedSellerId: ', selectedSellerId);
-
   useEffect(() => {
     dispatch(setContacts({ contacts: data?.contacts ?? [] }));
   }, [data, dispatch]);
