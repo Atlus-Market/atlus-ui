@@ -18,6 +18,7 @@ export const SharePackageSendMessageSendButton = () => {
     <AtlusButton
       type="submit"
       variant="solid"
+      color="orange"
       disabled={!isValid}
       isLoading={isSubmitting}
       onClick={() => dispatch(setActivePage(SharePackagePage.SendMessage))}

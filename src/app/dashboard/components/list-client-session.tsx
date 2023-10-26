@@ -5,7 +5,9 @@ export const ListClientSession = () => {
   return (
     <div className="absolute bottom-[50px]">
       <Link href="/logout">
-        <AtlusButton variant="outline">Logout</AtlusButton>
+        <AtlusButton variant="outline" color="black" id="logout">
+          Logout
+        </AtlusButton>
       </Link>
     </div>
   );

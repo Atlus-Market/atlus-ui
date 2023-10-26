@@ -47,7 +47,13 @@ export const SendMessageForm = ({ atlusPackage }: SendMessageFormProps) => {
         placeholder="Write a message..."
         {...formProps.register('message')}
       />
-      <AtlusButton variant="outline" type="submit" isLoading={isLoading}>
+      <AtlusButton
+        variant="outline"
+        color="black"
+        className="atlus-btn-45"
+        type="submit"
+        isLoading={isLoading}
+      >
         Send Message
       </AtlusButton>
     </AtlusForm>

@@ -26,7 +26,12 @@ export const Header = ({ familiesCount, patentsCount }: HeaderProps) => {
           </span>
         </div>
       </div>
-      <AtlusButton variant="outline" onClick={showAddPatentsModal} sizeOld="small">
+      <AtlusButton
+        variant="outline"
+        color="black"
+        className="atlus-btn-36"
+        onClick={showAddPatentsModal}
+      >
         Add patents
       </AtlusButton>
     </div>

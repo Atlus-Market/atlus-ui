@@ -1,8 +1,7 @@
 'use client';
 
 import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
-import { object, ObjectSchema, string } from 'yup';
-import { RequiredField } from '@/constants/form';
+import { object, ObjectSchema } from 'yup';
 import { useAtlusForm } from '@/components/ui/form/use-atlus-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AtlusForm } from '@/components/ui/form/atlus-form';
@@ -41,7 +40,13 @@ export const ForgotPasswordForm = ({ onSubmit, errorMessage, isLoading }: Forgot
       <AtlusErrorMessage errorMessage={errorMessage} />
 
       <div className="text-center">
-        <AtlusButton className="my-8 md:my-12" type="submit" isLoading={isLoading}>
+        <AtlusButton
+          className="my-8 md:my-12"
+          variant="solid"
+          color="orange"
+          type="submit"
+          isLoading={isLoading}
+        >
           Send reset link
         </AtlusButton>
 

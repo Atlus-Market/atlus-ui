@@ -5,7 +5,6 @@ import { selectPackagesList } from '@/redux/features/packages/selectors/packages
 import { AtlusTitle } from '@/components/ui/typography/atlus-title';
 import { PackagePageUrl } from '@/constants/routes';
 import { Fragment } from 'react';
-import { AtlusButton } from '@/components/ui/button/atlus-button';
 import Link from 'next/link';
 
 export const PackagesList = () => {
@@ -23,14 +22,10 @@ export const PackagesList = () => {
           return (
             <Fragment key={packageListItem.id}>
               <div className="pr-2">
-                <Link href={PackagePageUrl(packageListItem.id)}>
-                  <AtlusButton variant="clear">{packageListItem.title}</AtlusButton>
-                </Link>
+                <Link href={PackagePageUrl(packageListItem.id)}>{packageListItem.title}</Link>
               </div>
 
-              <Link href={`/set-package/${packageListItem.id}/patents`}>
-                <AtlusButton variant="clear">Edit</AtlusButton>
-              </Link>
+              <Link href={`/set-package/${packageListItem.id}/patents`}>Edit</Link>
             </Fragment>
           );
         })}

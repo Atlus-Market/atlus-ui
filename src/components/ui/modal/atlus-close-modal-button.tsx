@@ -13,8 +13,13 @@ interface CloseModalButtonProps {
 export const AtlusCloseModalButton = ({ onClick, icon }: CloseModalButtonProps) => {
   const Icon = icon ? icon : HiOutlineX;
   return (
-    <AtlusButton onClick={onClick} variant="clear">
-      <Icon className="text-[20px] md:text-[30px]" />
+    <AtlusButton
+      onClick={onClick}
+      variant="clear"
+      color="dark-grey"
+      className="atlus-btn-40 md:atlus-btn-45"
+    >
+      <Icon />
     </AtlusButton>
   );
 };

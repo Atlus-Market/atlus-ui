@@ -67,7 +67,13 @@ export const LoginForm = ({ onSubmit, errorMessage, isSubmitting }: LoginFormPro
       <AtlusErrorMessage errorMessage={errorMessage} />
 
       <div className="text-center">
-        <AtlusButton className="my-8 md:my-12" type="submit" isLoading={isSubmitting}>
+        <AtlusButton
+          className="my-8 md:my-12"
+          variant="solid"
+          color="orange"
+          type="submit"
+          isLoading={isSubmitting}
+        >
           Log in
         </AtlusButton>
 

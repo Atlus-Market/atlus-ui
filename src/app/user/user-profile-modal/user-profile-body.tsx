@@ -49,7 +49,9 @@ export const UserProfileBody = ({ user }: UserProfileBodyProps) => {
       </div>
 
       <div className="w-full text-center mt-6 md:mt-12 mb-[14px] md:mb-2">
-        <AtlusButton variant="outline">View Profile</AtlusButton>
+        <AtlusButton variant="outline" color="black">
+          View Profile
+        </AtlusButton>
       </div>
     </div>
   );

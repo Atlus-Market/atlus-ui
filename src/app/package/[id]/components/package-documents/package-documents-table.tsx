@@ -101,7 +101,11 @@ export const PackageDocumentsTable = ({ dataroom }: PackageDocumentsTableProps) 
                   '[&:active>*]:!bg-[var(--atlus-button-outline-active)]'
                 )}
               >
-                <AtlusButton variant="outline" className="pointer-events-none select-none">
+                <AtlusButton
+                  variant="outline"
+                  color="black"
+                  className="pointer-events-none select-none atlus-btn-45"
+                >
                   <span className="show-more">Show {diffCountToShow} more</span>
                   <span className="show-less">Show less</span>
                 </AtlusButton>

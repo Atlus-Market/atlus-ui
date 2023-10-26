@@ -39,11 +39,11 @@ export const AtlusAlertModal = ({
           <AtlusModalFooter>
             <div className="flex gap-8 justify-end items-center">
               {secondaryButton && (
-                <AtlusButton variant="clear" onClick={secondaryButton.onClick}>
+                <AtlusButton variant="clear" color="dark-grey" onClick={secondaryButton.onClick}>
                   {secondaryButton.text}
                 </AtlusButton>
               )}
-              <AtlusButton variant="solid" onClick={mainButton.onClick}>
+              <AtlusButton variant="solid" color="orange" onClick={mainButton.onClick}>
                 {mainButton.text}
               </AtlusButton>
             </div>

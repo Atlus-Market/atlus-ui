@@ -23,6 +23,7 @@ export const SharePackageFindRecipientsNextButton = () => {
     <AtlusButton
       disabled={recipients.length === 0}
       variant="solid"
+      color="orange"
       onClick={() => dispatch(setActivePage(SharePackagePage.SendMessage))}
     >
       Next

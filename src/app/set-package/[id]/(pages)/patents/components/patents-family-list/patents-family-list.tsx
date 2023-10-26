@@ -68,7 +68,9 @@ export const PatentsFamilyList = () => {
       />
       <SetPackageFooter>
         <Link href={setPackageUrls.packageDetails} className="block">
-          <AtlusButton variant="solid">Next</AtlusButton>
+          <AtlusButton variant="solid" color="orange">
+            Next
+          </AtlusButton>
         </Link>
       </SetPackageFooter>
     </div>

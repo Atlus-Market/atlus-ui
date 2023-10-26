@@ -12,10 +12,11 @@ export default async function DashboardPage() {
 
       <div className="my-6">
         <Link href={SetNewPackageUrl} className="text-orange underline">
-          <AtlusButton sizeOld="small">Create new package</AtlusButton>
+          <AtlusButton className="atlus-btn-38" variant="solid" color="orange">
+            Create new package
+          </AtlusButton>
         </Link>
       </div>
-      {/*<TestComponentsHelper />*/}
 
       <PackagesListProvider>
         <PackagesList />

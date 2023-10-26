@@ -20,6 +20,7 @@ import { setEditingPatent, showSetPatentModal } from '@/redux/features/set-packa
 import { selectEditedPatentsIds } from '@/redux/features/set-package/selectors/add-patents.selectors';
 import { EditingPatent } from '@/redux/features/set-package/slices/add-patents/slices/select-patents';
 import { getPatentId, getPatentReadableAssignees } from '@/utils/patents';
+import { HiPencil } from 'react-icons/hi2';
 
 interface UsePatentsColumnsProps {
   rowSelectionState: RowSelectionState;
@@ -113,7 +114,7 @@ export const usePatentsColumns = ({
                   <AtlusButton
                     variant="clear"
                     color="orange"
-                    className="text-xs mt-2 font-medium"
+                    className="text-xs mt-2 font-medium atlus-btn-36"
                     onClick={() =>
                       editPatent({
                         publicationNumber: getPatentId(row.original),
@@ -143,7 +144,8 @@ export const usePatentsColumns = ({
               <div>
                 <AtlusButton
                   variant="outline"
-                  sizeOld="small"
+                  color="black"
+                  className="atlus-btn-45"
                   onClick={() =>
                     editPatent({
                       publicationNumber: getPatentId(row.original),
@@ -151,6 +153,7 @@ export const usePatentsColumns = ({
                     })
                   }
                 >
+                  <HiPencil />
                   Add Details
                 </AtlusButton>
               </div>

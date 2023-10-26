@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { AtlusButton } from './atlus-button';
+import { HiShare } from 'react-icons/hi2';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -21,13 +22,43 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const Primary: Story = {
+export const Solid: Story = {
   args: {
     children: 'Button',
-    // primary: true,
-    // label: 'Button',
-    onClick: () => {
-      console.log('button clicked!');
-    },
+    variant: 'solid',
+    color: 'orange',
+  },
+};
+
+export const IconOnly: Story = {
+  args: {
+    children: <HiShare />,
+    variant: 'solid',
+    className: 'atlus-btn-53',
+  },
+};
+
+export const IconLeft: Story = {
+  args: {
+    children: (
+      <>
+        <HiShare /> Share
+      </>
+    ),
+    variant: 'solid',
+    className: 'atlus-btn-53',
+  },
+};
+
+export const IconRight: Story = {
+  args: {
+    children: (
+      <>
+        Share
+        <HiShare />
+      </>
+    ),
+    variant: 'solid',
+    className: 'atlus-btn-53',
   },
 };

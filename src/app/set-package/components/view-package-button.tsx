@@ -1,13 +1,12 @@
-'use client';
-
 import Link from 'next/link';
 import { PackagePageUrl } from '@/constants/routes';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
-import { useParams } from 'next/navigation';
 
-export const ViewPackageButton = () => {
-  const params = useParams();
-  const packageId = params.id as string;
+interface ViewPackageButtonProps {
+  packageId: string;
+}
+
+export const ViewPackageButton = ({ packageId }: ViewPackageButtonProps) => {
   return (
     <Link href={PackagePageUrl(packageId)}>
       <AtlusButton>View Package</AtlusButton>

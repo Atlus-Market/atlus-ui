@@ -1,7 +1,13 @@
 import { AtlusSpinnerColor } from '@/components/ui/loading-spinner/atlus-loading-spinner';
-import { AtlusButtonProps } from '@/components/ui/button/atlus-button';
+import { AtlusButtonColor, AtlusButtonVariant } from '@/components/ui/button/atlus-button';
 
-export const getSpinnerColor = ({ variant, color }: AtlusButtonProps): AtlusSpinnerColor => {
+export const getSpinnerColor = ({
+  variant,
+  color,
+}: {
+  variant: AtlusButtonVariant;
+  color: AtlusButtonColor;
+}): AtlusSpinnerColor => {
   if (variant === 'solid' && color === 'orange') {
     return 'white';
   }

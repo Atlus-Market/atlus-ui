@@ -8,7 +8,13 @@ import { SetPackageFooter } from '@/app/set-package/components/set-package-foote
 import { DocumentsPageValidator } from '@/app/set-package/[id]/(pages)/documents/documents-page-validator';
 import { ViewPackageButton } from '@/app/set-package/components/view-package-button';
 
-export default function DocumentsPage() {
+interface DocumentsPageProps {
+  params: {
+    id: string;
+  };
+}
+
+export default function DocumentsPage({ params }: DocumentsPageProps) {
   return (
     <DocumentsPageValidator>
       <AtlusTitle text="Documents" className="!font-normal !text-2xl mb-3" />
@@ -21,7 +27,7 @@ export default function DocumentsPage() {
         <DocumentsUploader />
         <DocumentsList />
         <SetPackageFooter>
-          <ViewPackageButton />
+          <ViewPackageButton packageId={params.id} />
         </SetPackageFooter>
       </DocumentsProvider>
     </DocumentsPageValidator>

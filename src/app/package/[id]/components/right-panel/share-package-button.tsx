@@ -8,8 +8,13 @@ export const SharePackageButton = () => {
   const { showSharePackageBroker } = useSharePackageBrokerVisibility();
 
   return (
-    <AtlusButton variant="clear" onClick={showSharePackageBroker}>
-      <HiShare className="mr-[10px] text-xl" />{' '}
+    <AtlusButton
+      variant="clear"
+      color="dark-grey"
+      className="atlus-btn-36 md:atlus-btn-40"
+      onClick={showSharePackageBroker}
+    >
+      <HiShare />
       <span className="hidden lg:inline-block">Share</span>
     </AtlusButton>
   );

@@ -27,7 +27,6 @@ export const RequestPackagePermission = () => {
         <AtlusButton
           variant="outline"
           color="orange"
-          id="1"
           isLoading={isLoading}
           onClick={requestPackageAccess}
         >

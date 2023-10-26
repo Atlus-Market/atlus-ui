@@ -1,6 +1,5 @@
 'use client';
 
-import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
 import { object, ObjectSchema, string } from 'yup';
 import { RequiredField } from '@/constants/form';
 import { useAtlusForm } from '@/components/ui/form/use-atlus-form';
@@ -49,7 +48,13 @@ export const ResetPasswordForm = ({
       <AtlusErrorMessage errorMessage={errorMessage} />
 
       <div className="text-center">
-        <AtlusButton className="my-8 md:my-12" type="submit" isLoading={isLoading}>
+        <AtlusButton
+          className="my-8 md:my-12"
+          variant="solid"
+          color="orange"
+          type="submit"
+          isLoading={isLoading}
+        >
           Reset password
         </AtlusButton>
       </div>

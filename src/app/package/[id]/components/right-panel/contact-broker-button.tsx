@@ -10,7 +10,12 @@ export const ContactBrokerButton = () => {
   }, []);
 
   return (
-    <AtlusButton variant="solid" className="mt-6 w-full" onClick={scrollToSendMessage}>
+    <AtlusButton
+      variant="solid"
+      color="orange"
+      className="mt-6 w-full atlus-btn-45"
+      onClick={scrollToSendMessage}
+    >
       Contact broker
     </AtlusButton>
   );

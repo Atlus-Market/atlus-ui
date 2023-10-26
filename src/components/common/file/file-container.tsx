@@ -30,8 +30,8 @@ export const FileContainer = ({
       <div className="flex items-center w-full gap-6 justify-end">
         {children}
         {showDeleteButton && (
-          <AtlusButton onClick={onCancelUpload} variant="clear">
-            <HiOutlineX size={20} className="text-middle-grey" />
+          <AtlusButton onClick={onCancelUpload} variant="clear" color="dark-grey">
+            <HiOutlineX />
           </AtlusButton>
         )}
       </div>

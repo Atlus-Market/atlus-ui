@@ -22,8 +22,8 @@ export const PackageRightPanel = ({
       {!renderLimitedContent && (
         <div className="hidden md:flex justify-end items-center gap-4 mb-4">
           <Link href={SetPackagePatent(packageId)}>
-            <AtlusButton variant="clear">
-              <HiPencil className="mr-[10px] text-xl" /> Edit
+            <AtlusButton variant="clear" color="dark-grey" className="atlus-btn-36 md:atlus-btn-40">
+              <HiPencil /> Edit
             </AtlusButton>
           </Link>
           <SharePackageButton />
