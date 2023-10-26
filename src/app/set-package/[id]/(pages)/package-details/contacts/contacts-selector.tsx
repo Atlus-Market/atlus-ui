@@ -28,11 +28,9 @@ import { contactsFilter } from '@/app/set-package/[id]/(pages)/package-details/c
 import { IPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
 import { useContactsOptions } from '@/app/set-package/[id]/(pages)/package-details/contacts/use-contacts-options';
 
-interface SellerSelectorProps {}
-
 const name = 'sellerUserId';
 
-export const ContactsSelector = ({}: SellerSelectorProps) => {
+export const ContactsSelector = () => {
   const [contactModalInitialValue, setContactModalInitialValue] = useState<Contact | undefined>();
   const { setValue } = useFormContext<IPackageDetailsForm>();
   const { isFetching, data } = useQuery({

@@ -38,7 +38,7 @@ export const packageDetailsSchema: ObjectSchema<IPackageDetailsForm> = object({
   openToLicensing: boolean().default(false).required(RequiredField),
   showPublicPricing: boolean().default(false).required(RequiredField),
   sellerUserId: string().required(RequiredField),
-  products: array().min(1, 'Enter at least one product').required(RequiredField),
+  products: array().default([]),
   containsSep: boolean().required(RequiredField),
   sepStandards: array()
     .default([])
