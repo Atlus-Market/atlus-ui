@@ -6,6 +6,7 @@ import {
   AtlusDropdownListProps,
   ValueOptionType,
 } from '@/components/ui/dropdown-list/atlus-dropdown-list';
+import clsx from 'clsx';
 
 type AtlusFormDropdownListProps<T extends ValueOptionType> = Omit<
   AtlusDropdownListProps<T>,
@@ -17,6 +18,7 @@ type AtlusFormDropdownListProps<T extends ValueOptionType> = Omit<
 export const AtlusFormDropdownList = <T extends ValueOptionType>({
   name = '',
   defaultValue,
+  wrapperClassName,
   ...rest
 }: AtlusFormDropdownListProps<T>) => {
   const { control, trigger } = useFormContext();
@@ -40,7 +42,7 @@ export const AtlusFormDropdownList = <T extends ValueOptionType>({
             {...rest}
             onChange={onChange}
             onBlur={() => trigger(name)}
-            wrapperClassName="mb-4 md:mb-6"
+            wrapperClassName={clsx('mb-4 md:mb-6', wrapperClassName)}
           />
         );
       }}

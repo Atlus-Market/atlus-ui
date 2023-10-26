@@ -50,7 +50,7 @@ export const packageDetailsSchema: ObjectSchema<IPackageDetailsForm> = object({
           return [];
         }),
     }),
-  status: number().required(),
+  status: number().required(RequiredField),
 });
 
 export interface PackageDetailsFormProps {

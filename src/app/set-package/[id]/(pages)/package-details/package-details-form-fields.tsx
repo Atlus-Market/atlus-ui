@@ -131,6 +131,7 @@ export const PackageDetailsFormFields = ({
           bottomText={packageStatusActiveOption?.data?.description as string}
           showDropdownIndicator={true}
           isSearchable={false}
+          wrapperClassName="!mb-0"
         />
       </div>
 
@@ -151,7 +152,7 @@ export const PackageDetailsFormFields = ({
 
         <AtlusFormCheckbox
           {...register('showPublicPricing')}
-          wrapperClassName="mb-4 md:mb-6"
+          wrapperClassName="mb-0"
           label="Show pricing details publicly."
         />
       </div>
