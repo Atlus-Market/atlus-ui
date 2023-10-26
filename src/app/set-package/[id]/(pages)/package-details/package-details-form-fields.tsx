@@ -9,7 +9,7 @@ import { visibilityOptions } from '@/components/common/dropdown/visibility-optio
 import { AtlusTitle } from '@/components/ui/typography/atlus-title';
 import { AtlusFormInputNumeric } from '@/components/ui/form/atlus-form-input-numeric';
 import { AtlusFormCheckbox } from '@/components/ui/form/atlus-form-checkbox';
-import { Controller, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { ContactsSelector } from '@/app/set-package/[id]/(pages)/package-details/contacts/contacts-selector';
 import { IPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
 import { useEffect, useMemo } from 'react';
@@ -159,19 +159,7 @@ export const PackageDetailsFormFields = ({
       <div>
         <AtlusTitle text="Seller information" className="!font-normal !text-2xl mb-6" />
         <div className="mb-6"></div>
-        <Controller
-          control={control}
-          name="sellerUserId"
-          render={({ field: { name, onChange, value } }) => (
-            <ContactsSelector
-              onSellerSelected={(sellerId: string) => {
-                onChange(sellerId);
-                setValue('sellerUserId', sellerId);
-              }}
-              selectedSellerId={value}
-            />
-          )}
-        />
+        <ContactsSelector />
       </div>
     </SetPackageDetailsInStore>
   );

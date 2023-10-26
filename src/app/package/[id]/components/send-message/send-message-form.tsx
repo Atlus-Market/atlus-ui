@@ -50,7 +50,7 @@ export const SendMessageForm = ({ atlusPackage }: SendMessageFormProps) => {
       <AtlusButton
         variant="outline"
         color="black"
-        className="atlus-btn-45"
+        className="atlus-btn-38 md:atlus-btn-45"
         type="submit"
         isLoading={isLoading}
       >

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { AtlusColor } from '@/components/ui/theme';
 import Image, { StaticImageData } from 'next/image';
 import clsx from 'clsx';
@@ -31,7 +31,7 @@ export const Icon = ({ name, size = 20, color = 'orange' }: IconProps) => {
     setIconName(name);
   }
 
-  useEffect((): (() => void) => {
+  useLayoutEffect((): (() => void) => {
     let mounted = true;
     const iconUrl = `@/public/assets/icons/${iconName}`;
 

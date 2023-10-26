@@ -37,7 +37,7 @@ export const packageDetailsSchema: ObjectSchema<IPackageDetailsForm> = object({
   priceUsd: number().min(0, 'Price must be greater than $0').default(0).required(RequiredField),
   openToLicensing: boolean().default(false).required(RequiredField),
   showPublicPricing: boolean().default(false).required(RequiredField),
-  sellerUserId: string().default('').required(RequiredField),
+  sellerUserId: string().required(RequiredField),
   products: array().min(1, 'Enter at least one product').required(RequiredField),
   containsSep: boolean().required(RequiredField),
   sepStandards: array()

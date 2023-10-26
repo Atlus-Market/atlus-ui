@@ -14,7 +14,7 @@ export const SeeAllPatentsButton = ({ familyPatents }: SeeAllPatentsButtonProps)
     <AtlusButton
       variant="outline"
       color="black"
-      className="mt-4 md:mt-6"
+      className="mt-4 md:mt-6 atlus-btn-38 md:atlus-btn-45"
       onClick={() => {
         setPatents(familyPatents);
       }}

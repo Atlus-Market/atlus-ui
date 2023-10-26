@@ -63,7 +63,7 @@ export const packageDetailsReducer = {
     state.packageDetails.setContact.contacts = contacts;
   },
   setContacts: (state: SetPackageState, action: PayloadAction<{ contacts: Contact[] }>) => {
-    state.packageDetails.setContact.contacts = [...action.payload.contacts];
+    state.packageDetails.setContact.contacts = action.payload.contacts;
   },
   setActiveContact: (
     state: SetPackageState,

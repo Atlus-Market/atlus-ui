@@ -104,7 +104,7 @@ export const PackageDocumentsTable = ({ dataroom }: PackageDocumentsTableProps) 
                 <AtlusButton
                   variant="outline"
                   color="black"
-                  className="pointer-events-none select-none atlus-btn-45"
+                  className="pointer-events-none select-none atlus-btn-38 md:atlus-btn-45"
                 >
                   <span className="show-more">Show {diffCountToShow} more</span>
                   <span className="show-less">Show less</span>
