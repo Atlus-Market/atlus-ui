@@ -37,7 +37,7 @@ export const EnterPatentsNextButton = () => {
     <AtlusButton
       variant="solid"
       color="orange"
-      disabled={!isActiveFormValid || isFetching}
+      disabled={!isActiveFormValid}
       isLoading={isFetching}
       onClick={onNext}
     >
