@@ -1,5 +1,5 @@
 import { AtlusInput, AtlusInputProps } from '@/components/ui/input/atlus-input';
-import { ForwardedRef, forwardRef, useEffect, useMemo, useRef, useState } from 'react';
+import { ForwardedRef, forwardRef, useMemo, useRef, useState } from 'react';
 import { isArray } from 'lodash';
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
 import { pascalCase } from 'pascal-case';
@@ -23,10 +23,6 @@ export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTag
       exact: true,
     });
 
-    useEffect(() => {
-      onTagsChange?.(tags);
-    }, [tags, name, onTagsChange]);
-
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
       if (event.key === 'Enter') {
         event.preventDefault();
@@ -36,7 +32,9 @@ export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTag
           if (inputRef.current) {
             inputRef.current.value = '';
           }
-          setTags([...tags, pascalCase(value)]);
+          const newTags = [...tags, pascalCase(value)];
+          onTagsChange?.(newTags);
+          setTags(newTags);
         }
       }
     };
@@ -49,13 +47,15 @@ export const AtlusInputWithTags = forwardRef<HTMLInputElement, AtlusInputWithTag
         <>
           {tags.map((tag, index) => {
             const onClose = () => {
-              setTags(tags.filter(t => t !== tag));
+              const filteredTags = tags.filter(t => t !== tag);
+              setTags(filteredTags);
+              onTagsChange?.(filteredTags);
             };
             return <AtlusTag key={`${index}-${tag}`} text={tag} onClose={onClose} size="small" />;
           })}
         </>
       );
-    }, [tags]);
+    }, [onTagsChange, tags]);
 
     return (
       <AtlusInput
