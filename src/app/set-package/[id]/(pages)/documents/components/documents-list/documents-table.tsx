@@ -61,7 +61,7 @@ export const DocumentsTable = ({ dataroom, onDocumentChanged }: DocumentsTablePr
                   onDocumentVisibilityChanged={() => onDocumentChanged?.(document.id)}
                 />
               </div>
-              <div className="grid-entry flex">
+              <div className="grid-entry flex items-center">
                 <RemoveDocumentButton dataroomId={dataroom.id} documentId={document.id} />
               </div>
             </Fragment>

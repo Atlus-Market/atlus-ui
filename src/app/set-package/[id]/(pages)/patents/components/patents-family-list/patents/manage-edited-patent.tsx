@@ -8,6 +8,7 @@ import { removePatent, showEditPatentModal } from '@/redux/features/set-package/
 import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
 import { useAtlusModal } from '@/components/ui/modal/use-atlus-modal';
 import { getPatentId } from '@/utils/patents';
+import { AtlusButton } from '@/components/ui/button/atlus-button';
 
 interface ManageEditedPatentProps {
   patent: PatentModel;
@@ -21,13 +22,19 @@ export const ManageEditedPatent = ({ patent }: ManageEditedPatentProps) => {
   return (
     <div className="flex items-start gap-2">
       {isCreatedManually && (
-        <button onClick={() => dispatch(showEditPatentModal({ patentId: getPatentId(patent) }))}>
-          <HiPencil className="text-middle-grey" />
-        </button>
+        <AtlusButton
+          onClick={() => dispatch(showEditPatentModal({ patentId: getPatentId(patent) }))}
+          iconOnlyIcon={<HiPencil />}
+          variant="icon-only"
+          color="grey"
+        />
       )}
-      <button onClick={showAlertModal}>
-        <HiTrash className="text-middle-grey" />
-      </button>
+      <AtlusButton
+        onClick={showAlertModal}
+        iconOnlyIcon={<HiTrash className="text-middle-grey" />}
+        variant="icon-only"
+        color="grey"
+      />
       <AtlusAlertModal
         isOpen={isShowingAlertModal}
         title="Remove patent?"

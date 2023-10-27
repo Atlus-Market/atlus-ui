@@ -33,19 +33,19 @@
         @apply !p-[2px] rounded-lg;
     }
 
-    .atlus-btn-18[data-icon-only="true"] {
+    .atlus-btn-22[data-icon-only="true"] {
         @apply text-[18px];
     }
 
-    .atlus-btn-20[data-icon-only="true"] {
+    .atlus-btn-24[data-icon-only="true"] {
         @apply text-xl;
     }
 
-    .atlus-btn-24[data-icon-only="true"] {
+    .atlus-btn-28[data-icon-only="true"] {
         @apply text-2xl;
     }
 
-    .atlus-btn-30[data-icon-only="true"] {
+    .atlus-btn-34[data-icon-only="true"] {
         @apply text-3xl;
     }
 

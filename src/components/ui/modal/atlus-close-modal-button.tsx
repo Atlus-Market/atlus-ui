@@ -15,11 +15,10 @@ export const AtlusCloseModalButton = ({ onClick, icon }: CloseModalButtonProps) 
   return (
     <AtlusButton
       onClick={onClick}
-      variant="clear"
-      color="dark-grey"
+      variant="icon-only"
+      color="grey"
       className="atlus-btn-40 md:atlus-btn-45"
-    >
-      <Icon />
-    </AtlusButton>
+      iconOnlyIcon={<Icon />}
+    />
   );
 };

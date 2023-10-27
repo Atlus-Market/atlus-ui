@@ -18,8 +18,8 @@ export const SharePackageFooter = ({ children }: SharePackageFooterProps) => {
   return (
     <div className="flex justify-between items-center w-full min-h-[28px]">
       <AtlusCopyToClipboard textToCopy={packageUrl} onCopiedText="Link copied!">
-        <AtlusButton variant="clear" color="dark-grey">
-          <HiLink /> Copy Link
+        <AtlusButton variant="clear" color="dark-grey" leftIcon={<HiLink />}>
+          Copy Link
         </AtlusButton>
       </AtlusCopyToClipboard>
       {children}

@@ -152,8 +152,8 @@ export const usePatentsColumns = ({
                       rowId: row.id,
                     })
                   }
+                  leftIcon={<HiPencil />}
                 >
-                  <HiPencil />
                   Add Details
                 </AtlusButton>
               </div>

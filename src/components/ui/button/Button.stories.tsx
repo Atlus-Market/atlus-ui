@@ -13,7 +13,7 @@ const atlusButtonClassesOptions = {
 const atlusButtonClassesIconOnlyOptions = {
   className: {
     control: { type: 'select' },
-    options: ['atlus-btn-18', 'atlus-btn-20', 'atlus-btn-24', 'atlus-btn-30'],
+    options: ['atlus-btn-22', 'atlus-btn-24', 'atlus-btn-28', 'atlus-btn-34'],
     if: { arg: 'variant', eq: 'icon-only' },
   },
 };
@@ -52,7 +52,7 @@ export const IconOnly: Story = {
   args: {
     iconOnlyIcon: <HiShare />,
     variant: 'icon-only',
-    className: 'atlus-btn-18',
+    className: 'atlus-btn-22',
   },
   argTypes: {
     ...atlusButtonClassesIconOnlyOptions,

@@ -53,15 +53,14 @@ export const RemoveDocumentButton = ({ dataroomId, documentId }: RemoveDocumentB
         }}
       />
       <AtlusButton
-        variant="clear"
-        color="dark-grey"
+        variant="icon-only"
+        color="grey"
         className="atlus-btn-40"
         onClick={showAlertModal}
         disabled={isLoading}
         isLoading={isLoading}
-      >
-        <HiOutlineX />
-      </AtlusButton>
+        iconOnlyIcon={<HiOutlineX />}
+      />
     </>
   );
 };

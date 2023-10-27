@@ -9,6 +9,7 @@ import { HiOutlineDotsVertical } from 'react-icons/hi';
 import { AtlusMenu } from '@/components/ui/menu/atlus-menu';
 import { AtlusMenuItem } from '@/components/ui/menu/atlus-menu-item';
 import { getPatentId } from '@/utils/patents';
+import { AtlusButton } from '@/components/ui/button/atlus-button';
 
 interface PatentProps {
   familyId: string;
@@ -44,9 +45,11 @@ export const PatentsFamily = ({ familyId, patents, onRemoveFamily }: PatentProps
 
           <AtlusMenu
             menuButton={
-              <button>
-                <HiOutlineDotsVertical className="text-dark-grey" />
-              </button>
+              <AtlusButton
+                iconOnlyIcon={<HiOutlineDotsVertical />}
+                variant="icon-only"
+                color="grey"
+              />
             }
             menuItems={
               <AtlusMenuItem text="Remove family" icon={HiTrash} onClick={onRemoveFamily} />

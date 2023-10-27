@@ -27,6 +27,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { contactsFilter } from '@/app/set-package/[id]/(pages)/package-details/contacts/contacts.utils';
 import { ExtendedPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
 import { useContactsOptions } from '@/app/set-package/[id]/(pages)/package-details/contacts/use-contacts-options';
+import { AtlusButton } from '@/components/ui/button/atlus-button';
 
 const name = 'sellerUserId';
 
@@ -67,17 +68,18 @@ export const ContactsSelector = () => {
   );
 
   const editContactElement = (
-    <button
-      className="mr-2"
+    <AtlusButton
+      variant="icon-only"
+      color="orange"
+      iconOnlyIcon={<HiPencil />}
+      className="atlus-btn-22 mr-2"
       onMouseDown={e => {
         e.preventDefault();
         e.stopPropagation();
         setContactModalInitialValue(selectedContact);
         dispatch(showSetContactModal());
       }}
-    >
-      <HiPencil size={18} color="var(--color-orange)" />
-    </button>
+    />
   );
 
   return (
@@ -106,9 +108,12 @@ export const ContactsSelector = () => {
         isClearable={isSellerSelected}
         clearIndicator={
           isSellerSelected && (
-            <button>
-              <HiX size={24} color="var(--color-orange)" />
-            </button>
+            <AtlusButton
+              variant="icon-only"
+              color="orange"
+              className="atlus-btn-24"
+              iconOnlyIcon={<HiX />}
+            />
           )
         }
         showDropdownIndicator={!isSellerSelected}

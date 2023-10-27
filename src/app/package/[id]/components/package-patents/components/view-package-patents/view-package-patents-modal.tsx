@@ -45,8 +45,8 @@ export const ViewPackagePatentsModal = ({ packageId }: ViewPackagePatentsModalPr
                   color="black"
                   onClick={exportPackage}
                   isLoading={isFetching}
+                  leftIcon={<HiDownload />}
                 >
-                  <HiDownload />
                   Download
                 </AtlusButton>
                 <AtlusCloseModalButton onClick={clear} />

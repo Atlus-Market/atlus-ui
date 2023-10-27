@@ -10,11 +10,11 @@ export const SharePackageButton = () => {
   return (
     <AtlusButton
       variant="clear"
-      color="dark-grey"
+      color="grey"
       className="atlus-btn-36 md:atlus-btn-40"
       onClick={showSharePackageBroker}
+      leftIcon={<HiShare />}
     >
-      <HiShare />
       <span className="hidden lg:inline-block">Share</span>
     </AtlusButton>
   );
