@@ -3,5 +3,5 @@ interface PackageTablePatentIdProps {
 }
 
 export const PackageTablePatentId = ({ patentId }: PackageTablePatentIdProps) => {
-  return <span className="text-13 md:text-[15px] text-dark-cyan">{patentId}</span>;
+  return <span className="text-13 md:text-15 text-dark-cyan">{patentId}</span>;
 };

@@ -9,5 +9,5 @@ interface PackageTableApplicationDateProps {
 export const PackageTableApplicationDate = ({ gmtDate }: PackageTableApplicationDateProps) => {
   const date = parseGMTDate(gmtDate);
   const title = date ? format(date, plainDateFormat) : '-';
-  return <span className="text-13 md:text-[15px] text-soft-black">{title}</span>;
+  return <span className="text-13 md:text-15 text-soft-black">{title}</span>;
 };

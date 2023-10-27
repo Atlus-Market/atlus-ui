@@ -8,7 +8,7 @@ interface AccessIconStatusProps {
   packageAccess: PackageAccess;
 }
 
-const iconSize = 'text-base md:text-[18px]';
+const iconSize = 'text-base md:text-18';
 
 export const AccessIconStatus = ({ className, packageAccess }: AccessIconStatusProps) => {
   const { clickedLink, openedEmail } = packageAccess;

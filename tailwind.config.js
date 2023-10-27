@@ -16,6 +16,7 @@ module.exports = {
       fontSize: {
         13: '13px',
         15: '15px',
+        18: '18px',
       },
       fontFamily: {
         inter: ['var(--font-inter)'],

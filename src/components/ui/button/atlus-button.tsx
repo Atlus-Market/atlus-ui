@@ -3,12 +3,12 @@ import './variants/atlus-button-sizes.css';
 import './variants/atlus-button-variants.css';
 import clsx from 'clsx';
 import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loading-spinner';
-import { getSpinnerColor } from '@/components/ui/button/variants/atlus-button-spinner';
+import { getSpinnerColor } from '@/components/ui/button/variants/atlus-button-utils';
 import { NOT_FOUND } from '@/constants/general';
 
 export type HtmlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
-export type AtlusButtonVariant = 'solid' | 'outline' | 'clear';
+export type AtlusButtonVariant = 'solid' | 'outline' | 'clear' | 'icon-only';
 // export type AtlusButtonSize = `atlus-btn-${'36' | '38' | '40' | '45' | '53'}`;
 
 export type AtlusButtonColor = 'orange' | 'grey' | 'black' | 'dark-grey';
@@ -19,7 +19,11 @@ export interface AtlusButtonProps extends HtmlButtonProps {
   className?: string;
   isLoading?: boolean;
   disabled?: boolean;
-  children: ReactNode;
+  children?: ReactNode;
+
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+  iconOnlyIcon?: ReactNode;
 }
 
 export const AtlusButton = (props: AtlusButtonProps) => {
@@ -30,9 +34,13 @@ export const AtlusButton = (props: AtlusButtonProps) => {
     disabled = false,
     className,
     children,
+    iconOnlyIcon,
+    leftIcon,
+    rightIcon,
     ...restProps
   } = props;
 
+  const isIconOnlyVariant = variant === 'icon-only';
   const isLoadingState = !disabled && isLoading;
   const containsSizes = className && className.indexOf('atlus-btn-') !== NOT_FOUND;
 
@@ -45,10 +53,14 @@ export const AtlusButton = (props: AtlusButtonProps) => {
         'atlus-button',
         `atlus-button-variant-${variant}`,
         `atlus-button-variant-${variant}-${color}`,
-        !containsSizes ? 'atlus-btn-45 md:atlus-btn-53' : undefined
+        {
+          'atlus-btn-icon-only': isIconOnlyVariant,
+          'atlus-btn-45 md:atlus-btn-53': !isIconOnlyVariant && !containsSizes, // Default
+        }
       )}
       disabled={disabled}
       data-loading={isLoadingState}
+      data-icon-only={isIconOnlyVariant}
       {...restProps}
     >
       {isLoadingState ? (
@@ -56,7 +68,17 @@ export const AtlusButton = (props: AtlusButtonProps) => {
           <AtlusLoadingSpinner size="1.2em" color={getSpinnerColor({ variant, color })} />
         </div>
       ) : (
-        children
+        <>
+          {isIconOnlyVariant ? (
+            <span>{iconOnlyIcon}</span>
+          ) : (
+            <>
+              {leftIcon && <span className="atlus-btn-icon-size">{leftIcon}</span>}
+              {children}
+              {rightIcon && <span className="atlus-btn-icon-size">{rightIcon}</span>}
+            </>
+          )}
+        </>
       )}
     </button>
   );

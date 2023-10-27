@@ -54,11 +54,24 @@
 .atlus-button-variant-clear-dark-grey:not([disabled]) {
     @apply text-dark-grey;
     @apply hover:bg-[#F5F5F5] hover:border-[#F5F5F5];
-    @apply active:bg-[#EDEDED];
+    @apply active:bg-[#EDEDED] active:border-[#EDEDED];
 }
 
 .atlus-button-variant-clear-orange:not([disabled]) {
     @apply text-orange;
     @apply hover:text-white hover:bg-[#F15F4C] hover:border-[#F15F4C];
-    @apply active:text-white active:bg-[#DC422D];
+    @apply active:text-white active:bg-[#DC422D] active:border-[#DC422D];
+}
+
+/* Icon only */
+.atlus-button-variant-icon-only-orange:not([disabled]) {
+    @apply bg-transparent text-orange;
+    @apply hover:bg-[#FFFCFA];
+    @apply active:bg-off-white;
+}
+
+.atlus-button-variant-icon-only-grey:not([disabled]) {
+    @apply bg-transparent text-dark-grey;
+    @apply hover:bg-[#F5F5F5] hover:border-[#F5F5F5];
+    @apply active:bg-[#EDEDED] active:border-[#EDEDED];
 }

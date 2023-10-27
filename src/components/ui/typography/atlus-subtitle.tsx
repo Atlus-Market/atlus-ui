@@ -4,5 +4,5 @@ interface TitleProps {
 }
 
 export const AtlusSubTitle = ({ text, className }: TitleProps) => {
-  return <h3 className={`text-13 md:text-[18px] font-inter ${className}`}>{text}</h3>;
+  return <h3 className={`text-13 md:text-18 font-inter ${className}`}>{text}</h3>;
 };

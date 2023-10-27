@@ -19,9 +19,7 @@ export const Patent = ({ patent }: PatentProps) => {
             <span className="text-sm text-dark-cyan">{getPatentId(patent)}</span>
           </div>
           <div className="mb-7">
-            <span className="text-soft-black text-[15px] leading-5 font-medium">
-              {patent.title}
-            </span>
+            <span className="text-soft-black text-15 leading-5 font-medium">{patent.title}</span>
           </div>
           <div>
             <span className="text-xs leading-5 text-dark-grey">Assigned to</span>

@@ -79,7 +79,7 @@ export const PackageDocumentsTable = ({ dataroom }: PackageDocumentsTableProps) 
                   <DownloadSingleFile directoryTreeId={dataroom.directoryTree.name} file={file}>
                     <button className="flex items-center gap-[10px]">
                       <HiDownload className="text-dark-grey" size={20} />
-                      <span className="hidden md:inline-block text-dark-grey text-[15px] font-semibold">
+                      <span className="hidden md:inline-block text-dark-grey text-15 font-semibold">
                         Download
                       </span>
                     </button>

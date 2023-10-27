@@ -3,23 +3,50 @@
 @tailwind utilities;
 
 @layer components {
-    .atlus-btn-36 {
+    .atlus-btn-36[data-icon-only="false"] {
         @apply px-6 py-[9px] text-13 leading-4 min-h-[36px];
     }
 
-    .atlus-btn-38 {
+    .atlus-btn-38[data-icon-only="false"] {
         @apply px-6 py-[9px] text-sm leading-[18px] min-h-[38px];
     }
 
-    .atlus-btn-40 {
+    .atlus-btn-40[data-icon-only="false"] {
         @apply px-4 py-[9px] text-15 leading-5 min-h-[40px];
     }
 
-    .atlus-btn-45 {
+    .atlus-btn-45[data-icon-only="false"] {
         @apply px-8 py-3 text-15 leading-[19px] min-h-[45px];
     }
 
-    .atlus-btn-53 {
+    .atlus-btn-53[data-icon-only="false"] {
         @apply px-[60px] py-[14px] text-lg leading-[23px] min-h-[53px];
     }
+
+    .atlus-btn-icon-size[data-icon-only="false"] {
+        @apply text-[1.23em];
+    }
+
+
+    /* Icon only sizes */
+    .atlus-btn-icon-only[data-icon-only="true"] {
+        @apply !p-[2px] rounded-lg;
+    }
+
+    .atlus-btn-18[data-icon-only="true"] {
+        @apply text-[18px];
+    }
+
+    .atlus-btn-20[data-icon-only="true"] {
+        @apply text-xl;
+    }
+
+    .atlus-btn-24[data-icon-only="true"] {
+        @apply text-2xl;
+    }
+
+    .atlus-btn-30[data-icon-only="true"] {
+        @apply text-3xl;
+    }
+
 }

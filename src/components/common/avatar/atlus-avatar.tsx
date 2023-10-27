@@ -29,7 +29,7 @@ export const AtlusAvatar = ({ size = 'medium', word, className }: AtlusAvatarPro
       <span
         className={clsx(avatarColor.textColor, 'uppercase', {
           'text-[24px] md:text-[28px]': size === 'big',
-          'text-[18px]': size === 'medium',
+          'text-18': size === 'medium',
           'text-[12px] md:text-[14px]': size === 'small',
         })}
       >

@@ -2,6 +2,22 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { AtlusButton } from './atlus-button';
 import { HiShare } from 'react-icons/hi2';
 
+const atlusButtonClassesOptions = {
+  className: {
+    control: { type: 'select' },
+    options: ['atlus-btn-36', 'atlus-btn-38', 'atlus-btn-40', 'atlus-btn-45', 'atlus-btn-53'],
+    if: { arg: 'variant', neq: 'icon-only' },
+  },
+};
+
+const atlusButtonClassesIconOnlyOptions = {
+  className: {
+    control: { type: 'select' },
+    options: ['atlus-btn-18', 'atlus-btn-20', 'atlus-btn-24', 'atlus-btn-30'],
+    if: { arg: 'variant', eq: 'icon-only' },
+  },
+};
+
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: 'Atlus/Button',
@@ -13,52 +29,54 @@ const meta = {
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-  argTypes: {
-    // backgroundColor: { control: 'color' },
-  },
+  argTypes: {},
 } satisfies Meta<typeof AtlusButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
+
 export const Solid: Story = {
   args: {
     children: 'Button',
     variant: 'solid',
     color: 'orange',
   },
+  argTypes: {
+    ...atlusButtonClassesOptions,
+  },
 };
 
 export const IconOnly: Story = {
   args: {
-    children: <HiShare />,
-    variant: 'solid',
-    className: 'atlus-btn-53',
+    iconOnlyIcon: <HiShare />,
+    variant: 'icon-only',
+    className: 'atlus-btn-18',
+  },
+  argTypes: {
+    ...atlusButtonClassesIconOnlyOptions,
   },
 };
 
 export const IconLeft: Story = {
   args: {
-    children: (
-      <>
-        <HiShare /> Share
-      </>
-    ),
+    leftIcon: <HiShare />,
+    children: 'Share',
     variant: 'solid',
-    className: 'atlus-btn-53',
+  },
+  argTypes: {
+    ...atlusButtonClassesOptions,
   },
 };
 
 export const IconRight: Story = {
   args: {
-    children: (
-      <>
-        Share
-        <HiShare />
-      </>
-    ),
+    rightIcon: <HiShare />,
+    children: 'Share',
     variant: 'solid',
-    className: 'atlus-btn-53',
+  },
+  argTypes: {
+    ...atlusButtonClassesOptions,
   },
 };
