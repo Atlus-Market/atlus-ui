@@ -15,7 +15,6 @@ interface PackageDocumentsTableProps {
   dataroom: Dataroom;
 }
 
-const outlineVariantActiveColor = 'bg-[#F5F5F5]';
 const cellClassnames = 'py-3 md:py-6';
 
 const MIN_FILES_TO_SHOW = 5;
@@ -48,6 +47,7 @@ export const PackageDocumentsTable = ({ dataroom }: PackageDocumentsTableProps) 
             const isLastRow = index + 1 === files.length;
             const borderBottomClassname = !isLastRow ? 'md:border-b md:border-light-grey' : '';
             const toggleClass = index >= MIN_FILES_TO_SHOW ? 'show-more-cells' : '';
+
             return (
               <Fragment key={file.id}>
                 <div

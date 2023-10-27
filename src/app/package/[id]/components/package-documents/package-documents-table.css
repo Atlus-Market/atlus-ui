@@ -1,27 +1,27 @@
 .show-more-cells {
-  display: none;
+  display: none !important;
 }
 
 #show:checked ~ .show-more-cells {
-  display: flex;
+  display: flex !important;
 }
 
 .show-less {
-  display: none;
+  display: none !important;
 }
 
 #show:not(:checked) ~ div label .show-more {
-  display: flex;
+  display: flex !important;
 }
 
 #show:not(:checked) ~ div label .show-less {
-  display: none;
+  display: none !important;
 }
 
 #show:checked ~ div label .show-more {
-  display: none;
+  display: none !important;
 }
 
 #show:checked ~ div label .show-less {
-  display: flex;
+  display: flex !important;
 }

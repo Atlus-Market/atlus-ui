@@ -35,7 +35,6 @@ export default async function PackagePage({ params }: PackagePageProps) {
   console.timeEnd(LOAD_PACKAGE);
 
   const { patents, customPatents, ...restPackage } = atlusPackage;
-  console.log(restPackage);
 
   console.time(LOAD_BROKER);
   const loadUserPromise = hasValidSession
