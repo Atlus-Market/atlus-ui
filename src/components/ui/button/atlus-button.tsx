@@ -11,7 +11,7 @@ export type HtmlButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 export type AtlusButtonVariant = 'solid' | 'outline' | 'clear';
 // export type AtlusButtonSize = `atlus-btn-${'36' | '38' | '40' | '45' | '53'}`;
 
-export type AtlusButtonColor = 'orange' | 'black' | 'dark-grey';
+export type AtlusButtonColor = 'orange' | 'grey' | 'black' | 'dark-grey';
 
 export interface AtlusButtonProps extends HtmlButtonProps {
   variant?: AtlusButtonVariant;

@@ -21,6 +21,12 @@
     @apply active:bg-[#DC422D];
 }
 
+.atlus-button-variant-solid-grey:not([disabled]) {
+    @apply bg-middle-grey text-white border-middle-grey;
+    @apply hover:bg-[#AFADAC];
+    @apply active:bg-[#9B9997];
+}
+
 /* Outline */
 .atlus-button-variant-outline {
     @apply bg-white border rounded-32 min-w-[150px];

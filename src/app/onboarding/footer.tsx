@@ -36,8 +36,8 @@ export const Footer = ({
         Back
       </AtlusButton>
       <AtlusButton
-        className={clsx(shouldSkip ? '!bg-middle-grey' : undefined)}
         variant="solid"
+        color={shouldSkip ? 'grey' : 'orange'}
         type={nextBtnType}
         isLoading={isNextBtnLoading}
         onClick={() => {
