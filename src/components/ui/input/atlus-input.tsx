@@ -57,7 +57,7 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(function
           name={name}
           className={clsx(
             'block',
-            'font-normal text-sm leading-[17px]',
+            'font-normal text-sm leading-17',
             'outline-0',
             'placeholder:text-dark-grey',
             'flex-grow',

@@ -46,7 +46,7 @@ const getClassNames = <T extends ValueOptionType>() => ({
   option: () => {
     return clsx(
       'px-[20px] py-[10px]',
-      'text-soft-black !text-sm font-medium !leading-[17px]',
+      'text-soft-black !text-sm font-medium !leading-17',
       'hover:bg-lightest-grey'
     );
   },

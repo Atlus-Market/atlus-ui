@@ -10,7 +10,7 @@ interface AtlusNotificationProviderProps {
 export const AtlusNotificationProvider = ({ children }: AtlusNotificationProviderProps) => {
   return (
     <>
-      <ToastContainer bodyClassName="text-sm text-soft-black font-medium leading-[17px] !p-0" />
+      <ToastContainer bodyClassName="text-sm text-soft-black font-medium leading-17 !p-0" />
       {children}
     </>
   );

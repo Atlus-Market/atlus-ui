@@ -16,7 +16,7 @@ interface ContactCardProps {
   wrapperClassnames?: string;
 }
 
-const subLinesClasses = 'text-dark-grey leading-[17px] text-xs md:text-sm';
+const subLinesClasses = 'text-dark-grey leading-17 text-xs md:text-sm';
 
 export const AtlusContact = ({
   recipient,

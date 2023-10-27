@@ -22,6 +22,9 @@ module.exports = {
         inter: ['var(--font-inter)'],
         geologica: ['var(--font-geologica)'],
       },
+      lineHeight: {
+        17: '17px',
+      },
       borderRadius: {
         32: '32px',
       },

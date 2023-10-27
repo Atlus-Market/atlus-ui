@@ -39,7 +39,7 @@ export const FileName = ({
         <div
           data-tooltip-id={tooltipId}
           data-tooltip-content={fileName}
-          className="font-medium text-sm text-soft-black leading-[17px] mb-1 overflow-hidden whitespace-nowrap truncate"
+          className="font-medium text-sm text-soft-black leading-17 mb-1 overflow-hidden whitespace-nowrap truncate"
         >
           {fileName}
         </div>

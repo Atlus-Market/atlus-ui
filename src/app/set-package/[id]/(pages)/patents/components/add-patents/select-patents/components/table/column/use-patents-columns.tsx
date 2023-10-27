@@ -78,7 +78,7 @@ export const usePatentsColumns = ({
               const noPatentsCount = row.subRows.length;
               return (
                 <div className="select-family-cell">
-                  <span className="text-dark-grey text-sm font-normal leading-[17px] inline-block">
+                  <span className="text-dark-grey text-sm font-normal leading-17 inline-block">
                     {noPatentsCount} {pluralize('assets', noPatentsCount)} not found in the public
                     patent database
                   </span>
@@ -92,7 +92,7 @@ export const usePatentsColumns = ({
             return (
               <div className="select-family-cell">
                 <Checkbox />
-                <span className="text-dark-grey text-sm font-normal leading-[17px] inline-block ml-5">
+                <span className="text-dark-grey text-sm font-normal leading-17 inline-block ml-5">
                   <span className="text-soft-black">Select Family {row.original.familyId}</span>
                   {selectedRowsCount > 0 && (
                     <span className="inline-block ml-1">

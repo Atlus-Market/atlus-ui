@@ -92,8 +92,8 @@ export const AtlusTag = ({
         className={clsx(
           'font-medium inline-block',
           tagColor.textColor,
-          { 'text-xs leading-[15px] md:text-sm md:leading-[17px]': isAutoSize },
-          { 'text-sm leading-[17px]': isBigSize },
+          { 'text-xs leading-[15px] md:text-sm md:leading-17': isAutoSize },
+          { 'text-sm leading-17': isBigSize },
           { 'text-xs leading-[15px]': isSmallSize }
         )}
       >

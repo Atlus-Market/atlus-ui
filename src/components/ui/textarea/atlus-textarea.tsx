@@ -36,7 +36,7 @@ export const AtlusTextarea = forwardRef<HTMLTextAreaElement, AtlusTextareaProps>
             name={name}
             className={clsx(
               'block w-full',
-              'font-normal text-sm leading-[17px] rounded-lg',
+              'font-normal text-sm leading-17 rounded-lg',
               'py-[18px] pl-4 pr-[27px]',
               'outline-0',
               'placeholder:text-dark-grey',

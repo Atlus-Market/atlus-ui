@@ -9,7 +9,7 @@ export const DownloadFileSample = () => {
         <Image src={FileChartSvg} alt="file-chart" />
         <div>
           <div className="mb-1 leading-none">
-            <span className="text-soft-black text-sm font-medium leading-[17px]">
+            <span className="text-soft-black text-sm font-medium leading-17">
               Download sample XLS file
             </span>
           </div>
