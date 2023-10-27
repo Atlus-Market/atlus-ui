@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import { ButtonHTMLAttributes, ForwardedRef, forwardRef, ReactNode, RefObject } from 'react';
 import './variants/atlus-button-sizes.css';
 import './variants/atlus-button-variants.css';
 import clsx from 'clsx';
@@ -24,9 +24,11 @@ export interface AtlusButtonProps extends HtmlButtonProps {
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   iconOnlyIcon?: ReactNode;
+
+  innerRef?: RefObject<HTMLButtonElement> | ForwardedRef<HTMLButtonElement>;
 }
 
-export const AtlusButton = (props: AtlusButtonProps) => {
+const AtlusButtonBase = (props: AtlusButtonProps) => {
   const {
     variant = 'solid',
     color = 'orange',
@@ -37,6 +39,7 @@ export const AtlusButton = (props: AtlusButtonProps) => {
     iconOnlyIcon,
     leftIcon,
     rightIcon,
+    innerRef,
     ...restProps
   } = props;
 
@@ -46,6 +49,7 @@ export const AtlusButton = (props: AtlusButtonProps) => {
 
   return (
     <button
+      ref={innerRef}
       className={clsx(
         className,
         'font-geologica',
@@ -83,3 +87,9 @@ export const AtlusButton = (props: AtlusButtonProps) => {
     </button>
   );
 };
+
+export const AtlusButton = forwardRef<HTMLButtonElement, AtlusButtonProps>(
+  function AtlusButtonWithRef(props, ref) {
+    return <AtlusButtonBase innerRef={ref} {...props} />;
+  }
+);

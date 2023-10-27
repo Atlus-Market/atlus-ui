@@ -43,6 +43,7 @@ export const ViewPackagePatentsModal = ({ packageId }: ViewPackagePatentsModalPr
                 <AtlusButton
                   variant="outline"
                   color="black"
+                  className="atlus-btn-40"
                   onClick={exportPackage}
                   isLoading={isFetching}
                   leftIcon={<HiDownload />}
