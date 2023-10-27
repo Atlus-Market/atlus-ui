@@ -15,7 +15,7 @@ export const AtlusMenuItem = ({ icon, text, onClick }: AtlusMenuItemProps) => {
   return (
     <MenuItem className="hover:bg-light-grey hover:cursor-pointer" onClick={onClick}>
       <div className="flex gap-3 px-4 py-[9px]">
-        {Icon && <Icon size={16} className="text-middle-grey" />}
+        {Icon && <Icon size={16} className="text-dark-grey" />}
         <span className="text-soft-black text-sm font-medium leading-[17px]">{text}</span>
       </div>
     </MenuItem>

@@ -31,7 +31,7 @@ export const ManageEditedPatent = ({ patent }: ManageEditedPatentProps) => {
       )}
       <AtlusButton
         onClick={showAlertModal}
-        iconOnlyIcon={<HiTrash className="text-middle-grey" />}
+        iconOnlyIcon={<HiTrash />}
         variant="icon-only"
         color="grey"
       />
