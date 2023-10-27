@@ -14,9 +14,11 @@ import { IPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-deta
 export const useSubmitPackageDetailsForm = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+
   return useCallback(
     async (formValues: IPackageDetailsForm) => {
-      console.log('PackageDetailsForm submit: ', formValues);
+      console.log('[PackageDetailsForm] submit: ', formValues);
+
       const res = await (dispatch as ThunkDispatch<RootState, void, AnyAction>)(
         persistPackage(formValues)
       );

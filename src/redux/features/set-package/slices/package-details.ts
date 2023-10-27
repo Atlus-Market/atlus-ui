@@ -1,4 +1,4 @@
-import { IPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
+import { ExtendedPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
 import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Contact } from '@/models/contact';
@@ -7,7 +7,7 @@ import { ActionReducerMapBuilder } from '@reduxjs/toolkit/src/mapBuilders';
 import { packageTitleValidator } from '@/redux/features/set-package/thunks/package-title-validator.thunk';
 
 export interface PackageDetailsState {
-  packageDetailsForm: IPackageDetailsForm;
+  packageDetailsForm: ExtendedPackageDetailsForm;
   setContact: {
     contacts: Contact[];
     isSetContactModalOpen: boolean;
@@ -46,7 +46,10 @@ export const packageDetailsInitialState: PackageDetailsState = {
 };
 
 export const packageDetailsReducer = {
-  setPackageDetails: (state: SetPackageState, action: PayloadAction<IPackageDetailsForm>) => {
+  setPackageDetails: (
+    state: SetPackageState,
+    action: PayloadAction<ExtendedPackageDetailsForm>
+  ) => {
     state.packageDetails.packageDetailsForm = action.payload;
   },
   showSetContactModal: (state: SetPackageState) => {

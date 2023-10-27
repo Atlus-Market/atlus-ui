@@ -2,9 +2,9 @@
 
 import { ForwardedRef, forwardRef, InputHTMLAttributes, ReactNode } from 'react';
 import clsx from 'clsx';
-import { ErrorMessage } from '@hookform/error-message';
 import { FieldErrors } from 'react-hook-form';
 import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
+import { AtlusFormErrorMessage } from '@/components/ui/form/atlus-form-error-message';
 
 export interface AtlusInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -12,6 +12,7 @@ export interface AtlusInputProps extends InputHTMLAttributes<HTMLInputElement> {
   wrapperClassName?: string;
   inputClassName?: string;
   errors?: FieldErrors;
+  errorNames?: string | string[];
   rightIcon?: ReactNode;
   leftCmp?: ReactNode;
 }
@@ -24,6 +25,7 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(function
     wrapperClassName,
     inputClassName,
     errors,
+    errorNames,
     rightIcon,
     rightLabel,
     leftCmp,
@@ -67,13 +69,9 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(function
         />
         {rightIcon && <div className="pr-4 leading-none">{rightIcon}</div>}
       </div>
-      {name && errors && (
+      {(name || errorNames) && errors && (
         <div className="mt-[5px]">
-          <ErrorMessage
-            errors={errors}
-            name={name}
-            render={({ message }) => <p className="text-red text-xs pl-3">{message}</p>}
-          />
+          <AtlusFormErrorMessage errors={errors} name={errorNames || name} />
         </div>
       )}
     </div>

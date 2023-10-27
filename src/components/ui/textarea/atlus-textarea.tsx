@@ -2,9 +2,9 @@
 
 import { forwardRef, TextareaHTMLAttributes } from 'react';
 import clsx from 'clsx';
-import { ErrorMessage } from '@hookform/error-message';
 import { FieldErrors } from 'react-hook-form';
 import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
+import { AtlusFormErrorMessage } from '@/components/ui/form/atlus-form-error-message';
 
 export interface AtlusTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
@@ -49,11 +49,7 @@ export const AtlusTextarea = forwardRef<HTMLTextAreaElement, AtlusTextareaProps>
         </div>
         {name && (
           <div className="mt-[5px]">
-            <ErrorMessage
-              errors={errors}
-              name={name}
-              render={({ message }) => <p className="text-red text-xs pl-3">{message}</p>}
-            />
+            <AtlusFormErrorMessage errors={errors} name={name} />
           </div>
         )}
       </div>

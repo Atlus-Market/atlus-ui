@@ -15,9 +15,9 @@ import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
 import { FilterOptionOption } from 'react-select/dist/declarations/src/filters';
 import { ControlProps } from 'react-select/dist/declarations/src/components/Control';
 import { getDropdownOptions } from '@/components/ui/dropdown-list/dropdown.utils';
-import { ErrorMessage } from '@hookform/error-message';
 import { isNullOrUndefined } from '@/utils/type-guard';
 import { controls } from '@/components/ui/dropdown-list/controls';
+import { AtlusFormErrorMessage } from '@/components/ui/form/atlus-form-error-message';
 
 export type ValueOptionType = string | number | boolean;
 
@@ -187,11 +187,7 @@ export function AtlusDropdownList<T extends ValueOptionType>(props: AtlusDropdow
       />
       {name && errors && errors[name] && (
         <div className="mt-[5px]">
-          <ErrorMessage
-            errors={errors}
-            name={name}
-            render={({ message }) => <p className="text-red text-xs pl-3">{message}</p>}
-          />
+          <AtlusFormErrorMessage errors={errors} name={name} />
         </div>
       )}
       {bottomText && (

@@ -26,6 +26,7 @@ export const packageTitleValidator = createAsyncThunk<
     }
 
     const { packages: packagesListItems } = await getPackages(userId, signal);
+
     const foundPackage = packagesListItems.find(
       packageListItem => titleToValidate === packageListItem.title
     );

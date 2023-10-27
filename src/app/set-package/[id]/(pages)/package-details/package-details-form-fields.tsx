@@ -11,7 +11,7 @@ import { AtlusFormInputNumeric } from '@/components/ui/form/atlus-form-input-num
 import { AtlusFormCheckbox } from '@/components/ui/form/atlus-form-checkbox';
 import { useFormContext } from 'react-hook-form';
 import { ContactsSelector } from '@/app/set-package/[id]/(pages)/package-details/contacts/contacts-selector';
-import { IPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
+import { ExtendedPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
 import { useEffect, useMemo } from 'react';
 import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 import { InterestArea } from '@/models/interest-area';
@@ -29,7 +29,8 @@ export const PackageDetailsFormFields = ({
   interestArea,
   packageStandards,
 }: PackageDetailsFormFieldsProps) => {
-  const { register, getValues, control, setValue, watch } = useFormContext<IPackageDetailsForm>();
+  const { register, getValues, control, setValue, watch } =
+    useFormContext<ExtendedPackageDetailsForm>();
   const packageStatusActiveOption = useGetPackageStatusActiveOption();
 
   const interestAreasOptions = useMemo<DropdownOption<number>[]>(() => {

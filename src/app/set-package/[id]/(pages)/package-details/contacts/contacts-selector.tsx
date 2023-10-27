@@ -25,14 +25,14 @@ import { ActiveContact } from '@/app/set-package/[id]/(pages)/package-details/co
 import { AtlusFormDropdownList } from '@/components/ui/form/atlus-form-dropdown';
 import { useFormContext, useWatch } from 'react-hook-form';
 import { contactsFilter } from '@/app/set-package/[id]/(pages)/package-details/contacts/contacts.utils';
-import { IPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
+import { ExtendedPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
 import { useContactsOptions } from '@/app/set-package/[id]/(pages)/package-details/contacts/use-contacts-options';
 
 const name = 'sellerUserId';
 
 export const ContactsSelector = () => {
   const [contactModalInitialValue, setContactModalInitialValue] = useState<Contact | undefined>();
-  const { setValue } = useFormContext<IPackageDetailsForm>();
+  const { setValue } = useFormContext<ExtendedPackageDetailsForm>();
   const { isFetching, data } = useQuery({
     queryKey: ['contacts'],
     queryFn: () => getContacts(),

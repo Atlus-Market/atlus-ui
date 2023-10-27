@@ -2,7 +2,7 @@
 
 import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
 import { useFormContext, useWatch } from 'react-hook-form';
-import { IPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
+import { ExtendedPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
 import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loading-spinner';
 import { useCallback, useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
@@ -15,15 +15,26 @@ import { useAtlusSession } from '@/app/(auth)/session/use-atlus-session';
 
 type Abort = (reason?: string) => void;
 
+export const hasValidTitleName = 'hasValidTitleName';
+const titleName = 'title';
+export const invalidTitleErrorMessage = 'This title is already taken.';
+
 export const PackageDetailsTitle = () => {
   const session = useAtlusSession();
   const userId = session.data?.user?.id ?? '';
   const isValidTitle = useAppSelector(selectIsValidTitle);
   const isValidatingTitle = useAppSelector(selectIsValidatingTitle);
-  const { register, setError, clearErrors } = useFormContext<IPackageDetailsForm>();
+  const {
+    register,
+    setValue,
+    trigger,
+    formState: { errors },
+  } = useFormContext<ExtendedPackageDetailsForm>();
   const dispatch = useAppDispatch();
   const abortRef = useRef<{ abort: Abort } | null>(null);
-  const title = useWatch<IPackageDetailsForm>({ name: 'title' }) as string;
+  const title = useWatch<ExtendedPackageDetailsForm>({ name: titleName }) as string;
+
+  const hasErrorTitle = !!errors[titleName];
 
   useEffect(() => {
     abortRef.current?.abort();
@@ -34,17 +45,18 @@ export const PackageDetailsTitle = () => {
 
   const handleInvalidTitleError = useCallback(() => {
     if (!title || isValidatingTitle) {
+      setValue(hasValidTitleName, false);
       return;
     }
     if (!isValidTitle) {
-      setError('title', {
-        type: 'custom',
-        message: 'This title is already taken.',
-      });
+      setValue(hasValidTitleName, false);
+      trigger(hasValidTitleName);
     } else {
-      clearErrors('title');
+      // The title is valid
+      setValue(hasValidTitleName, true);
+      trigger(hasValidTitleName);
     }
-  }, [isValidatingTitle, isValidTitle, title, setError, clearErrors]);
+  }, [title, isValidatingTitle, isValidTitle, setValue, trigger]);
 
   useEffect(() => {
     handleInvalidTitleError();
@@ -57,8 +69,15 @@ export const PackageDetailsTitle = () => {
         placeholder="Enter package title"
         type="text"
         {...register('title')}
-        rightIcon={isValidatingTitle && <AtlusLoadingSpinner hexColor="#D9D9D9" />}
+        rightIcon={isValidatingTitle && <AtlusLoadingSpinner />}
         onBlur={handleInvalidTitleError}
+        errorNames={
+          hasErrorTitle
+            ? titleName
+            : !isValidTitle && !isValidatingTitle
+            ? hasValidTitleName
+            : undefined
+        }
       />
     </div>
   );
