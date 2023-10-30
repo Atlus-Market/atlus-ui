@@ -16,6 +16,9 @@ export const AtlusMenu = ({ menuButton, menuItems }: AtlusMenuProps) => {
         'pt-[10px] pb-[12px]'
       )}
       menuButton={menuButton}
+      gap={10}
+      position="auto"
+      align="end"
     >
       {menuItems}
     </Menu>
