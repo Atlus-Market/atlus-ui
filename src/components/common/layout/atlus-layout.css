@@ -1,11 +1,21 @@
 .atlus-layout {
     display: grid;
-    grid-template-rows: var(--atlus-header-height) calc(100vh - var(--atlus-header-height)); /* 80 is header height */
+    grid-template-rows: var(--atlus-header-height) calc(100vh - var(--atlus-header-height));
+    @apply h-screen;
+}
+
+.atlus-layout-with-sidebar {
     grid-template-columns: 240px auto;
     grid-template-areas:
     'header header'
     'sidebar content';
-    @apply h-screen;
+}
+
+.atlus-layout-no-sidebar {
+    grid-template-columns: auto;
+    grid-template-areas:
+    'header'
+    'content';
 }
 
 .atlus-header {
@@ -17,11 +27,10 @@
 
 .atlus-sidebar {
     grid-area: sidebar;
-    background-color: #0e7580;
 }
 
 .atlus-content {
     grid-area: content;
     overflow: auto;
-    @apply flex justify-center;
+    @apply flex justify-start;
 }
