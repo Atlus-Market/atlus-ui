@@ -1,0 +1,27 @@
+.atlus-layout {
+    display: grid;
+    grid-template-rows: var(--atlus-header-height) calc(100vh - var(--atlus-header-height)); /* 80 is header height */
+    grid-template-columns: 240px auto;
+    grid-template-areas:
+    'header header'
+    'sidebar content';
+    @apply h-screen;
+}
+
+.atlus-header {
+    grid-area: header;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+
+.atlus-sidebar {
+    grid-area: sidebar;
+    background-color: #0e7580;
+}
+
+.atlus-content {
+    grid-area: content;
+    overflow: auto;
+    @apply flex justify-center;
+}
