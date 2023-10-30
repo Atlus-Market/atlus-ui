@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Header from '@/components/common/header';
+import Header from '@/components/common/header/header';
 import { Sidebar } from '@/app/set-package/components/sidebar/sidebar';
 import { PackageLoader } from '@/app/set-package/components/package-loader';
 import { MinimumScreenSize } from '@/components/common/minimum-screen-size';

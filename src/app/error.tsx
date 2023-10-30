@@ -1,7 +1,6 @@
 'use client'; // Error components must be Client Components
 
 import { useEffect } from 'react';
-import Header from '@/components/common/header';
 import { PageWrapper } from '@/components/common/page-wrapper';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useRouter } from 'next/navigation';
@@ -22,7 +21,7 @@ export default function Error({ error, reset }: ErrorProps) {
 
   return (
     <div>
-      <Header />
+      {/*<Header />*/}
       <PageWrapper className="w-full text-center">
         <h2>{defaultErrorMessage}</h2>
 

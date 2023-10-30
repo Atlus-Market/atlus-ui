@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { PageWrapper } from '@/components/common/page-wrapper';
-import Header from '@/components/common/header';
+import Header from '@/components/common/header/header';
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (

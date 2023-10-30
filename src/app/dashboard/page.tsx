@@ -1,4 +1,3 @@
-import { ListClientSession } from '@/app/dashboard/components/list-client-session';
 import { PackagesListProvider } from '@/app/dashboard/packages/packages-list-provider';
 import { PackagesList } from '@/app/dashboard/packages/packages-list';
 import Link from 'next/link';
@@ -21,8 +20,6 @@ export default async function DashboardPage() {
       <PackagesListProvider>
         <PackagesList />
       </PackagesListProvider>
-
-      <ListClientSession />
     </div>
   );
 }

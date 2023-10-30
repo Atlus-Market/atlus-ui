@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { ReactNode } from 'react';
-import Header from '@/components/common/header';
+import Header from '@/components/common/header/header';
 
 const boxShadow = 'shadow-[0_0_120px_0_rgba(0,0,0,0.10)]';
 

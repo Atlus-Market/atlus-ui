@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Header from '@/components/common/header';
+import Header from '@/components/common/header/header';
 import { PageWrapper } from '@/components/common/page-wrapper';
 
 interface OnboardingContainerPros {
