@@ -7,6 +7,7 @@ interface UseRequestPackagePermissionProps {
 
 export const useRequestPackagePermission = ({ packageId }: UseRequestPackagePermissionProps) => {
   return useMutation({
-    mutationFn: () => requestPackageAccess(packageId),
+    mutationKey: [packageId],
+    mutationFn: (message: string) => requestPackageAccess({ packageId, message }),
   });
 };

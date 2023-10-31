@@ -6,7 +6,7 @@ import { NoPackagePermission } from '@/app/package/[id]/components/limited-acces
 import { loadPackageViewData } from '@/app/package/[id]/load-package-view-data';
 import { NoPackageSession } from '@/app/package/[id]/components/limited-access/no-session/no-package-session';
 
-interface PackagePageProps {
+export interface PackagePageProps {
   params: {
     id: string;
   };
