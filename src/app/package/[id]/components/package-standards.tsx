@@ -7,6 +7,10 @@ interface PackageProductsProps {
 }
 
 export const PackageStandards = ({ atlusPackage }: PackageProductsProps) => {
+  if (!atlusPackage.containsSep) {
+    return null;
+  }
+
   return (
     <div>
       <PackageSubSectionTitle title="Standards" />

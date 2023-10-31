@@ -7,6 +7,10 @@ interface PackageProductsProps {
 }
 
 export const PackageProducts = ({ atlusPackage }: PackageProductsProps) => {
+  if (atlusPackage.products.length === 0) {
+    return null;
+  }
+
   return (
     <div>
       <PackageSubSectionTitle title="Products" />
