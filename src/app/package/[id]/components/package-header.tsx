@@ -10,7 +10,6 @@ import { PackageStatusTag } from '@/app/package/[id]/components/package-status-t
 
 interface PackageHeaderProps {
   atlusPackage: Package;
-  broker?: User;
   renderLimitedContent: boolean;
 }
 

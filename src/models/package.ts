@@ -25,4 +25,10 @@ export interface Package {
   createdTimestamp: string;
   dataroomId: string;
   lastModified: string;
+
+  numberOfDocuments: number;
+  numberOfFamilies: number;
+  numberOfPatentsAssets: number;
+
+  isLimitedView: boolean;
 }

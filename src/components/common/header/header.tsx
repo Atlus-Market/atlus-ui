@@ -1,19 +1,16 @@
 import AtlusLogo from '@/components/ui/atlus-logo';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { getCurrentUserOnServer } from '@/api/user/get-current-user-on-server';
-import { getAtlusServerSession } from '@/app/(auth)/session/get-atlus-server-session';
-import { User } from '@/models/user';
 import { UserHeaderMenu } from '@/components/common/header/user-header-menu';
 
 export default async function Header() {
-  const serverSession = await getAtlusServerSession();
-  let user: User | undefined;
-  if (serverSession) {
-    user = await getCurrentUserOnServer();
-  }
+  // const serverSession = await getAtlusServerSession();
+  // let user: User | undefined;
 
-  console.log('Header.user: ', user);
+  // if (serverSession) {
+  //   user = await getCurrentUserOnServer();
+  // }
+
   return (
     <header
       className={clsx(
@@ -27,7 +24,7 @@ export default async function Header() {
         <AtlusLogo />
       </Link>
 
-      <UserHeaderMenu user={user} />
+      <UserHeaderMenu user={undefined} />
     </header>
   );
 }

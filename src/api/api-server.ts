@@ -19,7 +19,7 @@ export const getServerAuthHeaders = async (
   const serverSession = await getAtlusServerSession();
 
   if (!serverSession) {
-    throw new Error('No server session found.');
+    return headers;
   }
 
   const authHeadersProvider = mapServerSessionToAuthHeadersProvider(serverSession);

@@ -20,26 +20,20 @@ interface MainPanelProps {
   atlusPackage: Package;
   dataroom?: Dataroom;
   broker?: User;
-  userHasAccessToPackage: boolean;
+  renderLimitedContent: boolean;
 }
 
 export const MainPanel = ({
   atlusPackage,
   dataroom,
   broker,
-  userHasAccessToPackage,
+  renderLimitedContent,
 }: MainPanelProps) => {
-  const renderLimitedContent = !userHasAccessToPackage;
-
   return (
     <div>
-      <PackageHeader
-        atlusPackage={atlusPackage}
-        broker={broker}
-        renderLimitedContent={renderLimitedContent}
-      />
+      <PackageHeader atlusPackage={atlusPackage} renderLimitedContent={renderLimitedContent} />
       <PackageDivider />
-      {dataroom && <PackageGeneralInfo atlusPackage={atlusPackage} dataroom={dataroom} />}
+      <PackageGeneralInfo atlusPackage={atlusPackage} />
       <PackageDivider />
       <PackageDescription description={atlusPackage.description} />
       <PackageDivider className="bg-transparent !mt-0" />
