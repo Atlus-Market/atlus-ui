@@ -17,29 +17,33 @@ export default async function PackagePage({ params }: PackagePageProps) {
   const serverSession = await getAtlusServerSession();
   const hasValidSession = !!serverSession;
 
-  const { package: atlusPackage, broker, dataroom } = await loadPackageViewData(params.id);
-
-  const isRenderingLimitedContent = !hasValidSession || atlusPackage.isLimitedView;
+  const {
+    package: atlusPackage,
+    broker,
+    dataroom,
+    userHasAccessToPackage,
+    isLimitedUser,
+  } = await loadPackageViewData(params.id);
 
   return (
-    <div data-prevent-scoll={isRenderingLimitedContent}>
+    <div data-prevent-scoll={isLimitedUser}>
       <div className="grid grid-cols-[1fr] lg:grid-cols-[1fr_380px] gap-[80px]">
         <MainPanel
           atlusPackage={atlusPackage}
           dataroom={dataroom}
           broker={broker}
-          renderLimitedContent={isRenderingLimitedContent}
+          renderLimitedContent={isLimitedUser}
         />
         {broker && (
           <PackageRightPanel
             packageId={atlusPackage.id}
             broker={broker}
-            renderLimitedContent={isRenderingLimitedContent}
+            renderLimitedContent={isLimitedUser}
           />
         )}
       </div>
-      {!isRenderingLimitedContent && <SharePackageModal packageId={atlusPackage.id} />}
-      {hasValidSession && atlusPackage.isLimitedView && <NoPackagePermission />}
+      {!isLimitedUser && <SharePackageModal packageId={atlusPackage.id} />}
+      {hasValidSession && !userHasAccessToPackage && <NoPackagePermission />}
       {!hasValidSession && <NoPackageSession />}
     </div>
   );

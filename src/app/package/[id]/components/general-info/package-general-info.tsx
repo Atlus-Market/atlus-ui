@@ -18,7 +18,7 @@ export const PackageGeneralInfo = ({ atlusPackage }: PackageGeneralInfoProps) =>
 
   return (
     <div className="flex flex-wrap flex-col md:flex-row gap-[18px] md:gap-x-[64px] md:gap-y-[36px]">
-      {!atlusPackage.isLimitedView && (
+      {atlusPackage.priceUsd && (
         <GeneralInfoItem icon={HiOutlineTag} label={formatPrice(atlusPackage.priceUsd)} />
       )}
       {atlusPackage.openToLicensing && <GeneralInfoItem icon={HiOutlineKey} label="For Sale" />}

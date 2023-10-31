@@ -29,6 +29,4 @@ export interface Package {
   numberOfDocuments: number;
   numberOfFamilies: number;
   numberOfPatentsAssets: number;
-
-  isLimitedView: boolean;
 }

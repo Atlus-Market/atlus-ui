@@ -5,6 +5,8 @@ import { getUserByIdOnServer } from '@/api/user/get-user-by-id-on-server';
 import { User } from '@/models/user';
 import { Package } from '@/models/package';
 import { Dataroom } from '@/models/dataroom';
+import { getPackageAccessForUserOnServer } from '@/api/package/get-package-access-for-user-on-server';
+import { PackageAccessValue } from '@/models/package-access-value';
 
 const LOAD_PACKAGE = 'Load package';
 const LOAD_DATAROOM = 'Load dataroom';
@@ -14,21 +16,21 @@ interface LoadDataResponse {
   broker: User | undefined;
   package: Package;
   dataroom: Dataroom | undefined;
+  userHasAccessToPackage: boolean;
+  isLimitedUser: boolean;
 }
 
 export const loadPackageViewData = async (packageId: string): Promise<LoadDataResponse> => {
   const serverSession = await getAtlusServerSession();
   const hasValidSession = !!serverSession;
 
+  let userHasAccessToPackage = false;
   if (hasValidSession) {
-    console.time(LOAD_DATAROOM);
+    const {
+      data: { access },
+    } = await getPackageAccessForUserOnServer(packageId);
+    userHasAccessToPackage = access !== PackageAccessValue.NoAccess;
   }
-  const getDataroomPromise = hasValidSession
-    ? getDataroomByPackageIdOnServer(packageId).then(dataroom => {
-        console.timeEnd(LOAD_DATAROOM);
-        return dataroom;
-      })
-    : Promise.resolve(undefined);
 
   console.time(LOAD_PACKAGE);
   const {
@@ -36,22 +38,23 @@ export const loadPackageViewData = async (packageId: string): Promise<LoadDataRe
   } = await getPackageOnServer(packageId);
   console.timeEnd(LOAD_PACKAGE);
 
-  const isLimitedUser = hasValidSession && atlusPackage.isLimitedView;
-  if (!isLimitedUser) {
-    console.time(LOAD_BROKER);
-  }
+  const isLimitedUser = !hasValidSession || !userHasAccessToPackage;
+
+  const getDataroomPromise = !isLimitedUser
+    ? getDataroomByPackageIdOnServer(packageId)
+    : Promise.resolve(undefined);
+
   const loadUserPromise = !isLimitedUser
-    ? getUserByIdOnServer(atlusPackage.brokerUserId).then(user => {
-        console.timeEnd(LOAD_BROKER);
-        return user;
-      })
+    ? getUserByIdOnServer(atlusPackage.brokerUserId)
     : Promise.resolve(undefined);
 
   const [broker, dataroom] = await Promise.all([loadUserPromise, getDataroomPromise]);
 
   return {
-    package: atlusPackage!,
+    package: atlusPackage,
     broker,
     dataroom,
+    userHasAccessToPackage,
+    isLimitedUser,
   };
 };

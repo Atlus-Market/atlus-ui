@@ -1,5 +1,10 @@
 import 'server-only';
 import { authOptions } from '@/app/(auth)/auht-options';
-import { getServerSession } from 'next-auth';
+import { getServerSession, User } from 'next-auth';
 
-export const getAtlusServerSession = () => getServerSession(authOptions);
+export interface ServerSession {
+  user: User;
+}
+
+export const getAtlusServerSession = (): Promise<ServerSession | null> =>
+  getServerSession(authOptions);
