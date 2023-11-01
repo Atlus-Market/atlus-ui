@@ -7,7 +7,8 @@ import { useState } from 'react';
 import { StatusCodes } from 'http-status-codes';
 import { SignInResponse } from '@/api/auth/login';
 import { saveOnboardingEmail } from '@/services/auth.service';
-import { DashboardRoute, VerifyEmailRoute } from '@/constants/routes';
+import { VerifyEmailRoute } from '@/constants/routes';
+import { getRedirectUrl } from '@/app/(auth)/login/login.utils';
 
 export const Login = () => {
   const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
@@ -39,7 +40,7 @@ export const Login = () => {
       return;
     }
 
-    router.replace(DashboardRoute);
+    router.push(getRedirectUrl(signInResult));
   };
   return <LoginForm onSubmit={onSubmit} errorMessage={errorMessage} isSubmitting={isLoggingIn} />;
 };

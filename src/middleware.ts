@@ -5,11 +5,16 @@ import { getToken } from 'next-auth/jwt';
 export default async function middleware(req: NextRequest, event: NextFetchEvent) {
   const token = await getToken({ req });
   const isAuthenticated = !!token;
+  console.log('------------- [Middleware] -------------');
   console.log('[Middleware] isAuthenticated: ', isAuthenticated);
 
   const { pathname } = req.nextUrl;
   const isUnauthenticatedPathname = isUnauthenticatedEndpoint(pathname);
   const canRunOnAllCases = canEndpointRunOnAllCases(pathname);
+
+  console.log('Pathname: ', pathname);
+  console.log('isUnauthenticatedPathname: ', isUnauthenticatedPathname);
+  console.log('canRunOnAllCases: ', canRunOnAllCases);
 
   if (isAuthenticated && isUnauthenticatedPathname && !canRunOnAllCases) {
     // Do not redirect to "/" because the redirect is being done in next.config.js
@@ -42,7 +47,7 @@ export default async function middleware(req: NextRequest, event: NextFetchEvent
  * @param pathname
  */
 const canEndpointRunOnAllCases = (pathname: string): boolean => {
-  return new RegExp(/(package\/*).*/).test(pathname);
+  return new RegExp(/(^\/package\/*).*/).test(pathname);
 };
 
 const isUnauthenticatedEndpoint = (pathname: string): boolean => {

@@ -44,7 +44,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
       </div>
       {!isLimitedUser && <SharePackageModal packageId={atlusPackage.id} />}
       {hasValidSession && !userHasAccessToPackage && <NoPackagePermission />}
-      {!hasValidSession && <NoPackageSession />}
+      {!hasValidSession && <NoPackageSession packageId={atlusPackage.id} />}
     </div>
   );
 }

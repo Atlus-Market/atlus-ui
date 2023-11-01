@@ -3,10 +3,15 @@ import { RequestPackagePermissionTitle } from '@/app/package/[id]/components/lim
 import { RequestPackagePermissionSubtitle } from '@/app/package/[id]/components/limited-access/common/request-package-permission-subtitle';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import Link from 'next/link';
-import { LoginRoute, OnboardingSelectUser } from '@/constants/routes';
+import { OnboardingSelectUser, PackagePageUrl } from '@/constants/routes';
 import { HiCheckCircle } from 'react-icons/hi2';
+import { createLoginWithCallbackUrl } from '@/app/(auth)/login/login.utils';
 
-export const NoPackageSession = () => {
+interface NoPackageSessionProps {
+  packageId: string;
+}
+
+export const NoPackageSession = ({ packageId }: NoPackageSessionProps) => {
   const checkIcon = <HiCheckCircle className="text-orange text-base" />;
 
   return (
@@ -47,7 +52,7 @@ export const NoPackageSession = () => {
 
       <div className="leading-none text-13 font-medium">
         <span>Have an account?</span>
-        <Link href={LoginRoute}>
+        <Link href={createLoginWithCallbackUrl(PackagePageUrl(packageId))}>
           <span className="text-orange ml-1">Sign in</span>
         </Link>
       </div>

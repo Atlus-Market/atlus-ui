@@ -52,6 +52,5 @@ export const login = async (loginPayload: LoginPayload): Promise<LoginResponse> 
     ...response.data,
     accessTokenCookie: accessTokenValue, // Use the extracted cookie value
     csrfAccessToken: csrfAccessToken[csrfAccessTokenName] ?? '',
-    fullName: 'Sergio',
   };
 };
