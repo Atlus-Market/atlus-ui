@@ -4,11 +4,11 @@ import { LoginForm, LoginFormSchema } from '@/app/(auth)/login/components/login-
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { StatusCodes } from 'http-status-codes';
-import { SignInResponse } from '@/api/auth/login';
 import { saveOnboardingEmail } from '@/services/auth.service';
 import { VerifyEmailRoute } from '@/constants/routes';
+import { StatusCodes } from 'http-status-codes';
 import { getRedirectUrl } from '@/app/(auth)/login/login.utils';
+import { SignInResponse } from '@/api/auth/login';
 
 export const Login = () => {
   const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
@@ -21,9 +21,11 @@ export const Login = () => {
       email,
       password,
       redirect: false,
+      // callbackUrl: getRedirectUrl(window.location.search),
     });
 
-    if (signInResult?.error) {
+    console.log(signInResult);
+    if (signInResult && signInResult.error) {
       setIsLoggingIn(false);
       try {
         const signInResponse = JSON.parse(signInResult?.error) as SignInResponse;
@@ -40,7 +42,7 @@ export const Login = () => {
       return;
     }
 
-    router.push(getRedirectUrl(signInResult));
+    router.push(getRedirectUrl(window.location.search));
   };
   return <LoginForm onSubmit={onSubmit} errorMessage={errorMessage} isSubmitting={isLoggingIn} />;
 };

@@ -1,5 +1,4 @@
 import { DashboardRoute, LoginRoute } from '@/constants/routes';
-import { SignInResponse } from 'next-auth/react';
 
 const callbackUrlKey = 'callbackUrl';
 
@@ -9,13 +8,12 @@ export const createLoginWithCallbackUrl = (redirectPath: string): string => {
   return `${LoginRoute}/?${searchParams.toString()}`;
 };
 
-export const getRedirectUrl = (signInResponse: SignInResponse | undefined): string => {
+export const getRedirectUrl = (searchParams: string | undefined): string => {
   try {
-    if (signInResponse?.url) {
-      const url = new URL(signInResponse.url);
-      const callbackUrl = url.searchParams.get('callbackUrl');
-      return callbackUrl || DashboardRoute;
-    }
-  } catch (e) {}
-  return DashboardRoute;
+    const urlSearchParams = new URLSearchParams(searchParams ?? '');
+    const callbackUrl = urlSearchParams.get('callbackUrl');
+    return callbackUrl || DashboardRoute;
+  } catch (e) {
+    return DashboardRoute;
+  }
 };

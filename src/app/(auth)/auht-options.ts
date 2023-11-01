@@ -90,6 +90,11 @@ const callbacks: Partial<CallbacksOptions> = {
 };
 
 const events: Partial<EventCallbacks> = {
+  // @ts-ignore
+  // async signIn(...rest) {
+  //   console.log('___SIGN REDIRECT: ', rest);
+  //   return true;
+  // },
   signOut: async (params: { session: Session; token: JWT }) => {
     try {
       await logout();
