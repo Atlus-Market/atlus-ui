@@ -14,6 +14,7 @@ export interface LoginResponse {
   accessToken: string;
   accessTokenCookie: string;
   csrfAccessToken: string;
+  fullName: string;
 }
 
 export interface SignInResponse {
@@ -34,6 +35,7 @@ export const login = async (loginPayload: LoginPayload): Promise<LoginResponse> 
     url: createUrl('/login'),
     data: loginPayload,
   });
+
   const cookies: string[] = (response.headers?.['set-cookie'] as string[]) ?? [];
   const accessTokenCookie = cookies.find(cookie => cookie.includes(`${accessTokenCookieName}=`));
 
@@ -50,5 +52,6 @@ export const login = async (loginPayload: LoginPayload): Promise<LoginResponse> 
     ...response.data,
     accessTokenCookie: accessTokenValue, // Use the extracted cookie value
     csrfAccessToken: csrfAccessToken[csrfAccessTokenName] ?? '',
+    fullName: 'Sergio',
   };
 };

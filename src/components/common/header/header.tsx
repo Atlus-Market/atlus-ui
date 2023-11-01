@@ -3,14 +3,7 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { UserHeaderMenu } from '@/components/common/header/user-header-menu';
 
-export default async function Header() {
-  // const serverSession = await getAtlusServerSession();
-  // let user: User | undefined;
-
-  // if (serverSession) {
-  //   user = await getCurrentUserOnServer();
-  // }
-
+export default function Header() {
   return (
     <header
       className={clsx(
@@ -24,7 +17,7 @@ export default async function Header() {
         <AtlusLogo />
       </Link>
 
-      <UserHeaderMenu user={undefined} />
+      <UserHeaderMenu />
     </header>
   );
 }

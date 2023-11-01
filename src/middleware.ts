@@ -5,6 +5,8 @@ import { getToken } from 'next-auth/jwt';
 export default async function middleware(req: NextRequest, event: NextFetchEvent) {
   const token = await getToken({ req });
   const isAuthenticated = !!token;
+  console.log('[Middleware] isAuthenticated: ', isAuthenticated);
+
   const { pathname } = req.nextUrl;
   const isUnauthenticatedPathname = isUnauthenticatedEndpoint(pathname);
   const canRunOnAllCases = canEndpointRunOnAllCases(pathname);
