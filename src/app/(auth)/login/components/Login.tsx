@@ -24,7 +24,6 @@ export const Login = () => {
       // callbackUrl: getRedirectUrl(window.location.search),
     });
 
-    console.log(signInResult);
     if (signInResult && signInResult.error) {
       setIsLoggingIn(false);
       try {
