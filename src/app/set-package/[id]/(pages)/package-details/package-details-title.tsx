@@ -11,7 +11,7 @@ import {
   selectIsValidatingTitle,
   selectIsValidTitle,
 } from '@/redux/features/set-package/selectors/package-details.selectors';
-import { useAtlusSession } from '@/app/(auth)/session/use-atlus-session';
+import { useAtlusUser } from '@/app/(auth)/session/use-atlus-user';
 
 type Abort = (reason?: string) => void;
 
@@ -20,8 +20,8 @@ const titleName = 'title';
 export const invalidTitleErrorMessage = 'This title is already taken.';
 
 export const PackageDetailsTitle = () => {
-  const session = useAtlusSession();
-  const userId = session.data?.user?.id ?? '';
+  const { data: user } = useAtlusUser();
+  const userId = user?.id;
   const isValidTitle = useAppSelector(selectIsValidTitle);
   const isValidatingTitle = useAppSelector(selectIsValidatingTitle);
   const {

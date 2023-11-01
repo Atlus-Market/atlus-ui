@@ -3,7 +3,7 @@
 import { ReactNode, useEffect } from 'react';
 import { useAppDispatch } from '@/redux/hooks';
 import { setPackagesList } from '@/redux/features/packages/packages';
-import { useFetchPackagesList } from '@/hooks/data/use-fetch-packages-list';
+import { useGetUserPackages } from '@/hooks/data/use-get-user-packages';
 
 interface PackagesListProviderProps {
   children: ReactNode;
@@ -11,7 +11,7 @@ interface PackagesListProviderProps {
 
 export const PackagesListProvider = ({ children }: PackagesListProviderProps) => {
   const dispatch = useAppDispatch();
-  const { isLoading, data, error } = useFetchPackagesList();
+  const { isLoading, data, error } = useGetUserPackages();
 
   useEffect(() => {
     if (data?.packages) {
