@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '@/redux/store';
 import { selectPackage } from '@/redux/features/set-package/selectors/set-package.selectors';
-import { getPackages } from '@/api/package/get-packages';
+import { getUserPackages } from '@/api/package/get-user-packages';
 
 interface PackageTitleValidatorPayload {
   userId: string;
@@ -25,7 +25,7 @@ export const packageTitleValidator = createAsyncThunk<
       return;
     }
 
-    const { packages: packagesListItems } = await getPackages(userId, signal);
+    const { packages: packagesListItems } = await getUserPackages(userId, signal);
 
     const foundPackage = packagesListItems.find(
       packageListItem => titleToValidate === packageListItem.title

@@ -1,12 +1,15 @@
 import 'server-only';
-
-import { Session } from 'next-auth';
 import { AuthHeadersProvider, setAuthHeaders } from '@/api/api';
 import { cookies } from 'next/headers';
 import { accessTokenCookieName } from '@/constants/api';
-import { getAtlusServerSession } from '@/app/(auth)/session/get-atlus-server-session';
+import {
+  getAtlusServerSession,
+  ServerSession,
+} from '@/app/(auth)/session/get-atlus-server-session';
 
-const mapServerSessionToAuthHeadersProvider = (serverSession: Session): AuthHeadersProvider => {
+const mapServerSessionToAuthHeadersProvider = (
+  serverSession: ServerSession
+): AuthHeadersProvider => {
   return {
     accessToken: serverSession.user?.accessToken,
     csrfToken: serverSession.user?.csrfToken,

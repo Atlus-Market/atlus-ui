@@ -23,6 +23,9 @@ export const useSubmitPackageDetailsForm = () => {
         persistPackage(formValues)
       );
 
+      // revalidate
+      await fetch('/api/package');
+
       // @ts-ignore
       if (res.error) {
         return;

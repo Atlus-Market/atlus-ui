@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getPackages } from '@/api/package/get-packages';
+import { getUserPackages } from '@/api/package/get-user-packages';
 import { useAtlusUser } from '@/app/(auth)/session/use-atlus-user';
 
 export const useGetUserPackages = () => {
@@ -8,7 +8,7 @@ export const useGetUserPackages = () => {
 
   return useQuery({
     queryKey: ['packages/user', userId],
-    queryFn: () => getPackages(userId),
+    queryFn: () => getUserPackages(userId),
     enabled: !!userId,
   });
 };

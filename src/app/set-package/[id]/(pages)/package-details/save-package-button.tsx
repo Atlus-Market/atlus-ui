@@ -5,7 +5,6 @@ import { useAppSelector } from '@/redux/hooks';
 import { selectIsPersistingPackage } from '@/redux/features/set-package/selectors/set-package.selectors';
 import { useFormContext } from 'react-hook-form';
 import { ExtendedPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
-import { selectPackageHasValidPatents } from '@/redux/features/set-package/selectors/package-validility.selectors';
 import {
   selectIsValidatingTitle,
   selectIsValidTitle,
@@ -16,7 +15,6 @@ export const SavePackageButton = () => {
     formState: { isValid, errors },
   } = useFormContext<ExtendedPackageDetailsForm>();
   const isPersistingPackage = useAppSelector(selectIsPersistingPackage);
-  const packageHasValidPatents = useAppSelector(selectPackageHasValidPatents);
   const isValidTitle = useAppSelector(selectIsValidTitle);
   const isValidatingTitle = useAppSelector(selectIsValidatingTitle);
 
@@ -24,8 +22,6 @@ export const SavePackageButton = () => {
   console.log('isValidatingTitle: ', isValidatingTitle);
   console.log('isValidTitle: ', isValidTitle);
   console.log('formErrors: ', errors);
-
-  const isFormValid = !isValidatingTitle && isValidTitle && isValid;
 
   return (
     <AtlusButton type="submit" isLoading={isPersistingPackage}>

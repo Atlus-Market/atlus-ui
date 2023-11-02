@@ -2,7 +2,6 @@ import { AtlusTitle } from '@/components/ui/typography/atlus-title';
 import { Package } from '@/models/package';
 import { formatSinceDate, parseGMTDate } from '@/utils/date';
 import format from 'date-fns/format';
-import { User } from '@/models/user';
 import { SharePackageButton } from '@/app/package/[id]/components/right-panel/share-package-button';
 import CircleSVG from '@/public/assets/images/circle.svg';
 import Image from 'next/image';
