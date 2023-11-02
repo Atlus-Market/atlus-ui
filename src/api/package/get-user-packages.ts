@@ -1,8 +1,8 @@
 import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
-import { PackageListItem } from '@/models/package-list-item';
+import { Package } from '@/models/package';
 
 export interface GetPackagesResponse {
-  packages: PackageListItem[];
+  packages: Package[];
 }
 
 export const createGetUserPackagesUrl = (userId: string): `/${string}` =>

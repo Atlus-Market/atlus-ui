@@ -1,11 +1,8 @@
 import { AtlusTitle } from '@/components/ui/typography/atlus-title';
 import { Package } from '@/models/package';
-import { formatSinceDate, parseGMTDate } from '@/utils/date';
-import format from 'date-fns/format';
 import { SharePackageButton } from '@/app/package/[id]/components/right-panel/share-package-button';
-import CircleSVG from '@/public/assets/images/circle.svg';
-import Image from 'next/image';
 import { PackageStatusTag } from '@/app/package/[id]/components/package-status-tag';
+import { PackageCreation } from '@/app/package/[id]/components/package-creation';
 
 interface PackageHeaderProps {
   atlusPackage: Package;
@@ -16,8 +13,6 @@ export const PackageHeader = ({
   atlusPackage: { title, createdTimestamp, lastModified, status },
   renderLimitedContent,
 }: PackageHeaderProps) => {
-  const createdDate = parseGMTDate(createdTimestamp);
-  const updatedDate = parseGMTDate(lastModified);
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -30,22 +25,11 @@ export const PackageHeader = ({
       </div>
 
       <AtlusTitle text={title} className="text-lg md:text-2xl font-normal mb-2" />
-      <div className="flex items-center mb-2 md:mb-3">
-        {createdDate && (
-          <p className="text-xs md:text-sm text-dark-grey font-normal">
-            Created {format(createdDate, 'LLL d, yyyy')}
-          </p>
-        )}
-
-        {updatedDate && (
-          <div className="hidden md:flex md:items-center ">
-            <Image src={CircleSVG} alt="circle" className="inline-block mx-2" />
-            <p className="text-xs md:text-sm text-dark-grey font-normal">
-              Updated {formatSinceDate(updatedDate)}
-            </p>
-          </div>
-        )}
-      </div>
+      <PackageCreation
+        creationDate={createdTimestamp}
+        lastModified={lastModified}
+        className="mb-2 md:mb-3"
+      />
       <PackageStatusTag status={status} />
     </div>
   );

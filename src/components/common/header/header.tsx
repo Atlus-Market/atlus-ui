@@ -10,7 +10,8 @@ export default function Header() {
         'px-4 py-[10px] md:px-10 md:pt-[22px] md:pb-[21px]',
         'bg-white',
         'flex items-center justify-between',
-        'min-h-[--atlus-header-height]'
+        'min-h-[--atlus-header-height]',
+        'border-b border-b-lightest-grey'
       )}
     >
       <Link href="/">
