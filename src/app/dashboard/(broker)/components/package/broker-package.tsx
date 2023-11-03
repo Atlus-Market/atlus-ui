@@ -15,6 +15,7 @@ interface BrokerPackageProps {
 }
 
 export const BrokerPackage = ({ atlusPackage, className }: BrokerPackageProps) => {
+  const menu = <BrokerPackageMenu packageId={atlusPackage.id} />;
   return (
     <div className={clsx('bg-white rounded-xl', className)}>
       <div className="p-[18px] md:p-8 flex gap-4 md:gap-8">
@@ -22,9 +23,7 @@ export const BrokerPackage = ({ atlusPackage, className }: BrokerPackageProps) =
         <div className="w-full">
           <div className="flex justify-between items-center">
             <PackageTitle title={atlusPackage.title} className="mb-[6px] md:mb-3 block" />
-            <div className="hidden md:block">
-              <BrokerPackageMenu />
-            </div>
+            <div className="hidden md:block">{menu}</div>
           </div>
           <PackageFamiliesAndDocuments atlusPackage={atlusPackage} className="mb-[10px] md:mb-4" />
           <div className="flex gap-2 mb-[10px] md:mb-4">
@@ -42,7 +41,7 @@ export const BrokerPackage = ({ atlusPackage, className }: BrokerPackageProps) =
       </div>
       <div className="flex md:hidden border-t border-t-lightest-grey py-5 px-[18px] justify-between items-center">
         <PackageStats atlusPackage={atlusPackage} />
-        <BrokerPackageMenu />
+        {menu}
       </div>
     </div>
   );
