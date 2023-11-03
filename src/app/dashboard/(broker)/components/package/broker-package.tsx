@@ -7,6 +7,7 @@ import { PackageCreation } from '@/app/package/[id]/components/package-creation'
 import { PackageStats } from '@/app/dashboard/components/package/package-stats';
 import { BrokerPackageMenu } from '@/app/dashboard/(broker)/components/package/broker-package-menu';
 import clsx from 'clsx';
+import { PackageImage } from '@/app/dashboard/packages/package-image';
 
 interface BrokerPackageProps {
   atlusPackage: Package;
@@ -16,8 +17,8 @@ interface BrokerPackageProps {
 export const BrokerPackage = ({ atlusPackage, className }: BrokerPackageProps) => {
   return (
     <div className={clsx('bg-white rounded-xl', className)}>
-      <div className="p-[18px] md:p-8">
-        {/*<div>Image</div>*/}
+      <div className="p-[18px] md:p-8 flex gap-4 md:gap-8">
+        <PackageImage />
         <div>
           <div className="flex justify-between items-center">
             <PackageTitle title={atlusPackage.title} className="mb-[6px] md:mb-3 block" />
