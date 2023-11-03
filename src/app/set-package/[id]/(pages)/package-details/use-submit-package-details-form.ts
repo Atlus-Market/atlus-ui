@@ -6,25 +6,26 @@ import { showSuccessNotification } from '@/components/ui/notification/atlus-noti
 import { Package } from '@/models/package';
 import { setActivePackage } from '@/redux/features/set-package/set-package';
 import { SetPackageDocuments } from '@/constants/routes';
-import { useAppDispatch } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import { IPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
+import { selectPackage } from '@/redux/features/set-package/selectors/set-package.selectors';
 
 export const useSubmitPackageDetailsForm = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const activePackage = useAppSelector(selectPackage);
 
   return useCallback(
     async (formValues: IPackageDetailsForm) => {
+      let packageId = activePackage?.id;
+
       console.log('[PackageDetailsForm] submit: ', formValues);
 
       const res = await (dispatch as ThunkDispatch<RootState, void, AnyAction>)(
         persistPackage(formValues)
       );
-
-      // revalidate
-      await fetch('/api/package');
 
       // @ts-ignore
       if (res.error) {
@@ -39,10 +40,16 @@ export const useSubmitPackageDetailsForm = () => {
       if (hasCreatedPackage) {
         // @ts-ignore
         const packageRes = res.payload.package as Package;
+        fetch(`/api/package/${packageRes.id}`);
         dispatch(setActivePackage(packageRes));
         router.push(SetPackageDocuments(packageRes.id));
+      } else {
+        if (packageId) {
+          // revalidate
+          fetch(`/api/package/${packageId}`);
+        }
       }
     },
-    [dispatch, router]
+    [dispatch, router, activePackage]
   );
 };

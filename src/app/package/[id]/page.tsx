@@ -12,6 +12,9 @@ export interface PackagePageProps {
   };
 }
 
+// https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#revalidation-frequency
+export const revalidate = 60;
+
 export default async function PackagePage({ params }: PackagePageProps) {
   console.log(`--------------------- Rendering packageId ${params.id} ---------------------`);
   const serverSession = await getAtlusServerSession();
