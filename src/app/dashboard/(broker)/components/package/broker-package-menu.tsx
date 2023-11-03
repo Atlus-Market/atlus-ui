@@ -15,6 +15,8 @@ interface BrokerPackageMenuProps {
   packageId: string;
 }
 
+const shareMenuOptionValue = 'share';
+
 export const BrokerPackageMenu = ({ packageId }: BrokerPackageMenuProps) => {
   const dispatch = useDispatch();
 
@@ -34,7 +36,7 @@ export const BrokerPackageMenu = ({ packageId }: BrokerPackageMenuProps) => {
         />
       }
       onItemClick={e => {
-        if (e.value === 'share') {
+        if (e.value === shareMenuOptionValue) {
           e.stopPropagation = true;
           e.syntheticEvent.stopPropagation();
           e.syntheticEvent.preventDefault();
@@ -44,7 +46,7 @@ export const BrokerPackageMenu = ({ packageId }: BrokerPackageMenuProps) => {
       }}
       menuItems={
         <>
-          <AtlusMenuItem value="share" text="Share" />
+          <AtlusMenuItem value={shareMenuOptionValue} text="Share" />
           <Link href={SetPackagePatent(packageId)}>
             <AtlusMenuItem text="Edit" />
           </Link>
