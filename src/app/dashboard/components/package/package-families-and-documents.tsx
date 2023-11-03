@@ -19,11 +19,11 @@ export const PackageFamiliesAndDocuments = ({
   return (
     <div className={clsx('flex items-center gap-2', className)}>
       <span className={textClassName}>
-        3{familiesCount} {pluralize('family', familiesCount)}
+        {familiesCount} {pluralize('family', familiesCount)}
       </span>
       <AtlusCircle className="bg-light-grey" width={4} height={4} />
       <span className={textClassName}>
-        5{documentsCount} {pluralize('document', documentsCount)}
+        {documentsCount} {pluralize('document', documentsCount)}
       </span>
     </div>
   );
