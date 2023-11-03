@@ -6,7 +6,6 @@ interface BrokerPackagesListProps {
 }
 
 export const BrokerPackagesList = ({ packages }: BrokerPackagesListProps) => {
-  console.log(packages);
   return (
     <>
       {packages.map(atlusPackage => (

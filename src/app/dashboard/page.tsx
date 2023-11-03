@@ -4,15 +4,10 @@ import Link from 'next/link';
 import { SetNewPackageUrl } from '@/constants/routes';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { getIsBrokerUser } from '@/api/user/get-is-broker-user-on-server';
-import dynamic from 'next/dynamic';
-
-const BrokerDashboard = dynamic(() =>
-  import('./(broker)/broker-dashboard').then(mod => mod.BrokerDashboard)
-);
+import BrokerDashboard from '@/app/dashboard/(broker)/broker-dashboard';
 
 export default async function DashboardPage() {
   const isBrokerUser = await getIsBrokerUser();
-  const isBrokerUsers = await getIsBrokerUser();
 
   // const atlusPackage = await getPackageOnServer('72f8bd14-eb2d-4a26-8a51-5fb0b5301144');
 
