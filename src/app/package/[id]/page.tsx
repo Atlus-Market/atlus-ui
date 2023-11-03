@@ -1,6 +1,6 @@
 import { PackageRightPanel } from '@/app/package/[id]/components/right-panel/package-right-panel';
 import { MainPanel } from '@/app/package/[id]/main-panel';
-import { SharePackageModal } from '@/app/package/[id]/components/share-package-modal';
+import { ShareBrokerPackageModal } from '@/app/package/[id]/components/share-broker-package-modal';
 import { getAtlusServerSession } from '@/app/(auth)/session/get-atlus-server-session';
 import { NoPackagePermission } from '@/app/package/[id]/components/limited-access/request-permission/no-package-permission';
 import { loadPackageViewData } from '@/app/package/[id]/load-package-view-data';
@@ -42,7 +42,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
           />
         )}
       </div>
-      {!isLimitedUser && <SharePackageModal packageId={atlusPackage.id} />}
+      {!isLimitedUser && <ShareBrokerPackageModal packageId={atlusPackage.id} />}
       {hasValidSession && !userHasAccessToPackage && <NoPackagePermission />}
       {!hasValidSession && <NoPackageSession packageId={atlusPackage.id} />}
     </div>

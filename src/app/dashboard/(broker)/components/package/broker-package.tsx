@@ -17,7 +17,7 @@ interface BrokerPackageProps {
 export const BrokerPackage = ({ atlusPackage, className }: BrokerPackageProps) => {
   const menu = <BrokerPackageMenu packageId={atlusPackage.id} />;
   return (
-    <div className={clsx('bg-white rounded-xl', className)}>
+    <div className={clsx('bg-white rounded-xl', className)} data-package-id={atlusPackage.id}>
       <div className="p-[18px] md:p-8 flex gap-4 md:gap-8">
         <PackageImage />
         <div className="w-full">

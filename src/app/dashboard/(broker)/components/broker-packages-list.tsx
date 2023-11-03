@@ -1,7 +1,7 @@
 import { Package } from '@/models/package';
 import { BrokerPackage } from '@/app/dashboard/(broker)/components/package/broker-package';
-import Link from 'next/link';
-import { PackagePageUrl } from '@/constants/routes';
+import { BrokerPackageActions } from '@/app/dashboard/(broker)/components/broker-package-actions';
+import { PackageLink } from '@/app/dashboard/components/package/package-link';
 
 interface BrokerPackagesListProps {
   packages: Package[];
@@ -10,14 +10,17 @@ interface BrokerPackagesListProps {
 export const BrokerPackagesList = ({ packages }: BrokerPackagesListProps) => {
   return (
     <>
-      {packages.map(atlusPackage => (
-        <Link href={PackagePageUrl(atlusPackage.id)} key={atlusPackage.id}>
+      <BrokerPackageActions />
+      <PackageLink>
+        {packages.map(atlusPackage => (
+          // Don't wrap with Link because other Links inside are used
           <BrokerPackage
+            key={atlusPackage.id}
             atlusPackage={atlusPackage}
             className="[&:not(:last-child)]:mb-4 [&:not(:last-child)]:md:mb-6"
           />
-        </Link>
-      ))}
+        ))}
+      </PackageLink>
     </>
   );
 };

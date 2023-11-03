@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { MouseEvent, ReactNode } from 'react';
 
 import { useOnboardingContext } from '@/app/onboarding/context/use-onboarding-context';
 import { atlusIconTagDataId } from '@/components/ui/tag/atlus-icon-tag';
@@ -13,7 +13,7 @@ export const InterestAreaSelector = ({ children }: InterestAreaSelectorProps) =>
   const { updateContext, interestAreasIds } = useOnboardingContext();
   return (
     <div
-      onClick={e => {
+      onClick={(e: MouseEvent<HTMLElement>) => {
         e?.preventDefault();
         e?.stopPropagation();
         const target = e?.target as HTMLElement;

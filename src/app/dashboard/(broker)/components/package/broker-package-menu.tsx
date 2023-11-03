@@ -2,16 +2,22 @@
 import { AtlusMenu } from '@/components/ui/menu/atlus-menu';
 import { HiDotsVertical } from 'react-icons/hi';
 import { AtlusMenuItem } from '@/components/ui/menu/atlus-menu-item';
-import { PackageAccessMenuItemContent } from '@/app/package/share/broker/pages/find-recipients/components/shared-with-tab/change-package-access/package-access-menu-item-content';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { SetPackagePatent } from '@/constants/routes';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import {
+  setSharePackageId,
+  showSharePackageModal,
+} from '@/redux/features/share-package/share-package';
 
 interface BrokerPackageMenuProps {
   packageId: string;
 }
 
 export const BrokerPackageMenu = ({ packageId }: BrokerPackageMenuProps) => {
+  const dispatch = useDispatch();
+
   return (
     <AtlusMenu
       menuButton={
@@ -20,18 +26,29 @@ export const BrokerPackageMenu = ({ packageId }: BrokerPackageMenuProps) => {
           variant="icon-only"
           color="grey"
           onClick={e => {
+            // Stop propagation up so navigation to view package
+            // is not triggered.
             e.stopPropagation();
             e.preventDefault();
           }}
         />
       }
+      onItemClick={e => {
+        if (e.value === 'share') {
+          e.stopPropagation = true;
+          e.syntheticEvent.stopPropagation();
+          e.syntheticEvent.preventDefault();
+          dispatch(setSharePackageId({ packageId }));
+          dispatch(showSharePackageModal());
+        }
+      }}
       menuItems={
         <>
-          <AtlusMenuItem text={<PackageAccessMenuItemContent title="Share" />} />
+          <AtlusMenuItem value="share" text="Share" />
           <Link href={SetPackagePatent(packageId)}>
-            <AtlusMenuItem text={<PackageAccessMenuItemContent title="Edit" />} />
+            <AtlusMenuItem text="Edit" />
           </Link>
-          <AtlusMenuItem text={<PackageAccessMenuItemContent title="Delete" />} />
+          <AtlusMenuItem text="Delete" />
         </>
       }
     />

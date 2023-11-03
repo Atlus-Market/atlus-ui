@@ -7,7 +7,7 @@ interface SharePackageProps {
   packageId: string;
 }
 
-export const SharePackageModal = ({ packageId }: SharePackageProps) => {
+export const ShareBrokerPackageModal = ({ packageId }: SharePackageProps) => {
   const { isSharePackageBrokerOpen } = useSharePackageBrokerVisibility();
   return <ShareBrokerPackage packageId={packageId} isShowingModal={isSharePackageBrokerOpen} />;
 };
