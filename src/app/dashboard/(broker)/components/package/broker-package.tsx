@@ -19,7 +19,7 @@ export const BrokerPackage = ({ atlusPackage, className }: BrokerPackageProps) =
     <div className={clsx('bg-white rounded-xl', className)}>
       <div className="p-[18px] md:p-8 flex gap-4 md:gap-8">
         <PackageImage />
-        <div>
+        <div className="w-full">
           <div className="flex justify-between items-center">
             <PackageTitle title={atlusPackage.title} className="mb-[6px] md:mb-3 block" />
             <div className="hidden md:block">

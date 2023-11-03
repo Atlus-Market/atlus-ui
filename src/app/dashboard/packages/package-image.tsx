@@ -6,7 +6,7 @@ const DataImage =
 
 export const PackageImage = () => {
   return (
-    <div className="">
+    <div className="flex-shrink-0">
       <NextImage
         src={DataImage}
         alt=""
