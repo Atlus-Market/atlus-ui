@@ -13,9 +13,8 @@ export const PackageImage = () => {
         fill={true}
         objectFit="contain"
         className={clsx(
-          'h-full !w-full !static',
+          'h-full !static',
           '!w-[112px] md:!w-[176px]',
-          // 'h-[137px] md:max-h-[213px]',
           'indent-[-10000px]' // hide broken image
         )}
         placeholder={DataImage}
