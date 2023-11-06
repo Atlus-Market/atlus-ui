@@ -24,7 +24,7 @@ export const SavePackageButton = () => {
   console.log('formErrors: ', errors);
 
   return (
-    <AtlusButton type="submit" isLoading={isPersistingPackage}>
+    <AtlusButton type="submit" isLoading={isPersistingPackage} disabled={isValidatingTitle}>
       Save
     </AtlusButton>
   );
