@@ -36,9 +36,10 @@ export const BrokerPackageMenu = ({ packageId }: BrokerPackageMenuProps) => {
         />
       }
       onItemClick={e => {
+        e.stopPropagation = true;
+        e.syntheticEvent.stopPropagation();
+
         if (e.value === shareMenuOptionValue) {
-          e.stopPropagation = true;
-          e.syntheticEvent.stopPropagation();
           e.syntheticEvent.preventDefault();
           dispatch(setSharePackageId({ packageId }));
           dispatch(showSharePackageModal());
