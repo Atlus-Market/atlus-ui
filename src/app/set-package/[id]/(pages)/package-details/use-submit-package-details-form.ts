@@ -31,7 +31,7 @@ export const useSubmitPackageDetailsForm = () => {
       // @ts-ignore
       const packageRes = res.payload.package as Package;
 
-      fetch(`/api/package/${packageRes.id}`);
+      fetch(`/api/package/${packageRes.id}/revalidate`);
 
       showSuccessNotification({ text: 'Package saved successfully!' });
 
