@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { AtlusForm } from '@/components/ui/form/atlus-form';
 import { useAppSelector } from '@/redux/hooks';
 import { selectPackageDetailsFormValues } from '@/redux/features/set-package/selectors/package-details.selectors';
-import { ReactNode } from 'react';
+import { ReactNode, useCallback } from 'react';
 import { Visibility } from '@/components/common/dropdown/visibility-options';
 import { useSubmitPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/use-submit-package-details-form';
 import { PackageStatus } from '@/models/package-status';
@@ -15,6 +15,14 @@ import {
   hasValidTitleName,
   invalidTitleErrorMessage,
 } from '@/app/set-package/[id]/(pages)/package-details/package-details-title';
+import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
+import { useToggleState } from '@/hooks/use-toggle-state';
+import { useRouter } from 'next/navigation';
+import { SetNewPackageUrl, SetPackagePatent } from '@/constants/routes';
+import {
+  selectPackage,
+  selectPackagePatents,
+} from '@/redux/features/set-package/selectors/set-package.selectors';
 
 export interface IPackageDetailsForm {
   title: string;
@@ -79,8 +87,11 @@ export interface PackageDetailsFormProps {
 }
 
 export const PackageDetailsForm = ({ children }: PackageDetailsFormProps) => {
+  const { isOn, setOff, setOn } = useToggleState(false);
+  const router = useRouter();
   const packageDetailsFormValues = useAppSelector(selectPackageDetailsFormValues);
-  console.log('[PackageDetailsForm] form values: ', packageDetailsFormValues);
+  const activePackage = useAppSelector(selectPackage);
+  const patents = useAppSelector(selectPackagePatents);
 
   const formProps = useAtlusForm<ExtendedPackageDetailsForm>({
     formOptions: {
@@ -88,16 +99,46 @@ export const PackageDetailsForm = ({ children }: PackageDetailsFormProps) => {
       defaultValues: packageDetailsFormValues,
     },
   });
-  const {
-    formState: { errors },
-  } = formProps;
-  console.log('[PackageDetailsForm] errors:', errors);
 
-  const onSubmit = useSubmitPackageDetailsForm();
+  const savePackage = useSubmitPackageDetailsForm();
+
+  const onSubmit = useCallback(
+    (formValues: ExtendedPackageDetailsForm) => {
+      if (patents.length === 0) {
+        setOn();
+      } else {
+        savePackage(formValues);
+      }
+    },
+    [patents.length, savePackage, setOn]
+  );
 
   return (
-    <AtlusForm formProps={formProps} onSubmit={onSubmit}>
-      {children}
-    </AtlusForm>
+    <>
+      <AtlusAlertModal
+        isOpen={isOn}
+        title="Attention"
+        text="The package can't be saved because it doesn't have any patent. Do you want to add one now?"
+        mainButton={{
+          text: 'Add a patent',
+          onClick: () => {
+            setOff();
+            if (activePackage) {
+              router.push(SetPackagePatent(activePackage.id));
+            } else {
+              router.push(SetNewPackageUrl);
+            }
+          },
+        }}
+        secondaryButton={{
+          text: 'Cancel',
+          onClick: setOff,
+        }}
+      />
+
+      <AtlusForm formProps={formProps} onSubmit={onSubmit}>
+        {children}
+      </AtlusForm>
+    </>
   );
 };

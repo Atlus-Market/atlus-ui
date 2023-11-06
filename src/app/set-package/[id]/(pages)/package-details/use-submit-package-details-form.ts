@@ -40,13 +40,13 @@ export const useSubmitPackageDetailsForm = () => {
       if (hasCreatedPackage) {
         // @ts-ignore
         const packageRes = res.payload.package as Package;
-        fetch(`/api/package/${packageRes.id}`);
+        await fetch(`/api/package/${packageRes.id}`);
         dispatch(setActivePackage(packageRes));
         router.push(SetPackageDocuments(packageRes.id));
       } else {
         if (packageId) {
           // revalidate
-          fetch(`/api/package/${packageId}`);
+          await fetch(`/api/package/${packageId}`);
         }
       }
     },

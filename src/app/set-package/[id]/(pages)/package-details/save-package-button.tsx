@@ -13,15 +13,19 @@ import {
 export const SavePackageButton = () => {
   const {
     formState: { isValid, errors },
+    getValues,
   } = useFormContext<ExtendedPackageDetailsForm>();
   const isPersistingPackage = useAppSelector(selectIsPersistingPackage);
   const isValidTitle = useAppSelector(selectIsValidTitle);
   const isValidatingTitle = useAppSelector(selectIsValidatingTitle);
 
+  console.group('Package Details Form');
+  console.log('Form values: ', getValues());
   console.log('isFormValid: ', isValid);
   console.log('isValidatingTitle: ', isValidatingTitle);
   console.log('isValidTitle: ', isValidTitle);
-  console.log('formErrors: ', errors);
+  console.log('FormErrors: ', errors);
+  console.groupEnd();
 
   return (
     <AtlusButton type="submit" isLoading={isPersistingPackage} disabled={isValidatingTitle}>
