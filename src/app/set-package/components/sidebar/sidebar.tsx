@@ -12,7 +12,7 @@ export const Sidebar = () => {
   const setPackageUrls = useSetPackageUrls();
 
   return (
-    <div className="pt-[94px] p-4 [&>*:not(:last-child)]:mb-4 w-full">
+    <div className="pt-[94px] p-4 [&>*:not(:last-child)]:mb-4 w-full hidden md:block">
       <SidebarItem
         itemNumber={1}
         text="Patents"
