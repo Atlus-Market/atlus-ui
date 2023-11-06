@@ -46,7 +46,7 @@ export const packageDetailsInitialState: PackageDetailsState = {
 };
 
 export const packageDetailsReducer = {
-  setPackageDetails: (
+  setPackageDetailsForm: (
     state: SetPackageState,
     action: PayloadAction<ExtendedPackageDetailsForm>
   ) => {

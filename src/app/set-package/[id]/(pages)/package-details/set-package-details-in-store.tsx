@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useMemo } from 'react';
 import { useWatch } from 'react-hook-form';
 import { useAppDispatch } from '@/redux/hooks';
-import { setPackageDetails } from '@/redux/features/set-package/set-package';
+import { setPackageDetailsForm } from '@/redux/features/set-package/set-package';
 import { ExtendedPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
 import { debounce } from 'lodash';
 
@@ -16,7 +16,7 @@ export const SetPackageDetailsInStore = ({ children }: UpdateFormInStoreProps) =
   const saveFormValues = useMemo(
     () =>
       debounce((formValues: ExtendedPackageDetailsForm) => {
-        dispatch(setPackageDetails(formValues));
+        dispatch(setPackageDetailsForm(formValues));
       }, 250),
     [dispatch]
   );

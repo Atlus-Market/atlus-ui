@@ -106,7 +106,10 @@ export const setPackage = createSlice({
     setActivePackage: (state: SetPackageState, action: PayloadAction<Package>) => {
       state.package = action.payload;
       state.patents = [...action.payload.patents, ...action.payload.customPatents];
-      state.packageDetails.packageDetailsForm = action.payload;
+      state.packageDetails.packageDetailsForm = {
+        ...action.payload,
+        hasValidTitleName: true,
+      };
     },
 
     ...addPatentesReducer,
@@ -145,7 +148,7 @@ export const {
   setPackagePatents,
   setPatents,
   setRowSelectionState,
-  setPackageDetails,
+  setPackageDetailsForm,
   showSetContactModal,
   hideSetContactModal,
   setContact,

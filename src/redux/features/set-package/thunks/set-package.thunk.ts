@@ -17,7 +17,7 @@ import { getPatentId, mapPatentToCustomPatentPayload } from '@/utils/patents';
 import { IPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
 
 export interface PersistPackageResult {
-  package?: Package;
+  package: Package;
   createdPackage: boolean;
 }
 
@@ -41,7 +41,7 @@ export const persistPackage = createAsyncThunk<
       const res = await updatePackage(activePackage.id, payload);
       console.log('UPDATE package Response: ', res);
       return {
-        // No need to return the updated package since it's already loaded
+        package: res.package,
         createdPackage: false,
       };
     } else {
