@@ -13,7 +13,6 @@ export const ViewPackageButton = ({ packageId }: ViewPackageButtonProps) => {
     // <Link href={PackagePageUrl(packageId)}>
     <AtlusButton
       onClick={() => {
-        // router.refresh();
         router.push(PackagePageUrl(packageId));
       }}
     >

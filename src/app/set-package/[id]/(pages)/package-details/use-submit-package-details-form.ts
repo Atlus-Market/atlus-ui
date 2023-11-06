@@ -32,7 +32,7 @@ export const useSubmitPackageDetailsForm = () => {
       const packageRes = res.payload.package as Package;
 
       fetch(`/api/package/${packageRes.id}/revalidate`);
-
+      router.refresh();
       showSuccessNotification({ text: 'Package saved successfully!' });
 
       dispatch(setActivePackage(packageRes));
