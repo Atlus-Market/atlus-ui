@@ -17,6 +17,7 @@ export const BuyerLayoutTabs = ({ activePathname }: BuyerLayoutTabsProps) => {
       <AtlusTabs>
         <Link href={BuyerDashboardShared}>
           <AtlusTab
+            key={BuyerDashboardShared}
             isActive={activePathname === BuyerDashboardShared}
             text={
               <>
@@ -27,10 +28,18 @@ export const BuyerLayoutTabs = ({ activePathname }: BuyerLayoutTabsProps) => {
           />
         </Link>
         <Link href={BuyerDashboardRecommended}>
-          <AtlusTab isActive={activePathname === BuyerDashboardRecommended} text="Recommended" />
+          <AtlusTab
+            isActive={activePathname === BuyerDashboardRecommended}
+            text="Recommended"
+            key={BuyerDashboardRecommended}
+          />
         </Link>
         <Link href={BuyerDashboardWatchlist}>
-          <AtlusTab isActive={activePathname === BuyerDashboardWatchlist} text="Watchlist" />
+          <AtlusTab
+            isActive={activePathname === BuyerDashboardWatchlist}
+            text="Watchlist"
+            key={BuyerDashboardWatchlist}
+          />
         </Link>
       </AtlusTabs>
     </>
