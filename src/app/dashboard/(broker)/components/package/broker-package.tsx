@@ -7,7 +7,7 @@ import { PackageCreation } from '@/app/package/[id]/components/package-creation'
 import { PackageStats } from '@/app/dashboard/components/package/package-stats';
 import { BrokerPackageMenu } from '@/app/dashboard/(broker)/components/package/broker-package-menu';
 import clsx from 'clsx';
-import { PackageImage } from '@/app/dashboard/packages/package-image';
+import { PackageImage } from '@/app/dashboard/components/package/package-image';
 
 interface BrokerPackageProps {
   atlusPackage: Package;

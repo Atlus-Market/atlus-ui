@@ -1,5 +1,4 @@
 export const RootRoute = '/';
-export const DashboardRoute = '/dashboard';
 
 // Auth
 export const LoginRoute = '/login';
@@ -39,3 +38,9 @@ export const SetPackageDocuments = function (packageId: string) {
 export const PackagePageUrl = function (packageId: string) {
   return `/package/${packageId}`;
 };
+
+// Dashboard
+export const DashboardRoute = '/dashboard';
+export const BuyerDashboardShared = `${DashboardRoute}/shared`;
+export const BuyerDashboardRecommended = `${DashboardRoute}/recommended`;
+export const BuyerDashboardWatchlist = `${DashboardRoute}/watchlist`;

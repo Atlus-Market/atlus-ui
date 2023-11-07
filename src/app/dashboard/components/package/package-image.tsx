@@ -6,14 +6,13 @@ const DataImage =
 
 export const PackageImage = () => {
   return (
-    <div className="flex-shrink-0">
+    <div className="flex-shrink-0 relative">
       <NextImage
         src={DataImage}
         alt=""
         fill={true}
-        objectFit="contain"
         className={clsx(
-          'h-full !static',
+          'h-full !relative',
           '!w-[112px] md:!w-[176px]',
           'indent-[-10000px]' // hide broken image
         )}

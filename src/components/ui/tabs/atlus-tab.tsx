@@ -1,8 +1,9 @@
 import clsx from 'clsx';
+import { ReactNode } from 'react';
 
 interface SectionTabProps {
   isActive: boolean;
-  text: string;
+  text: ReactNode;
   onSelected?: () => void;
 }
 
