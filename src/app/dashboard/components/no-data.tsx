@@ -3,8 +3,8 @@ import Image, { StaticImageData } from 'next/image';
 
 interface NoDataProps {
   image: string | StaticImageData;
-  title?: string;
-  subtitle?: string;
+  title?: ReactNode;
+  subtitle?: ReactNode;
   footer?: ReactNode;
 }
 

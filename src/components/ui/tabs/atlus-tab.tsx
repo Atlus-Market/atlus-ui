@@ -12,7 +12,7 @@ export const AtlusTab = ({ isActive, text, onSelected }: SectionTabProps) => {
     <div
       onClick={onSelected}
       className={clsx(
-        'text-base font-medium',
+        'text-sm md:text-base font-medium',
         'hover:cursor-pointer',
         isActive ? 'text-orange underline underline-offset-8 decoration-2' : 'text-dark-grey'
       )}
