@@ -18,9 +18,7 @@ export const PackageWatchlistButton = ({ isWatched }: PackageWatchlistButtonProp
   const { pending: isLoading } = useFormStatus();
   return (
     <AtlusButton
-      className={clsx({
-        'atlus-btn-36': !isLoading,
-      })}
+      className={clsx(isLoading ? 'atlus-btn-22' : 'atlus-btn-36')}
       isLoading={isLoading}
       iconOnlyIcon={isWatched ? <HiStar className="text-orange" /> : <HiOutlineStar />}
       variant="icon-only"

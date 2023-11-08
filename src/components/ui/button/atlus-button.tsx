@@ -69,7 +69,10 @@ const AtlusButtonBase = (props: AtlusButtonProps) => {
     >
       {isLoadingState ? (
         <div className="flex justify-center items-center">
-          <AtlusLoadingSpinner size="1.2em" color={getSpinnerColor({ variant, color })} />
+          <AtlusLoadingSpinner
+            size={isIconOnlyVariant ? '1em' : '1.2em'}
+            color={getSpinnerColor({ variant, color })}
+          />
         </div>
       ) : (
         <>
