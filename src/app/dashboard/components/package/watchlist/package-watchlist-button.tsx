@@ -3,8 +3,8 @@
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import clsx from 'clsx';
 import { HiOutlineStar, HiStar } from 'react-icons/hi2';
-import { useFormStatus } from 'react-dom';
 import { MouseEvent } from 'react';
+import { useFormStatus } from 'react-dom';
 
 interface PackageWatchlistButtonProps {
   isWatched: boolean;
@@ -15,17 +15,16 @@ const stopEventPropagation = (e: MouseEvent | undefined) => {
 };
 
 export const PackageWatchlistButton = ({ isWatched }: PackageWatchlistButtonProps) => {
-  const { pending } = useFormStatus();
-
+  const { pending: isLoading } = useFormStatus();
   return (
     <AtlusButton
       className={clsx({
-        'atlus-btn-36': !pending,
+        'atlus-btn-36': !isLoading,
       })}
-      isLoading={pending}
+      isLoading={isLoading}
       iconOnlyIcon={isWatched ? <HiStar className="text-orange" /> : <HiOutlineStar />}
       variant="icon-only"
-      color={pending ? 'orange' : 'grey'}
+      color={isLoading ? 'orange' : 'grey'}
       onClick={stopEventPropagation}
     />
   );

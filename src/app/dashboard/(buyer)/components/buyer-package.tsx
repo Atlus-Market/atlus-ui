@@ -19,13 +19,13 @@ export const BuyerPackage = ({ buyerPackage }: BuyerPackageProps) => {
   return (
     <PackageCardWrapper
       packageId={buyerPackage.id}
-      className="flex bg-peach px-[18px] py-2 md:p-[10px] gap-4 md:gap-6"
+      className="flex px-[18px] py-2 md:p-[10px] gap-4 md:gap-6"
     >
       <PackageImage />
       <div className="flex flex-col w-full">
         <div className="flex justify-between items-center mb-[6px] md:mb-3">
           <PackageTitle title={buyerPackage.title} />
-          <div className="hidden md:flex">
+          <div className="hidden md:flex gap-4">
             {watchList}
             {menu}
           </div>

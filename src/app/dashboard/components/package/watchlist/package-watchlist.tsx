@@ -19,10 +19,9 @@ export const PackageWatchlist = ({ packageId, isWatched }: PackageWatchlistProps
     formActionWithParams,
     null
   );
-  const hasError = state && state.error;
 
   useEffect(() => {
-    if (hasError) {
+    if (state && state.error) {
       let text = '';
       if (isWatched) {
         text = 'An error occurred while removing the package to watchlist.';
@@ -31,7 +30,7 @@ export const PackageWatchlist = ({ packageId, isWatched }: PackageWatchlistProps
       }
       showErrorNotification({ text });
     }
-  }, [hasError, isWatched]);
+  }, [isWatched, state]);
 
   return (
     <form action={formAction} className="flex items-center">
