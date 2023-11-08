@@ -5,6 +5,7 @@ import { PackageStatusTag } from '@/app/package/[id]/components/package-status-t
 import { PackageFamiliesAndDocuments } from '@/app/dashboard/components/package/package-families-and-documents';
 import { PackageCardWrapper } from '@/app/dashboard/components/package-card-wrapper';
 import { BuyerPackageMenu } from '@/app/dashboard/(buyer)/components/buyer-package-menu';
+import { PackageWatchlist } from '@/app/dashboard/components/package/watchlist/package-watchlist';
 
 interface BuyerPackageProps {
   buyerPackage: BuyerPackageData;
@@ -12,6 +13,9 @@ interface BuyerPackageProps {
 
 export const BuyerPackage = ({ buyerPackage }: BuyerPackageProps) => {
   const menu = <BuyerPackageMenu packageId={buyerPackage.id} />;
+  const watchList = (
+    <PackageWatchlist packageId={buyerPackage.id} isWatched={buyerPackage.is_watched} />
+  );
   return (
     <PackageCardWrapper
       packageId={buyerPackage.id}
@@ -21,7 +25,10 @@ export const BuyerPackage = ({ buyerPackage }: BuyerPackageProps) => {
       <div className="flex flex-col w-full">
         <div className="flex justify-between items-center mb-[6px] md:mb-3">
           <PackageTitle title={buyerPackage.title} />
-          <div className="hidden md:flex">{menu}</div>
+          <div className="hidden md:flex">
+            {watchList}
+            {menu}
+          </div>
         </div>
         <PackageFamiliesAndDocuments
           documentsCount={buyerPackage.documents_count}

@@ -25,6 +25,10 @@ export const getSpinnerColor = ({
     return 'dark-grey';
   }
 
+  if (variant === 'icon-only') {
+    return 'orange';
+  }
+
   console.warn(`Unable to get spinner color for variant ${variant} and color ${color}`);
   return 'orange';
 };
