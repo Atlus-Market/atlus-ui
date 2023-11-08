@@ -9,23 +9,28 @@ export interface TogglePackageWatchlistResponse {
   error: boolean;
 }
 
+let queue = Promise.resolve({ error: false });
+
 export const toggleWatchPackage = async (
   packageId: string,
   isWatched: boolean
 ): Promise<TogglePackageWatchlistResponse> => {
-  try {
-    if (isWatched) {
-      await removePackageFromWatchlistOnServer(packageId);
-    } else {
-      await addPackageToWatchlistOnServer(packageId);
+  return queue.then(async () => {
+    try {
+      if (isWatched) {
+        await removePackageFromWatchlistOnServer(packageId);
+      } else {
+        await addPackageToWatchlistOnServer(packageId);
+      }
+      revalidatePath(BuyerDashboardShared);
+      return {
+        error: false,
+      };
+    } catch (e) {
+      console.log(e);
+      return {
+        error: true,
+      };
     }
-    revalidatePath(BuyerDashboardShared);
-    return {
-      error: false,
-    };
-  } catch (e) {
-    return {
-      error: true,
-    };
-  }
+  });
 };
