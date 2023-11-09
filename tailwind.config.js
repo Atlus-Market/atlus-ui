@@ -14,6 +14,7 @@ module.exports = {
         screen: ['100vh /* fallback for Opera, IE and etc. */', '100dvh'],
       },
       fontSize: {
+        11: '11px',
         13: '13px',
         15: '15px',
         18: '18px',
@@ -28,6 +29,13 @@ module.exports = {
       },
       borderRadius: {
         32: '32px',
+      },
+      width: {
+        32: '32px',
+        36: '36px',
+        40: '40px',
+        64: '64px',
+        72: '72px',
       },
     },
     colors: colors,

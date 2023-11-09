@@ -23,7 +23,7 @@ export const UserHeaderMenu = ({}: UserHeaderMenuProps) => {
     <AtlusMenu
       menuButton={
         <button>
-          <AtlusAvatar word={user?.fullName} />
+          <AtlusAvatar word={user?.fullName} className="w-32 md:w-40" />
         </button>
       }
       menuItems={

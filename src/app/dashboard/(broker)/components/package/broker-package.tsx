@@ -43,7 +43,7 @@ export const BrokerPackage = ({ atlusPackage, className }: BrokerPackageProps) =
           </div>
         </div>
       </div>
-      <div className="flex md:hidden border-t border-t-lightest-grey py-5 px-[18px] justify-between items-center">
+      <div className="flex md:hidden border-t border-t-lightest-grey py-[18px] px-[18px] justify-between items-center">
         <PackageStats atlusPackage={atlusPackage} />
         {menu}
       </div>

@@ -16,7 +16,7 @@ export const UserProfileBody = ({ user }: UserProfileBodyProps) => {
   return (
     <div>
       <div className="flex justify-center items-center flex-col">
-        <AtlusAvatar word={user.fullName} size="big" className="mb-6" />
+        <AtlusAvatar word={user.fullName} className="mb-6 w-[120px] md:w-[160px]" />
         <div className="mb-2 text-xl md:text-2xl text-soft-black">{user.fullName}</div>
         <div className="text-cm md:text-base text-dark-grey">{user.companyName}</div>
       </div>

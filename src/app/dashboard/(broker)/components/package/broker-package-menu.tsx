@@ -27,6 +27,7 @@ export const BrokerPackageMenu = ({ packageId }: BrokerPackageMenuProps) => {
           iconOnlyIcon={<HiDotsVertical />}
           variant="icon-only"
           color="grey"
+          className="atlus-btn-20"
           onClick={e => {
             // Stop propagation up so navigation to view package
             // is not triggered.

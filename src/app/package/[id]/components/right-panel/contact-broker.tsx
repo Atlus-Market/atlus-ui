@@ -1,6 +1,9 @@
-import { PackageOwner } from '@/app/package/[id]/components/package-owner/package-owner';
+import { UserInfo } from '@/components/common/user-info/user-info';
 import { ContactBrokerButton } from '@/app/package/[id]/components/right-panel/contact-broker-button';
 import { User } from '@/models/user';
+import { AtlusAvatar } from '@/components/common/avatar/atlus-avatar';
+import { UserInfoFullName } from '@/components/common/user-info/user-info-full-name';
+import { UserInfoCompanyName } from '@/components/common/user-info/user-info-company-name';
 
 interface ContactBrokerProps {
   broker: User;
@@ -14,8 +17,11 @@ export const ContactBroker = ({ broker }: ContactBrokerProps) => {
         Contact the broker for this listing
       </span>
 
-      <PackageOwner broker={broker} />
-
+      <UserInfo
+        avatar={<AtlusAvatar word={broker.fullName} className="w-64 md:w-72" />}
+        fullName={<UserInfoFullName fullName={broker.fullName} />}
+        companyName={<UserInfoCompanyName companyName={broker.companyName} />}
+      />
       <ContactBrokerButton />
     </div>
   );
