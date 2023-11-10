@@ -2,6 +2,7 @@
 
 import colors from '@/components/ui/theme/colors';
 import { Oval } from 'react-loader-spinner';
+import clsx from 'clsx';
 
 export type AtlusSpinnerColor = 'orange' | 'white' | 'black' | 'dark-grey';
 
@@ -37,7 +38,7 @@ export const AtlusLoadingSpinner = ({
       height={size}
       width={size}
       color={spinnerColor.primaryColor}
-      wrapperClass={classNames}
+      wrapperClass={clsx(classNames, 'flex items-center leading-none')}
       visible={true}
       ariaLabel="loading"
       secondaryColor={spinnerColor.secondaryColor}

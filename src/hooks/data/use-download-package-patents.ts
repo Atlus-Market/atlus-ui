@@ -3,7 +3,7 @@ import { exportPackageToCSV } from '@/api/package/export-package-to csv';
 import { useCallback } from 'react';
 import { downloadBlobFile } from '@/utils/file';
 
-export const useDownloadPatents = (packageId: string) => {
+export const useDownloadPackagePatents = (packageId: string) => {
   const { refetch, isFetching } = useQuery({
     queryKey: ['package/export-csv', packageId],
     queryFn: () => exportPackageToCSV(packageId),
@@ -20,7 +20,7 @@ export const useDownloadPatents = (packageId: string) => {
   }, [refetch]);
 
   return {
-    isFetching,
-    exportPackage,
+    isDownloadingPackagePatents: isFetching,
+    downloadPackagePatents: exportPackage,
   };
 };

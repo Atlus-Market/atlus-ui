@@ -12,7 +12,7 @@ import { Fragment } from 'react';
 import { ViewPackagePatentsModalTable } from '@/app/package/[id]/components/package-patents/components/view-package-patents/view-package-patents-modal-table';
 import { HiDownload } from 'react-icons/hi';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
-import { useDownloadPatents } from '@/app/package/[id]/components/package-patents/components/view-package-patents/use-download-patents';
+import { useDownloadPackagePatents } from '@/hooks/data/use-download-package-patents';
 import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loading-spinner';
 
 interface ViewPackagePatentsModalProps {
@@ -21,7 +21,8 @@ interface ViewPackagePatentsModalProps {
 
 export const ViewPackagePatentsModal = ({ packageId }: ViewPackagePatentsModalProps) => {
   const { familyPatentsGroup, clear } = useViewPackagePatentsContext();
-  const { isFetching, exportPackage } = useDownloadPatents(packageId);
+  const { isDownloadingPackagePatents, downloadPackagePatents } =
+    useDownloadPackagePatents(packageId);
   const familyIds = Object.keys(familyPatentsGroup);
   const hasPatentsToShow = familyIds.length > 0;
 
@@ -44,8 +45,8 @@ export const ViewPackagePatentsModal = ({ packageId }: ViewPackagePatentsModalPr
                   variant="outline"
                   color="black"
                   className="atlus-btn-40"
-                  onClick={exportPackage}
-                  isLoading={isFetching}
+                  onClick={downloadPackagePatents}
+                  isLoading={isDownloadingPackagePatents}
                   leftIcon={<HiDownload />}
                 >
                   Download
@@ -57,10 +58,10 @@ export const ViewPackagePatentsModal = ({ packageId }: ViewPackagePatentsModalPr
             <div className="flex flex-col items-start w-full">
               <div className="flex justify-between items-center w-full md:hidden pb-4">
                 <AtlusCloseModalButton icon={HiArrowLeft} onClick={clear} />
-                {isFetching ? (
+                {isDownloadingPackagePatents ? (
                   <AtlusLoadingSpinner color="orange" size={14} />
                 ) : (
-                  <AtlusCloseModalButton icon={HiDownload} onClick={exportPackage} />
+                  <AtlusCloseModalButton icon={HiDownload} onClick={downloadPackagePatents} />
                 )}
               </div>
               <AtlusModalTitle text="Patents in this package" />
