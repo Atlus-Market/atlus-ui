@@ -6,6 +6,8 @@ import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useDownloadPackagePatents } from '@/hooks/data/use-download-package-patents';
 import { DashboardMenuSpinner } from '@/app/dashboard/components/dashboard-menu-spinner';
 import { useNotInterestedInPackage } from '@/hooks/data/use-not-interested-inpackage-action';
+import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
+import { useToggleState } from '@/hooks/use-toggle-state';
 
 interface BuyerPackageMenuProps {
   packageId: string;
@@ -14,6 +16,7 @@ interface BuyerPackageMenuProps {
 const shareMenuOptionValue = 'share';
 
 export const BuyerPackageMenu = ({ packageId }: BuyerPackageMenuProps) => {
+  const { isOn, setOn, setOff } = useToggleState(false);
   const { downloadPackagePatents, isDownloadingPackagePatents } =
     useDownloadPackagePatents(packageId);
 
@@ -24,36 +27,55 @@ export const BuyerPackageMenu = ({ packageId }: BuyerPackageMenuProps) => {
   }
 
   return (
-    <AtlusMenu
-      menuButton={
-        <AtlusButton
-          iconOnlyIcon={<HiDotsVertical />}
-          variant="icon-only"
-          color="grey"
-          className="atlus-btn-20"
-          onClick={e => {
-            // Stop propagation up so navigation to view package
-            // is not triggered.
-            e.stopPropagation();
-            e.preventDefault();
-          }}
-        />
-      }
-      onItemClick={e => {
-        e.stopPropagation = true;
-        e.syntheticEvent.stopPropagation();
+    <>
+      <AtlusAlertModal
+        isOpen={isOn}
+        title="Not interested?"
+        text="This package will be removed from your dashboard."
+        mainButton={{
+          text: 'Delete',
+          onClick: () => {
+            setOff();
+            setNotInterestedInPackage();
+          },
+        }}
+        secondaryButton={{
+          text: 'Cancel',
+          onClick: setOff,
+        }}
+      />
 
-        if (e.value === shareMenuOptionValue) {
-          e.syntheticEvent.preventDefault();
+      <AtlusMenu
+        menuButton={
+          <AtlusButton
+            iconOnlyIcon={<HiDotsVertical />}
+            variant="icon-only"
+            color="grey"
+            className="atlus-btn-20"
+            onClick={e => {
+              // Stop propagation up so navigation to view package
+              // is not triggered.
+              e.stopPropagation();
+              e.preventDefault();
+            }}
+          />
         }
-      }}
-      menuItems={
-        <>
-          <AtlusMenuItem value={shareMenuOptionValue} text="Share" />
-          <AtlusMenuItem text="Download CSV" onClick={downloadPackagePatents} />
-          <AtlusMenuItem text="Not interested" onClick={setNotInterestedInPackage} />
-        </>
-      }
-    />
+        onItemClick={e => {
+          e.stopPropagation = true;
+          e.syntheticEvent.stopPropagation();
+
+          if (e.value === shareMenuOptionValue) {
+            e.syntheticEvent.preventDefault();
+          }
+        }}
+        menuItems={
+          <>
+            <AtlusMenuItem value={shareMenuOptionValue} text="Share" />
+            <AtlusMenuItem text="Download CSV" onClick={downloadPackagePatents} />
+            <AtlusMenuItem text="Not interested" onClick={setOn} />
+          </>
+        }
+      />
+    </>
   );
 };
