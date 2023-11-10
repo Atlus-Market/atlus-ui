@@ -15,8 +15,8 @@ export const RecipientsTagsList = ({ recipients, onRemoveRecipient }: Recipients
           key={recipient.id}
           text={
             <div className="flex items-center gap-2">
-              <AtlusAvatar size="small" word={recipient.firstName} /> {recipient.firstName}{' '}
-              {recipient.lastName}
+              <AtlusAvatar className="w-20 md:w-24 " word={recipient.firstName} />
+              {recipient.firstName} {recipient.lastName}
             </div>
           }
           size="small"

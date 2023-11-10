@@ -110,7 +110,6 @@ export const RecipientsList = <T extends Recipient>({
       {recipientsToRender.map((recipient: Recipient) => (
         <a href="" key={recipient.id}>
           <AtlusContact
-            size="big"
             recipient={recipient}
             isActive={selectedRecipientsIds.includes(recipient.id)}
             subLines={recipientSubLinesFn(recipient)}
