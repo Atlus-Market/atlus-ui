@@ -7,7 +7,7 @@ export default async function DashboardRecommendedPage() {
   const p = await getRecommendedPackagesOnServer();
   console.log(p);
 
-  const hasPackages = p.length > 0;
+  const hasPackages = p?.length > 0;
   return (
     <div>
       <BuyerLayoutTabs activePathname={BuyerDashboardRecommended} />
