@@ -10,27 +10,31 @@ interface PackageRightPanelProps {
   packageId: string;
   broker: User;
   renderLimitedContent: boolean;
+  showEditPackageButton: boolean;
 }
 
 export const PackageRightPanel = ({
   broker,
   packageId,
   renderLimitedContent,
+  showEditPackageButton,
 }: PackageRightPanelProps) => {
   return (
     <div className="hidden lg:block">
       {!renderLimitedContent && (
         <div className="hidden md:flex justify-end items-center gap-4 mb-4">
-          <Link href={SetPackagePatent(packageId)}>
-            <AtlusButton
-              variant="clear"
-              color="dark-grey"
-              className="atlus-btn-36 md:atlus-btn-40"
-              leftIcon={<HiPencil />}
-            >
-              Edit
-            </AtlusButton>
-          </Link>
+          {showEditPackageButton && (
+            <Link href={SetPackagePatent(packageId)}>
+              <AtlusButton
+                variant="clear"
+                color="dark-grey"
+                className="atlus-btn-36 md:atlus-btn-40"
+                leftIcon={<HiPencil />}
+              >
+                Edit
+              </AtlusButton>
+            </Link>
+          )}
           <SharePackageButton />
         </div>
       )}

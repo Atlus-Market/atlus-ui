@@ -7,10 +7,9 @@ import { Package } from '@/models/package';
 import { Dataroom } from '@/models/dataroom';
 import { getPackageAccessForUserOnServer } from '@/api/package/access/get-package-access-for-user-on-server';
 import { PackageAccessValue } from '@/models/package-access-value';
+import { getIsBrokerUser } from '@/api/user/get-is-broker-user-on-server';
 
 const LOAD_PACKAGE = 'Load package';
-const LOAD_DATAROOM = 'Load dataroom';
-const LOAD_BROKER = 'Load broker';
 
 interface LoadDataResponse {
   broker: User | undefined;
@@ -18,6 +17,7 @@ interface LoadDataResponse {
   dataroom: Dataroom | undefined;
   userHasAccessToPackage: boolean;
   isLimitedUser: boolean;
+  isActiveUserBroker: boolean;
 }
 
 export const loadPackageViewData = async (packageId: string): Promise<LoadDataResponse> => {
@@ -48,7 +48,13 @@ export const loadPackageViewData = async (packageId: string): Promise<LoadDataRe
     ? getUserByIdOnServer(atlusPackage.brokerUserId)
     : Promise.resolve(undefined);
 
-  const [broker, dataroom] = await Promise.all([loadUserPromise, getDataroomPromise]);
+  const isActiveUserBrokerPromise = !isLimitedUser ? getIsBrokerUser() : Promise.resolve(false);
+
+  const [broker, dataroom, isActiveUserBroker] = await Promise.all([
+    loadUserPromise,
+    getDataroomPromise,
+    isActiveUserBrokerPromise,
+  ]);
 
   return {
     package: atlusPackage,
@@ -56,5 +62,6 @@ export const loadPackageViewData = async (packageId: string): Promise<LoadDataRe
     dataroom,
     userHasAccessToPackage,
     isLimitedUser,
+    isActiveUserBroker,
   };
 };

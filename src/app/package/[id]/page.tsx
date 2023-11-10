@@ -26,6 +26,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
     dataroom,
     userHasAccessToPackage,
     isLimitedUser,
+    isActiveUserBroker,
   } = await loadPackageViewData(params.id);
 
   return (
@@ -42,6 +43,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
             packageId={atlusPackage.id}
             broker={broker}
             renderLimitedContent={isLimitedUser}
+            showEditPackageButton={isActiveUserBroker}
           />
         )}
       </div>
