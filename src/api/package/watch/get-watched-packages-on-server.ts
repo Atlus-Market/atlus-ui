@@ -17,12 +17,15 @@ export interface BuyerPackageData {
 }
 
 export const getWatchedPackagesOnServer = async (): Promise<BuyerPackageData[]> => {
-  return createRequest<void, { packages: BuyerPackageData[] }>({
+  return createRequest<void, { watchlist: BuyerPackageData[] }>({
     url: '/watchlist',
     method: 'GET',
     isProtected: ProtectedEndpoint.True,
     headers: await getServerAuthHeaders(),
   })
     .then(getResponseData)
-    .then(data => data.packages);
+    .then(data => {
+      console.log(data);
+      return data.watchlist;
+    });
 };
