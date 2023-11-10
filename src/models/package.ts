@@ -9,7 +9,7 @@ export interface Package {
   keywords: string[];
   products: string[];
   containsSep: boolean;
-  sepStandards: string[];
+  sepStandardIds: string[];
   visibility: Visibility;
   priceUsd: number;
   openToLicensing: boolean;

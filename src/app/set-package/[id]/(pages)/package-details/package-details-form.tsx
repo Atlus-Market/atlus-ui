@@ -36,7 +36,7 @@ export interface IPackageDetailsForm {
   sellerUserId: string;
   products: string[];
   containsSep: boolean;
-  sepStandards: string[];
+  sepStandardIds: string[];
   status: PackageStatus;
 }
 
@@ -56,7 +56,7 @@ export const packageDetailsSchema: ObjectSchema<ExtendedPackageDetailsForm> = ob
   sellerUserId: string().required(RequiredField),
   products: array().default([]),
   containsSep: boolean().required(RequiredField),
-  sepStandards: array()
+  sepStandardIds: array()
     .default([])
     .when('containsSep', {
       is: (val: boolean) => val, // alternatively: (val) => val == true

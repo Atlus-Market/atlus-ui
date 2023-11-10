@@ -53,7 +53,7 @@ export const PackageDetailsFormFields = ({
     if (!packageContainsSep) {
       // Setting this to keep form.sepStandards = []
       // When submitting, yup transform returns the correct value anyway.
-      setValue('sepStandards', []);
+      setValue('sepStandardIds', []);
     }
   }, [packageContainsSep, setValue]);
 
@@ -106,7 +106,7 @@ export const PackageDetailsFormFields = ({
           <AtlusFormDropdownList
             label="Standards"
             placeholder="Choose one or many standards"
-            name="sepStandards"
+            name="sepStandardIds"
             options={packageStandardsOptions}
             showDropdownIndicator={true}
             isSearchable={false}

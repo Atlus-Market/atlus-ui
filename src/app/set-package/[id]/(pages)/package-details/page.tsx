@@ -12,6 +12,8 @@ export default async function PackageDetailsPage() {
     getSepStandards(),
   ]);
 
+  console.log(sepStandards);
+
   return (
     <>
       <AtlusTitle text="Package Details" className="!font-normal !text-2xl mb-6" />

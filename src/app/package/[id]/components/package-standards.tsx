@@ -15,7 +15,7 @@ export const PackageStandards = ({ atlusPackage }: PackageProductsProps) => {
     <div>
       <PackageSubSectionTitle title="Standards" />
       <div className="flex gap-2 flex-wrap">
-        {atlusPackage.sepStandards.map((keyword, index) => (
+        {atlusPackage.sepStandardIds.map((keyword, index) => (
           <AtlusTag key={`${index}-${keyword}`} text={keyword} />
         ))}
       </div>
