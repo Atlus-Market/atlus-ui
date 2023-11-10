@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
-import { AtlusContact } from '@/components/common/atlus-contact';
 import { Contact } from '@/models/contact';
+import { ContactOption } from '@/app/set-package/[id]/(pages)/package-details/contacts/contact-option';
 
 interface UseContactsOptionsProps {
   contacts: Contact[];
@@ -13,19 +13,12 @@ export const useContactsOptions = ({ contacts }: UseContactsOptionsProps) => {
       return [];
     }
 
-    const contactsOptions = contacts.map(c => ({
-      value: c.id,
+    const contactsOptions = contacts.map(contact => ({
+      value: contact.id,
       data: {
-        contact: c,
+        contact: contact,
       },
-      label: (
-        <AtlusContact
-          size="medium"
-          recipient={c}
-          subLines={[c.companyName]}
-          wrapperClassnames="!p-0"
-        />
-      ),
+      label: <ContactOption contact={contact} />,
     }));
 
     return [
