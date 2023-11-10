@@ -10,6 +10,8 @@ import {
   setSharePackageId,
   showSharePackageModal,
 } from '@/redux/features/share-package/share-package';
+import { useDeletePackageAction } from '@/hooks/data/use-delete-package-action';
+import { DashboardMenuSpinner } from '@/app/dashboard/components/dashboard-menu-spinner';
 
 interface BrokerPackageMenuProps {
   packageId: string;
@@ -19,6 +21,11 @@ const shareMenuOptionValue = 'share';
 
 export const BrokerPackageMenu = ({ packageId }: BrokerPackageMenuProps) => {
   const dispatch = useDispatch();
+  const { deletePackage, isDeletingPackage } = useDeletePackageAction({ packageId });
+
+  if (isDeletingPackage) {
+    return <DashboardMenuSpinner />;
+  }
 
   return (
     <AtlusMenu
@@ -52,7 +59,7 @@ export const BrokerPackageMenu = ({ packageId }: BrokerPackageMenuProps) => {
           <Link href={SetPackagePatent(packageId)}>
             <AtlusMenuItem text="Edit" />
           </Link>
-          <AtlusMenuItem text="Delete" />
+          <AtlusMenuItem text="Delete" onClick={deletePackage} />
         </>
       }
     />

@@ -4,7 +4,7 @@ import { HiDotsVertical } from 'react-icons/hi';
 import { AtlusMenuItem } from '@/components/ui/menu/atlus-menu-item';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useDownloadPackagePatents } from '@/hooks/data/use-download-package-patents';
-import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loading-spinner';
+import { DashboardMenuSpinner } from '@/app/dashboard/components/dashboard-menu-spinner';
 
 interface BuyerPackageMenuProps {
   packageId: string;
@@ -13,13 +13,11 @@ interface BuyerPackageMenuProps {
 const shareMenuOptionValue = 'share';
 
 export const BuyerPackageMenu = ({ packageId }: BuyerPackageMenuProps) => {
-  // const dispatch = useDispatch();
-
   const { downloadPackagePatents, isDownloadingPackagePatents } =
     useDownloadPackagePatents(packageId);
 
   if (isDownloadingPackagePatents) {
-    return <AtlusLoadingSpinner size={20} color="orange" />;
+    return <DashboardMenuSpinner />;
   }
 
   return (

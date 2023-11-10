@@ -41,6 +41,8 @@ export const PackagePageUrl = function (packageId: string) {
 
 // Dashboard
 export const DashboardRoute = '/dashboard';
+export const BrokerDashboard = DashboardRoute;
+
 export const BuyerDashboardShared = `${DashboardRoute}/shared`;
 export const BuyerDashboardRecommended = `${DashboardRoute}/recommended`;
 export const BuyerDashboardWatchlist = `${DashboardRoute}/watchlist`;

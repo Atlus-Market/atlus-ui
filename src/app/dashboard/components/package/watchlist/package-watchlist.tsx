@@ -3,7 +3,7 @@ import { PackageWatchlistButton } from '@/app/dashboard/components/package/watch
 import {
   TogglePackageWatchlistResponse,
   toggleWatchPackage,
-} from '@/app/dashboard/components/package/watchlist/toggle-package-watchlist-status.action';
+} from '@/app/actions/toggle-package-watchlist-status.action';
 import { useFormState } from 'react-dom';
 import { useEffect } from 'react';
 import { showErrorNotification } from '@/components/ui/notification/atlus-notification';
