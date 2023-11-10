@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useTransition } from 'react';
-import { deletePackage as deletePackageAction } from '@/app/actions/delete-package.action';
+import { deletePackageAction } from '@/app/actions/delete-package.action';
 import {
   showErrorNotification,
   showSuccessNotification,

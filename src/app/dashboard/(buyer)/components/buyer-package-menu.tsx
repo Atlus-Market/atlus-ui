@@ -5,6 +5,7 @@ import { AtlusMenuItem } from '@/components/ui/menu/atlus-menu-item';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useDownloadPackagePatents } from '@/hooks/data/use-download-package-patents';
 import { DashboardMenuSpinner } from '@/app/dashboard/components/dashboard-menu-spinner';
+import { useNotInterestedInPackage } from '@/hooks/data/use-not-interested-inpackage-action';
 
 interface BuyerPackageMenuProps {
   packageId: string;
@@ -16,7 +17,9 @@ export const BuyerPackageMenu = ({ packageId }: BuyerPackageMenuProps) => {
   const { downloadPackagePatents, isDownloadingPackagePatents } =
     useDownloadPackagePatents(packageId);
 
-  if (isDownloadingPackagePatents) {
+  const { setNotInterestedInPackage, isLoading } = useNotInterestedInPackage({ packageId });
+
+  if (isDownloadingPackagePatents || isLoading) {
     return <DashboardMenuSpinner />;
   }
 
@@ -48,7 +51,7 @@ export const BuyerPackageMenu = ({ packageId }: BuyerPackageMenuProps) => {
         <>
           <AtlusMenuItem value={shareMenuOptionValue} text="Share" />
           <AtlusMenuItem text="Download CSV" onClick={downloadPackagePatents} />
-          <AtlusMenuItem text="Not interested" />
+          <AtlusMenuItem text="Not interested" onClick={setNotInterestedInPackage} />
         </>
       }
     />

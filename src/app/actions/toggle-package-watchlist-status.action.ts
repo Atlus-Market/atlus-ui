@@ -3,7 +3,7 @@
 import { removePackageFromWatchlistOnServer } from '@/api/package/watch/remove-package-from-watchlist-on-server';
 import { addPackageToWatchlistOnServer } from '@/api/package/watch/add-package-to-watchlist-on-server';
 import { revalidatePath } from 'next/cache';
-import { BuyerDashboardShared } from '@/constants/routes';
+import { DashboardRoute } from '@/constants/routes';
 
 export interface TogglePackageWatchlistResponse {
   error: boolean;
@@ -11,7 +11,7 @@ export interface TogglePackageWatchlistResponse {
 
 let queue = Promise.resolve({ error: false });
 
-export const toggleWatchPackage = async (
+export const toggleWatchPackageAction = async (
   packageId: string,
   isWatched: boolean
 ): Promise<TogglePackageWatchlistResponse> => {
@@ -22,7 +22,7 @@ export const toggleWatchPackage = async (
       } else {
         await addPackageToWatchlistOnServer(packageId);
       }
-      revalidatePath(BuyerDashboardShared);
+      revalidatePath(DashboardRoute);
       return {
         error: false,
       };

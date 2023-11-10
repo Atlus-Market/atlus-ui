@@ -1,15 +1,15 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { BrokerDashboard } from '@/constants/routes';
-import { deletePackageOnServer } from '@/api/package/delete-package-on-server';
+import { DashboardRoute } from '@/constants/routes';
 import { isAxiosError } from 'axios';
 import { defaultErrorMessage } from '@/constants/api';
+import { setNotInterestedInPackageOnServer } from '@/api/package/access/set-not-interested-in-package-on-server';
 
-export const deletePackageAction = async (packageId: string) => {
+export const notInterestedInPackageAction = async (packageId: string) => {
   try {
-    await deletePackageOnServer(packageId);
-    revalidatePath(BrokerDashboard);
+    await setNotInterestedInPackageOnServer(packageId);
+    revalidatePath(DashboardRoute);
     return {
       errorMessage: undefined,
       error: false,

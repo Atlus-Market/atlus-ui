@@ -2,7 +2,7 @@
 import { PackageWatchlistButton } from '@/app/dashboard/components/package/watchlist/package-watchlist-button';
 import {
   TogglePackageWatchlistResponse,
-  toggleWatchPackage,
+  toggleWatchPackageAction,
 } from '@/app/actions/toggle-package-watchlist-status.action';
 import { useFormState } from 'react-dom';
 import { useEffect } from 'react';
@@ -14,7 +14,7 @@ interface PackageWatchlistProps {
 }
 
 export const PackageWatchlist = ({ packageId, isWatched }: PackageWatchlistProps) => {
-  const formActionWithParams = toggleWatchPackage.bind(null, packageId, isWatched);
+  const formActionWithParams = toggleWatchPackageAction.bind(null, packageId, isWatched);
   const [state, formAction] = useFormState<TogglePackageWatchlistResponse | null>(
     formActionWithParams,
     null
