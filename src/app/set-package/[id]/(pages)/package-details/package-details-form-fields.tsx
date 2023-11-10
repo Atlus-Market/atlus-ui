@@ -16,18 +16,18 @@ import { useEffect, useMemo } from 'react';
 import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 import { InterestArea } from '@/models/interest-area';
 import { dropdownNoOption, yesNoOptions } from '@/components/common/dropdown/yes-no-options';
-import { PackageStandard } from '@/models/package-standard';
 import { packageStatusOptions } from '@/components/common/dropdown/package-status-options';
 import { useGetPackageStatusActiveOption } from '@/app/set-package/[id]/(pages)/package-details/use-get-package-status-active-option';
+import { SepStandard } from '@/models/sep-standard';
 
 interface PackageDetailsFormFieldsProps {
   interestArea: InterestArea[];
-  packageStandards: PackageStandard[];
+  sepStandards: SepStandard[];
 }
 
 export const PackageDetailsFormFields = ({
   interestArea,
-  packageStandards,
+  sepStandards,
 }: PackageDetailsFormFieldsProps) => {
   const { register, getValues, control, setValue, watch } =
     useFormContext<ExtendedPackageDetailsForm>();
@@ -41,11 +41,11 @@ export const PackageDetailsFormFields = ({
   }, [interestArea]);
 
   const packageStandardsOptions = useMemo<DropdownOption<number>[]>(() => {
-    return packageStandards.map(ia => ({
-      value: ia.id,
-      label: ia.name,
+    return sepStandards.map(sepStandard => ({
+      value: sepStandard.id,
+      label: sepStandard.name,
     }));
-  }, [packageStandards]);
+  }, [sepStandards]);
 
   const packageContainsSep = watch('containsSep');
 

@@ -37,7 +37,7 @@ export const AtlusContact = ({
       })}
       data-contact-id={recipient.id}
     >
-      <AtlusAvatar size={size} word={recipient.firstName} />
+      <AtlusAvatar className="w-32" word={recipient.firstName} />
       <div className="flex justify-between items-center w-full">
         <div>
           <div
