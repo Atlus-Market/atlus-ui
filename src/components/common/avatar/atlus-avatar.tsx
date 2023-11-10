@@ -41,7 +41,7 @@ export const AtlusAvatar = ({ word, className }: AtlusAvatarProps) => {
         <div className="flex items-center justify-center h-full">
           <span
             className={clsx(
-              'uppercase leading-none',
+              'uppercase leading-none mt-[1px]',
               avatarColor.textColor,
               'text-[calc(var(--avatar-font-size)_/_2.28)]'
             )}
