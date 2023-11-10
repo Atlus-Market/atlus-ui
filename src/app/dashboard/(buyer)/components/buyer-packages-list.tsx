@@ -1,4 +1,4 @@
-import { BuyerPackageData } from '@/api/package/get-shared-packages-on-server';
+import { BuyerPackageData } from '@/api/package/access/get-shared-packages-on-server';
 import { BuyerPackage } from '@/app/dashboard/(buyer)/components/buyer-package';
 import { PackagesListWrapper } from '@/app/dashboard/components/packages-list-wrapper';
 import { PackageLink } from '@/app/dashboard/components/package/package-link';

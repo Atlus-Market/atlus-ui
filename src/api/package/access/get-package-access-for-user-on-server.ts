@@ -3,7 +3,7 @@ import { getServerAuthHeaders } from '@/api/api-server';
 import {
   createGetPackageAccessForUserUrl,
   GetPackageAccessForUserResponse,
-} from '@/api/package/get-package-access-for-user';
+} from '@/api/package/access/get-package-access-for-user';
 
 export const getPackageAccessForUserOnServer = async (packageId: string) => {
   return createRequest<void, GetPackageAccessForUserResponse>({

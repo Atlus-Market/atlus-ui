@@ -1,7 +1,7 @@
 'use server';
 
-import { removePackageFromWatchlistOnServer } from '@/api/package/remove-package-from-watchlist-on-server';
-import { addPackageToWatchlistOnServer } from '@/api/package/add-package-to-watchlist-on-server';
+import { removePackageFromWatchlistOnServer } from '@/api/package/watch/remove-package-from-watchlist-on-server';
+import { addPackageToWatchlistOnServer } from '@/api/package/watch/add-package-to-watchlist-on-server';
 import { revalidatePath } from 'next/cache';
 import { BuyerDashboardShared } from '@/constants/routes';
 

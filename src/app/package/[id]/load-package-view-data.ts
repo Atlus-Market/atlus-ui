@@ -5,7 +5,7 @@ import { getUserByIdOnServer } from '@/api/user/get-user-by-id-on-server';
 import { User } from '@/models/user';
 import { Package } from '@/models/package';
 import { Dataroom } from '@/models/dataroom';
-import { getPackageAccessForUserOnServer } from '@/api/package/get-package-access-for-user-on-server';
+import { getPackageAccessForUserOnServer } from '@/api/package/access/get-package-access-for-user-on-server';
 import { PackageAccessValue } from '@/models/package-access-value';
 
 const LOAD_PACKAGE = 'Load package';

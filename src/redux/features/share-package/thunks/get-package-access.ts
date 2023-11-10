@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '@/redux/store';
 import { selectSharePackageId } from '@/redux/features/share-package/selectors/share-package.selectors';
-import { getPackageAccess } from '@/api/package/get-package-access';
+import { getPackageAccess } from '@/api/package/access/get-package-access';
 import { PackageAccess } from '@/models/package-access';
 
 export const fetchPackageAccess = createAsyncThunk<PackageAccess[], void, { state: RootState }>(

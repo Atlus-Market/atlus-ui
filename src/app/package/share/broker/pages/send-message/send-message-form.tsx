@@ -7,7 +7,7 @@ import { array, object, ObjectSchema, string } from 'yup';
 import { RequiredField } from '@/constants/form';
 import { ReactNode } from 'react';
 import { useSharePackageMutation } from '@/app/package/share/broker/pages/send-message/useSharePackageMutation';
-import { SharePackageRequestPayload } from '@/api/package/share-package';
+import { SharePackageRequestPayload } from '@/api/package/access/share-package';
 import { PackageAccessValue } from '@/models/package-access-value';
 
 export interface SharePackageSendMessageForm {

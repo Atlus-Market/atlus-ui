@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '@/redux/store';
 import { selectSharePackageId } from '@/redux/features/share-package/selectors/share-package.selectors';
-import { changePackageAccess as changePackageAccessAPI } from '@/api/package/change-package-access';
+import { changePackageAccess as changePackageAccessAPI } from '@/api/package/access/change-package-access';
 import { PackageAccessValue } from '@/models/package-access-value';
 
 interface ChangePackageAccessPayload {

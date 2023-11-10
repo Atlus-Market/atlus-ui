@@ -1,4 +1,4 @@
-import { BuyerPackageData } from '@/api/package/get-shared-packages-on-server';
+import { BuyerPackageData } from '@/api/package/access/get-shared-packages-on-server';
 import { PackageImage } from '@/app/dashboard/components/package/package-image';
 import { PackageTitle } from '@/app/dashboard/components/package/package-title';
 import { PackageStatusTag } from '@/app/package/[id]/components/package-status-tag';

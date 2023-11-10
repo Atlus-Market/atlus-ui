@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { requestPackageAccess } from '@/api/package/request-package-access';
+import { requestPackageAccess } from '@/api/package/access/request-package-access';
 
 interface UseRequestPackagePermissionProps {
   packageId: string;

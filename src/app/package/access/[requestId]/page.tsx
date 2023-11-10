@@ -1,5 +1,5 @@
 import { AtlusSplashLoader } from '@/components/ui/splash-loader/atlus-splash-loader';
-import { setPackageAccessRequestOnServer } from '@/api/package/set-package-access-request-on-server';
+import { setPackageAccessRequestOnServer } from '@/api/package/access/set-package-access-request-on-server';
 import { isAxiosError } from 'axios';
 import { defaultErrorMessage } from '@/constants/api';
 import { PackageRedirectStatus } from '@/app/package/access/[requestId]/package-redirec-status';
