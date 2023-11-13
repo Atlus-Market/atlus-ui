@@ -10,9 +10,9 @@ interface PackageStatsProps {
 export const PackageStats = ({ atlusPackage }: PackageStatsProps) => {
   return (
     <div className="flex items-center gap-5 md:gap-8">
-      <PackageStat icon={HiEye} value={27} />
-      <PackageStat icon={HiShare} value={4} />
-      <PackageStat icon={HiDownload} value={3} />
+      <PackageStat icon={HiEye} value={atlusPackage.views} />
+      <PackageStat icon={HiShare} value={atlusPackage.shares} />
+      <PackageStat icon={HiDownload} value={atlusPackage.downloads} />
       <PackageStat icon={HiX} value={1} />
     </div>
   );

@@ -29,4 +29,9 @@ export interface Package {
   numberOfDocuments: number;
   numberOfFamilies: number;
   numberOfPatentsAssets: number;
+
+  // Stats
+  downloads: number;
+  shares: number;
+  views: number;
 }
