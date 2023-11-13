@@ -2,13 +2,13 @@
 
 import { useSelector } from 'react-redux';
 import { selectSharePackageId } from '@/redux/features/share-package/selectors/share-package.selectors';
-import { ShareBrokerPackageModal } from '@/app/package/[id]/components/share-broker-package-modal';
+import { SharePackageModal } from '@/app/package/[id]/components/share-package-modal';
 
 export const BrokerPackageActions = () => {
   const packageId = useSelector(selectSharePackageId);
   return (
     <>
-      <ShareBrokerPackageModal packageId={packageId} />
+      <SharePackageModal packageId={packageId} />
     </>
   );
 };

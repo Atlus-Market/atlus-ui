@@ -53,7 +53,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
           />
         )}
       </div>
-      {!isLimitedUser && <ShareBrokerPackageModal packageId={atlusPackage.id} />}
+      {!isLimitedUser && <SharePackageModal packageId={atlusPackage.id} />}
       {hasValidSession && !userHasAccessToPackage && <NoPackagePermission />}
       {!hasValidSession && <NoPackageSession packageId={atlusPackage.id} />}
     </div>
