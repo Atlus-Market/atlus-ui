@@ -5,14 +5,14 @@ import { PackageStatus } from '@/models/package-status';
 
 export interface BuyerPackageData {
   id: string;
-  broker_company: string;
-  broker_name: string;
-  broker_user_id: string;
-  documents_count: number;
-  families_count: number;
-  is_watched: boolean;
+  brokerCompany: string;
+  brokerName: string;
+  brokerUserId: string;
+  documentsCount: number;
+  familiesCount: number;
+  isWatched: boolean;
   status: PackageStatus;
-  thumbnail_patent_id: number;
+  thumbnailPatentId: number;
   title: string;
 }
 

@@ -11,13 +11,13 @@ interface BuyerPackageOwnerProps {
 export const BuyerPackageOwner = ({ buyerPackage }: BuyerPackageOwnerProps) => {
   return (
     <UserInfo
-      avatar={<AtlusAvatar word={buyerPackage.broker_name} className="w-36" />}
+      avatar={<AtlusAvatar word={buyerPackage.brokerName} className="w-36" />}
       fullName={
-        <UserInfoFullName fullName={buyerPackage.broker_name} className="!text-13 md:!text-sm" />
+        <UserInfoFullName fullName={buyerPackage.brokerName} className="!text-13 md:!text-sm" />
       }
       companyName={
         <UserInfoCompanyName
-          companyName={buyerPackage.broker_company}
+          companyName={buyerPackage.brokerCompany}
           className="!text-11 md:!text-xs"
         />
       }

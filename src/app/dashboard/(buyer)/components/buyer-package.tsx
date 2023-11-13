@@ -15,7 +15,7 @@ interface BuyerPackageProps {
 export const BuyerPackage = ({ buyerPackage }: BuyerPackageProps) => {
   const menu = <BuyerPackageMenu packageId={buyerPackage.id} />;
   const watchList = (
-    <PackageWatchlist packageId={buyerPackage.id} isWatched={buyerPackage.is_watched} />
+    <PackageWatchlist packageId={buyerPackage.id} isWatched={buyerPackage.isWatched} />
   );
   const packageOwner = <BuyerPackageOwner buyerPackage={buyerPackage} />;
   return (
@@ -31,8 +31,8 @@ export const BuyerPackage = ({ buyerPackage }: BuyerPackageProps) => {
             </div>
           </div>
           <PackageFamiliesAndDocuments
-            documentsCount={buyerPackage.documents_count}
-            familiesCount={buyerPackage.families_count}
+            documentsCount={buyerPackage.documentsCount}
+            familiesCount={buyerPackage.familiesCount}
             className="mb-[10px] md:mb-4"
           />
           <div className="mb-5">
