@@ -18,7 +18,7 @@ export const ShareBuyerPackageBody = () => {
   const packageId = useAppSelector(selectSharePackageId);
   const { isLoading, mutateAsync } = useSharePackageMutation(packageId);
   return (
-    <ShareBuyerPackageForm onSubmit={mutateAsync}>
+    <ShareBuyerPackageForm onSubmit={mutateAsync} onPackageShared={hideSharePackageBroker}>
       <AtlusModalContainer
         header={
           <AtlusModalHeader

@@ -25,9 +25,14 @@ const schema: ObjectSchema<ShareBuyerForm> = object({
 interface ShareBuyerPackageFormProps {
   children: ReactNode;
   onSubmit: (sharePackagePayload: SharePackageRequestPayload) => Promise<void>;
+  onPackageShared: () => void;
 }
 
-export const ShareBuyerPackageForm = ({ children, onSubmit }: ShareBuyerPackageFormProps) => {
+export const ShareBuyerPackageForm = ({
+  children,
+  onSubmit,
+  onPackageShared,
+}: ShareBuyerPackageFormProps) => {
   const formProps = useAtlusForm<ShareBuyerForm>({
     formOptions: {
       resolver: yupResolver(schema),
@@ -43,11 +48,12 @@ export const ShareBuyerPackageForm = ({ children, onSubmit }: ShareBuyerPackageF
       }));
       try {
         await onSubmit({ message, recipients });
+        onPackageShared();
       } catch (e) {
         console.error(e);
       }
     },
-    [onSubmit]
+    [onPackageShared, onSubmit]
   );
 
   return (
