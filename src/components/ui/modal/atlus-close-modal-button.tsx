@@ -19,6 +19,7 @@ export const AtlusCloseModalButton = ({ onClick, icon }: CloseModalButtonProps) 
       color="grey"
       className="atlus-btn-40 md:atlus-btn-45"
       iconOnlyIcon={<Icon />}
+      type="button"
     />
   );
 };

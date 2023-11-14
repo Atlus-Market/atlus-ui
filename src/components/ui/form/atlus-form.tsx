@@ -28,6 +28,7 @@ export const AtlusForm = <T extends FieldValues>({
       <form
         onSubmit={e => {
           e.stopPropagation();
+          e.preventDefault();
           return formProps.handleSubmit(onSubmit)(e);
         }}
         noValidate={true}

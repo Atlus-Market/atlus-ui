@@ -42,7 +42,6 @@ const AtlusAlertModal = dynamic(
  */
 export const SharePackageModal = () => {
   const { data: user } = useAtlusUser();
-  // const packageId = useSelector(selectSharePackageId);
   const isPrivatePackage = useSelector(selectIsPrivatePackage);
   const { isSharePackageOpen, hideSharePackageModal } = useSharePackageVisibility();
 
