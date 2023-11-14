@@ -1,11 +1,12 @@
 import { PackageRightPanel } from '@/app/package/[id]/components/right-panel/package-right-panel';
 import { MainPanel } from '@/app/package/[id]/main-panel';
-import { SharePackageModal } from '@/app/package/[id]/components/share-package-modal';
+import { SharePackageModal } from '@/app/package/share/share-package-modal';
 import { getAtlusServerSession } from '@/app/(auth)/session/get-atlus-server-session';
 import { NoPackagePermission } from '@/app/package/[id]/components/limited-access/request-permission/no-package-permission';
 import { loadPackageViewData } from '@/app/package/[id]/load-package-view-data';
 import { NoPackageSession } from '@/app/package/[id]/components/limited-access/no-session/no-package-session';
 import { setPackageViewOnServer } from '@/api/package/analytics/set-package-view-on-server';
+import { Visibility } from '@/components/common/dropdown/visibility-options';
 
 export interface PackagePageProps {
   params: {
@@ -53,7 +54,12 @@ export default async function PackagePage({ params }: PackagePageProps) {
           />
         )}
       </div>
-      {!isLimitedUser && <SharePackageModal packageId={atlusPackage.id} />}
+      {!isLimitedUser && (
+        <SharePackageModal
+          packageId={atlusPackage.id}
+          isPrivatePackage={atlusPackage.visibility === Visibility.Private}
+        />
+      )}
       {hasValidSession && !userHasAccessToPackage && <NoPackagePermission />}
       {!hasValidSession && <NoPackageSession packageId={atlusPackage.id} />}
     </div>
