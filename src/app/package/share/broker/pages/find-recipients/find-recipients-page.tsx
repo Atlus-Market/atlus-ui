@@ -15,11 +15,11 @@ import { AtlusCloseModalButton } from '@/components/ui/modal/atlus-close-modal-b
 import { AtlusModalTitle } from '@/components/ui/modal/atlus-modal-title';
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
 import { SharePackageFooter } from '@/app/package/share/broker/components/commom/share-package-footer';
-import { useSharePackageBrokerVisibility } from '@/app/package/share/broker/use-share-package-broker-visibility';
+import { useSharePackageVisibility } from '@/app/package/share/components/use-share-package-visibility';
 import { SharePackageFindRecipientsNextButton } from '@/app/package/share/broker/pages/find-recipients/components/share-package-find-recipients-next-button';
 
 export const FindRecipientsPage = () => {
-  const { hideSharePackageBroker } = useSharePackageBrokerVisibility();
+  const { hideSharePackageBroker } = useSharePackageVisibility();
   const activeTab = useAppSelector(selectFindRecipientsActiveTab);
 
   return (

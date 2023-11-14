@@ -5,7 +5,12 @@ import { useAtlusForm } from '@/components/ui/form/use-atlus-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { array, object, ObjectSchema, string } from 'yup';
 import { RequiredField } from '@/constants/form';
-import { ReactNode } from 'react';
+import { ReactNode, useCallback } from 'react';
+import {
+  SharePackageRecipient,
+  SharePackageRequestPayload,
+} from '@/api/package/access/share-package';
+import { PackageAccessValue } from '@/models/package-access-value';
 
 export interface ShareBuyerForm {
   emails: string[];
@@ -19,25 +24,34 @@ const schema: ObjectSchema<ShareBuyerForm> = object({
 
 interface ShareBuyerPackageFormProps {
   children: ReactNode;
+  onSubmit: (sharePackagePayload: SharePackageRequestPayload) => Promise<void>;
 }
 
-export const ShareBuyerPackageForm = ({ children }: ShareBuyerPackageFormProps) => {
+export const ShareBuyerPackageForm = ({ children, onSubmit }: ShareBuyerPackageFormProps) => {
   const formProps = useAtlusForm<ShareBuyerForm>({
     formOptions: {
       resolver: yupResolver(schema),
     },
   });
 
-  const { getValues } = formProps;
-  console.log('getValues: ', getValues());
+  const onSubmitHandler = useCallback(
+    async ({ emails, message }: ShareBuyerForm) => {
+      console.log('formValues submit: ', emails, message);
+      const recipients: SharePackageRecipient[] = emails.map(email => ({
+        email,
+        access: PackageAccessValue.LimitedAccess,
+      }));
+      try {
+        await onSubmit({ message, recipients });
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [onSubmit]
+  );
+
   return (
-    <AtlusForm
-      className="h-full"
-      formProps={formProps}
-      onSubmit={values => {
-        console.log('formValues submit: ', values);
-      }}
-    >
+    <AtlusForm className="h-full" formProps={formProps} onSubmit={onSubmitHandler}>
       {children}
     </AtlusForm>
   );

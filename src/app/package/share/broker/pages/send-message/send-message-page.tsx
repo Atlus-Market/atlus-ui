@@ -7,7 +7,7 @@ import { AtlusModalTitle } from '@/components/ui/modal/atlus-modal-title';
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
 import { SharePackageFooter } from '@/app/package/share/broker/components/commom/share-package-footer';
 import { AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
-import { useSharePackageBrokerVisibility } from '@/app/package/share/broker/use-share-package-broker-visibility';
+import { useSharePackageVisibility } from '@/app/package/share/components/use-share-package-visibility';
 import { AtlusModalBackButton } from '@/components/ui/modal/atlus-modal-back-button';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setActivePage } from '@/redux/features/share-package/share-package';
@@ -20,7 +20,7 @@ import { selectSharePackageId } from '@/redux/features/share-package/selectors/s
 export const SendMessagePage = () => {
   const dispatch = useAppDispatch();
   const packageId = useAppSelector(selectSharePackageId);
-  const { hideSharePackageBroker } = useSharePackageBrokerVisibility();
+  const { hideSharePackageBroker } = useSharePackageVisibility();
   const goBack = () => dispatch(setActivePage(SharePackagePage.FindRecipients));
 
   return (

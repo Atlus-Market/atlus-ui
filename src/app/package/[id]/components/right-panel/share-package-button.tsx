@@ -2,10 +2,10 @@
 
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { HiShare } from 'react-icons/hi2';
-import { useSharePackageBrokerVisibility } from '@/app/package/share/broker/use-share-package-broker-visibility';
+import { useSharePackageVisibility } from '@/app/package/share/components/use-share-package-visibility';
 
 export const SharePackageButton = () => {
-  const { showSharePackageBroker } = useSharePackageBrokerVisibility();
+  const { showSharePackageBroker } = useSharePackageVisibility();
 
   return (
     <AtlusButton

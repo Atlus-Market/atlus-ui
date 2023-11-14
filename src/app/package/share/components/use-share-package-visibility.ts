@@ -6,7 +6,7 @@ import {
 } from '@/redux/features/share-package/share-package';
 import { selectIsShareModalOpen } from '@/redux/features/share-package/selectors/share-package.selectors';
 
-export const useSharePackageBrokerVisibility = () => {
+export const useSharePackageVisibility = () => {
   const dispatch = useAppDispatch();
   const isSharePackageBrokerOpen = useAppSelector(selectIsShareModalOpen);
 

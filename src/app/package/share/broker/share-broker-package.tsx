@@ -5,7 +5,7 @@ import { ShareBrokerPackageBody } from '@/app/package/share/broker/share-broker-
 import { useCallback, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { reset, setSharePackageId } from '@/redux/features/share-package/share-package';
-import { useSharePackageBrokerVisibility } from '@/app/package/share/broker/use-share-package-broker-visibility';
+import { useSharePackageVisibility } from '@/app/package/share/components/use-share-package-visibility';
 import { selectSharePackageId } from '@/redux/features/share-package/selectors/share-package.selectors';
 
 interface ShareBrokerPackageProps {
@@ -18,7 +18,7 @@ export const ShareBrokerPackage = ({
   isShowingModal = false,
 }: ShareBrokerPackageProps) => {
   const dispatch = useAppDispatch();
-  const { hideSharePackageBroker } = useSharePackageBrokerVisibility();
+  const { hideSharePackageBroker } = useSharePackageVisibility();
   const activeSharingPackageId = useAppSelector(selectSharePackageId);
 
   const resetShareState = useCallback(() => {

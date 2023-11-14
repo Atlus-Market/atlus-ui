@@ -1,4 +1,4 @@
-import { useSharePackageBrokerVisibility } from '@/app/package/share/broker/use-share-package-broker-visibility';
+import { useSharePackageVisibility } from '@/app/package/share/components/use-share-package-visibility';
 import { AtlusModalContainer } from '@/components/ui/modal/container/atlus-modal-container';
 import { AtlusModalHeader } from '@/components/ui/modal/atlus-modal-header';
 import { AtlusCloseModalButton } from '@/components/ui/modal/atlus-close-modal-button';
@@ -9,12 +9,16 @@ import { AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
 import { ShareBuyerPackageButton } from '@/app/package/share/buyer/components/share-buyer-package-button';
 import { ShareBuyerPackageForm } from '@/app/package/share/buyer/components/share-buyer-package-form';
 import { ShareBuyerPackageFormFields } from '@/app/package/share/buyer/components/share-buyer-package-form-fields';
+import { useSharePackageMutation } from '@/app/package/share/components/useSharePackageMutation';
+import { useAppSelector } from '@/redux/hooks';
+import { selectSharePackageId } from '@/redux/features/share-package/selectors/share-package.selectors';
 
 export const ShareBuyerPackageBody = () => {
-  const { hideSharePackageBroker } = useSharePackageBrokerVisibility();
-
+  const { hideSharePackageBroker } = useSharePackageVisibility();
+  const packageId = useAppSelector(selectSharePackageId);
+  const { isLoading, mutateAsync } = useSharePackageMutation(packageId);
   return (
-    <ShareBuyerPackageForm>
+    <ShareBuyerPackageForm onSubmit={mutateAsync}>
       <AtlusModalContainer
         header={
           <AtlusModalHeader
@@ -26,7 +30,7 @@ export const ShareBuyerPackageBody = () => {
         footer={
           <AtlusModalFooter className="bg-lightest-grey">
             <SharePackageFooter>
-              <ShareBuyerPackageButton />
+              <ShareBuyerPackageButton isLoading={isLoading} />
             </SharePackageFooter>
           </AtlusModalFooter>
         }

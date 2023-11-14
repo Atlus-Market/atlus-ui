@@ -1,13 +1,12 @@
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 
-export const ShareBuyerPackageButton = () => {
+interface ShareBuyerPackageButtonProps {
+  isLoading: boolean;
+}
+
+export const ShareBuyerPackageButton = ({ isLoading }: ShareBuyerPackageButtonProps) => {
   return (
-    <AtlusButton
-      // disabled={recipients.length === 0}
-      variant="solid"
-      color="orange"
-      // onClick={() => dispatch(setActivePage(SharePackagePage.SendMessage))}
-    >
+    <AtlusButton variant="solid" color="orange" isLoading={isLoading}>
       Send
     </AtlusButton>
   );

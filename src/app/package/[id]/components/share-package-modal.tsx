@@ -1,7 +1,7 @@
 'use client';
 
 import { ShareBrokerPackage } from '@/app/package/share/broker/share-broker-package';
-import { useSharePackageBrokerVisibility } from '@/app/package/share/broker/use-share-package-broker-visibility';
+import { useSharePackageVisibility } from '@/app/package/share/components/use-share-package-visibility';
 import { useAtlusUser } from '@/app/(auth)/session/use-atlus-user';
 import { ShareBuyerPackage } from '@/app/package/share/buyer/share-buyer-package';
 
@@ -11,7 +11,7 @@ interface SharePackageProps {
 
 export const SharePackageModal = ({ packageId }: SharePackageProps) => {
   const { data: user } = useAtlusUser();
-  const { isSharePackageBrokerOpen } = useSharePackageBrokerVisibility();
+  const { isSharePackageBrokerOpen } = useSharePackageVisibility();
 
   if (!user) {
     return null;
