@@ -43,8 +43,12 @@ export const MainPanel = ({
       {!renderLimitedContent && broker && dataroom && (
         <>
           <PackageDivider className="bg-transparent !mt-0" />
-          <PackageProducts atlusPackage={atlusPackage} />
-          <PackageDivider className="bg-transparent !mt-0" />
+          {atlusPackage.products.length > 0 && (
+            <>
+              <PackageProducts atlusPackage={atlusPackage} />
+              <PackageDivider className="bg-transparent !mt-0" />
+            </>
+          )}
           <PackageStandards atlusPackage={atlusPackage} />
           <PackageDivider className="bg-transparent !mt-0" />
           <PackageSeller companyName={broker.companyName} />

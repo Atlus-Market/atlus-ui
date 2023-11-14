@@ -1,6 +1,5 @@
-import { AtlusTag } from '@/components/ui/tag/atlus-tag';
-import { AtlusAvatar } from '@/components/common/avatar/atlus-avatar';
 import { Recipient } from '@/redux/features/share-package/slices/find-recipients/recipient';
+import { SelectedRecipient } from '@/app/package/share/components/common/selectedRecipient';
 
 interface RecipientsTagsListProps {
   recipients: Recipient[];
@@ -11,16 +10,10 @@ export const RecipientsTagsList = ({ recipients, onRemoveRecipient }: Recipients
   return (
     <>
       {recipients.map(recipient => (
-        <AtlusTag
+        <SelectedRecipient
+          recipient={recipient}
+          onRemoveRecipient={onRemoveRecipient}
           key={recipient.id}
-          text={
-            <div className="flex items-center gap-2">
-              <AtlusAvatar className="w-20 md:w-24 " word={recipient.firstName} />
-              {recipient.firstName} {recipient.lastName}
-            </div>
-          }
-          size="small"
-          onClose={() => onRemoveRecipient(recipient.id)}
         />
       ))}
     </>

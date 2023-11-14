@@ -14,21 +14,37 @@ import {
 } from '@/redux/features/share-package/slices/shared-with';
 import { fetchPackageAccessExtraReducers } from '@/redux/features/share-package/extra-reducers/fetch-package-access.extra-reducers';
 import { changePackageAccessExtraReducers } from '@/redux/features/share-package/extra-reducers/change-package-access.extra-reducers';
+import {
+  shareBuyerInitialState,
+  shareBuyerReducer,
+  ShareBuyerState,
+} from '@/redux/features/share-package/slices/buyer/share-buyer';
+import { searchBuyerContactsExtraReducers } from '@/redux/features/share-package/extra-reducers/search-buyer-contacts.extra-reducers';
 
 export interface SharePackageState {
   packageId: string;
+  isShareModalOpen: boolean;
+
+  // Broker
   activePage: SharePackagePage;
   findRecipientsPage: FindRecipientsPageState;
   sharedWithPage: SharedWithState;
-  isShareModalOpen: boolean;
+
+  // Buyer
+  shareBuyer: ShareBuyerState;
 }
 
 const initialState: SharePackageState = {
   packageId: '',
+  isShareModalOpen: false,
+
+  // Broker
   activePage: SharePackagePage.FindRecipients,
   findRecipientsPage: findRecipientsPageInitialState,
   sharedWithPage: sharedWithInitialState,
-  isShareModalOpen: false,
+
+  // Buyer
+  shareBuyer: shareBuyerInitialState,
 };
 
 export const sharePackage = createSlice({
@@ -50,6 +66,7 @@ export const sharePackage = createSlice({
     },
     ...findRecipientsReducers,
     ...sharedWithReducer,
+    ...shareBuyerReducer,
   },
 
   extraReducers: builder => {
@@ -57,6 +74,7 @@ export const sharePackage = createSlice({
     searchDirectoriesExtraReducers(builder);
     fetchPackageAccessExtraReducers(builder);
     changePackageAccessExtraReducers(builder);
+    searchBuyerContactsExtraReducers(builder);
   },
 });
 

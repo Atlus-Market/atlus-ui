@@ -82,6 +82,10 @@ export const controls = {
     ...rest
   }: NoticeProps<DropdownOption<T>, boolean, GroupBase<DropdownOption<T>>>) => {
     const { noOptionsMessage } = rest.selectProps.atlusDropdownProps;
+    if (typeof noOptionsMessage === 'function') {
+      const NoOptionsMessage = noOptionsMessage;
+      return <NoOptionsMessage inputValue={rest.selectProps.inputValue} />;
+    }
     return (
       <components.NoOptionsMessage {...rest}>
         {noOptionsMessage ? noOptionsMessage : children}
@@ -93,6 +97,11 @@ export const controls = {
     children,
     ...rest
   }: MultiValueProps<DropdownOption<T>, boolean, GroupBase<DropdownOption<T>>>) => {
+    const { customMultiValue } = rest.selectProps.atlusDropdownProps;
+    if (customMultiValue) {
+      const CustomElement = customMultiValue;
+      return <CustomElement clearValue={rest.clearValue} data={rest.data.data} />;
+    }
     return (
       <components.MultiValue {...rest}>
         <AtlusTag text={children as string} className="!pr-0 !rounded-r-[0]" />
@@ -102,6 +111,9 @@ export const controls = {
   MultiValueRemove: <T extends ValueOptionType>(
     rest: MultiValueRemoveProps<DropdownOption<T>, boolean, GroupBase<DropdownOption<T>>>
   ) => {
+    if (rest.selectProps.atlusDropdownProps.customMultiValue) {
+      return null;
+    }
     return (
       <components.MultiValueRemove {...rest}>
         <AtlusTagRemoveButton classNames="!rounded-l-[0] pr-[12px] h-full" />

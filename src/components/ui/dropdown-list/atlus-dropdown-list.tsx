@@ -18,6 +18,7 @@ import { getDropdownOptions } from '@/components/ui/dropdown-list/dropdown.utils
 import { isNullOrUndefined } from '@/utils/type-guard';
 import { controls } from '@/components/ui/dropdown-list/controls';
 import { AtlusFormErrorMessage } from '@/components/ui/form/atlus-form-error-message';
+import { OptionsOrGroups } from 'react-select/dist/declarations/src/types';
 
 export type ValueOptionType = string | number | boolean;
 
@@ -52,33 +53,50 @@ const getClassNames = <T extends ValueOptionType>() => ({
   },
 });
 
+export interface CustomMultiComponent {
+  clearValue: () => void;
+  data?: unknown;
+}
+
 export interface AtlusDropdownListProps<T extends ValueOptionType> {
-  isAsync?: boolean;
   isLoading?: boolean;
   isSearchable?: boolean;
   isClearable?: boolean;
   placeholder?: string;
   isOpen?: boolean;
-  options: Readonly<DropdownOption<T>[]>;
+  options?: Readonly<DropdownOption<T>[]>;
+  defaultOptions?: Readonly<DropdownOption<T>[]>;
   value?: T | DropdownOption<T>;
   defaultValue?: DropdownOption<T>['value'];
   name?: string;
   errors?: FieldErrors;
   onChange?: ((value: T) => void) | ((value: T[]) => void);
+  onFocus?: () => void;
   onBlur?: () => void;
   leftIcon?: ReactNode;
   label?: string;
   bottomText?: string;
   showDropdownIndicator?: boolean;
-  isMulti?: boolean;
   isDisabled?: boolean;
+
+  // Multi
+  isMulti?: boolean;
+  customMultiValue?: (props: CustomMultiComponent) => ReactNode;
+  cacheOptions?: boolean;
 
   // Components
   groupHeadingHeader?: ReactNode;
   indicatorsExtraCmp?: ReactNode;
   clearIndicator?: ReactNode;
-  noOptionsMessage?: ReactNode;
+  noOptionsMessage?: ReactNode | ((props: { inputValue: string }) => ReactNode);
   filterOption?: (options: FilterOptionOption<DropdownOption<T>>, value: string) => boolean;
+
+  // Async
+  isAsync?: boolean;
+  loadOptions?: (
+    inputValue: string,
+    callback: (options: OptionsOrGroups<DropdownOption<T>, GroupBase<DropdownOption<T>>>) => void
+  ) => Promise<OptionsOrGroups<DropdownOption<T>, GroupBase<DropdownOption<T>>>> | void;
 
   // Styles
   size?: 'big' | 'small';
@@ -93,10 +111,12 @@ export function AtlusDropdownList<T extends ValueOptionType>(props: AtlusDropdow
     isOpen,
     placeholder,
     options = [],
+    defaultOptions,
     value,
     defaultValue,
     name,
     onChange,
+    onFocus,
     onBlur,
     wrapperClassName,
     label,
@@ -110,6 +130,8 @@ export function AtlusDropdownList<T extends ValueOptionType>(props: AtlusDropdow
     size = 'big',
     isDisabled,
     innerRef,
+    loadOptions,
+    cacheOptions,
   } = props;
   const id = useId();
 
@@ -133,7 +155,10 @@ export function AtlusDropdownList<T extends ValueOptionType>(props: AtlusDropdow
   }, [isMulti, size]);
 
   const valueOption = useMemo(() => {
-    if (isNullOrUndefined(value)) {
+    /**
+     * If it's async, then let react-select handle the correct value.
+     */
+    if (isNullOrUndefined(value) || isAsync) {
       return undefined;
     }
 
@@ -142,7 +167,7 @@ export function AtlusDropdownList<T extends ValueOptionType>(props: AtlusDropdow
     }
 
     return getDropdownOptions(options, value);
-  }, [options, value]);
+  }, [options, value, isAsync]);
 
   const Comp = isAsync ? AsyncSelect : Select;
 
@@ -150,6 +175,7 @@ export function AtlusDropdownList<T extends ValueOptionType>(props: AtlusDropdow
     <div className={wrapperClassName}>
       {label && <AtlusFormLabel label={label} />}
       <Comp
+        closeMenuOnSelect={false}
         atlusDropdownProps={props}
         value={valueOption}
         isLoading={isLoading}
@@ -158,14 +184,18 @@ export function AtlusDropdownList<T extends ValueOptionType>(props: AtlusDropdow
         instanceId={id}
         ref={innerRef}
         name={name}
+        loadOptions={loadOptions}
         menuIsOpen={isOpen}
         unstyled={true}
         isMulti={isMulti}
+        cacheOptions={cacheOptions}
+        defaultOptions={defaultOptions}
         defaultValue={memoDefaultValue}
         options={options}
         isDisabled={isDisabled}
         placeholder={placeholder}
         classNames={dynamicClassNames}
+        onFocus={onFocus}
         onBlur={onBlur}
         isClearable={isClearable}
         filterOption={filterOption}
