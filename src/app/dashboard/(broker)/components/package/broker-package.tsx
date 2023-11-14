@@ -11,11 +11,10 @@ import { PackageCardWrapper } from '@/app/dashboard/components/package-card-wrap
 
 interface BrokerPackageProps {
   atlusPackage: Package;
-  className?: string;
 }
 
-export const BrokerPackage = ({ atlusPackage, className }: BrokerPackageProps) => {
-  const menu = <BrokerPackageMenu packageId={atlusPackage.id} />;
+export const BrokerPackage = ({ atlusPackage }: BrokerPackageProps) => {
+  const menu = <BrokerPackageMenu atlusPackage={atlusPackage} />;
   return (
     <PackageCardWrapper packageId={atlusPackage.id}>
       <div className="p-[18px] md:p-8 flex gap-4 md:gap-8">

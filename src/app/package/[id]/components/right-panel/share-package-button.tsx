@@ -2,17 +2,21 @@
 
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { HiShare } from 'react-icons/hi2';
-import { useSharePackageVisibility } from '@/app/package/share/components/use-share-package-visibility';
+import { Package } from '@/models/package';
+import { useSharePackage } from '@/app/package/share/hooks/use-share-package';
 
-export const SharePackageButton = () => {
-  const { showSharePackageBroker } = useSharePackageVisibility();
+interface SharePackageButtonProps {
+  atlusPackage: Package;
+}
 
+export const SharePackageButton = ({ atlusPackage }: SharePackageButtonProps) => {
+  const { sharePackage } = useSharePackage({ atlusPackage });
   return (
     <AtlusButton
       variant="clear"
       color="dark-grey"
       className="atlus-btn-36 md:atlus-btn-40"
-      onClick={showSharePackageBroker}
+      onClick={sharePackage}
       leftIcon={<HiShare />}
     >
       <span className="hidden lg:inline-block">Share</span>

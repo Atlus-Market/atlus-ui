@@ -13,7 +13,7 @@ interface BuyerPackageProps {
 }
 
 export const BuyerPackage = ({ buyerPackage }: BuyerPackageProps) => {
-  const menu = <BuyerPackageMenu packageId={buyerPackage.id} />;
+  const menu = <BuyerPackageMenu buyerPackage={buyerPackage} />;
   const watchList = (
     <PackageWatchlist packageId={buyerPackage.id} isWatched={buyerPackage.isWatched} />
   );

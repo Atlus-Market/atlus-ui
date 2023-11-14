@@ -1,8 +1,8 @@
 import { Package } from '@/models/package';
 import { BrokerPackage } from '@/app/dashboard/(broker)/components/package/broker-package';
-import { BrokerPackageActions } from '@/app/dashboard/(broker)/components/broker-package-actions';
 import { PackageLink } from '@/app/dashboard/components/package/package-link';
 import { PackagesListWrapper } from '@/app/dashboard/components/packages-list-wrapper';
+import { SharePackageModal } from '@/app/package/share/share-package-modal';
 
 interface BrokerPackagesListProps {
   packages: Package[];
@@ -11,7 +11,7 @@ interface BrokerPackagesListProps {
 export const BrokerPackagesList = ({ packages }: BrokerPackagesListProps) => {
   return (
     <>
-      <BrokerPackageActions />
+      <SharePackageModal />;
       <PackageLink>
         <PackagesListWrapper>
           {packages.map(atlusPackage => (

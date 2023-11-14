@@ -19,3 +19,8 @@ export const selectSharePackageId = createSelector(
   selectSharePackageState,
   state => state.packageId
 );
+
+export const selectIsPrivatePackage = createSelector(
+  selectSharePackageState,
+  state => state.isPrivatePackage
+);

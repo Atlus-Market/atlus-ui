@@ -5,25 +5,23 @@ import { AtlusMenuItem } from '@/components/ui/menu/atlus-menu-item';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { SetPackagePatent } from '@/constants/routes';
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
-import {
-  setSharePackageId,
-  showSharePackageModal,
-} from '@/redux/features/share-package/share-package';
 import { useDeletePackageAction } from '@/hooks/data/use-delete-package-action';
 import { DashboardMenuSpinner } from '@/app/dashboard/components/dashboard-menu-spinner';
 import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
 import { useToggleState } from '@/hooks/use-toggle-state';
+import { Package } from '@/models/package';
+import { useSharePackage } from '@/app/package/share/hooks/use-share-package';
 
 interface BrokerPackageMenuProps {
-  packageId: string;
+  atlusPackage: Package;
 }
 
 const shareMenuOptionValue = 'share';
 
-export const BrokerPackageMenu = ({ packageId }: BrokerPackageMenuProps) => {
+export const BrokerPackageMenu = ({ atlusPackage }: BrokerPackageMenuProps) => {
   const { isOn, setOn, setOff } = useToggleState(false);
-  const dispatch = useDispatch();
+  const { id: packageId } = atlusPackage;
+  const { sharePackage } = useSharePackage({ atlusPackage });
   const { deletePackage, isDeletingPackage } = useDeletePackageAction({ packageId });
 
   if (isDeletingPackage) {
@@ -70,8 +68,7 @@ export const BrokerPackageMenu = ({ packageId }: BrokerPackageMenuProps) => {
 
           if (e.value === shareMenuOptionValue) {
             e.syntheticEvent.preventDefault();
-            dispatch(setSharePackageId({ packageId }));
-            dispatch(showSharePackageModal());
+            sharePackage();
           }
         }}
         menuItems={

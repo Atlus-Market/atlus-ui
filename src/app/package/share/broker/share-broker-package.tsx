@@ -2,39 +2,17 @@
 
 import { AtlusModal } from '@/components/ui/modal/atlus-modal';
 import { ShareBrokerPackageBody } from '@/app/package/share/broker/share-broker-package-body';
-import { useCallback, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { reset, setSharePackageId } from '@/redux/features/share-package/share-package';
-import { useSharePackageVisibility } from '@/app/package/share/components/use-share-package-visibility';
-import { selectSharePackageId } from '@/redux/features/share-package/selectors/share-package.selectors';
+import { useSharePackageVisibility } from '@/app/package/share/hooks/use-share-package-visibility';
+import { useResetSharePackageState } from '@/app/package/share/hooks/use-reset-share-package-state';
 
-interface ShareBrokerPackageProps {
-  packageId: string;
-  isShowingModal?: boolean;
-}
-
-export const ShareBrokerPackage = ({
-  packageId,
-  isShowingModal = false,
-}: ShareBrokerPackageProps) => {
-  const dispatch = useAppDispatch();
-  const { hideSharePackageBroker } = useSharePackageVisibility();
-  const activeSharingPackageId = useAppSelector(selectSharePackageId);
-
-  const resetShareState = useCallback(() => {
-    dispatch(reset());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (isShowingModal && packageId !== activeSharingPackageId) {
-      dispatch(setSharePackageId({ packageId }));
-    }
-  }, [packageId, dispatch, isShowingModal, activeSharingPackageId]);
+export const ShareBrokerPackage = () => {
+  const { hideSharePackageModal, isSharePackageOpen } = useSharePackageVisibility();
+  const { resetShareState } = useResetSharePackageState();
 
   return (
     <AtlusModal
-      isOpen={isShowingModal}
-      onRequestClose={hideSharePackageBroker}
+      isOpen={isSharePackageOpen}
+      onRequestClose={hideSharePackageModal}
       onAfterClose={resetShareState}
     >
       <ShareBrokerPackageBody />

@@ -8,15 +8,19 @@ import { DashboardMenuSpinner } from '@/app/dashboard/components/dashboard-menu-
 import { useNotInterestedInPackage } from '@/hooks/data/use-not-interested-inpackage-action';
 import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
 import { useToggleState } from '@/hooks/use-toggle-state';
+import { useSharePackage } from '@/app/package/share/hooks/use-share-package';
+import { BuyerPackageData } from '@/api/package/access/get-shared-packages-on-server';
 
 interface BuyerPackageMenuProps {
-  packageId: string;
+  buyerPackage: BuyerPackageData;
 }
 
 const shareMenuOptionValue = 'share';
 
-export const BuyerPackageMenu = ({ packageId }: BuyerPackageMenuProps) => {
+export const BuyerPackageMenu = ({ buyerPackage }: BuyerPackageMenuProps) => {
   const { isOn, setOn, setOff } = useToggleState(false);
+  const { sharePackage } = useSharePackage({ atlusPackage: buyerPackage });
+  const { id: packageId } = buyerPackage;
   const { downloadPackagePatents, isDownloadingPackagePatents } =
     useDownloadPackagePatents(packageId);
 
@@ -66,6 +70,7 @@ export const BuyerPackageMenu = ({ packageId }: BuyerPackageMenuProps) => {
 
           if (e.value === shareMenuOptionValue) {
             e.syntheticEvent.preventDefault();
+            sharePackage();
           }
         }}
         menuItems={

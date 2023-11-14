@@ -6,7 +6,6 @@ import { NoPackagePermission } from '@/app/package/[id]/components/limited-acces
 import { loadPackageViewData } from '@/app/package/[id]/load-package-view-data';
 import { NoPackageSession } from '@/app/package/[id]/components/limited-access/no-session/no-package-session';
 import { setPackageViewOnServer } from '@/api/package/analytics/set-package-view-on-server';
-import { Visibility } from '@/components/common/dropdown/visibility-options';
 
 export interface PackagePageProps {
   params: {
@@ -47,19 +46,14 @@ export default async function PackagePage({ params }: PackagePageProps) {
         />
         {broker && (
           <PackageRightPanel
-            packageId={atlusPackage.id}
+            atlusPackage={atlusPackage}
             broker={broker}
             renderLimitedContent={isLimitedUser}
             showEditPackageButton={isActiveUserBroker}
           />
         )}
       </div>
-      {!isLimitedUser && (
-        <SharePackageModal
-          packageId={atlusPackage.id}
-          isPrivatePackage={atlusPackage.visibility === Visibility.Private}
-        />
-      )}
+      {!isLimitedUser && <SharePackageModal />}
       {hasValidSession && !userHasAccessToPackage && <NoPackagePermission />}
       {!hasValidSession && <NoPackageSession packageId={atlusPackage.id} />}
     </div>

@@ -5,9 +5,10 @@ import { HiPencil } from 'react-icons/hi2';
 import { SharePackageButton } from '@/app/package/[id]/components/right-panel/share-package-button';
 import Link from 'next/link';
 import { SetPackagePatent } from '@/constants/routes';
+import { Package } from '@/models/package';
 
 interface PackageRightPanelProps {
-  packageId: string;
+  atlusPackage: Package;
   broker: User;
   renderLimitedContent: boolean;
   showEditPackageButton: boolean;
@@ -15,7 +16,7 @@ interface PackageRightPanelProps {
 
 export const PackageRightPanel = ({
   broker,
-  packageId,
+  atlusPackage,
   renderLimitedContent,
   showEditPackageButton,
 }: PackageRightPanelProps) => {
@@ -24,7 +25,7 @@ export const PackageRightPanel = ({
       {!renderLimitedContent && (
         <div className="hidden md:flex justify-end items-center gap-4 mb-4">
           {showEditPackageButton && (
-            <Link href={SetPackagePatent(packageId)}>
+            <Link href={SetPackagePatent(atlusPackage.id)}>
               <AtlusButton
                 variant="clear"
                 color="dark-grey"
@@ -35,7 +36,7 @@ export const PackageRightPanel = ({
               </AtlusButton>
             </Link>
           )}
-          <SharePackageButton />
+          <SharePackageButton atlusPackage={atlusPackage} />
         </div>
       )}
       <ContactBroker broker={broker} />

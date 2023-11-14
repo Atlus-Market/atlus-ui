@@ -17,6 +17,7 @@ import {
 
 export interface SharePackageState {
   packageId: string;
+  isPrivatePackage: boolean;
   isShareModalOpen: boolean;
 
   // Broker
@@ -28,6 +29,7 @@ export interface SharePackageState {
 
 const initialState: SharePackageState = {
   packageId: '',
+  isPrivatePackage: true,
   isShareModalOpen: false,
 
   // Broker
@@ -42,8 +44,12 @@ export const sharePackage = createSlice({
   initialState,
   reducers: {
     reset: () => initialState,
-    setSharePackageId: (state: SharePackageState, action: PayloadAction<{ packageId: string }>) => {
+    setSharePackageData: (
+      state: SharePackageState,
+      action: PayloadAction<{ packageId: string; isPrivatePackage: boolean }>
+    ) => {
       state.packageId = action.payload.packageId;
+      state.isPrivatePackage = action.payload.isPrivatePackage;
     },
     showSharePackageModal: (state: SharePackageState) => {
       state.isShareModalOpen = true;
@@ -68,7 +74,7 @@ export const sharePackage = createSlice({
 export const {
   // Common
   reset,
-  setSharePackageId,
+  setSharePackageData,
   setActivePage,
   showSharePackageModal,
   hideSharePackageModal,

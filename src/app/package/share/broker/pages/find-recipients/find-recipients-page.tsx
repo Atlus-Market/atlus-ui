@@ -15,17 +15,17 @@ import { AtlusCloseModalButton } from '@/components/ui/modal/atlus-close-modal-b
 import { AtlusModalTitle } from '@/components/ui/modal/atlus-modal-title';
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
 import { SharePackageFooter } from '@/app/package/share/broker/components/commom/share-package-footer';
-import { useSharePackageVisibility } from '@/app/package/share/components/use-share-package-visibility';
+import { useSharePackageVisibility } from '@/app/package/share/hooks/use-share-package-visibility';
 import { SharePackageFindRecipientsNextButton } from '@/app/package/share/broker/pages/find-recipients/components/share-package-find-recipients-next-button';
 
 export const FindRecipientsPage = () => {
-  const { hideSharePackageBroker } = useSharePackageVisibility();
+  const { hideSharePackageModal } = useSharePackageVisibility();
   const activeTab = useAppSelector(selectFindRecipientsActiveTab);
 
   return (
     <AtlusModalContainer
       header={
-        <AtlusModalHeader rightContent={<AtlusCloseModalButton onClick={hideSharePackageBroker} />}>
+        <AtlusModalHeader rightContent={<AtlusCloseModalButton onClick={hideSharePackageModal} />}>
           <AtlusModalTitle text="Share package" />
         </AtlusModalHeader>
       }

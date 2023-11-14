@@ -2,6 +2,7 @@ import 'server-only';
 import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 import { getServerAuthHeaders } from '@/api/api-server';
 import { PackageStatus } from '@/models/package-status';
+import { Visibility } from '@/components/common/dropdown/visibility-options';
 
 export interface BuyerPackageData {
   id: string;
@@ -14,6 +15,7 @@ export interface BuyerPackageData {
   status: PackageStatus;
   thumbnailPatentId: number;
   title: string;
+  visibility: Visibility;
 }
 
 export const getSharedPackagesOnServer = async (): Promise<BuyerPackageData[]> => {

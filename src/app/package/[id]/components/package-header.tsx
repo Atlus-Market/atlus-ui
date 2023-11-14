@@ -9,17 +9,15 @@ interface PackageHeaderProps {
   renderLimitedContent: boolean;
 }
 
-export const PackageHeader = ({
-  atlusPackage: { title, createdTimestamp, lastModified, status },
-  renderLimitedContent,
-}: PackageHeaderProps) => {
+export const PackageHeader = ({ atlusPackage, renderLimitedContent }: PackageHeaderProps) => {
+  const { title, createdTimestamp, lastModified, status } = atlusPackage;
   return (
     <div>
       <div className="flex justify-between items-center">
         <AtlusTitle text={'TODO: Add Company'} className="mb-1 !text-xl" />
         {!renderLimitedContent && (
           <div className="block lg:hidden">
-            <SharePackageButton />
+            <SharePackageButton atlusPackage={atlusPackage} />
           </div>
         )}
       </div>

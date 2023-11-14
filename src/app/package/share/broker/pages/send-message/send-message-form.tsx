@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { array, object, ObjectSchema, string } from 'yup';
 import { RequiredField } from '@/constants/form';
 import { ReactNode } from 'react';
-import { useSharePackageMutation } from '@/app/package/share/components/useSharePackageMutation';
+import { useSharePackageMutation } from '@/app/package/share/hooks/use-share-package-mutation';
 import {
   SharePackageRecipient,
   SharePackageRequestPayload,
