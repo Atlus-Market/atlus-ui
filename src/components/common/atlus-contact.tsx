@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
 import { Fragment } from 'react';
 import { AtlusAvatar } from '@/components/common/avatar/atlus-avatar';
-import { Recipient } from '@/redux/features/share-package/slices/find-recipients/recipient';
+import { Recipient } from '@/redux/features/share-package/slices/recipient';
 
 interface ContactCardProps {
   recipient: Recipient;

@@ -11,14 +11,14 @@ export const changePackageAccessExtraReducers = (
     const { meta } = action;
     const payload = meta.arg;
     console.log('changePackageAccess.pending:action ', action);
-    state.sharedWithPage.changePackageRequestId = action.meta.requestId;
-    if (!state.sharedWithPage.changingPackageAccessEmails.includes(payload.email)) {
-      state.sharedWithPage.changingPackageAccessEmails.push(payload.email);
+    state.shareBroker.sharedWithPage.changePackageRequestId = action.meta.requestId;
+    if (!state.shareBroker.sharedWithPage.changingPackageAccessEmails.includes(payload.email)) {
+      state.shareBroker.sharedWithPage.changingPackageAccessEmails.push(payload.email);
     }
   });
 
   builder.addCase(changePackageAccess.fulfilled, (state: SharePackageState, action) => {
-    if (action.meta.requestId !== state.sharedWithPage.changePackageRequestId) {
+    if (action.meta.requestId !== state.shareBroker.sharedWithPage.changePackageRequestId) {
       return;
     }
     const {
@@ -30,7 +30,7 @@ export const changePackageAccessExtraReducers = (
   });
 
   builder.addCase(changePackageAccess.rejected, (state: SharePackageState, action) => {
-    if (action.meta.requestId !== state.sharedWithPage.changePackageRequestId) {
+    if (action.meta.requestId !== state.shareBroker.sharedWithPage.changePackageRequestId) {
       return;
     }
     console.log('changePackageAccess.rejected:action ', action);
@@ -38,8 +38,8 @@ export const changePackageAccessExtraReducers = (
 };
 
 const removeEmail = (state: SharePackageState, email: string) => {
-  state.sharedWithPage.changingPackageAccessEmails =
-    state.sharedWithPage.changingPackageAccessEmails.filter(e => e !== email);
+  state.shareBroker.sharedWithPage.changingPackageAccessEmails =
+    state.shareBroker.sharedWithPage.changingPackageAccessEmails.filter(e => e !== email);
 };
 
 const changePackageAccessValue = (
@@ -47,17 +47,15 @@ const changePackageAccessValue = (
   email: string,
   access: PackageAccessValue
 ) => {
-  const packageAccess: PackageAccess | undefined = state.sharedWithPage.packageAccess.find(
-    pa => pa.email === email
-  );
+  const packageAccess: PackageAccess | undefined =
+    state.shareBroker.sharedWithPage.packageAccess.find(pa => pa.email === email);
   if (!packageAccess) {
     return;
   }
   packageAccess.access = access;
 
   if (access === PackageAccessValue.NoAccess) {
-    state.sharedWithPage.packageAccess = state.sharedWithPage.packageAccess.filter(
-      pa => pa.email !== email
-    );
+    state.shareBroker.sharedWithPage.packageAccess =
+      state.shareBroker.sharedWithPage.packageAccess.filter(pa => pa.email !== email);
   }
 };

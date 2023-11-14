@@ -11,10 +11,7 @@ import {
   selectSelectedRecipientsId,
 } from '@/redux/features/share-package/selectors/find-recipients.selectors';
 import { addRecipient, removeRecipient } from '@/redux/features/share-package/share-package';
-import {
-  isCustomRecipient,
-  Recipient,
-} from '@/redux/features/share-package/slices/find-recipients/recipient';
+import { isCustomRecipient, Recipient } from '@/redux/features/share-package/slices/recipient';
 import { AtlusPlaceholderImage } from '@/components/common/atlus-placeholder-image';
 import SearchContactSvgImage from '@/public/assets/images/search_contact.svg';
 

@@ -4,7 +4,7 @@ import { AtlusFormTextarea } from '@/components/ui/form/atlus-form-textarea';
 import { useFormContext } from 'react-hook-form';
 import { SharePackageSendMessageForm } from '@/app/package/share/broker/pages/send-message/send-message-form';
 import { RecipientsTagsList } from '@/app/package/share/broker/pages/find-recipients/components/common/recipients-tags-list';
-import { Recipient } from '@/redux/features/share-package/slices/find-recipients/recipient';
+import { Recipient } from '@/redux/features/share-package/slices/recipient';
 import { useEffect } from 'react';
 import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
 

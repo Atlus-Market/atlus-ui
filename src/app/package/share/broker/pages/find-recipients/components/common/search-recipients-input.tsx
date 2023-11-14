@@ -10,7 +10,7 @@ import { useAppDispatch } from '@/redux/hooks';
 import { Action } from 'redux';
 import { AsyncThunkAction } from '@reduxjs/toolkit';
 import { RecipientsTagsList } from '@/app/package/share/broker/pages/find-recipients/components/common/recipients-tags-list';
-import { Recipient } from '@/redux/features/share-package/slices/find-recipients/recipient';
+import { Recipient } from '@/redux/features/share-package/slices/recipient';
 
 interface SearchRecipientsInputProps {
   placeholder: string;

@@ -21,7 +21,7 @@ export const directoriesInitialState: DirectoryState = {
 
 export const directoriesReducer = {
   resetDirectoriesSearch: (state: SharePackageState) => {
-    state.findRecipientsPage.directoriesTab.searchValue = '';
-    state.findRecipientsPage.directoriesTab.directories = [];
+    state.shareBroker.findRecipientsPage.directoriesTab.searchValue = '';
+    state.shareBroker.findRecipientsPage.directoriesTab.directories = [];
   },
 };

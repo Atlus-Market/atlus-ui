@@ -17,7 +17,7 @@ export const contactsInitialState: ContactsState = {
 
 export const contactsReducer = {
   resetContactsSearch: (state: SharePackageState) => {
-    state.findRecipientsPage.contactsTab.searchValue = '';
-    state.findRecipientsPage.contactsTab.contacts = [];
+    state.shareBroker.findRecipientsPage.contactsTab.searchValue = '';
+    state.shareBroker.findRecipientsPage.contactsTab.contacts = [];
   },
 };

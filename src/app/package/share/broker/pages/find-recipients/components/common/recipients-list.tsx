@@ -6,7 +6,7 @@ import { Action } from 'redux';
 import { AtlusContact } from '@/components/common/atlus-contact';
 import { isValidEmail } from '@/utils/email';
 import { setCustomRecipient } from '@/redux/features/share-package/share-package';
-import { Recipient } from '@/redux/features/share-package/slices/find-recipients/recipient';
+import { Recipient } from '@/redux/features/share-package/slices/recipient';
 
 interface RecipientsListProps<T extends Recipient> {
   selectRecipientAction: (recipient: T) => Action;

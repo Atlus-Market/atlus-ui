@@ -3,7 +3,7 @@ import { selectSharePackageState } from '@/redux/features/share-package/selector
 
 export const selectFindRecipientsPageState = createSelector(
   selectSharePackageState,
-  state => state.findRecipientsPage
+  state => state.shareBroker.findRecipientsPage
 );
 
 export const selectFindRecipientsActiveTab = createSelector(

@@ -9,25 +9,29 @@ export const searchContactsExtraReducers = (
     const { meta } = action;
     const payload = meta.arg;
     console.log('searchContacts.pending:action ', action);
-    state.findRecipientsPage.contactsTab.isSearchingContacts = true;
-    state.findRecipientsPage.contactsTab.searchValue = action.meta.arg;
-    state.findRecipientsPage.contactsTab.activeRequestId = action.meta.requestId;
+    state.shareBroker.findRecipientsPage.contactsTab.isSearchingContacts = true;
+    state.shareBroker.findRecipientsPage.contactsTab.searchValue = action.meta.arg;
+    state.shareBroker.findRecipientsPage.contactsTab.activeRequestId = action.meta.requestId;
   });
 
   builder.addCase(searchContacts.fulfilled, (state: SharePackageState, action) => {
-    if (action.meta.requestId !== state.findRecipientsPage.contactsTab.activeRequestId) {
+    if (
+      action.meta.requestId !== state.shareBroker.findRecipientsPage.contactsTab.activeRequestId
+    ) {
       return;
     }
     console.log('searchContacts.fulfilled:action ', action);
-    state.findRecipientsPage.contactsTab.isSearchingContacts = false;
-    state.findRecipientsPage.contactsTab.contacts = action.payload;
+    state.shareBroker.findRecipientsPage.contactsTab.isSearchingContacts = false;
+    state.shareBroker.findRecipientsPage.contactsTab.contacts = action.payload;
   });
 
   builder.addCase(searchContacts.rejected, (state: SharePackageState, action) => {
-    if (action.meta.requestId !== state.findRecipientsPage.contactsTab.activeRequestId) {
+    if (
+      action.meta.requestId !== state.shareBroker.findRecipientsPage.contactsTab.activeRequestId
+    ) {
       return;
     }
     console.log('searchContacts.rejected:action ', action);
-    state.findRecipientsPage.contactsTab.isSearchingContacts = false;
+    state.shareBroker.findRecipientsPage.contactsTab.isSearchingContacts = false;
   });
 };

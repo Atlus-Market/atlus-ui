@@ -1,6 +1,6 @@
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
 import { AtlusAvatar } from '@/components/common/avatar/atlus-avatar';
-import { Recipient } from '@/redux/features/share-package/slices/find-recipients/recipient';
+import { Recipient } from '@/redux/features/share-package/slices/recipient';
 
 interface RecipientProps {
   recipient: Recipient;

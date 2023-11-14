@@ -3,15 +3,15 @@ import {
   contactsInitialState,
   contactsReducer,
   ContactsState,
-} from '@/redux/features/share-package/slices/find-recipients/contacts';
+} from '@/redux/features/share-package/slices/broker/find-recipients/contacts';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { SharePackageState } from '@/redux/features/share-package/share-package';
 import {
   directoriesInitialState,
   directoriesReducer,
   DirectoryState,
-} from '@/redux/features/share-package/slices/find-recipients/directories';
-import { Recipient } from '@/redux/features/share-package/slices/find-recipients/recipient';
+} from '@/redux/features/share-package/slices/broker/find-recipients/directories';
+import { Recipient } from '@/redux/features/share-package/slices/recipient';
 
 export interface FindRecipientsPageState {
   activeTab: SharePackageFindRecipientsTab;
@@ -34,16 +34,16 @@ export const findRecipientsReducers = {
     state: SharePackageState,
     action: PayloadAction<SharePackageFindRecipientsTab>
   ) => {
-    state.findRecipientsPage.activeTab = action.payload;
+    state.shareBroker.findRecipientsPage.activeTab = action.payload;
   },
 
   addRecipient: (state: SharePackageState, action: PayloadAction<Recipient>) => {
     // Do not add it more than once
-    const recipients = state.findRecipientsPage.selectedRecipients.filter(
+    const recipients = state.shareBroker.findRecipientsPage.selectedRecipients.filter(
       r => r.id !== action.payload.id
     );
     recipients.push(action.payload);
-    state.findRecipientsPage.selectedRecipients = recipients;
+    state.shareBroker.findRecipientsPage.selectedRecipients = recipients;
   },
 
   removeRecipient: (
@@ -52,14 +52,14 @@ export const findRecipientsReducers = {
       id: string;
     }>
   ) => {
-    state.findRecipientsPage.selectedRecipients =
-      state.findRecipientsPage.selectedRecipients.filter(
+    state.shareBroker.findRecipientsPage.selectedRecipients =
+      state.shareBroker.findRecipientsPage.selectedRecipients.filter(
         recipient => recipient.id !== action.payload.id
       );
   },
 
   setCustomRecipient: (state: SharePackageState, action: PayloadAction<Recipient | undefined>) => {
-    state.findRecipientsPage.customRecipient = action.payload;
+    state.shareBroker.findRecipientsPage.customRecipient = action.payload;
   },
 
   //Contacts tab

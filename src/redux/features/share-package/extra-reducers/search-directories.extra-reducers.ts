@@ -9,30 +9,34 @@ export const searchDirectoriesExtraReducers = (
     const { meta } = action;
     const payload = meta.arg;
     console.log('searchDirectories.pending:action ', action);
-    state.findRecipientsPage.directoriesTab.isSearchingDirectories = true;
-    state.findRecipientsPage.directoriesTab.searchValue = action.meta.arg;
-    state.findRecipientsPage.directoriesTab.activeRequestId = action.meta.requestId;
+    state.shareBroker.findRecipientsPage.directoriesTab.isSearchingDirectories = true;
+    state.shareBroker.findRecipientsPage.directoriesTab.searchValue = action.meta.arg;
+    state.shareBroker.findRecipientsPage.directoriesTab.activeRequestId = action.meta.requestId;
   });
 
   builder.addCase(searchDirectories.fulfilled, (state: SharePackageState, action) => {
-    if (action.meta.requestId !== state.findRecipientsPage.directoriesTab.activeRequestId) {
+    if (
+      action.meta.requestId !== state.shareBroker.findRecipientsPage.directoriesTab.activeRequestId
+    ) {
       return;
     }
     console.log('searchDirectories.fulfilled:action ', action);
-    state.findRecipientsPage.directoriesTab.isSearchingDirectories = false;
+    state.shareBroker.findRecipientsPage.directoriesTab.isSearchingDirectories = false;
     if (!action.payload) {
       return;
     }
-    state.findRecipientsPage.directoriesTab.directories = action.payload.users;
+    state.shareBroker.findRecipientsPage.directoriesTab.directories = action.payload.users;
     const { users, ...rest } = action.payload;
-    state.findRecipientsPage.directoriesTab.searchPageResult = rest;
+    state.shareBroker.findRecipientsPage.directoriesTab.searchPageResult = rest;
   });
 
   builder.addCase(searchDirectories.rejected, (state: SharePackageState, action) => {
-    if (action.meta.requestId !== state.findRecipientsPage.directoriesTab.activeRequestId) {
+    if (
+      action.meta.requestId !== state.shareBroker.findRecipientsPage.directoriesTab.activeRequestId
+    ) {
       return;
     }
     console.log('searchDirectories.rejected:action ', action);
-    state.findRecipientsPage.directoriesTab.isSearchingDirectories = false;
+    state.shareBroker.findRecipientsPage.directoriesTab.isSearchingDirectories = false;
   });
 };

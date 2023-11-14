@@ -5,10 +5,7 @@ import {
   DropdownOption,
 } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 import { SelectedRecipient } from '@/app/package/share/components/common/selectedRecipient';
-import {
-  isCustomRecipient,
-  Recipient,
-} from '@/redux/features/share-package/slices/find-recipients/recipient';
+import { isCustomRecipient, Recipient } from '@/redux/features/share-package/slices/recipient';
 import { useAppDispatch } from '@/redux/hooks';
 import { searchBuyerContacts } from '@/redux/features/share-package/thunks/search-buyer-contacts.thunk';
 import { useCallback, useRef, useState } from 'react';

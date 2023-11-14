@@ -1,4 +1,4 @@
-import { Recipient } from '@/redux/features/share-package/slices/find-recipients/recipient';
+import { Recipient } from '@/redux/features/share-package/slices/recipient';
 import { SelectedRecipient } from '@/app/package/share/components/common/selectedRecipient';
 
 interface RecipientsTagsListProps {
