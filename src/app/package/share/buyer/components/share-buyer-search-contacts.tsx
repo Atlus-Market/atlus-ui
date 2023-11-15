@@ -8,10 +8,10 @@ import { SelectedRecipient } from '@/app/package/share/components/common/selecte
 import { isCustomRecipient, Recipient } from '@/redux/features/share-package/slices/recipient';
 import { useAppDispatch } from '@/redux/hooks';
 import { searchBuyerContacts } from '@/redux/features/share-package/thunks/search-buyer-contacts.thunk';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef } from 'react';
 import { AtlusContact } from '@/components/common/atlus-contact';
-import { Contact } from '@/models/contact';
 import { AtlusFormDropdownList } from '@/components/ui/form/atlus-form-dropdown';
+import { isValidEmail } from '@/utils/email';
 
 const recipientSubLines = (recipient: Recipient) => {
   if (isCustomRecipient(recipient)) {
@@ -20,20 +20,14 @@ const recipientSubLines = (recipient: Recipient) => {
   return [recipient.email];
 };
 
-const r: Recipient = {
-  id: 'a@a.com',
-  companyName: '',
-  email: 'a@a.com',
-  firstName: 'a@a.com',
-  lastName: '',
-};
-
-const o: DropdownOption<string> = {
-  label: <AtlusContact recipient={r} subLines={recipientSubLines(r)} wrapperClassnames="!py-0" />,
-  value: r.id,
-  data: {
-    recipient: r,
-  },
+const createRecipientFromEmail = (email: string): Recipient => {
+  return {
+    id: email,
+    companyName: '',
+    email,
+    firstName: email,
+    lastName: '',
+  };
 };
 
 interface CustomRecipient {
@@ -49,8 +43,8 @@ const DropdownSelectedRecipient = ({ clearValue, data }: CustomMultiComponent) =
   />
 );
 
-const mapContactToOptions = (contacts: Contact[]): DropdownOption<string>[] => {
-  return contacts.map(contact => ({
+const mapRecipientsToOptions = (recipient: Recipient[]): DropdownOption<string>[] => {
+  return recipient.map(contact => ({
     label: (
       <AtlusContact
         recipient={contact}
@@ -84,14 +78,15 @@ export const ShareBuyerSearchContacts = () => {
         activeThunk.current = dispatch(searchBuyerContacts(searchValue));
         const res = await activeThunk.current;
         const contacts = res.payload;
-        console.log('contacts found: ', contacts);
 
         if (contacts.length) {
-          return mapContactToOptions(contacts);
+          return mapRecipientsToOptions(contacts);
         }
-        const isEmail = true;
+
+        const isEmail = isValidEmail(searchValue);
         if (isEmail) {
-          return [o];
+          const recipient = createRecipientFromEmail(searchValue);
+          return mapRecipientsToOptions([recipient]);
         }
 
         return [];
