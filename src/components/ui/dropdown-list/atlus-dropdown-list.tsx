@@ -175,7 +175,6 @@ export function AtlusDropdownList<T extends ValueOptionType>(props: AtlusDropdow
     <div className={wrapperClassName}>
       {label && <AtlusFormLabel label={label} />}
       <Comp
-        closeMenuOnSelect={false}
         atlusDropdownProps={props}
         value={valueOption}
         isLoading={isLoading}
