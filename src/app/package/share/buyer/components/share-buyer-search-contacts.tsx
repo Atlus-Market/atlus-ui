@@ -5,20 +5,13 @@ import {
   DropdownOption,
 } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 import { SelectedRecipient } from '@/app/package/share/components/common/selectedRecipient';
-import { isCustomRecipient, Recipient } from '@/redux/features/share-package/slices/recipient';
+import { Recipient } from '@/redux/features/share-package/slices/recipient';
 import { useAppDispatch } from '@/redux/hooks';
 import { searchBuyerContacts } from '@/redux/features/share-package/thunks/search-buyer-contacts.thunk';
 import { useCallback, useRef } from 'react';
-import { AtlusContact } from '@/components/common/atlus-contact';
 import { AtlusFormDropdownList } from '@/components/ui/form/atlus-form-dropdown';
 import { isValidEmail } from '@/utils/email';
-
-const recipientSubLines = (recipient: Recipient) => {
-  if (isCustomRecipient(recipient)) {
-    return [];
-  }
-  return [recipient.email];
-};
+import { ShareBuyerContact } from '@/app/package/share/buyer/components/share-buyer-contact';
 
 const createRecipientFromEmail = (email: string): Recipient => {
   return {
@@ -44,17 +37,11 @@ const DropdownSelectedRecipient = ({ clearValue, data }: CustomMultiComponent) =
 );
 
 const mapRecipientsToOptions = (recipient: Recipient[]): DropdownOption<string>[] => {
-  return recipient.map(contact => ({
-    label: (
-      <AtlusContact
-        recipient={contact}
-        subLines={recipientSubLines(contact)}
-        wrapperClassnames="!py-0"
-      />
-    ),
-    value: contact.email,
+  return recipient.map(recipient => ({
+    label: <ShareBuyerContact recipient={recipient} />,
+    value: recipient.email,
     data: {
-      recipient: contact,
+      recipient: recipient,
     },
   }));
 };
