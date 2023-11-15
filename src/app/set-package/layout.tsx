@@ -9,7 +9,7 @@ import { AtlusLayout } from '@/components/common/layout/atlus-layout';
 export default function SetPackageLayout({ children }: { children: ReactNode }) {
   return (
     <MinimumScreenSize
-      breakpointKey="md"
+      minBreakpointKey="md"
       noContentChildren={
         <AtlusLayout header={<Header />} sideBar={null}>
           <DesktopOnlyPlaceholder />

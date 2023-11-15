@@ -1,25 +1,28 @@
 'use client';
 
-import {
-  BreakpointKey,
-  useMinimumTailwindBreakpoint,
-} from '@/hooks/use-minimum-tailwind-breakpoint';
+import { BreakpointKey } from '@/hooks/use-minimum-tailwind-breakpoint';
 import { ReactNode } from 'react';
+import { useBetweenTailwindBreakpoints } from '@/hooks/use-between-tailwind-breakpoints';
 
 export interface MinimumScreenSizeProps {
-  breakpointKey: BreakpointKey;
+  minBreakpointKey: BreakpointKey;
+  maxBreakpointKey?: BreakpointKey;
   children: ReactNode;
-  noContentChildren: ReactNode;
+  noContentChildren?: ReactNode;
 }
 
 export const MinimumScreenSize = ({
-  breakpointKey,
+  minBreakpointKey,
+  maxBreakpointKey,
   children,
-  noContentChildren,
+  noContentChildren = null,
 }: MinimumScreenSizeProps) => {
-  const isMinimumBreakpoint = useMinimumTailwindBreakpoint(breakpointKey);
+  const isBreakpointActive = useBetweenTailwindBreakpoints({
+    minBreakpoint: minBreakpointKey,
+    maxBreakpoint: maxBreakpointKey,
+  });
 
-  if (!isMinimumBreakpoint) {
+  if (!isBreakpointActive) {
     return <>{noContentChildren}</>;
   }
 

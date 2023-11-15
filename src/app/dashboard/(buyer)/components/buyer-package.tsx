@@ -7,6 +7,7 @@ import { PackageCardWrapper } from '@/app/dashboard/components/package-card-wrap
 import { BuyerPackageMenu } from '@/app/dashboard/(buyer)/components/buyer-package-menu';
 import { PackageWatchlist } from '@/app/dashboard/components/package/watchlist/package-watchlist';
 import { BuyerPackageOwner } from '@/app/dashboard/(buyer)/components/buyer-package-owner';
+import { MinimumScreenSize } from '@/components/common/minimum-screen-size';
 
 interface BuyerPackageProps {
   buyerPackage: BuyerPackageData;
@@ -25,10 +26,12 @@ export const BuyerPackage = ({ buyerPackage }: BuyerPackageProps) => {
         <div className="flex flex-col w-full">
           <div className="flex justify-between items-center mb-[6px] md:mb-3">
             <PackageTitle title={buyerPackage.title} />
-            <div className="hidden md:flex gap-4">
-              {watchList}
-              {menu}
-            </div>
+            <MinimumScreenSize minBreakpointKey="md">
+              <div className="flex items-center gap-4">
+                {watchList}
+                {menu}
+              </div>
+            </MinimumScreenSize>
           </div>
           <PackageFamiliesAndDocuments
             documentsCount={buyerPackage.documentsCount}
@@ -41,13 +44,15 @@ export const BuyerPackage = ({ buyerPackage }: BuyerPackageProps) => {
           <div className="hidden md:block">{packageOwner}</div>
         </div>
       </div>
-      <div className="flex md:hidden border-t border-t-lightest-grey py-[10px] px-[18px] justify-between items-center">
-        {packageOwner}
-        <div className="flex items-center gap-4">
-          {watchList}
-          {menu}
+      <MinimumScreenSize minBreakpointKey="sm" maxBreakpointKey="md">
+        <div className="flex border-t border-t-lightest-grey py-[10px] px-[18px] justify-between items-center">
+          {packageOwner}
+          <div className="flex items-center gap-4">
+            {watchList}
+            {menu}
+          </div>
         </div>
-      </div>
+      </MinimumScreenSize>
     </PackageCardWrapper>
   );
 };

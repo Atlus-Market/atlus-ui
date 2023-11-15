@@ -27,7 +27,6 @@ const ShareBuyerPackage = dynamic(
 const AtlusAlertModal = dynamic(
   () =>
     import('@/components/ui/modal/confirmation/atlus-alert-modal').then(async mod => {
-      // await sleep(50000);
       return mod.AtlusAlertModal;
     }),
   {
