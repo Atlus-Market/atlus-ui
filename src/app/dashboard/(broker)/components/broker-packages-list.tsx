@@ -11,7 +11,7 @@ interface BrokerPackagesListProps {
 export const BrokerPackagesList = ({ packages }: BrokerPackagesListProps) => {
   return (
     <>
-      <SharePackageModal />;
+      <SharePackageModal />
       <PackageLink>
         <PackagesListWrapper>
           {packages.map(atlusPackage => (

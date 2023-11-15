@@ -8,6 +8,7 @@ import { PackageStats } from '@/app/dashboard/components/package/package-stats';
 import { BrokerPackageMenu } from '@/app/dashboard/(broker)/components/package/broker-package-menu';
 import { PackageImage } from '@/app/dashboard/components/package/package-image';
 import { PackageCardWrapper } from '@/app/dashboard/components/package-card-wrapper';
+import { MinimumScreenSize } from '@/components/common/minimum-screen-size';
 
 interface BrokerPackageProps {
   atlusPackage: Package;
@@ -22,7 +23,7 @@ export const BrokerPackage = ({ atlusPackage }: BrokerPackageProps) => {
         <div className="w-full">
           <div className="flex justify-between items-center mb-[6px] md:mb-3">
             <PackageTitle title={atlusPackage.title} />
-            <div className="hidden md:flex">{menu}</div>
+            <MinimumScreenSize minBreakpointKey="md">{menu}</MinimumScreenSize>
           </div>
           <PackageFamiliesAndDocuments
             familiesCount={atlusPackage.numberOfFamilies}
@@ -37,15 +38,19 @@ export const BrokerPackage = ({ atlusPackage }: BrokerPackageProps) => {
             creationDate={atlusPackage.createdTimestamp}
             lastModified={atlusPackage.lastModified}
           />
-          <div className="hidden md:block mt-6">
-            <PackageStats atlusPackage={atlusPackage} />
-          </div>
+          <MinimumScreenSize minBreakpointKey="md">
+            <div className="mt-6">
+              <PackageStats atlusPackage={atlusPackage} />
+            </div>
+          </MinimumScreenSize>
         </div>
       </div>
-      <div className="flex md:hidden border-t border-t-lightest-grey py-[18px] px-[18px] justify-between items-center">
-        <PackageStats atlusPackage={atlusPackage} />
-        {menu}
-      </div>
+      <MinimumScreenSize minBreakpointKey="sm" maxBreakpointKey="md">
+        <div className="flex border-t border-t-lightest-grey py-[18px] px-[18px] justify-between items-center">
+          <PackageStats atlusPackage={atlusPackage} />
+          {menu}
+        </div>
+      </MinimumScreenSize>
     </PackageCardWrapper>
   );
 };

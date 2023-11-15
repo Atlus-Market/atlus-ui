@@ -41,7 +41,7 @@ export const BuyerPackage = ({ buyerPackage }: BuyerPackageProps) => {
           <div className="mb-5">
             <PackageStatusTag status={buyerPackage.status} />
           </div>
-          <div className="hidden md:block">{packageOwner}</div>
+          <MinimumScreenSize minBreakpointKey="md">{packageOwner}</MinimumScreenSize>
         </div>
       </div>
       <MinimumScreenSize minBreakpointKey="sm" maxBreakpointKey="md">
