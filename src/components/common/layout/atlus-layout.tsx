@@ -31,7 +31,8 @@ export const AtlusLayout = ({
       <div
         className={clsx(
           'atlus-content p-[18px] md:p-[42px]',
-          mainContentAlignment === 'center' ? 'justify-center' : 'justify-start'
+          mainContentAlignment === 'center' ? 'justify-center' : 'justify-start',
+          'bg-[color:var(--atlus-layout-bg-color)]'
         )}
       >
         <div className="max-w-[1280px] w-full h-fit">{children}</div>

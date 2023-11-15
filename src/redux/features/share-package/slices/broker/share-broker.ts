@@ -1,4 +1,4 @@
-import { SharePackagePage } from '@/app/package/share/broker/components/commom/share-package-page';
+import { SharePackagePage } from '@/app/(protected-routes)/package/share/broker/components/commom/share-package-page';
 import {
   findRecipientsPageInitialState,
   FindRecipientsPageState,

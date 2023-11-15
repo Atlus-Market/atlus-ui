@@ -28,6 +28,8 @@
     @media screen(md) {
         --atlus-header-height: 80px;
     }
+
+    --atlus-layout-bg-color: #ffffff;
 }
 
 html,

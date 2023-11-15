@@ -23,7 +23,7 @@ const DefaultIconName = 'default_icon.svg';
 
 const iconMap = new Map<string, StaticImageData>();
 
-export const Icon = ({ name, size = 20, color = 'orange' }: IconProps) => {
+export const Icon = ({ name, size = 20 }: IconProps) => {
   const [iconName, setIconName] = useState<string>(name);
   const [imageData, setImageData] = useState<StaticImageData | null>(null);
 
@@ -69,15 +69,13 @@ export const Icon = ({ name, size = 20, color = 'orange' }: IconProps) => {
     };
   }, [iconName]);
 
+  const containerSize = iconContainerSize[size];
   return (
-    <div
-      id={name}
-      className={clsx('inline-flex items-center flex-shrink-0', iconContainerSize[size])}
-    >
+    <div id={name} className={clsx('inline-flex items-center flex-shrink-0', containerSize)}>
       {imageData ? (
         <Image priority={true} src={imageData} width={size} alt={name} />
       ) : (
-        <div className={iconContainerSize[size]} />
+        <div className={containerSize} />
       )}
     </div>
   );
