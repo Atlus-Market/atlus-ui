@@ -2,12 +2,14 @@ import { HiOutlineX, HiSearch } from 'react-icons/hi';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import './search.css';
 import clsx from 'clsx';
+import { KeyboardEvent } from 'react';
 
 interface AtlusSearchBarProps {
   placeholder?: string;
+  onKeyDown?: (e: KeyboardEvent<HTMLElement> | null) => void;
 }
 
-export const AtlusSearchBar = ({ placeholder }: AtlusSearchBarProps) => {
+export const AtlusSearchBar = ({ placeholder, onKeyDown }: AtlusSearchBarProps) => {
   return (
     <div
       className={clsx(
@@ -27,6 +29,7 @@ export const AtlusSearchBar = ({ placeholder }: AtlusSearchBarProps) => {
           'w-full'
         )}
         placeholder={placeholder}
+        onKeyDown={onKeyDown}
       />
       <AtlusButton
         className="atlus-btn-22"

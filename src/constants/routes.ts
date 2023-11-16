@@ -46,3 +46,6 @@ export const BrokerDashboard = DashboardRoute;
 export const BuyerDashboardShared = `${DashboardRoute}/shared`;
 export const BuyerDashboardRecommended = `${DashboardRoute}/recommended`;
 export const BuyerDashboardWatchlist = `${DashboardRoute}/watchlist`;
+
+// Search
+export const SearchRoute = '/search';
