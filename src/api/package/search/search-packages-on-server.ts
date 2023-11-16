@@ -6,6 +6,7 @@ interface SearchPackagesParams {
   q: string;
   page: number;
   per_page: number;
+  // userType: 'broker' | 'buyer';
 }
 
 interface SearchPackagesResponse {

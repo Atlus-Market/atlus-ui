@@ -29,6 +29,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   return (
     <div>
       Search {query}
+      <div>{searchPackagesResponse.packages.length}</div>
       {isBrokerUser ? <BrokerPackageSearch /> : <BuyerPackageSearch />}
     </div>
   );
