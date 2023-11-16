@@ -51,13 +51,15 @@ export const loadPackageViewData = async (packageId: string): Promise<LoadDataRe
     ? getUserByIdOnServer(atlusPackage.brokerUserId)
     : Promise.resolve(undefined);
 
+  const loadSepStandards = isLimitedUser ? Promise.resolve([]) : getSepStandards();
+
   const isActiveUserBrokerPromise = !isLimitedUser ? getIsBrokerUser() : Promise.resolve(false);
 
   const [broker, dataroom, isActiveUserBroker, sepStandards] = await Promise.all([
     loadUserPromise,
     getDataroomPromise,
     isActiveUserBrokerPromise,
-    getSepStandards(),
+    loadSepStandards,
   ]);
 
   return {
