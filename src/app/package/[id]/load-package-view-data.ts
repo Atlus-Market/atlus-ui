@@ -8,6 +8,8 @@ import { Dataroom } from '@/models/dataroom';
 import { getPackageAccessForUserOnServer } from '@/api/package/access/get-package-access-for-user-on-server';
 import { PackageAccessValue } from '@/models/package-access-value';
 import { getIsBrokerUser } from '@/api/user/get-is-broker-user-on-server';
+import { getSepStandards } from '@/api/package/sep-standards/get-sep-standards';
+import { SepStandard } from '@/models/sep-standard';
 
 const LOAD_PACKAGE = 'Load package';
 
@@ -18,6 +20,7 @@ interface LoadDataResponse {
   userHasAccessToPackage: boolean;
   isLimitedUser: boolean;
   isActiveUserBroker: boolean;
+  sepStandards: SepStandard[];
 }
 
 export const loadPackageViewData = async (packageId: string): Promise<LoadDataResponse> => {
@@ -50,10 +53,11 @@ export const loadPackageViewData = async (packageId: string): Promise<LoadDataRe
 
   const isActiveUserBrokerPromise = !isLimitedUser ? getIsBrokerUser() : Promise.resolve(false);
 
-  const [broker, dataroom, isActiveUserBroker] = await Promise.all([
+  const [broker, dataroom, isActiveUserBroker, sepStandards] = await Promise.all([
     loadUserPromise,
     getDataroomPromise,
     isActiveUserBrokerPromise,
+    getSepStandards(),
   ]);
 
   return {
@@ -63,5 +67,6 @@ export const loadPackageViewData = async (packageId: string): Promise<LoadDataRe
     userHasAccessToPackage,
     isLimitedUser,
     isActiveUserBroker,
+    sepStandards,
   };
 };

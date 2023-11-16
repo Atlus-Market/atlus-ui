@@ -15,12 +15,14 @@ import { PackageListedBy } from '@/app/package/[id]/components/package-owner/pac
 import { SendMessage } from '@/app/package/[id]/components/send-message/send-message';
 import { PackageProducts } from '@/app/package/[id]/components/package-products';
 import { PackageStandards } from '@/app/package/[id]/components/package-standards';
+import { SepStandard } from '@/models/sep-standard';
 
 interface MainPanelProps {
   atlusPackage: Package;
   dataroom?: Dataroom;
   broker?: User;
   renderLimitedContent: boolean;
+  sepStandards: SepStandard[];
 }
 
 export const MainPanel = ({
@@ -28,6 +30,7 @@ export const MainPanel = ({
   dataroom,
   broker,
   renderLimitedContent,
+  sepStandards,
 }: MainPanelProps) => {
   return (
     <div>
@@ -49,7 +52,7 @@ export const MainPanel = ({
               <PackageDivider className="bg-transparent !mt-0" />
             </>
           )}
-          <PackageStandards atlusPackage={atlusPackage} />
+          <PackageStandards atlusPackage={atlusPackage} sepStandards={sepStandards} />
           <PackageDivider className="bg-transparent !mt-0" />
           <PackageSeller companyName={broker.companyName} />
           <PackageDivider />

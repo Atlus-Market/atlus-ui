@@ -29,6 +29,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
     userHasAccessToPackage,
     isLimitedUser,
     isActiveUserBroker,
+    sepStandards,
   } = await loadPackageViewData(packageId);
 
   if (!isActiveUserBroker) {
@@ -43,6 +44,7 @@ export default async function PackagePage({ params }: PackagePageProps) {
           dataroom={dataroom}
           broker={broker}
           renderLimitedContent={isLimitedUser}
+          sepStandards={sepStandards}
         />
         {broker && (
           <PackageRightPanel
