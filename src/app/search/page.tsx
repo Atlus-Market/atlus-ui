@@ -1,13 +1,14 @@
 import { searchPackagesOnServer } from '@/api/package/search/search-packages-on-server';
+import { searchPackagesQueryParam } from '@/constants/search-packages';
 
 interface SearchPageProps {
   searchParams: {
-    q: string;
+    [searchPackagesQueryParam]: string;
   };
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const query = searchParams.q;
+  const query = searchParams[searchPackagesQueryParam];
   console.log(`search q= ${query}`);
 
   const response = await searchPackagesOnServer({
