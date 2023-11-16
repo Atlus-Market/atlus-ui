@@ -1,8 +1,7 @@
 'use client';
 
 import { AtlusSearchBar } from '@/components/common/search/atlus-search-bar';
-import { KeyboardEvent, useCallback } from 'react';
-import { isEnterKeyEvent } from '@/utils/keyboard';
+import { FormEvent, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { SearchRoute } from '@/constants/routes';
 import { useAtlusUser } from '@/app/(auth)/session/use-atlus-user';
@@ -13,16 +12,19 @@ const createSearchRoute = (query: string): string => {
   return `${SearchRoute}?${urlSearchParams.toString()}`;
 };
 
+const searchName = 'query';
+
 export const SearchPackagesBar = () => {
-  const user = useAtlusUser();
+  const { data: user } = useAtlusUser();
   const router = useRouter();
-  const onKeyDown = useCallback(
-    (e: KeyboardEvent<HTMLElement> | null) => {
-      if (e && isEnterKeyEvent(e)) {
-        const inputValue = (e.target as HTMLInputElement).value;
-        console.log('Searching for ', inputValue);
-        router.push(createSearchRoute(inputValue));
-      }
+  const onSubmit = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.stopPropagation();
+      event.preventDefault();
+      const formData = new FormData(event.currentTarget);
+      const formProps = Object.fromEntries(formData);
+      const query = (formData.get(searchName) as string) ?? '';
+      router.push(createSearchRoute(query));
     },
     [router]
   );
@@ -31,5 +33,10 @@ export const SearchPackagesBar = () => {
     return null;
   }
 
-  return <AtlusSearchBar placeholder="Search for packages" onKeyDown={onKeyDown} />;
+  return (
+    <form onSubmit={onSubmit} className="w-full">
+      <AtlusSearchBar placeholder="Search for packages" name={searchName} />
+      <input type="hidden" />
+    </form>
+  );
 };
