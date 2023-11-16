@@ -2,7 +2,7 @@
 
 import { AtlusSearchBar } from '@/components/common/search/atlus-search-bar';
 import { FormEvent, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { SearchRoute } from '@/constants/routes';
 import { useAtlusUser } from '@/app/(auth)/session/use-atlus-user';
 import { searchPackagesQueryParam } from '@/constants/search-packages';
@@ -18,6 +18,8 @@ const searchName = 'query';
 export const SearchPackagesBar = () => {
   const { data: user } = useAtlusUser();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
   const onSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       event.stopPropagation();
@@ -35,7 +37,11 @@ export const SearchPackagesBar = () => {
 
   return (
     <form onSubmit={onSubmit} className="w-full">
-      <AtlusSearchBar placeholder="Search for packages" name={searchName} />
+      <AtlusSearchBar
+        placeholder="Search for packages"
+        name={searchName}
+        initialValue={searchParams.get(searchPackagesQueryParam) ?? ''}
+      />
       <input type="hidden" />
     </form>
   );
