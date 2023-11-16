@@ -1,8 +1,8 @@
 import { searchPackagesOnServer } from '@/api/package/search/search-packages-on-server';
 import { searchPackagesQueryParam } from '@/constants/search-packages';
 import { getIsBrokerUser } from '@/api/user/get-is-broker-user-on-server';
-import { BrokerPackageSearch } from '@/app/search/components/broker-package-search';
-import { BuyerPackageSearch } from '@/app/search/components/buyer-package-search';
+import { LoadMorePackages } from '@/app/search/components/load-more-packages';
+import { PackagesList } from '@/app/search/components/packages-list';
 
 interface SearchPageProps {
   searchParams: {
@@ -11,26 +11,24 @@ interface SearchPageProps {
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const query = searchParams[searchPackagesQueryParam];
-  console.log(`search q= ${query}`);
-
   const searchPackagesPromise = searchPackagesOnServer({
-    q: query,
+    q: searchParams[searchPackagesQueryParam],
     page: 0,
-    per_page: 1000,
+    per_page: 1,
   });
 
   const [isBrokerUser, searchPackagesResponse] = await Promise.all([
     getIsBrokerUser(),
     searchPackagesPromise,
   ]);
-  console.log(searchPackagesResponse);
 
   return (
     <div>
-      Search {query}
-      <div>{searchPackagesResponse.packages.length}</div>
-      {isBrokerUser ? <BrokerPackageSearch /> : <BuyerPackageSearch />}
+      <div className="mb-[1px]">
+        <div>{searchPackagesResponse.packages.length}</div>
+      </div>
+      <PackagesList searchPackagesResult={searchPackagesResponse} />
+      {/*<LoadMorePackages />*/}
     </div>
   );
 }

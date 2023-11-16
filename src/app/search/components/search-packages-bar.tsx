@@ -36,7 +36,7 @@ export const SearchPackagesBar = () => {
   }
 
   return (
-    <form onSubmit={onSubmit} className="w-full">
+    <form onSubmit={onSubmit} className="w-full flex justify-center items-center">
       <AtlusSearchBar
         placeholder="Search for packages"
         name={searchName}
