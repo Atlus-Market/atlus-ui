@@ -3,7 +3,7 @@ import { BasePackageCard } from '@/app/dashboard/components/package/base-package
 import { PackageOwner } from '@/app/dashboard/components/package/package-owner';
 import { PackageWatchlist } from '@/app/dashboard/components/package/watchlist/package-watchlist';
 import { SearchPackageMenu } from '@/app/search/components/search-package-menu';
-import { useQueryClient } from '@tanstack/react-query';
+import { InfiniteData, useQueryClient } from '@tanstack/react-query';
 import { useCallback } from 'react';
 import { SearchPackagesKeys } from '@/app/search/hooks/use-load-packages-pages';
 
@@ -20,7 +20,7 @@ export const BuyerPackageSearch = ({ basePackage }: BuyerPackageSearchProps) => 
   const queryClient = useQueryClient();
 
   const onUpdate = useCallback(() => {
-    queryClient.setQueryData([SearchPackagesKeys], (state: P | undefined) => {
+    queryClient.setQueryData<InfiniteData<SearchPackagesResponse>>([SearchPackagesKeys], state => {
       if (!state) {
         return;
       }
