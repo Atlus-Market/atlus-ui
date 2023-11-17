@@ -1,62 +1,61 @@
 'use client';
 
-import { useInfiniteQuery } from '@tanstack/react-query';
-import {
-  searchPackages,
-  SearchPackagesParams,
-  SearchPackagesResponse,
-} from '@/api/package/search/search-packages';
+import { SearchPackagesResponse } from '@/api/package/search/search-packages';
+import { useLoadPackagesPages } from '@/app/search/hooks/use-load-packages-pages';
+import { AtlusIsVisible } from '@/components/common/atlus-is-visible';
+import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loading-spinner';
+import { BuyerPackageSearch } from '@/app/search/components/buyer-package-search';
+import { PackageLink } from '@/app/dashboard/components/package/package-link';
+import { PackagesListWrapper } from '@/app/dashboard/components/packages-list-wrapper';
+import { SharePackageModal } from '@/app/package/share/share-package-modal';
+import { BrokerPackageSearch } from '@/app/search/components/broker-package-search';
 
 interface PackagesListProps {
   searchPackagesResult: SearchPackagesResponse;
 }
 
 export const PackagesList = ({ searchPackagesResult }: PackagesListProps) => {
-  // const [lastSearchResult, setLastSearchResult] =
-  //   useState<SearchPackagesResponse>(searchPackagesResult);
-
-  const { isLoading, isError, error, data, isFetching, fetchNextPage } = useInfiniteQuery<
-    SearchPackagesResponse,
-    [string, SearchPackagesParams],
-    SearchPackagesResponse,
-    any
-  >({
-    queryKey: ['/packages/search'],
-    queryFn: ({ pageParam, ...restParams }) => {
-      console.log('PARAMS: ', restParams);
-      return searchPackages(pageParam);
-    },
-    initialData: {
-      pages: [searchPackagesResult],
-      pageParams: [
-        {
-          q: searchPackagesResult.query,
-          page: searchPackagesResult.currentPage,
-          per_page: searchPackagesResult.perPage,
-        },
-      ],
-    },
-    enabled: false,
-    refetchOnWindowFocus: false,
-    getNextPageParam: (lastPage: SearchPackagesResponse, pages: SearchPackagesResponse[]) => {
-      if (lastPage.totalPages === pages.length) {
-        return undefined;
-      }
-      return {
-        q: lastPage.query,
-        page: lastPage.currentPage + 1,
-        per_page: lastPage.perPage,
-      };
-    },
+  const { data, fetchNextPage, isFetching, hasNextPage } = useLoadPackagesPages({
+    initialPage: searchPackagesResult,
   });
 
-  console.log('isLoading: ', isLoading);
-  console.log('isFetching: ', isFetching);
-  console.log('DATA: ', data);
+  // console.group('PAGES');
+  // data?.pages.flatMap(page => {
+  //   console.log(`page.currentPage ${page.currentPage}/${page.totalPages}`);
+  //   return page.packages.map(atlusPackage => {
+  //     console.log(`Package ID: ${atlusPackage.id}`);
+  //   });
+  // });
+  // console.groupEnd();
+
+  if (!data) {
+    return null;
+  }
 
   return (
     <div>
-      <button onClick={() => fetchNextPage()}>Fetch Next Page</button>
+      <SharePackageModal useSimpleShareModal={true} />
+      <PackageLink>
+        <PackagesListWrapper>
+          {data?.pages.flatMap(page => {
+            const PackageCmp = page.type === 'broker' ? BrokerPackageSearch : BuyerPackageSearch;
+            return page.packages.map(p => <PackageCmp basePackage={p} key={p.id} />);
+          })}
+        </PackagesListWrapper>
+      </PackageLink>
+
+      <AtlusIsVisible
+        enabled={hasNextPage}
+        onVisibilityChange={inView => {
+          if (inView && !isFetching) {
+            fetchNextPage();
+          }
+        }}
+      >
+        <div className="w-full h-[100px] flex justify-center items-center">
+          <AtlusLoadingSpinner />
+        </div>
+      </AtlusIsVisible>
     </div>
   );
 };

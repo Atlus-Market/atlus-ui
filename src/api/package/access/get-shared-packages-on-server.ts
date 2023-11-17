@@ -1,25 +1,10 @@
 import 'server-only';
 import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 import { getServerAuthHeaders } from '@/api/api-server';
-import { PackageStatus } from '@/models/package-status';
-import { Visibility } from '@/components/common/dropdown/visibility-options';
+import { BasePackage } from '@/api/package/search/search-packages';
 
-export interface BuyerPackageData {
-  id: string;
-  brokerCompany: string;
-  brokerName: string;
-  brokerUserId: string;
-  documentsCount: number;
-  familiesCount: number;
-  isWatched: boolean;
-  status: PackageStatus;
-  thumbnailPatentId: number;
-  title: string;
-  visibility: Visibility;
-}
-
-export const getSharedPackagesOnServer = async (): Promise<BuyerPackageData[]> => {
-  return createRequest<void, { packages: BuyerPackageData[] }>({
+export const getSharedPackagesOnServer = async (): Promise<BasePackage[]> => {
+  return createRequest<void, { packages: BasePackage[] }>({
     url: '/shared-packages',
     method: 'GET',
     isProtected: ProtectedEndpoint.True,

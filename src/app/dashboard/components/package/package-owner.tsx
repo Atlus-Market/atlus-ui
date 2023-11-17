@@ -2,22 +2,22 @@ import { AtlusAvatar } from '@/components/common/avatar/atlus-avatar';
 import { UserInfoFullName } from '@/components/common/user-info/user-info-full-name';
 import { UserInfoCompanyName } from '@/components/common/user-info/user-info-company-name';
 import { UserInfo } from '@/components/common/user-info/user-info';
-import { BuyerPackageData } from '@/api/package/access/get-shared-packages-on-server';
+import { BasePackage } from '@/api/package/search/search-packages';
 
 interface BuyerPackageOwnerProps {
-  buyerPackage: BuyerPackageData;
+  basePackage: BasePackage;
 }
 
-export const BuyerPackageOwner = ({ buyerPackage }: BuyerPackageOwnerProps) => {
+export const PackageOwner = ({ basePackage }: BuyerPackageOwnerProps) => {
   return (
     <UserInfo
-      avatar={<AtlusAvatar word={buyerPackage.brokerName} className="w-36" />}
+      avatar={<AtlusAvatar word={basePackage.brokerName} className="w-36" />}
       fullName={
-        <UserInfoFullName fullName={buyerPackage.brokerName} className="!text-13 md:!text-sm" />
+        <UserInfoFullName fullName={basePackage.brokerName} className="!text-13 md:!text-sm" />
       }
       companyName={
         <UserInfoCompanyName
-          companyName={buyerPackage.brokerCompany}
+          companyName={basePackage.brokerCompany}
           className="!text-11 md:!text-xs"
         />
       }

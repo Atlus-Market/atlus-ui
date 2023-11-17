@@ -1,17 +1,35 @@
 import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
+import { PackageStatus } from '@/models/package-status';
+import { Visibility } from '@/components/common/dropdown/visibility-options';
 import { Package } from '@/models/package';
-import { BuyerPackageData } from '@/api/package/access/get-shared-packages-on-server';
 
 export interface SearchPackagesParams {
   q: string;
-  page: number;
+  page: number; // First page starts at 1
   per_page: number;
 }
 
-export type SearchResultPackage = BuyerPackageData | Package;
+export interface BasePackage extends Pick<Package, 'views' | 'shares' | 'downloads'> {
+  brokerCompany: string;
+  brokerName: string;
+  brokerUserId: string;
+  description: string;
+  numberOfDocuments: number;
+  numberOfFamilies: number;
+  id: string;
+  isWatched: boolean;
+  priceUsd: number;
+  status: PackageStatus;
+  thumbnailPatentId: number;
+  title: string;
+  visibility: Visibility;
+
+  createdTimestamp: string;
+  lastModified: string;
+}
 
 export interface SearchPackagesResponse {
-  packages: SearchResultPackage[];
+  packages: BasePackage[];
   query: string;
   currentPage: number;
   perPage: number;
@@ -27,7 +45,6 @@ export const createSearchPackagesUrl = (
   for (const [key, value] of Object.entries(searchPackagesParams)) {
     urlSearchParams.append(key, String(value));
   }
-  console.log(`Searching packages: /packages/search?${urlSearchParams.toString()}`);
   return `/packages/search?${urlSearchParams.toString()}`;
 };
 

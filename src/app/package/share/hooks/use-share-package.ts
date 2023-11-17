@@ -6,17 +6,17 @@ import { useCallback } from 'react';
 import { setSharePackageData } from '@/redux/features/share-package/share-package';
 
 interface UseSharePackageProps {
-  atlusPackage: Pick<Package, 'id' | 'visibility'>;
+  basePackage: Pick<Package, 'id' | 'visibility'>;
 }
 
 interface UseSharePackageResult {
   sharePackage: () => void;
 }
 
-export const useSharePackage = ({ atlusPackage }: UseSharePackageProps): UseSharePackageResult => {
+export const useSharePackage = ({ basePackage }: UseSharePackageProps): UseSharePackageResult => {
   const { showSharePackageModal } = useSharePackageVisibility();
   const dispatch = useAppDispatch();
-  const { id, visibility } = atlusPackage;
+  const { id, visibility } = basePackage;
 
   const sharePackage = useCallback(() => {
     const isPrivatePackage = visibility === Visibility.Private;

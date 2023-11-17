@@ -35,11 +35,15 @@ const AtlusAlertModal = dynamic(
   }
 );
 
+interface SharePackageModalProps {
+  useSimpleShareModal?: boolean; // Buyer Modal
+}
+
 /**
  * To use it, call dispatch(setPackageData)
  * @constructor
  */
-export const SharePackageModal = () => {
+export const SharePackageModal = ({ useSimpleShareModal = false }: SharePackageModalProps) => {
   const { data: user } = useAtlusUser();
   const isPrivatePackage = useSelector(selectIsPrivatePackage);
   const { isSharePackageOpen, hideSharePackageModal } = useSharePackageVisibility();
@@ -48,23 +52,25 @@ export const SharePackageModal = () => {
     return null;
   }
 
-  if (user.broker) {
-    return <ShareBrokerPackage />;
+  const isBuyerUser = !user.broker;
+
+  if (useSimpleShareModal || isBuyerUser) {
+    if (isPrivatePackage) {
+      return (
+        <AtlusAlertModal
+          isOpen={isSharePackageOpen}
+          title="Alert"
+          text="This is a private package and can only be shared by the owner"
+          mainButton={{
+            text: 'Close',
+            onClick: hideSharePackageModal,
+          }}
+        />
+      );
+    }
+    return <ShareBuyerPackage />;
   }
 
-  if (isPrivatePackage) {
-    return (
-      <AtlusAlertModal
-        isOpen={isSharePackageOpen}
-        title="Alert"
-        text="This is a private package and can only be shared by the owner"
-        mainButton={{
-          text: 'Close',
-          onClick: hideSharePackageModal,
-        }}
-      />
-    );
-  }
-
-  return <ShareBuyerPackage />;
+  // is broker user
+  return <ShareBrokerPackage />;
 };

@@ -13,15 +13,15 @@ import { Package } from '@/models/package';
 import { useSharePackage } from '@/app/package/share/hooks/use-share-package';
 
 interface BrokerPackageMenuProps {
-  atlusPackage: Package;
+  basePackage: Pick<Package, 'id' | 'visibility'>;
 }
 
 const shareMenuOptionValue = 'share';
 
-export const BrokerPackageMenu = ({ atlusPackage }: BrokerPackageMenuProps) => {
+export const BrokerPackageMenu = ({ basePackage }: BrokerPackageMenuProps) => {
   const { isOn, setOn, setOff } = useToggleState(false);
-  const { id: packageId } = atlusPackage;
-  const { sharePackage } = useSharePackage({ atlusPackage });
+  const { id: packageId } = basePackage;
+  const { sharePackage } = useSharePackage({ basePackage });
   const { deletePackage, isDeletingPackage } = useDeletePackageAction({ packageId });
 
   if (isDeletingPackage) {

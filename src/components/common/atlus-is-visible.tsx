@@ -6,17 +6,19 @@ interface AtlusIsVisibleMoreProps {
   children: ReactNode;
   onVisibilityChange?: (inView: boolean, entry: IntersectionObserverEntry) => void;
   enabled?: boolean;
+  threshold?: number;
 }
 
 export const AtlusIsVisible = ({
   children,
   enabled,
   onVisibilityChange,
+  threshold = 0,
 }: AtlusIsVisibleMoreProps) => {
-  const { ref, inView } = useInView({
-    threshold: 0,
+  const { ref, inView, entry } = useInView({
+    threshold,
     onChange: onVisibilityChange,
-    skip: enabled,
+    skip: !enabled,
   });
 
   return <div ref={ref}>{enabled && inView && children}</div>;

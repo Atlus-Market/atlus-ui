@@ -9,18 +9,18 @@ import { useNotInterestedInPackage } from '@/hooks/data/use-not-interested-inpac
 import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
 import { useToggleState } from '@/hooks/use-toggle-state';
 import { useSharePackage } from '@/app/package/share/hooks/use-share-package';
-import { BuyerPackageData } from '@/api/package/access/get-shared-packages-on-server';
+import { BasePackage } from '@/api/package/search/search-packages';
 
 interface BuyerPackageMenuProps {
-  buyerPackage: BuyerPackageData;
+  basePackage: BasePackage;
 }
 
 const shareMenuOptionValue = 'share';
 
-export const BuyerPackageMenu = ({ buyerPackage }: BuyerPackageMenuProps) => {
+export const BuyerPackageMenu = ({ basePackage }: BuyerPackageMenuProps) => {
   const { isOn, setOn, setOff } = useToggleState(false);
-  const { sharePackage } = useSharePackage({ atlusPackage: buyerPackage });
-  const { id: packageId } = buyerPackage;
+  const { sharePackage } = useSharePackage({ basePackage: basePackage });
+  const { id: packageId } = basePackage;
   const { downloadPackagePatents, isDownloadingPackagePatents } =
     useDownloadPackagePatents(packageId);
 

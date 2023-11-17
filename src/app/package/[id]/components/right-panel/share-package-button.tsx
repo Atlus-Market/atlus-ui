@@ -10,7 +10,7 @@ interface SharePackageButtonProps {
 }
 
 export const SharePackageButton = ({ atlusPackage }: SharePackageButtonProps) => {
-  const { sharePackage } = useSharePackage({ atlusPackage });
+  const { sharePackage } = useSharePackage({ basePackage: atlusPackage });
   return (
     <AtlusButton
       variant="clear"

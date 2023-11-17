@@ -20,7 +20,7 @@ export const BrokerDashboard = async () => {
         <span className="text-dark-grey text-sm md:text-18 font-geologica">Your packages</span>
         <CreatePackageButton />
       </div>
-      <BrokerPackagesList packages={packages} />
+      <BrokerPackagesList basePackages={packages} />
     </div>
   );
 };
