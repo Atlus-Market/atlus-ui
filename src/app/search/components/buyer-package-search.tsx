@@ -5,6 +5,7 @@ import { PackageWatchlist } from '@/app/dashboard/components/package/watchlist/p
 import { SearchPackageMenu } from '@/app/search/components/search-package-menu';
 import { useQueryClient } from '@tanstack/react-query';
 import { useCallback } from 'react';
+import { SearchPackagesKeys } from '@/app/search/hooks/use-load-packages-pages';
 
 interface BuyerPackageSearchProps {
   basePackage: BasePackage;
@@ -19,8 +20,7 @@ export const BuyerPackageSearch = ({ basePackage }: BuyerPackageSearchProps) => 
   const queryClient = useQueryClient();
 
   const onUpdate = useCallback(() => {
-    queryClient.setQueryData(['/packages/search'], (state: P | undefined) => {
-      // const state: P | undefined = queryClient.getQueryData(['/packages/search']);
+    queryClient.setQueryData([SearchPackagesKeys], (state: P | undefined) => {
       if (!state) {
         return;
       }
@@ -37,25 +37,30 @@ export const BuyerPackageSearch = ({ basePackage }: BuyerPackageSearchProps) => 
         .flatMap(page => page.packages)
         .find(basePackage => basePackage.id === id);
 
-      if (basePackageToUpdate) {
-        const updatedBasePackage = {
-          ...basePackageToUpdate,
-          // isWatched: !basePackageToUpdate.isWatched,
-        };
-
-        const newPage = {
-          ...pageToReplace,
-          packages: pageToReplace.packages.filter(basePackage => basePackage.id !== id),
-        };
-        newPage.packages.push(updatedBasePackage);
-
-        const pages = [...state.pages.filter(page => page !== pageToReplace), newPage];
-        return {
-          ...state,
-          pages,
-        };
+      if (!basePackageToUpdate) {
+        return;
       }
-      return undefined;
+
+      const updatedBasePackage = {
+        ...basePackageToUpdate,
+        isWatched: !basePackageToUpdate.isWatched,
+      };
+
+      const newPage = {
+        ...pageToReplace,
+        packages: [...pageToReplace.packages],
+      };
+      const packageIndex = pageToReplace.packages.indexOf(basePackageToUpdate);
+      newPage.packages[packageIndex] = updatedBasePackage;
+
+      const pages = [...state.pages];
+      const pageIndex = state.pages.indexOf(pageToReplace);
+      pages[pageIndex] = newPage;
+
+      return {
+        ...state,
+        pages,
+      };
     });
   }, [id, queryClient]);
 
@@ -65,7 +70,11 @@ export const BuyerPackageSearch = ({ basePackage }: BuyerPackageSearchProps) => 
       footer={<PackageOwner basePackage={basePackage} />}
       actions={
         <>
-          <PackageWatchlist packageId={basePackage.id} isWatched={basePackage.isWatched} />
+          <PackageWatchlist
+            packageId={basePackage.id}
+            isWatched={basePackage.isWatched}
+            onWatchChanged={onUpdate}
+          />
           <SearchPackageMenu basePackage={basePackage} />
         </>
       }

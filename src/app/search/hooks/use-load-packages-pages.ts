@@ -9,6 +9,8 @@ interface UseLoadPackagesPagesProps {
   initialPage: SearchPackagesResponse;
 }
 
+export const SearchPackagesKeys = '/packages/search';
+
 export const useLoadPackagesPages = ({ initialPage }: UseLoadPackagesPagesProps) => {
   return useInfiniteQuery<
     SearchPackagesResponse,
@@ -16,7 +18,7 @@ export const useLoadPackagesPages = ({ initialPage }: UseLoadPackagesPagesProps)
     SearchPackagesResponse,
     any
   >({
-    queryKey: ['/packages/search'],
+    queryKey: [SearchPackagesKeys],
     queryFn: ({ pageParam, ...restParams }) => {
       console.log('Fetching params: ', pageParam);
       return searchPackages(pageParam);
