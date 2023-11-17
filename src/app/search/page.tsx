@@ -12,7 +12,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const searchPackagesResponse = await searchPackagesOnServer({
     q: searchParams[searchPackagesQueryParam],
     page: 1,
-    per_page: 1,
+    per_page: 10,
   });
 
   if (searchPackagesResponse.packages.length === 0) {
