@@ -11,9 +11,14 @@ import { showErrorNotification } from '@/components/ui/notification/atlus-notifi
 interface PackageWatchlistProps {
   packageId: string;
   isWatched: boolean;
+  onWatchChanged?: () => void;
 }
 
-export const PackageWatchlist = ({ packageId, isWatched }: PackageWatchlistProps) => {
+export const PackageWatchlist = ({
+  packageId,
+  isWatched,
+  onWatchChanged,
+}: PackageWatchlistProps) => {
   const formActionWithParams = toggleWatchPackageAction.bind(null, packageId, isWatched);
   const [state, formAction] = useFormState<TogglePackageWatchlistResponse | null>(
     formActionWithParams,
@@ -28,9 +33,12 @@ export const PackageWatchlist = ({ packageId, isWatched }: PackageWatchlistProps
       } else {
         text = 'An error occurred while adding the package to watchlist.';
       }
+
       showErrorNotification({ text });
+    } else if (state && !state.error) {
+      onWatchChanged?.();
     }
-  }, [isWatched, state]);
+  }, [isWatched, onWatchChanged, state]);
 
   return (
     <form action={formAction} className="flex items-center">
