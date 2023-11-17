@@ -19,15 +19,6 @@ export const PackagesList = ({ searchPackagesResult }: PackagesListProps) => {
     initialPage: searchPackagesResult,
   });
 
-  // console.group('PAGES');
-  // data?.pages.flatMap(page => {
-  //   console.log(`page.currentPage ${page.currentPage}/${page.totalPages}`);
-  //   return page.packages.map(atlusPackage => {
-  //     console.log(`Package ID: ${atlusPackage.id}`);
-  //   });
-  // });
-  // console.groupEnd();
-
   if (!data) {
     return null;
   }

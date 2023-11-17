@@ -11,15 +11,13 @@ interface BuyerPackageSearchProps {
   basePackage: BasePackage;
 }
 
-interface P {
-  pages: SearchPackagesResponse[];
-}
-
 export const BuyerPackageSearch = ({ basePackage }: BuyerPackageSearchProps) => {
   const { id } = basePackage;
   const queryClient = useQueryClient();
 
   const onUpdate = useCallback(() => {
+    // Change the package inside a page.
+    // Do NOT mutate any object/array
     queryClient.setQueryData<InfiniteData<SearchPackagesResponse>>([SearchPackagesKeys], state => {
       if (!state) {
         return;

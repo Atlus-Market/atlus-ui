@@ -19,10 +19,7 @@ export const useLoadPackagesPages = ({ initialPage }: UseLoadPackagesPagesProps)
     any
   >({
     queryKey: [SearchPackagesKeys],
-    queryFn: ({ pageParam, ...restParams }) => {
-      console.log('Fetching params: ', pageParam);
-      return searchPackages(pageParam);
-    },
+    queryFn: ({ pageParam, ...restParams }) => searchPackages(pageParam),
     initialData: {
       pages: [initialPage],
       pageParams: [
