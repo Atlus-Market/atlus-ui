@@ -5,10 +5,13 @@ import { debounce } from 'lodash';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { HiOutlineX } from 'react-icons/hi';
 import { useGetSearchbarInput } from '@/app/search/components/use-get-searchbar-input';
+import { useRouter } from 'next/navigation';
+import { DashboardRoute } from '@/constants/routes';
 
 export const ClearInputButton = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const input = useGetSearchbarInput();
+  const router = useRouter();
 
   useEffect(() => {
     setInputValue(input?.value ?? '');
@@ -40,7 +43,8 @@ export const ClearInputButton = () => {
       input.value = '';
       setInputValue('');
     }
-  }, [input]);
+    router.push(DashboardRoute);
+  }, [input, router]);
 
   const hasInputValue = inputValue?.length > 0;
 
