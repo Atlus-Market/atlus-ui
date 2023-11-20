@@ -49,3 +49,6 @@ export const BuyerDashboardWatchlist = `${DashboardRoute}/watchlist`;
 
 // Search
 export const SearchRoute = '/search';
+
+// Settings
+export const SettingsRoute = '/settings';

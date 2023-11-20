@@ -4,7 +4,7 @@ import { AtlusAvatar } from '@/components/common/avatar/atlus-avatar';
 import { AtlusMenuItem } from '@/components/ui/menu/atlus-menu-item';
 import { AtlusMenuDivider } from '@/components/ui/menu/atlus-menu-divider';
 import { AtlusMenu } from '@/components/ui/menu/atlus-menu';
-import { DashboardRoute, LogoutRoute } from '@/constants/routes';
+import { DashboardRoute, LogoutRoute, SettingsRoute } from '@/constants/routes';
 import { useAtlusUser } from '@/app/(auth)/session/use-atlus-user';
 import { useHasAtlusSession } from '@/app/(auth)/session/use-has-atlus-session';
 import Link from 'next/link';
@@ -31,7 +31,9 @@ export const UserHeaderMenu = ({}: UserHeaderMenuProps) => {
           <Link href={DashboardRoute}>
             <AtlusMenuItem text={'Dashboard'} />
           </Link>
-          <AtlusMenuItem text={'Settings'} />
+          <Link href={SettingsRoute}>
+            <AtlusMenuItem text={'Settings'} />
+          </Link>
           <AtlusMenuDivider />
           <Link href={LogoutRoute}>
             <AtlusMenuItem text={'Log out'} />
