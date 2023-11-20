@@ -1,4 +1,4 @@
-import { NoData } from '@/app/dashboard/components/no-data';
+import { NoData } from '@/components/common/no-data';
 import OnlineEducationSVG from '@/public/assets/images/online_education.svg';
 
 export const NoSharedData = () => {

@@ -16,9 +16,5 @@ export const searchPackagesOnServer = async (
     isProtected: ProtectedEndpoint.True,
     headers: await getServerAuthHeaders(),
   })
-    .then(getResponseData)
-    .then(data => {
-      console.log(data);
-      return data;
-    });
+    .then(getResponseData);
 };

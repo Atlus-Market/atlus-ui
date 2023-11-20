@@ -1,4 +1,4 @@
-import { NoData } from '@/app/dashboard/components/no-data';
+import { NoData } from '@/components/common/no-data';
 import { User } from '@/models/user';
 import { CreatePackageButton } from '@/app/dashboard/(broker)/components/create-package-button';
 import OnlinePresentationImageSvg from '@/public/assets/images/online-presentantion.svg';

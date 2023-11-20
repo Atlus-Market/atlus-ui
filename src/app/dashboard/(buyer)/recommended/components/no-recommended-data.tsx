@@ -1,4 +1,4 @@
-import { NoData } from '@/app/dashboard/components/no-data';
+import { NoData } from '@/components/common/no-data';
 import SearchItemSVG from '@/public/assets/images/search_item.svg';
 
 export const NoRecommendedData = () => {

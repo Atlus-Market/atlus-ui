@@ -1,4 +1,4 @@
-import { NoData } from '@/app/dashboard/components/no-data';
+import { NoData } from '@/components/common/no-data';
 import AddNotesSVG from '@/public/assets/images/add_notes.svg';
 
 export const NoWatchlistData = () => {

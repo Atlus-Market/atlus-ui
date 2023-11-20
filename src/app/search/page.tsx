@@ -1,6 +1,8 @@
 import { searchPackagesOnServer } from '@/api/package/search/search-packages-on-server';
 import { searchPackagesQueryParam } from '@/constants/search-packages';
 import { PackagesList } from '@/app/search/components/packages-list';
+import SearchItemSVG from '@/public/assets/images/search_item.svg';
+import { NoData } from '@/components/common/no-data';
 
 interface SearchPageProps {
   searchParams: {
@@ -16,7 +18,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   });
 
   if (searchPackagesResponse.packages.length === 0) {
-    return <div>No packages found</div>;
+    return <NoData image={SearchItemSVG} subtitle="No packages found" />;
   }
 
   return <PackagesList searchPackagesResult={searchPackagesResponse} />;

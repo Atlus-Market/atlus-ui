@@ -7,7 +7,6 @@ import { cache } from 'react';
 export const revalidate = 5 * 60;
 
 export const getCurrentUserOnServer = cache(async () => {
-  console.log('fetching user on server');
   return createRequest<void, User>({
     url: '/user',
     method: 'GET',
