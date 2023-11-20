@@ -26,9 +26,7 @@ const ShareBuyerPackage = dynamic(
 
 const AtlusAlertModal = dynamic(
   () =>
-    import('@/components/ui/modal/confirmation/atlus-alert-modal').then(async mod => {
-      return mod.AtlusAlertModal;
-    }),
+    import('@/components/ui/modal/confirmation/atlus-alert-modal').then(mod => mod.AtlusAlertModal),
   {
     loading: () => <AtlusSplashLoader />,
     ssr: false,

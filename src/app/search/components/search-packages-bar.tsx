@@ -27,6 +27,7 @@ export const SearchPackagesBar = () => {
       const formData = new FormData(event.currentTarget);
       const query = (formData.get(searchName) as string) ?? '';
       router.push(createSearchRoute(query));
+      router.refresh();
     },
     [router]
   );
