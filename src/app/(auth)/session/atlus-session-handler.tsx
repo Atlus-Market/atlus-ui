@@ -28,7 +28,6 @@ export const AtlusSessionHandler = ({ children }: AtlusTokenHandlerProps) => {
   }, [atlusSession.status, session]);
 
   useEffect(() => {
-    console.log(pathname);
     if (pathname === LogoutRoute) {
       return;
     }
