@@ -37,7 +37,6 @@ export const login = async (loginPayload: LoginPayload): Promise<LoginResponse> 
     data: loginPayload,
   });
 
-  console.log('Login: ', response.data);
   const cookies: string[] = (response.headers?.['set-cookie'] as string[]) ?? [];
   const accessTokenCookie = cookies.find(cookie => cookie.includes(`${accessTokenCookieName}=`));
 

@@ -1,20 +1,27 @@
 import { NextRequestWithAuth, withAuth } from 'next-auth/middleware';
 import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
+import { hasTokenExpired } from '@/utils/auth';
 
-export default async function middleware(req: NextRequest, event: NextFetchEvent) {
-  const token = await getToken({ req });
-  const isAuthenticated = !!token;
+export default async function middlewares(req: NextRequest, event: NextFetchEvent) {
   console.log('------------- [Middleware] -------------');
-  console.log('[Middleware] isAuthenticated: ', isAuthenticated);
-
+  const logoutPath = '/logout';
+  const token = await getToken({ req });
+  const accessToken = token?.user?.accessToken;
+  const isAuthenticated = !!token;
+  const isTokenExpired = isAuthenticated && accessToken && hasTokenExpired(accessToken);
   const { pathname } = req.nextUrl;
+
+  console.log('[Middleware] pathname: ', pathname);
+  console.log('[Middleware] isAuthenticated: ', isAuthenticated);
+  console.log('[Middleware] isTokenExpired: ', isTokenExpired);
+
+  if (isTokenExpired && pathname !== logoutPath) {
+    return NextResponse.redirect(new URL(logoutPath, req.url));
+  }
+
   const isUnauthenticatedPathname = isUnauthenticatedEndpoint(pathname);
   const canRunOnAllCases = canEndpointRunOnAllCases(pathname);
-
-  console.log('Pathname: ', pathname);
-  console.log('isUnauthenticatedPathname: ', isUnauthenticatedPathname);
-  console.log('canRunOnAllCases: ', canRunOnAllCases);
 
   if (isAuthenticated && isUnauthenticatedPathname && !canRunOnAllCases) {
     // Do not redirect to "/" because the redirect is being done in next.config.js
@@ -41,6 +48,26 @@ export default async function middleware(req: NextRequest, event: NextFetchEvent
 
   return authMiddleware;
 }
+
+// export default withAuth(
+//   // `withAuth` augments your `Request` with the user's token.
+//   function middleware(req) {
+//     console.log('[middleware] function...');
+//     console.log(req.nextauth.token);
+//   },
+//   {
+//     callbacks: {
+//       authorized: ({ token, ...rest }) => {
+//         console.log('[middleware] authorized...', rest.req.url, token);
+//         // return false;
+//         return token?.role !== 'admin';
+//       },
+//     },
+//     pages: {
+//       signIn: '/login',
+//     },
+//   }
+// );
 
 /**
  * Validates if an endpoint can run with or without session

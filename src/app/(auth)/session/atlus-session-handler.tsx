@@ -23,8 +23,6 @@ export const AtlusSessionHandler = ({ children }: AtlusTokenHandlerProps) => {
   const hasExpiredSession =
     atlusSession.status === 'authenticated' && session?.hasAtlusInvalidSession;
 
-  console.log('atlusSession: ', atlusSession);
-
   useEffect(() => {
     AtlusSessionManager.session = session;
   }, [atlusSession.status, session]);
@@ -42,10 +40,6 @@ export const AtlusSessionHandler = ({ children }: AtlusTokenHandlerProps) => {
   if (atlusSession.status === 'loading') {
     return null;
   }
-
-  // if (hasExpiredSession) {
-  //   return null;
-  // }
 
   return <>{children}</>;
 };
