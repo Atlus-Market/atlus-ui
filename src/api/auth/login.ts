@@ -12,6 +12,7 @@ export interface LoginPayload {
 export interface LoginResponse {
   userId: string;
   accessToken: string;
+  refreshToken: string;
   accessTokenCookie: string;
   csrfAccessToken: string;
   fullName: string;
@@ -36,6 +37,7 @@ export const login = async (loginPayload: LoginPayload): Promise<LoginResponse> 
     data: loginPayload,
   });
 
+  console.log('Login: ', response.data);
   const cookies: string[] = (response.headers?.['set-cookie'] as string[]) ?? [];
   const accessTokenCookie = cookies.find(cookie => cookie.includes(`${accessTokenCookieName}=`));
 

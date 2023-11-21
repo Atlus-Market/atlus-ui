@@ -38,6 +38,7 @@
     "hex-to-rgba": "^2.0.1",
     "http-status-codes": "^2.3.0",
     "javascript-time-ago": "^2.5.9",
+    "jwt-decode": "^4.0.0",
     "libphonenumber-js": "^1.10.47",
     "lodash": "^4.17.21",
     "logrocket": "^5.0.1",

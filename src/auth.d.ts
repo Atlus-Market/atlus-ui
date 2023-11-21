@@ -8,12 +8,14 @@ import { AdapterUser } from 'next-auth/src/adapters';
 declare module 'next-auth' {
   type User = DefaultUser & {
     accessToken: string;
+    refreshToken: string;
     csrfToken: string;
     fullName: string;
   };
 
   interface Session {
     user?: User;
+    hasAtlusInvalidSession?: boolean;
   }
 
   export type SessionCallback = Parameters<CallbacksOptions['session']>[0] & {

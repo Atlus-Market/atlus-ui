@@ -6,8 +6,6 @@ import { NoSharedData } from '@/app/dashboard/(buyer)/shared/components/no-share
 
 export default async function DashboardSharedPage() {
   const packages = await getSharedPackagesOnServer();
-  console.log('Shared with you packages: ', packages);
-
   const hasPackages = packages.length > 0;
   return (
     <div>
