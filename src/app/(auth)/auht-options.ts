@@ -128,7 +128,7 @@ const events: Partial<EventCallbacks> = {
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: 'jwt',
-    maxAge: 3600, //60 * 60 * 24 * 30, // 30 days in seconds
+    maxAge: 60 * 60 * 24 * 30, // 30 days in seconds
   },
   providers,
   callbacks,
