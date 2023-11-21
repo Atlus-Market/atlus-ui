@@ -1,7 +1,7 @@
 import { NextRequestWithAuth, withAuth } from 'next-auth/middleware';
+import { hasTokenExpired } from '@/utils/auth';
 import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
-import { hasTokenExpired } from '@/utils/auth';
 
 export default async function middlewares(req: NextRequest, event: NextFetchEvent) {
   console.log('------------- [Middleware] -------------');
@@ -16,8 +16,12 @@ export default async function middlewares(req: NextRequest, event: NextFetchEven
   console.log('[Middleware] isAuthenticated: ', isAuthenticated);
   console.log('[Middleware] isTokenExpired: ', isTokenExpired);
 
-  if (isTokenExpired && pathname !== logoutPath) {
-    return NextResponse.redirect(new URL(logoutPath, req.url));
+  if (isTokenExpired) {
+    if (pathname !== logoutPath) {
+      return NextResponse.redirect(new URL(logoutPath, req.url));
+    } else {
+      return NextResponse.next();
+    }
   }
 
   const isUnauthenticatedPathname = isUnauthenticatedEndpoint(pathname);
@@ -48,26 +52,6 @@ export default async function middlewares(req: NextRequest, event: NextFetchEven
 
   return authMiddleware;
 }
-
-// export default withAuth(
-//   // `withAuth` augments your `Request` with the user's token.
-//   function middleware(req) {
-//     console.log('[middleware] function...');
-//     console.log(req.nextauth.token);
-//   },
-//   {
-//     callbacks: {
-//       authorized: ({ token, ...rest }) => {
-//         console.log('[middleware] authorized...', rest.req.url, token);
-//         // return false;
-//         return token?.role !== 'admin';
-//       },
-//     },
-//     pages: {
-//       signIn: '/login',
-//     },
-//   }
-// );
 
 /**
  * Validates if an endpoint can run with or without session

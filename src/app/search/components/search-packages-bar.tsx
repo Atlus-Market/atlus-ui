@@ -1,11 +1,11 @@
 import { AtlusSearchBar } from '@/components/common/search/atlus-search-bar';
 import { searchPackagesAction } from '@/app/actions/search-packages';
-import { getServerSession } from 'next-auth';
 import { searchName } from '@/app/search/consts';
 import { SetInputInitialValue } from '@/app/search/components/set-input-initial-value';
+import { getAtlusServerSession } from '@/app/(auth)/session/get-atlus-server-session';
 
 export const SearchPackagesBar = async () => {
-  const session = await getServerSession();
+  const session = await getAtlusServerSession();
 
   if (!session) {
     return null;
