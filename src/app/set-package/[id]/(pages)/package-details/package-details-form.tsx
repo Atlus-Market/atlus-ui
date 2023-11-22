@@ -55,7 +55,7 @@ export const packageDetailsSchema: ObjectSchema<ExtendedPackageDetailsForm> = ob
   showPublicPricing: boolean().default(false).required(RequiredField),
   sellerUserId: string().required(RequiredField),
   products: array().default([]),
-  containsSep: boolean().required(RequiredField),
+  containsSep: boolean().default(false).required(RequiredField),
   sepStandardIds: array()
     .default([])
     .when('containsSep', {
