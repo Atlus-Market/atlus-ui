@@ -49,7 +49,7 @@ export const packageDetailsSchema: ObjectSchema<ExtendedPackageDetailsForm> = ob
   description: string().default('').trim().required(RequiredField),
   industryIds: array().min(1, 'Select at least one industry').required(RequiredField),
   keywords: array().min(1, 'Enter at least one keyword').required(RequiredField),
-  visibility: number().required(RequiredField),
+  visibility: number().default(Visibility.Public).required(RequiredField),
   priceUsd: number().min(0, 'Price must be greater than $0').default(0).required(RequiredField),
   openToLicensing: boolean().default(false).required(RequiredField),
   showPublicPricing: boolean().default(false).required(RequiredField),
