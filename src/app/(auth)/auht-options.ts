@@ -46,14 +46,11 @@ const providers = [
           path: '/',
         });
 
-        // @ts-ignore
         return {
           id: loginResponse.userId,
           email: credentials.email,
           accessToken: loginResponse.accessToken,
-          // refreshToken: loginResponse.refreshToken,
           csrfToken: loginResponse.csrfAccessToken,
-          fullName: loginResponse.fullName,
         };
       } catch (e) {
         console.log(

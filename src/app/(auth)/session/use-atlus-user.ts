@@ -6,10 +6,12 @@ import { useHasAtlusSession } from '@/app/(auth)/session/use-has-atlus-session';
 // https://github.com/nextauthjs/next-auth/discussions/4229
 // Update the user: https://next-auth.js.org/getting-started/client#updating-the-session
 
+export const userQueryKey = ['user'];
+
 export const useAtlusUser = (): UseQueryResult<User, unknown> => {
   const hasAtlusSession = useHasAtlusSession();
   return useQuery({
-    queryKey: ['user'],
+    queryKey: userQueryKey,
     queryFn: () => getCurrentUser(),
     staleTime: 1000 * 60 * 5, // 5 min,
     enabled: hasAtlusSession,

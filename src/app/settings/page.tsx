@@ -5,10 +5,9 @@ import { BuyerSettings } from '@/app/settings/components/buyer/buyer-settings';
 export default async function SettingsPage() {
   const user = await getCurrentUserOnServer();
 
-  console.log('User: ', user);
   return (
     <div className="flex justify-center">
-      {user.broker ? <BrokerSettings /> : <BuyerSettings user={user} />}
+      {user.broker ? <BrokerSettings /> : <BuyerSettings />}
     </div>
   );
 }
