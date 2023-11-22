@@ -16,6 +16,7 @@ export interface LoginResponse {
   accessTokenCookie: string;
   csrfAccessToken: string;
   fullName: string;
+  broker: boolean;
 }
 
 export interface SignInResponse {

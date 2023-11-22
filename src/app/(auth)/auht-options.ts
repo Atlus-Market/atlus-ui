@@ -51,6 +51,7 @@ const providers = [
           email: credentials.email,
           accessToken: loginResponse.accessToken,
           csrfToken: loginResponse.csrfAccessToken,
+          isBroker: loginResponse.broker,
         };
       } catch (e) {
         console.log(

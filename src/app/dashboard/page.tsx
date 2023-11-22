@@ -1,10 +1,9 @@
-import { getIsBrokerUser } from '@/api/user/get-is-broker-user-on-server';
 import BrokerDashboard from '@/app/dashboard/(broker)/broker-dashboard';
 import { redirect, RedirectType } from 'next/navigation';
+import { isCurrentUserBroker } from '@/app/(auth)/session/is-current-user-broker';
 
 export default async function DashboardPage() {
-  console.log('*********************** DASHBOADR PAGE (getting user) ************************');
-  const isBrokerUser = await getIsBrokerUser();
+  const isBrokerUser = await isCurrentUserBroker();
 
   if (isBrokerUser) {
     return <BrokerDashboard />;

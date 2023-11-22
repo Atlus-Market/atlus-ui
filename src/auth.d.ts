@@ -10,6 +10,7 @@ declare module 'next-auth' {
     accessToken: string;
     // refreshToken: string;
     csrfToken: string;
+    isBroker: boolean;
   };
 
   interface Session {

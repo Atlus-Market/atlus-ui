@@ -7,9 +7,9 @@ import { Package } from '@/models/package';
 import { Dataroom } from '@/models/dataroom';
 import { getPackageAccessForUserOnServer } from '@/api/package/access/get-package-access-for-user-on-server';
 import { PackageAccessValue } from '@/models/package-access-value';
-import { getIsBrokerUser } from '@/api/user/get-is-broker-user-on-server';
 import { getSepStandards } from '@/api/package/sep-standards/get-sep-standards';
 import { SepStandard } from '@/models/sep-standard';
+import { isCurrentUserBroker } from '@/app/(auth)/session/is-current-user-broker';
 
 const LOAD_PACKAGE = 'Load package';
 
@@ -53,7 +53,7 @@ export const loadPackageViewData = async (packageId: string): Promise<LoadDataRe
 
   const loadSepStandards = isLimitedUser ? Promise.resolve([]) : getSepStandards();
 
-  const isActiveUserBrokerPromise = !isLimitedUser ? getIsBrokerUser() : Promise.resolve(false);
+  const isActiveUserBrokerPromise = !isLimitedUser ? isCurrentUserBroker() : Promise.resolve(false);
 
   const [broker, dataroom, isActiveUserBroker, sepStandards] = await Promise.all([
     loadUserPromise,
