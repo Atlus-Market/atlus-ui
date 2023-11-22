@@ -58,7 +58,7 @@ export default async function middlewares(req: NextRequest, event: NextFetchEven
  * @param pathname
  */
 const canEndpointRunOnAllCases = (pathname: string): boolean => {
-  return new RegExp(/(^\/package\/*).*/).test(pathname);
+  return new RegExp(/(^\/package\/*|api\/email\/*).*/).test(pathname);
 };
 
 const isUnauthenticatedEndpoint = (pathname: string): boolean => {
