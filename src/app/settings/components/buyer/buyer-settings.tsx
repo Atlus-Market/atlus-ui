@@ -6,6 +6,7 @@ import { useAtlusUser } from '@/app/(auth)/session/use-atlus-user';
 import { AtlusSplashLoader } from '@/components/ui/splash-loader/atlus-splash-loader';
 import { ChangeEmailModal } from '@/app/settings/components/email/change-email-modal';
 import { useToggleState } from '@/hooks/use-toggle-state';
+import { ChangePasswordModal } from '@/app/settings/components/change-password/change-password-modal';
 
 interface BuyerSettingsProps {}
 
@@ -17,6 +18,12 @@ export const BuyerSettings = ({}: BuyerSettingsProps) => {
     setOff: hideChangeEmailModal,
   } = useToggleState(false);
 
+  const {
+    isOn: isChangePwdModalOpen,
+    setOn: showChangePwdModal,
+    setOff: hideChangePwdModal,
+  } = useToggleState(false);
+
   if (!user) {
     return <AtlusSplashLoader />;
   }
@@ -24,8 +31,13 @@ export const BuyerSettings = ({}: BuyerSettingsProps) => {
   return (
     <div className="max-w-[460px]">
       <SettingsTitle title="Settings" />
-      <BuyerSettingsForm user={user} showChangeEmailModal={showChangeEmailModal} />
+      <BuyerSettingsForm
+        user={user}
+        showChangeEmailModal={showChangeEmailModal}
+        showChangePwdModal={showChangePwdModal}
+      />
       <ChangeEmailModal isModalOpen={isChangeEmailModalOpen} closeModal={hideChangeEmailModal} />
+      <ChangePasswordModal isModalOpen={isChangePwdModalOpen} closeModal={hideChangePwdModal} />
     </div>
   );
 };

@@ -7,7 +7,7 @@ type AtlusFormInputPasswordProps = AtlusFormInputProps;
 
 const iconClassNames = 'text-middle-grey text-base md:text-xl select-none';
 export const AtlusFormInputPassword = forwardRef<HTMLInputElement, AtlusFormInputPasswordProps>(
-  function AtlusFormInputPassword({ type, ...rest }, ref) {
+  function AtlusFormInputPassword({ type = 'password', ...rest }, ref) {
     const [isShowingPassword, setIsShowingPassword] = useState<boolean>(false);
 
     return (

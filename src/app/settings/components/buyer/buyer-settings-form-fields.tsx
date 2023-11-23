@@ -13,11 +13,13 @@ import { SettingsTitle } from '@/app/settings/components/settings-title';
 interface BuyerSettingsFormFieldsProps {
   user: User;
   showChangeEmailModal: () => void;
+  showChangePwdModal: () => void;
 }
 
 export const BuyerSettingsFormFields = ({
   user,
   showChangeEmailModal,
+  showChangePwdModal,
 }: BuyerSettingsFormFieldsProps) => {
   const { register, getValues } = useFormContext<BuyerSettings>();
 
@@ -41,7 +43,7 @@ export const BuyerSettingsFormFields = ({
             ************
           </span>
         </div>
-        <ChangeLink changePartText="password" />
+        <ChangeLink changePartText="password" onClick={showChangePwdModal} />
       </div>
       <AtlusFormInput placeholder="+1 234 567 890" label="Phone" {...register('cellPhone')} />
       <PrivateProfile />
