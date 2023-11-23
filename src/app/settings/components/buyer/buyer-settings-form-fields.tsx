@@ -9,13 +9,16 @@ import { ChangeLink } from '@/app/settings/components/change-link';
 import { PrivateProfile } from '@/app/settings/components/buyer/private-profile';
 import { AtlusDivider } from '@/components/ui/divider/atlus-divider';
 import { SettingsTitle } from '@/app/settings/components/settings-title';
-import { AtlusButton } from '@/components/ui/button/atlus-button';
 
 interface BuyerSettingsFormFieldsProps {
   user: User;
+  showChangeEmailModal: () => void;
 }
 
-export const BuyerSettingsFormFields = ({ user }: BuyerSettingsFormFieldsProps) => {
+export const BuyerSettingsFormFields = ({
+  user,
+  showChangeEmailModal,
+}: BuyerSettingsFormFieldsProps) => {
   const { register, getValues } = useFormContext<BuyerSettings>();
 
   return (
@@ -29,7 +32,7 @@ export const BuyerSettingsFormFields = ({ user }: BuyerSettingsFormFieldsProps) 
             {user.email}
           </span>
         </div>
-        <ChangeLink changePartText="email" />
+        <ChangeLink changePartText="email" onClick={showChangeEmailModal} />
       </div>
       <div className="flex justify-between items-center mb-4 md:mb-6">
         <div>

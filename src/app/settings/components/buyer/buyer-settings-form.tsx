@@ -14,6 +14,7 @@ import { useUpdateUser } from '@/hooks/data/use-update-user';
 
 interface BuyerSettingsFormProps {
   user: User;
+  showChangeEmailModal: () => void;
 }
 
 export interface BuyerSettings extends BaseUserSettings {
@@ -32,7 +33,7 @@ export const baseSettingsFormSchema: ObjectSchema<BaseUserSettings> = object({
 const buyerSettingsSchema: ObjectSchema<BuyerSettings> = baseSettingsFormSchema.shape({
   privateProfile: boolean().default(false).required(),
 });
-export const BuyerSettingsForm = ({ user }: BuyerSettingsFormProps) => {
+export const BuyerSettingsForm = ({ user, showChangeEmailModal }: BuyerSettingsFormProps) => {
   const formProps = useForm<BuyerSettings>({
     resolver: yupResolver(buyerSettingsSchema),
     values: user,
@@ -41,7 +42,7 @@ export const BuyerSettingsForm = ({ user }: BuyerSettingsFormProps) => {
 
   return (
     <AtlusForm formProps={formProps} onSubmit={formValues => mutate(formValues)}>
-      <BuyerSettingsFormFields user={user} />
+      <BuyerSettingsFormFields user={user} showChangeEmailModal={showChangeEmailModal} />
       <a className="text-orange">Delete account</a>
       <div className="flex justify-end">
         <AtlusButton
