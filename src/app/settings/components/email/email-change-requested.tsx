@@ -1,6 +1,5 @@
 import { AtlusModalContainer } from '@/components/ui/modal/container/atlus-modal-container';
 import { AtlusModalHeader } from '@/components/ui/modal/atlus-modal-header';
-import { AtlusCloseModalButton } from '@/components/ui/modal/atlus-close-modal-button';
 import { AtlusModalTitle } from '@/components/ui/modal/atlus-modal-title';
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
@@ -17,7 +16,7 @@ export const EmailChangeRequested = ({
 }: EmailChangeRequestedProps) => {
   return (
     <AtlusModalContainer
-      className="w-auto"
+      className="!w-auto"
       header={
         <AtlusModalHeader>
           <AtlusModalTitle text="You’re almost done!" />

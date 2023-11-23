@@ -53,7 +53,7 @@ export const ChangePasswordBody = ({ onCloseModal }: ChangePasswordBodyProps) =>
       }}
     >
       <AtlusModalContainer
-        className="w-auto"
+        className="!w-auto"
         header={
           <AtlusModalHeader rightContent={<AtlusCloseModalButton onClick={onCloseModal} />}>
             <AtlusModalTitle text="Change email address" />

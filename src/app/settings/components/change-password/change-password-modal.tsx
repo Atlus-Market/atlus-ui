@@ -12,7 +12,7 @@ export const ChangePasswordModal = ({ isModalOpen, closeModal }: ChangePasswordM
       isOpen={isModalOpen}
       overlayClassName="z-[2]"
       onRequestClose={closeModal}
-      modalBodyClassName="w-[360px] md:w-[540px] h-auto"
+      modalBodyClassName="!w-[360px] md:!w-[540px] !h-auto"
     >
       <ChangePasswordBody onCloseModal={closeModal} />
     </AtlusModal>

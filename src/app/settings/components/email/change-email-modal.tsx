@@ -12,7 +12,7 @@ export const ChangeEmailModal = ({ isModalOpen, closeModal }: ChangeEmailModalPr
       isOpen={isModalOpen}
       overlayClassName="z-[2]"
       onRequestClose={closeModal}
-      modalBodyClassName="w-[360px] md:w-[540px] h-auto"
+      modalBodyClassName="!w-[360px] md:!w-[540px] !h-auto"
     >
       <ChangeEmailBody onCloseModal={closeModal} />
     </AtlusModal>
