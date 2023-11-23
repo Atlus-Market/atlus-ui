@@ -5,6 +5,7 @@ import { AtlusModalTitle } from '@/components/ui/modal/atlus-modal-title';
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
+import { ReactNode } from 'react';
 
 export interface AtlusAlertButton {
   onClick: () => void;
@@ -14,7 +15,7 @@ export interface AtlusAlertButton {
 interface AtlusAlertModalProps {
   isOpen: boolean;
   title: string;
-  text: string;
+  text: ReactNode;
   mainButton: AtlusAlertButton;
   secondaryButton?: AtlusAlertButton;
 }

@@ -10,6 +10,7 @@ import { User } from '@/models/user';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useUpdateUser } from '@/hooks/data/use-update-user';
 import { baseSettingsFormSchema } from '@/app/settings/components/form/base-user-setting-schema';
+import { DeleteAccount } from '@/app/settings/components/delete-account/delete-account';
 
 interface BuyerSettingsFormProps {
   user: User;
@@ -33,7 +34,7 @@ export const BuyerSettingsForm = ({ user }: BuyerSettingsFormProps) => {
   return (
     <AtlusForm formProps={formProps} onSubmit={formValues => mutate(formValues)}>
       <BuyerSettingsFormFields user={user} />
-      <a className="text-orange">Delete account</a>
+      <DeleteAccount />
       <div className="flex justify-end">
         <AtlusButton
           className="atlus-btn-45 md:atlus-btn-53"

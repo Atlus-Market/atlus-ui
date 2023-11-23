@@ -15,6 +15,7 @@ import {
   optionalPhoneNumberValidator,
   phoneNumberValidator,
 } from '@/components/ui/form/validators/phone-number-validator';
+import { DeleteAccount } from '@/app/settings/components/delete-account/delete-account';
 
 interface BrokerSettingsFormProps {
   user: User;
@@ -43,7 +44,7 @@ export const BrokerSettingsForm = ({ user }: BrokerSettingsFormProps) => {
   return (
     <AtlusForm formProps={formProps} onSubmit={formValues => mutate(formValues)} className="w-full">
       <BrokerSettingsFormFields user={user} />
-      <a className="text-orange">Delete account</a>
+      <DeleteAccount />
       <div className="flex justify-end">
         <AtlusButton
           className="atlus-btn-45 md:atlus-btn-53"
