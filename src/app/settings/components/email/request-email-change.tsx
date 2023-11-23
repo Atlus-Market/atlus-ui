@@ -11,6 +11,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { AtlusForm } from '@/components/ui/form/atlus-form';
 import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
+import { useRequestEmailChange } from '@/hooks/data/use-request-email-change';
+import { useAtlusUser } from '@/app/(auth)/session/use-atlus-user';
+import { useEffect } from 'react';
 
 interface RequestEmailChangeProps {
   onCloseModal: () => void;
@@ -32,11 +35,23 @@ export const RequestEmailChange = ({
   const formProps = useForm({
     resolver: yupResolver(changeEmailFormSchema),
   });
+  const { register, getValues } = formProps;
+
+  const { data: user } = useAtlusUser();
+  const { mutate, isLoading, isSuccess } = useRequestEmailChange(user?.id ?? '');
+
+  useEffect(() => {
+    if (isSuccess) {
+      onRequestEmailSuccess(getValues().email);
+    }
+  }, [isSuccess, getValues, onRequestEmailSuccess]);
 
   return (
     <AtlusForm
       formProps={formProps}
-      onSubmit={formValues => onRequestEmailSuccess(formValues.email)}
+      onSubmit={async formValues => {
+        mutate(formValues.email);
+      }}
     >
       <AtlusModalContainer
         className="w-auto"
@@ -48,7 +63,11 @@ export const RequestEmailChange = ({
         footer={
           <AtlusModalFooter>
             <div className="w-full text-center">
-              <AtlusButton type="submit" className="atlus-btn-45 md:atlus-btn-53">
+              <AtlusButton
+                type="submit"
+                className="atlus-btn-45 md:atlus-btn-53"
+                isLoading={isLoading}
+              >
                 Next
               </AtlusButton>
             </div>
@@ -59,7 +78,7 @@ export const RequestEmailChange = ({
           <AtlusFormInput
             placeholder="Enter email address"
             label="New email"
-            {...formProps.register('email')}
+            {...register('email')}
             wrapperClassName="!mb-0"
           />
         </AtlusModalBody>
