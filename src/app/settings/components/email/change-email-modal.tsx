@@ -1,9 +1,5 @@
 import { AtlusModal } from '@/components/ui/modal/atlus-modal';
-import { AtlusModalContainer } from '@/components/ui/modal/container/atlus-modal-container';
-import { AtlusModalHeader } from '@/components/ui/modal/atlus-modal-header';
-import { AtlusCloseModalButton } from '@/components/ui/modal/atlus-close-modal-button';
-import { AtlusModalTitle } from '@/components/ui/modal/atlus-modal-title';
-import { AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
+import { ChangeEmailBody } from '@/app/settings/components/email/change-email-body';
 
 interface ChangeEmailModalProps {
   isModalOpen: boolean;
@@ -18,16 +14,7 @@ export const ChangeEmailModal = ({ isModalOpen, closeModal }: ChangeEmailModalPr
       onRequestClose={closeModal}
       modalBodyClassName="w-[360px] md:w-[540px] h-auto"
     >
-      <AtlusModalContainer
-        className="w-auto"
-        header={
-          <AtlusModalHeader rightContent={<AtlusCloseModalButton onClick={closeModal} />}>
-            <AtlusModalTitle text="Change email address" />
-          </AtlusModalHeader>
-        }
-      >
-        <AtlusModalBody>body</AtlusModalBody>
-      </AtlusModalContainer>
+      <ChangeEmailBody onCloseModal={closeModal} />
     </AtlusModal>
   );
 };
