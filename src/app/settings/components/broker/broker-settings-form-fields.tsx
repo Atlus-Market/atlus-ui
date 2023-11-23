@@ -1,21 +1,20 @@
 'use client';
 
 import { useFormContext } from 'react-hook-form';
-import { BuyerSettings } from '@/app/settings/components/buyer/buyer-settings-form';
 import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
 import { User } from '@/models/user';
 import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
 import { ChangeLink } from '@/app/settings/components/change-link';
-import { PrivateProfile } from '@/app/settings/components/buyer/private-profile';
 import { AtlusDivider } from '@/components/ui/divider/atlus-divider';
 import { SettingsTitle } from '@/app/settings/components/settings-title';
+import { BrokerSettings } from '@/app/settings/components/broker/broker-settings-form';
 
-interface BuyerSettingsFormFieldsProps {
+interface BrokerSettingsFormFieldsProps {
   user: User;
 }
 
-export const BuyerSettingsFormFields = ({ user }: BuyerSettingsFormFieldsProps) => {
-  const { register, getValues } = useFormContext<BuyerSettings>();
+export const BrokerSettingsFormFields = ({ user }: BrokerSettingsFormFieldsProps) => {
+  const { register, getValues } = useFormContext<BrokerSettings>();
 
   return (
     <div>
@@ -40,7 +39,6 @@ export const BuyerSettingsFormFields = ({ user }: BuyerSettingsFormFieldsProps) 
         <ChangeLink changePartText="password" />
       </div>
       <AtlusFormInput placeholder="+1 234 567 890" label="Phone" {...register('cellPhone')} />
-      <PrivateProfile />
 
       <AtlusDivider className="my-6 md:mb-8" />
       <SettingsTitle title="Company information" />

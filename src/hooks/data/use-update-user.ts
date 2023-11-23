@@ -1,7 +1,6 @@
 'use client';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { BuyerSettings } from '@/app/settings/components/buyer/buyer-settings-form';
 import { updateUser } from '@/api/user/update-user';
 import { useEffect } from 'react';
 import { User } from '@/models/user';
@@ -16,7 +15,7 @@ export const useUpdateUser = ({ userId }: UseUpdateUserProps) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: async (userSettings: BuyerSettings) => {
+    mutationFn: async (userSettings: Partial<User>) => {
       await updateUser(userId, userSettings);
       return userSettings;
     },

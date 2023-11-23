@@ -1,13 +1,13 @@
-import { getCurrentUserOnServer } from '@/api/user/get-current-user-on-server';
-import { BrokerSettings } from '@/app/settings/components/broker-settings';
-import { BuyerSettings } from '@/app/settings/components/buyer/buyer-settings';
+import { SettingsTitle } from '@/app/settings/components/settings-title';
+import { UserSettings } from '@/app/settings/components/user-settings';
 
 export default async function SettingsPage() {
-  const user = await getCurrentUserOnServer();
-
   return (
     <div className="flex justify-center">
-      {user.broker ? <BrokerSettings /> : <BuyerSettings />}
+      <div className="max-w-[460px] w-full">
+        <SettingsTitle title="Settings" />
+        <UserSettings />
+      </div>
     </div>
   );
 }

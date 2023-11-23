@@ -3,36 +3,36 @@
 import { AtlusForm } from '@/components/ui/form/atlus-form';
 import { useForm } from 'react-hook-form';
 import { BaseUserSettings } from '@/app/settings/components/form/base-user-settings';
-import { boolean, ObjectSchema } from 'yup';
+import { ObjectSchema, string } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { BuyerSettingsFormFields } from '@/app/settings/components/buyer/buyer-settings-form-fields';
 import { User } from '@/models/user';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useUpdateUser } from '@/hooks/data/use-update-user';
 import { baseSettingsFormSchema } from '@/app/settings/components/form/base-user-setting-schema';
+import { BrokerSettingsFormFields } from '@/app/settings/components/broker/broker-settings-form-fields';
 
-interface BuyerSettingsFormProps {
+interface BrokerSettingsFormProps {
   user: User;
 }
 
-export interface BuyerSettings extends BaseUserSettings {
-  privateProfile: boolean;
+export interface BrokerSettings extends BaseUserSettings {
+  externalUrl: string;
 }
 
-const buyerSettingsSchema: ObjectSchema<BuyerSettings> = baseSettingsFormSchema.shape({
-  privateProfile: boolean().default(false).required(),
+const brokerSettingsSchema: ObjectSchema<BrokerSettings> = baseSettingsFormSchema.shape({
+  externalUrl: string().url('Enter a valid URL').optional().default(''),
 });
 
-export const BuyerSettingsForm = ({ user }: BuyerSettingsFormProps) => {
-  const formProps = useForm<BuyerSettings>({
-    resolver: yupResolver(buyerSettingsSchema),
+export const BrokerSettingsForm = ({ user }: BrokerSettingsFormProps) => {
+  const formProps = useForm<BrokerSettings>({
+    resolver: yupResolver(brokerSettingsSchema),
     values: user,
   });
   const { mutate, isLoading } = useUpdateUser({ userId: user.id });
 
   return (
-    <AtlusForm formProps={formProps} onSubmit={formValues => mutate(formValues)}>
-      <BuyerSettingsFormFields user={user} />
+    <AtlusForm formProps={formProps} onSubmit={formValues => mutate(formValues)} className="w-full">
+      <BrokerSettingsFormFields user={user} />
       <a className="text-orange">Delete account</a>
       <div className="flex justify-end">
         <AtlusButton
