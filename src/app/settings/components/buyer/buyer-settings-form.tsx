@@ -26,7 +26,7 @@ const buyerSettingsSchema: ObjectSchema<BuyerSettings> = baseSettingsFormSchema.
 export const BuyerSettingsForm = ({ user }: BuyerSettingsFormProps) => {
   const formProps = useForm<BuyerSettings>({
     resolver: yupResolver(buyerSettingsSchema),
-    values: user,
+    defaultValues: buyerSettingsSchema.cast(user, { stripUnknown: true }),
   });
   const { mutate, isLoading } = useUpdateUser({ userId: user.id });
 
