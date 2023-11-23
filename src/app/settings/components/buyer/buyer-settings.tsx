@@ -15,7 +15,7 @@ export const BuyerSettings = ({}: BuyerSettingsProps) => {
     isOn: isChangeEmailModalOpen,
     setOn: showChangeEmailModal,
     setOff: hideChangeEmailModal,
-  } = useToggleState();
+  } = useToggleState(true);
 
   if (!user) {
     return <AtlusSplashLoader />;

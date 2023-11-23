@@ -16,9 +16,10 @@ export const ChangeEmailModal = ({ isModalOpen, closeModal }: ChangeEmailModalPr
       isOpen={isModalOpen}
       overlayClassName="z-[2]"
       onRequestClose={closeModal}
-      modalBodyClassName=""
+      modalBodyClassName="w-[360px] md:w-[540px] h-auto"
     >
       <AtlusModalContainer
+        className="w-auto"
         header={
           <AtlusModalHeader rightContent={<AtlusCloseModalButton onClick={closeModal} />}>
             <AtlusModalTitle text="Change email address" />
