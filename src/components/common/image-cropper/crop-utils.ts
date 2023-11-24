@@ -19,7 +19,7 @@ function getRadianAngle(degreeValue: number) {
   return (degreeValue * Math.PI) / 180;
 }
 
-export default async function getCroppedImg(imageSrc: DataImageURL, pixelCrop: Area, rotation = 0) {
+async function getCroppedImg(imageSrc: DataImageURL, pixelCrop: Area, rotation = 0) {
   const image = await createImage(imageSrc);
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
@@ -62,10 +62,7 @@ export default async function getCroppedImg(imageSrc: DataImageURL, pixelCrop: A
   return canvas;
 }
 
-export const generateDownload = async (
-  imageSrc: DataImageURL,
-  crop: Area
-): Promise<File | null> => {
+export const cropImage = async (imageSrc: DataImageURL, crop: Area): Promise<File | null> => {
   if (!crop || !imageSrc) {
     return null;
   }

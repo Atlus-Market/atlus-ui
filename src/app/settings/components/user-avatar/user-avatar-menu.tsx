@@ -56,6 +56,7 @@ export const UserAvatarMenu = ({ onSelectAvatarImage }: UserAvatarMenuProps) => 
       <AtlusMenu
         menuButton={
           <button
+            type="button"
             onClick={e => {
               // Stop propagation up so navigation to view package
               // is not triggered.

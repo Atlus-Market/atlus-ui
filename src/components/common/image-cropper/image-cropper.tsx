@@ -5,7 +5,7 @@ import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { HiOutlineMinus } from 'react-icons/hi2';
 import { HiOutlinePlusSm } from 'react-icons/hi';
 import { CropperProps } from 'react-easy-crop/Cropper';
-import { generateDownload } from '@/components/common/image-cropper/crop-utils';
+import { cropImage } from '@/components/common/image-cropper/crop-utils';
 import { Area } from 'react-easy-crop/types';
 import { DataImageURL } from '@/types';
 
@@ -23,7 +23,7 @@ const styles: Pick<CropperProps, 'style'>['style'] = {
 };
 
 export interface ImageCropperExposedRef {
-  cropImage: () => ReturnType<typeof generateDownload>;
+  cropImage: () => ReturnType<typeof cropImage>;
 }
 
 interface ImageCropperProps {
@@ -48,7 +48,7 @@ export const ImageCropper = ({ imageCropperRef, dataImageURL }: ImageCropperProp
       return {
         cropImage: async () => {
           if (croppedArea) {
-            return generateDownload(dataImageURL, croppedArea);
+            return cropImage(dataImageURL, croppedArea);
           }
           return null;
         },
