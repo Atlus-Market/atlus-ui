@@ -4,6 +4,7 @@ import { UserAvatarMenu } from '@/app/settings/components/user-avatar/user-avata
 import { AtlusImageCropperModal } from '@/components/common/image-cropper/atlus-image-cropper-modal';
 import { useToggleState } from '@/hooks/use-toggle-state';
 import { useCallback, useState } from 'react';
+import { DataImageURL } from '@/types';
 
 interface UserAvatarProps {
   user: User;
@@ -11,19 +12,18 @@ interface UserAvatarProps {
 
 export const UserAvatar = ({ user }: UserAvatarProps) => {
   const { isOn: isImageCropperModalOpen, setOff, setOn } = useToggleState();
-  const [image, setImage] = useState<string | null>(null);
+  const [dataImageURL, setDataImageURL] = useState<DataImageURL | null>(null);
 
   const onAvatarImageSelected = useCallback(
     (dataImageUrl: string) => {
-      console.log('Image: ', dataImageUrl);
-      setImage(dataImageUrl);
+      setDataImageURL(dataImageUrl);
       setOn();
     },
     [setOn]
   );
 
   const closeImageCropper = useCallback(() => {
-    setImage(null);
+    setDataImageURL(null);
     setOff();
   }, [setOff]);
 
@@ -32,11 +32,11 @@ export const UserAvatar = ({ user }: UserAvatarProps) => {
       <AtlusAvatar word={user.firstName} className="w-[125px] mb-3" />
       <div>
         <UserAvatarMenu onSelectAvatarImage={onAvatarImageSelected} />
-        {image && (
+        {dataImageURL && (
           <AtlusImageCropperModal
             isOpen={isImageCropperModalOpen}
             onClose={closeImageCropper}
-            imageDataUrl={image}
+            dataImageURL={dataImageURL}
           />
         )}
       </div>

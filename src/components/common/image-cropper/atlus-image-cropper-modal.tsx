@@ -12,17 +12,18 @@ import {
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useRef } from 'react';
+import { DataImageURL } from '@/types';
 
 interface ImageCropperModalProps {
   isOpen: boolean;
   onClose: () => void;
-  imageDataUrl: string;
+  dataImageURL: DataImageURL;
 }
 
 export const AtlusImageCropperModal = ({
   onClose,
   isOpen,
-  imageDataUrl,
+  dataImageURL,
 }: ImageCropperModalProps) => {
   const imageCropperRef = useRef<ImageCropperExposedRef | null>(null);
   return (
@@ -51,7 +52,7 @@ export const AtlusImageCropperModal = ({
         }
       >
         <AtlusModalBody className="overflow-x-auto !w-full !flex !justify-center">
-          <ImageCropper imageCropperRef={imageCropperRef} imageDataUrl={imageDataUrl} />
+          <ImageCropper imageCropperRef={imageCropperRef} dataImageURL={dataImageURL} />
         </AtlusModalBody>
       </AtlusModalContainer>
     </AtlusModal>

@@ -3,6 +3,7 @@
  * @param url
  */
 import { Area } from 'react-easy-crop/types';
+import { DataImageURL } from '@/types';
 
 const createImage = (url: string): Promise<HTMLImageElement> =>
   new Promise((resolve, reject) => {
@@ -17,7 +18,7 @@ function getRadianAngle(degreeValue: number) {
   return (degreeValue * Math.PI) / 180;
 }
 
-export default async function getCroppedImg(imageSrc: string, pixelCrop: Area, rotation = 0) {
+export default async function getCroppedImg(imageSrc: DataImageURL, pixelCrop: Area, rotation = 0) {
   const image = await createImage(imageSrc);
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
@@ -60,7 +61,7 @@ export default async function getCroppedImg(imageSrc: string, pixelCrop: Area, r
   return canvas;
 }
 
-export const generateDownload = async (imageSrc: string, crop: Area) => {
+export const generateDownload = async (imageSrc: DataImageURL, crop: Area) => {
   if (!crop || !imageSrc) {
     return;
   }

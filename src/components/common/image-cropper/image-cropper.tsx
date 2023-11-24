@@ -7,6 +7,7 @@ import { HiOutlinePlusSm } from 'react-icons/hi';
 import { CropperProps } from 'react-easy-crop/Cropper';
 import { generateDownload } from '@/components/common/image-cropper/crop-utils';
 import { Area } from 'react-easy-crop/types';
+import { DataImageURL } from '@/types';
 
 const zoomStep = 0.1;
 const minZoom = 1;
@@ -27,10 +28,10 @@ export interface ImageCropperExposedRef {
 
 interface ImageCropperProps {
   imageCropperRef: Ref<ImageCropperExposedRef | undefined>;
-  imageDataUrl: string;
+  dataImageURL: DataImageURL;
 }
 
-export const ImageCropper = ({ imageCropperRef, imageDataUrl }: ImageCropperProps) => {
+export const ImageCropper = ({ imageCropperRef, dataImageURL }: ImageCropperProps) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedArea, setCroppedArea] = useState<Area | null>(null);
@@ -47,12 +48,12 @@ export const ImageCropper = ({ imageCropperRef, imageDataUrl }: ImageCropperProp
       return {
         cropImage: () => {
           if (croppedArea) {
-            generateDownload(imageDataUrl, croppedArea);
+            generateDownload(dataImageURL, croppedArea);
           }
         },
       };
     },
-    [croppedArea]
+    [croppedArea, dataImageURL]
   );
 
   return (
@@ -60,7 +61,7 @@ export const ImageCropper = ({ imageCropperRef, imageDataUrl }: ImageCropperProp
       <div className="relative w-[300px] md:w-[500px] h-[300px] md:h-[500px]">
         <div className="crop-container h-full">
           <Cropper
-            image={imageDataUrl}
+            image={dataImageURL}
             crop={crop}
             zoom={zoom}
             aspect={4 / 3}
