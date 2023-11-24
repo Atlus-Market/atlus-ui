@@ -5,13 +5,30 @@ import { AtlusMenu } from '@/components/ui/menu/atlus-menu';
 import { ChangeLink } from '@/app/settings/components/change-link';
 import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
 import { useToggleState } from '@/hooks/use-toggle-state';
+import { ChangeEvent, useRef } from 'react';
 
 interface UserAvatarMenuProps {
-  onChangeAvatar: () => void;
+  onSelectAvatarImage: (dataImageUrl: string) => void;
 }
 
-export const UserAvatarMenu = ({ onChangeAvatar }: UserAvatarMenuProps) => {
+export const UserAvatarMenu = ({ onSelectAvatarImage }: UserAvatarMenuProps) => {
   const { isOn, setOn, setOff } = useToggleState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const onSelectFile = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.addEventListener(
+        'load',
+        () => {
+          onSelectAvatarImage(reader.result as string);
+        },
+        { once: true }
+      );
+    }
+  };
+
   return (
     <>
       <AtlusAlertModal
@@ -29,6 +46,13 @@ export const UserAvatarMenu = ({ onChangeAvatar }: UserAvatarMenuProps) => {
           onClick: setOff,
         }}
       />
+      <input
+        type="file"
+        accept="image/*"
+        ref={inputRef}
+        onChange={onSelectFile}
+        style={{ display: 'none' }}
+      />
       <AtlusMenu
         menuButton={
           <button
@@ -44,7 +68,12 @@ export const UserAvatarMenu = ({ onChangeAvatar }: UserAvatarMenuProps) => {
         }
         menuItems={
           <>
-            <AtlusMenuItem text="Upload new avatar" onClick={onChangeAvatar} />
+            <AtlusMenuItem
+              text="Upload new avatar"
+              onClick={() => {
+                inputRef.current?.click();
+              }}
+            />
             <AtlusMenuItem text="Remove" onClick={setOn} />
           </>
         }

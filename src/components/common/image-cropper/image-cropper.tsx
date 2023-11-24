@@ -12,8 +12,8 @@ const zoomStep = 0.1;
 const minZoom = 1;
 const maxZoom = 3;
 
-const imagSrc =
-  'https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000';
+// const imagSrc =
+//   'https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000';
 
 const styles: Pick<CropperProps, 'style'>['style'] = {
   cropAreaStyle: {
@@ -27,9 +27,10 @@ export interface ImageCropperExposedRef {
 
 interface ImageCropperProps {
   imageCropperRef: Ref<ImageCropperExposedRef | undefined>;
+  imageDataUrl: string;
 }
 
-export const ImageCropper = ({ imageCropperRef }: ImageCropperProps) => {
+export const ImageCropper = ({ imageCropperRef, imageDataUrl }: ImageCropperProps) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedArea, setCroppedArea] = useState<Area | null>(null);
@@ -46,7 +47,7 @@ export const ImageCropper = ({ imageCropperRef }: ImageCropperProps) => {
       return {
         cropImage: () => {
           if (croppedArea) {
-            generateDownload(imagSrc, croppedArea);
+            generateDownload(imageDataUrl, croppedArea);
           }
         },
       };
@@ -56,10 +57,10 @@ export const ImageCropper = ({ imageCropperRef }: ImageCropperProps) => {
 
   return (
     <div>
-      <div className="relative w-[300px] h-[300px]">
+      <div className="relative w-[300px] md:w-[500px] h-[300px] md:h-[500px]">
         <div className="crop-container h-full">
           <Cropper
-            image={imagSrc}
+            image={imageDataUrl}
             crop={crop}
             zoom={zoom}
             aspect={4 / 3}

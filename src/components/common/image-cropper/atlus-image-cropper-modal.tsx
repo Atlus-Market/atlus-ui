@@ -16,9 +16,14 @@ import { useRef } from 'react';
 interface ImageCropperModalProps {
   isOpen: boolean;
   onClose: () => void;
+  imageDataUrl: string;
 }
 
-export const AtlusImageCropperModal = ({ onClose, isOpen }: ImageCropperModalProps) => {
+export const AtlusImageCropperModal = ({
+  onClose,
+  isOpen,
+  imageDataUrl,
+}: ImageCropperModalProps) => {
   const imageCropperRef = useRef<ImageCropperExposedRef | null>(null);
   return (
     <AtlusModal
@@ -45,8 +50,8 @@ export const AtlusImageCropperModal = ({ onClose, isOpen }: ImageCropperModalPro
           </AtlusModalFooter>
         }
       >
-        <AtlusModalBody className="overflow-x-auto !w-fit">
-          <ImageCropper imageCropperRef={imageCropperRef} />
+        <AtlusModalBody className="overflow-x-auto !w-full !flex !justify-center">
+          <ImageCropper imageCropperRef={imageCropperRef} imageDataUrl={imageDataUrl} />
         </AtlusModalBody>
       </AtlusModalContainer>
     </AtlusModal>
