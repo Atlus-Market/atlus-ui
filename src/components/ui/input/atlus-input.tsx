@@ -69,7 +69,7 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(function
         />
         {rightIcon && <div className="pr-4 leading-none">{rightIcon}</div>}
       </div>
-      <div className="mt-[5px] min-h-4">
+      <div className="mt-[5px] min-h-[16px]">
         {(name || errorNames) && errors && (
           <AtlusFormErrorMessage errors={errors} name={errorNames || name} />
         )}

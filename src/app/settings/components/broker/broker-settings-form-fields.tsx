@@ -9,6 +9,7 @@ import { BrokerSettings } from '@/app/settings/components/broker/broker-settings
 import { AtlusFormTextarea } from '@/components/ui/form/atlus-form-textarea';
 import { ChangeEmailFormField } from '@/app/settings/components/change-email-form-field';
 import { ChangePasswordFormField } from '@/app/settings/components/change-password-form-field';
+import { UserAvatar } from '@/app/settings/components/user-avatar/user-avatar';
 
 interface BrokerSettingsFormFieldsProps {
   user: User;
@@ -19,6 +20,7 @@ export const BrokerSettingsFormFields = ({ user }: BrokerSettingsFormFieldsProps
 
   return (
     <div>
+      <UserAvatar user={user} />
       <AtlusFormInput placeholder="John" label="First name" {...register('firstName')} />
       <AtlusFormInput placeholder="Doe" label="Last name" {...register('lastName')} />
       <ChangeEmailFormField email={user.email} />

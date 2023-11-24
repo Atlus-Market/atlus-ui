@@ -9,6 +9,7 @@ import { ChangeLink } from '@/app/settings/components/change-link';
 import { PrivateProfile } from '@/app/settings/components/buyer/private-profile';
 import { AtlusDivider } from '@/components/ui/divider/atlus-divider';
 import { SettingsTitle } from '@/app/settings/components/settings-title';
+import { UserAvatar } from '@/app/settings/components/user-avatar/user-avatar';
 
 interface BuyerSettingsFormFieldsProps {
   user: User;
@@ -19,6 +20,7 @@ export const BuyerSettingsFormFields = ({ user }: BuyerSettingsFormFieldsProps) 
 
   return (
     <div>
+      <UserAvatar user={user} />
       <AtlusFormInput placeholder="John" label="First name" {...register('firstName')} />
       <AtlusFormInput placeholder="Doe" label="Last name" {...register('lastName')} />
       <div className="flex justify-between items-center mb-4 md:mb-6">
