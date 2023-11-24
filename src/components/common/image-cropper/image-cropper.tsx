@@ -1,5 +1,5 @@
 import Cropper from 'react-easy-crop';
-import { useCallback, useImperativeHandle, useState } from 'react';
+import { Ref, useImperativeHandle, useState } from 'react';
 import { AtlusSlider } from '@/components/ui/slider/atlus-slider';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { HiOutlineMinus } from 'react-icons/hi2';
@@ -21,45 +21,37 @@ const styles: Pick<CropperProps, 'style'>['style'] = {
   },
 };
 
-interface ImageCropperProps {
-  cropRef: any;
+export interface ImageCropperExposedRef {
+  cropImage: () => void;
 }
 
-export const ImageCropper = ({ cropRef }: ImageCropperProps) => {
+interface ImageCropperProps {
+  imageCropperRef: Ref<ImageCropperExposedRef | undefined>;
+}
+
+export const ImageCropper = ({ imageCropperRef }: ImageCropperProps) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedArea, setCroppedArea] = useState<Area | null>(null);
-
-  console.log('-------------------------');
-  console.log('crop: ', crop);
-  console.log('croppedArea: ', croppedArea);
+  const isMinZoom = zoom <= minZoom;
+  const isMaxZoom = zoom >= maxZoom;
 
   const onCropComplete = (croppedAreaPercentage: Area, croppedAreaPixels: Area) => {
     setCroppedArea(croppedAreaPixels);
   };
 
-  const onDownload = () => {
-    if (croppedArea) {
-      generateDownload(imagSrc, croppedArea);
-    }
-  };
-
-  const onCropComplete2 = useCallback((croppedArea: any, croppedAreaPixels: any) => {
-    // console.log(croppedArea, croppedAreaPixels);
-    console.log('CROPPING...');
-  }, []);
-
-  const isMinZoom = zoom <= minZoom;
-  const isMaxZoom = zoom >= maxZoom;
-
   useImperativeHandle(
-    cropRef,
+    imageCropperRef,
     () => {
       return {
-        crop: onCropComplete2,
+        cropImage: () => {
+          if (croppedArea) {
+            generateDownload(imagSrc, croppedArea);
+          }
+        },
       };
     },
-    [onCropComplete2]
+    [croppedArea]
   );
 
   return (
@@ -107,7 +99,6 @@ export const ImageCropper = ({ cropRef }: ImageCropperProps) => {
           }}
         />
       </div>
-      <button onClick={onDownload}>Download</button>
     </div>
   );
 };

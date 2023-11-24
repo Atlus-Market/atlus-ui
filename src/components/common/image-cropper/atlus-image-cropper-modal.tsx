@@ -5,7 +5,10 @@ import { AtlusModalHeader } from '@/components/ui/modal/atlus-modal-header';
 import { AtlusCloseModalButton } from '@/components/ui/modal/atlus-close-modal-button';
 import { AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
 import { AtlusModal } from '@/components/ui/modal/atlus-modal';
-import { ImageCropper } from '@/components/common/image-cropper/image-cropper';
+import {
+  ImageCropper,
+  ImageCropperExposedRef,
+} from '@/components/common/image-cropper/image-cropper';
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useRef } from 'react';
@@ -16,7 +19,7 @@ interface ImageCropperModalProps {
 }
 
 export const AtlusImageCropperModal = ({ onClose, isOpen }: ImageCropperModalProps) => {
-  const buttonRef = useRef();
+  const imageCropperRef = useRef<ImageCropperExposedRef | null>(null);
   return (
     <AtlusModal
       isOpen={isOpen}
@@ -34,8 +37,7 @@ export const AtlusImageCropperModal = ({ onClose, isOpen }: ImageCropperModalPro
               color="orange"
               className="atlus-btn-45"
               onClick={() => {
-                // @ts-ignore
-                buttonRef.current?.crop();
+                imageCropperRef.current?.cropImage();
               }}
             >
               Apply
@@ -44,7 +46,7 @@ export const AtlusImageCropperModal = ({ onClose, isOpen }: ImageCropperModalPro
         }
       >
         <AtlusModalBody className="overflow-x-auto !w-fit">
-          <ImageCropper cropRef={buttonRef} />
+          <ImageCropper imageCropperRef={imageCropperRef} />
         </AtlusModalBody>
       </AtlusModalContainer>
     </AtlusModal>
