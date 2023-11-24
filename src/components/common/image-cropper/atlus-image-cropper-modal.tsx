@@ -18,12 +18,16 @@ interface ImageCropperModalProps {
   isOpen: boolean;
   onClose: () => void;
   dataImageURL: DataImageURL;
+  onImageCropped: (blobAvatar: File) => void;
+  isLoading?: boolean;
 }
 
 export const AtlusImageCropperModal = ({
   onClose,
   isOpen,
   dataImageURL,
+  onImageCropped,
+  isLoading,
 }: ImageCropperModalProps) => {
   const imageCropperRef = useRef<ImageCropperExposedRef | null>(null);
   return (
@@ -42,9 +46,13 @@ export const AtlusImageCropperModal = ({
               variant="solid"
               color="orange"
               className="atlus-btn-45"
-              onClick={() => {
-                imageCropperRef.current?.cropImage();
+              onClick={async () => {
+                const croppedBlobImage = await imageCropperRef.current?.cropImage();
+                if (croppedBlobImage) {
+                  onImageCropped(croppedBlobImage);
+                }
               }}
+              isLoading={isLoading}
             >
               Apply
             </AtlusButton>

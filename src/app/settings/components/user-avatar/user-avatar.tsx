@@ -3,29 +3,42 @@ import { AtlusAvatar } from '@/components/common/avatar/atlus-avatar';
 import { UserAvatarMenu } from '@/app/settings/components/user-avatar/user-avatar-menu';
 import { AtlusImageCropperModal } from '@/components/common/image-cropper/atlus-image-cropper-modal';
 import { useToggleState } from '@/hooks/use-toggle-state';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { DataImageURL } from '@/types';
+import { useUploadUserAvatar } from '@/hooks/data/use-upload-user-avatar';
 
 interface UserAvatarProps {
   user: User;
 }
 
 export const UserAvatar = ({ user }: UserAvatarProps) => {
-  const { isOn: isImageCropperModalOpen, setOff, setOn } = useToggleState();
+  const {
+    isOn: isImageCropperModalOpen,
+    setOff: closeImageCropperModal,
+    setOn: showImageCropperModal,
+  } = useToggleState();
   const [dataImageURL, setDataImageURL] = useState<DataImageURL | null>(null);
+
+  const { mutate, isLoading, isSuccess } = useUploadUserAvatar();
 
   const onAvatarImageSelected = useCallback(
     (dataImageUrl: string) => {
       setDataImageURL(dataImageUrl);
-      setOn();
+      showImageCropperModal();
     },
-    [setOn]
+    [showImageCropperModal]
   );
 
   const closeImageCropper = useCallback(() => {
     setDataImageURL(null);
-    setOff();
-  }, [setOff]);
+    closeImageCropperModal();
+  }, [closeImageCropperModal]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      closeImageCropperModal();
+    }
+  }, [closeImageCropperModal, isSuccess]);
 
   return (
     <div className="flex items-center justify-center flex-col mb-6 md:mb-8">
@@ -37,6 +50,11 @@ export const UserAvatar = ({ user }: UserAvatarProps) => {
             isOpen={isImageCropperModalOpen}
             onClose={closeImageCropper}
             dataImageURL={dataImageURL}
+            onImageCropped={(avatarFile: File) => {
+              console.log('Avatar File: ', avatarFile);
+              mutate(avatarFile);
+            }}
+            isLoading={isLoading}
           />
         )}
       </div>

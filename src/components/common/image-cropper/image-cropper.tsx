@@ -23,7 +23,7 @@ const styles: Pick<CropperProps, 'style'>['style'] = {
 };
 
 export interface ImageCropperExposedRef {
-  cropImage: () => void;
+  cropImage: () => ReturnType<typeof generateDownload>;
 }
 
 interface ImageCropperProps {
@@ -46,10 +46,11 @@ export const ImageCropper = ({ imageCropperRef, dataImageURL }: ImageCropperProp
     imageCropperRef,
     () => {
       return {
-        cropImage: () => {
+        cropImage: async () => {
           if (croppedArea) {
-            generateDownload(dataImageURL, croppedArea);
+            return generateDownload(dataImageURL, croppedArea);
           }
+          return null;
         },
       };
     },

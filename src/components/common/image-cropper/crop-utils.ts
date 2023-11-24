@@ -4,6 +4,7 @@
  */
 import { Area } from 'react-easy-crop/types';
 import { DataImageURL } from '@/types';
+import { generateID } from '@/utils/id';
 
 const createImage = (url: string): Promise<HTMLImageElement> =>
   new Promise((resolve, reject) => {
@@ -61,29 +62,29 @@ export default async function getCroppedImg(imageSrc: DataImageURL, pixelCrop: A
   return canvas;
 }
 
-export const generateDownload = async (imageSrc: DataImageURL, crop: Area) => {
+export const generateDownload = async (
+  imageSrc: DataImageURL,
+  crop: Area
+): Promise<File | null> => {
   if (!crop || !imageSrc) {
-    return;
+    return null;
   }
 
+  const imageType = 'image/png';
   const canvas = await getCroppedImg(imageSrc, crop);
 
-  canvas.toBlob(
-    blob => {
-      if (!blob) {
-        throw new Error('Unable to create blob image');
-      }
-
-      const previewUrl = window.URL.createObjectURL(blob);
-
-      const anchor = document.createElement('a');
-      anchor.download = 'image.jpeg';
-      anchor.href = URL.createObjectURL(blob);
-      anchor.click();
-
-      window.URL.revokeObjectURL(previewUrl);
-    },
-    'image/jpeg',
-    0.66
-  );
+  return new Promise(resolve => {
+    canvas.toBlob(
+      blob => {
+        if (!blob) {
+          resolve(null);
+          return;
+        }
+        const file = new File([blob], `${generateID()}.png`, { type: imageType });
+        resolve(file);
+      },
+      imageType,
+      0.66
+    );
+  });
 };
