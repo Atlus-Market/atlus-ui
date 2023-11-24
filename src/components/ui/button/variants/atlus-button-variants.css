@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 .atlus-button[disabled] {
-    @apply border rounded-32 border-middle-grey bg-middle-grey text-white cursor-not-allowed;
+    @apply cursor-not-allowed;
+}
+
+.atlus-button[disabled]:not([data-icon-only="true"]) {
+    @apply border rounded-32 border-middle-grey bg-middle-grey text-white;
 }
 
 .atlus-button[data-loading="true"] {
@@ -64,13 +68,17 @@
 }
 
 /* Icon only */
-.atlus-button-variant-icon-only-orange:not([disabled]) {
+.atlus-button[disabled][data-icon-only="true"] {
+    @apply opacity-50;
+}
+
+.atlus-button-variant-icon-only-orange {
     @apply bg-transparent text-orange;
     @apply hover:bg-[#FFFCFA];
     @apply active:bg-off-white;
 }
 
-.atlus-button-variant-icon-only-grey:not([disabled]) {
+.atlus-button-variant-icon-only-grey {
     @apply bg-transparent text-dark-grey;
     @apply hover:bg-[#F5F5F5] hover:border-[#F5F5F5];
     @apply active:bg-[#EDEDED] active:border-[#EDEDED];

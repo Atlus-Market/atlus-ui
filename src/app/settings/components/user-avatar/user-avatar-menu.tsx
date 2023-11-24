@@ -6,7 +6,11 @@ import { ChangeLink } from '@/app/settings/components/change-link';
 import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
 import { useToggleState } from '@/hooks/use-toggle-state';
 
-export const UserAvatarMenu = () => {
+interface UserAvatarMenuProps {
+  onChangeAvatar: () => void;
+}
+
+export const UserAvatarMenu = ({ onChangeAvatar }: UserAvatarMenuProps) => {
   const { isOn, setOn, setOff } = useToggleState(false);
   return (
     <>
@@ -40,7 +44,7 @@ export const UserAvatarMenu = () => {
         }
         menuItems={
           <>
-            <AtlusMenuItem text="Upload new avatar" />
+            <AtlusMenuItem text="Upload new avatar" onClick={onChangeAvatar} />
             <AtlusMenuItem text="Remove" onClick={setOn} />
           </>
         }

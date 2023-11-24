@@ -1,0 +1,4 @@
+/* This was not possible to change it in the component styles */
+.rc-slider-handle-dragging {
+    box-shadow: 0 0 0 5px rgba(239,80,58,0.7) !important;
+}
