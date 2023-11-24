@@ -40,6 +40,7 @@ const AtlusButtonBase = (props: AtlusButtonProps) => {
     leftIcon,
     rightIcon,
     innerRef,
+    type,
     ...restProps
   } = props;
 
@@ -65,6 +66,7 @@ const AtlusButtonBase = (props: AtlusButtonProps) => {
       disabled={disabled}
       data-loading={isLoadingState}
       data-icon-only={isIconOnlyVariant}
+      type={type || 'button'}
       {...restProps}
     >
       {isLoadingState ? (
