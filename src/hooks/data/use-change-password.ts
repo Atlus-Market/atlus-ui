@@ -1,15 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
-import { sleep } from '@/utils/sleep';
+import { changePassword } from '@/api/auth/change-password';
 
 interface ChangePasswordPayload {
-  currentPassword: string;
+  oldPassword: string;
   newPassword: string;
 }
 
 export const useChangePassword = () => {
   return useMutation({
-    mutationFn: async (payload: ChangePasswordPayload) => {
-      await sleep(2000);
+    mutationFn: (payload: ChangePasswordPayload) => {
+      return changePassword(payload);
     },
   });
 };

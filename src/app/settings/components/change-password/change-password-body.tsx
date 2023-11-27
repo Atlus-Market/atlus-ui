@@ -21,12 +21,12 @@ interface ChangePasswordBodyProps {
 }
 
 interface ChangePasswordForm {
-  currentPassword: string;
+  oldPassword: string;
   newPassword: string;
 }
 
 export const changePasswordFormSchema: ObjectSchema<ChangePasswordForm> = object({
-  currentPassword: string().trim().required(RequiredField).test(passwordValidator),
+  oldPassword: string().trim().required(RequiredField).test(passwordValidator),
   newPassword: string().trim().required(RequiredField).test(passwordValidator),
 });
 
@@ -56,7 +56,7 @@ export const ChangePasswordBody = ({ onCloseModal }: ChangePasswordBodyProps) =>
         className="!w-auto"
         header={
           <AtlusModalHeader rightContent={<AtlusCloseModalButton onClick={onCloseModal} />}>
-            <AtlusModalTitle text="Change email address" />
+            <AtlusModalTitle text="Change password" />
           </AtlusModalHeader>
         }
         footer={
@@ -77,7 +77,7 @@ export const ChangePasswordBody = ({ onCloseModal }: ChangePasswordBodyProps) =>
           <AtlusFormInputPassword
             placeholder="Old password"
             label="Enter your current password"
-            {...register('currentPassword')}
+            {...register('oldPassword')}
           />
           <AtlusFormInputPassword
             placeholder="New password"
