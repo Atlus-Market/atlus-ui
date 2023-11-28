@@ -3,6 +3,7 @@ export type Timeframe = 'now' | 'soon' | 'browsing';
 
 export interface User {
   id: string;
+  avatar: string;
   broker: false;
   businessPhone: string;
   cellPhone: string;

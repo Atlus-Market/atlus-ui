@@ -6,7 +6,7 @@ interface ShareBuyerPackageButtonProps {
 
 export const ShareBuyerPackageButton = ({ isLoading }: ShareBuyerPackageButtonProps) => {
   return (
-    <AtlusButton variant="solid" color="orange" isLoading={isLoading}>
+    <AtlusButton variant="solid" color="orange" isLoading={isLoading} type="submit">
       Send
     </AtlusButton>
   );
