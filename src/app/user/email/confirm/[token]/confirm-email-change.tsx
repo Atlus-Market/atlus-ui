@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import { DashboardRoute } from '@/constants/routes';
 import { useAtlusSession } from '@/app/(auth)/session/use-atlus-session';
 import { ConfirmEmailChangeResponse } from '@/api/auth/confirm-email-change-on-server';
-import { UpdateSessionData } from '@/app/(auth)/update-session-data';
+import { UpdateSessionData, UpdateSessionDataType } from '@/app/(auth)/update-session-data';
 
 interface ConfirmEmailChangeProps {
   confirmEmailChangeResponse: ConfirmEmailChangeResponse | null;
@@ -30,7 +30,7 @@ export const ConfirmEmailChange = ({
     const updateSession = async () => {
       if (confirmEmailChangeResponse) {
         const sessionUpdate: UpdateSessionData = {
-          type: 'set_refreshed_session',
+          type: UpdateSessionDataType,
           data: confirmEmailChangeResponse,
         };
         await update(sessionUpdate);
