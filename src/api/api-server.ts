@@ -11,7 +11,6 @@ const mapServerSessionToAuthHeadersProvider = (
   serverSession: ServerSession
 ): AuthHeadersProvider => {
   return {
-    accessToken: serverSession.user?.accessToken,
     csrfToken: serverSession.user?.csrfToken,
   };
 };

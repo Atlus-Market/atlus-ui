@@ -47,7 +47,7 @@ export const BrokerSettingsFormFields = ({ user }: BrokerSettingsFormFieldsProps
       />
       <AtlusFormInput
         placeholder="Business Development Manager"
-        label="Your tole"
+        label="Your role"
         {...register('title')}
       />
 

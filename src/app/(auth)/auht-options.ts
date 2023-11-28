@@ -17,8 +17,18 @@ import { accessTokenCookieName } from '@/constants/api';
 import { logout } from '@/api/auth/logout';
 import { isSecureProtocol } from '@/utils/platform';
 import { hasTokenExpired } from '@/utils/auth';
+import { UpdateSessionDataType } from '@/app/(auth)/update-session-data';
 
 const usingSecureDomain = isSecureProtocol(process.env.NEXTAUTH_URL as string);
+
+const setAccessTokenCookie = (accessToken: string) => {
+  cookies().set(accessTokenCookieName, accessToken, {
+    httpOnly: true,
+    secure: usingSecureDomain,
+    domain: process.env.COOKIE_DOMAIN,
+    path: '/',
+  });
+};
 
 const providers = [
   CredentialsProvider({
@@ -39,12 +49,7 @@ const providers = [
           password: credentials.password,
         });
 
-        cookies().set(accessTokenCookieName, loginResponse.accessTokenCookie, {
-          httpOnly: true,
-          secure: usingSecureDomain,
-          domain: process.env.COOKIE_DOMAIN,
-          path: '/',
-        });
+        setAccessTokenCookie(loginResponse.accessTokenCookie);
 
         return {
           id: loginResponse.userId,
@@ -77,7 +82,7 @@ const providers = [
 
 const callbacks: Partial<CallbacksOptions> = {
   // user is present only the first time after login
-  async jwt({ token, user }: JWTCallback): Promise<JWT> {
+  async jwt({ token, user, trigger, session }: JWTCallback): Promise<JWT> {
     if (token.user) {
       const isTokenExpired = hasTokenExpired(token.user.accessToken);
       if (isTokenExpired) {
@@ -92,13 +97,23 @@ const callbacks: Partial<CallbacksOptions> = {
     if (user) {
       token.user = user;
     }
+
+    if (trigger === 'update' && session && session.type === UpdateSessionDataType) {
+      setAccessTokenCookie(session.data.accessToken);
+      token.user = {
+        ...token.user,
+        accessToken: session.data.accessToken,
+        csrfToken: session.data.csrfAccessToken,
+      };
+    }
+
     return token;
   },
 
   // Called from client
   // Checks next-auth session is valid
   // Exposes data to the client
-  async session({ session, token, user }: SessionCallback): Promise<Session> {
+  async session({ session, token }: SessionCallback): Promise<Session> {
     session.hasAtlusInvalidSession = token.hasAtlusInvalidSession;
     session.user = token.user;
     return session;

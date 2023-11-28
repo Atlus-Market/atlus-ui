@@ -54,7 +54,7 @@ export const BuyerSettingsFormFields = ({ user }: BuyerSettingsFormFieldsProps) 
       />
       <AtlusFormInput
         placeholder="Business Development Manager"
-        label="Your tole"
+        label="Your role"
         {...register('title')}
       />
 

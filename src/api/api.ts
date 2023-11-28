@@ -19,7 +19,6 @@ export enum ProtectedEndpoint {
 export type AtlusAuthRequestHeaders = Pick<AtlusRequestConfig<void>, 'headers'>;
 
 export interface AuthHeadersProvider {
-  accessToken: string | undefined;
   csrfToken: string | undefined;
 }
 

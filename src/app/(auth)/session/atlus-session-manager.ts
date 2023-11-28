@@ -8,10 +8,6 @@ export class AtlusSessionManager {
 
   private static atlusSession: Session | null;
 
-  static get accessToken() {
-    return AtlusSessionManager.atlusSession?.user?.accessToken;
-  }
-
   static get csrfToken() {
     return AtlusSessionManager.atlusSession?.user?.csrfToken;
   }

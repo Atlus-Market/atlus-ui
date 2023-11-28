@@ -1,6 +1,7 @@
 import BrokerDashboard from '@/app/dashboard/(broker)/broker-dashboard';
 import { redirect, RedirectType } from 'next/navigation';
 import { isCurrentUserBroker } from '@/app/(auth)/session/is-current-user-broker';
+import { BuyerDashboardShared } from '@/constants/routes';
 
 export default async function DashboardPage() {
   const isBrokerUser = await isCurrentUserBroker();
@@ -9,6 +10,6 @@ export default async function DashboardPage() {
     return <BrokerDashboard />;
   }
 
-  redirect('/dashboard/shared', RedirectType.replace);
+  redirect(BuyerDashboardShared, RedirectType.replace);
   return null;
 }
