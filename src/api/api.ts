@@ -27,7 +27,6 @@ export const setAuthHeaders = (
   headers: Record<string, string>,
   provider: AuthHeadersProvider
 ): Record<string, string> => {
-  headers['Authorization'] = `Bearer ${provider.accessToken}`;
   headers['X-CSRF-TOKEN'] = provider.csrfToken ?? '';
   return headers;
 };
