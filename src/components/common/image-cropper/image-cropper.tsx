@@ -65,7 +65,11 @@ export const ImageCropper = ({ imageCropperRef, dataImageURL }: ImageCropperProp
             image={dataImageURL}
             crop={crop}
             zoom={zoom}
-            aspect={4 / 3}
+            cropShape="round"
+            cropSize={{
+              width: 200,
+              height: 200,
+            }}
             onCropChange={setCrop}
             onCropComplete={onCropComplete}
             onZoomChange={setZoom}
