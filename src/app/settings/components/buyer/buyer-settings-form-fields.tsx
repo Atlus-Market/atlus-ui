@@ -10,6 +10,7 @@ import { PrivateProfile } from '@/app/settings/components/buyer/private-profile'
 import { AtlusDivider } from '@/components/ui/divider/atlus-divider';
 import { SettingsTitle } from '@/app/settings/components/settings-title';
 import { UserAvatar } from '@/app/settings/components/user-avatar/user-avatar';
+import { TimezonesDropdownForm } from '@/components/common/timezones/timezone-selector';
 
 interface BuyerSettingsFormFieldsProps {
   user: User;
@@ -61,11 +62,7 @@ export const BuyerSettingsFormFields = ({ user }: BuyerSettingsFormFieldsProps) 
       <AtlusDivider className="my-6 md:mb-8" />
       <SettingsTitle title="Account managment" />
 
-      <AtlusFormInput
-        placeholder="Pacific Time (GMT -8:00)"
-        label="Time zone"
-        {...register('timezone')}
-      />
+      <TimezonesDropdownForm name="timezone" />
     </div>
   );
 };

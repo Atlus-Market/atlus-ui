@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 import clsx from 'clsx';
 
-type AtlusFormDropdownListProps<T extends ValueOptionType> = Omit<
+export type AtlusFormDropdownListProps<T extends ValueOptionType> = Omit<
   AtlusDropdownListProps<T>,
   'onChange' | 'onBlur'
 > & {

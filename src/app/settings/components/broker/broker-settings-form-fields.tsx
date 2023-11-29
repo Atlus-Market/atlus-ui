@@ -10,6 +10,7 @@ import { AtlusFormTextarea } from '@/components/ui/form/atlus-form-textarea';
 import { ChangeEmailFormField } from '@/app/settings/components/change-email-form-field';
 import { ChangePasswordFormField } from '@/app/settings/components/change-password-form-field';
 import { UserAvatar } from '@/app/settings/components/user-avatar/user-avatar';
+import { TimezonesDropdownForm } from '@/components/common/timezones/timezone-selector';
 
 interface BrokerSettingsFormFieldsProps {
   user: User;
@@ -61,11 +62,7 @@ export const BrokerSettingsFormFields = ({ user }: BrokerSettingsFormFieldsProps
       <AtlusDivider className="my-6 md:mb-8" />
       <SettingsTitle title="Account managment" />
 
-      <AtlusFormInput
-        placeholder="Pacific Time (GMT -8:00)"
-        label="Time zone"
-        {...register('timezone')}
-      />
+      <TimezonesDropdownForm name="timezone" />
     </div>
   );
 };

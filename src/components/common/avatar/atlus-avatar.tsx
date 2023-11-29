@@ -5,10 +5,8 @@ import { HiUser } from 'react-icons/hi2';
 import { useCallback, useLayoutEffect, useRef } from 'react';
 import useResizeObserver from '@react-hook/resize-observer';
 import { UserAvatarSize } from '@/models/user-avatar-size';
-import { generateID } from '@/utils/id';
 
 interface AtlusAvatarProps {
-  // word?: string;
   className?: string;
   avatarImageSize?: UserAvatarSize;
   data: {
@@ -17,19 +15,22 @@ interface AtlusAvatarProps {
   };
 }
 
-const defaultAvatarSize: UserAvatarSize = 'small';
+const defaultAvatarSize: UserAvatarSize = 'medium';
 
 const getAvatarUrlForSize = (avatarUrl: string, size: UserAvatarSize): string => {
-  // if (size === defaultAvatarSize) {
-  //   return avatarUrl;
-  // }
+  if (size === defaultAvatarSize) {
+    return avatarUrl;
+  }
 
-  return avatarUrl.replace(defaultAvatarSize, size) + `?t=${generateID()}`;
+  return avatarUrl.replace(defaultAvatarSize, size) + `?t=${Math.random()}`;
 };
 
-export const AtlusAvatar = ({ avatarImageSize = 'medium', className, data }: AtlusAvatarProps) => {
+export const AtlusAvatar = ({
+  avatarImageSize = defaultAvatarSize,
+  className,
+  data,
+}: AtlusAvatarProps) => {
   const { firstName, avatar: avatarUrl } = data;
-  console.log('avatarUrl: ', !!avatarUrl);
   const char = firstName?.at(0);
   const avatarColor = AvatarColorPicker.getAvatarColor(char);
   const ref = useRef<HTMLDivElement | null>(null);
