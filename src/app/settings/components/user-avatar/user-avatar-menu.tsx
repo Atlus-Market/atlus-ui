@@ -26,6 +26,10 @@ export const UserAvatarMenu = ({ onSelectAvatarImage, userAvatar }: UserAvatarMe
         'load',
         () => {
           onSelectAvatarImage(reader.result as string);
+          if (inputRef.current) {
+            // Clear the input so same image can be reselected
+            inputRef.current.value = '';
+          }
         },
         { once: true }
       );

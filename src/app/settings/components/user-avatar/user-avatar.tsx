@@ -36,9 +36,9 @@ export const UserAvatar = ({ user }: UserAvatarProps) => {
 
   useEffect(() => {
     if (isSuccess) {
-      closeImageCropperModal();
+      closeImageCropper();
     }
-  }, [closeImageCropperModal, isSuccess]);
+  }, [closeImageCropper, isSuccess]);
 
   return (
     <div className="flex items-center justify-center flex-col mb-6 md:mb-8">
