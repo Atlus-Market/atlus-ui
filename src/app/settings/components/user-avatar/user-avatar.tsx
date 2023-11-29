@@ -42,9 +42,9 @@ export const UserAvatar = ({ user }: UserAvatarProps) => {
 
   return (
     <div className="flex items-center justify-center flex-col mb-6 md:mb-8">
-      <AtlusAvatar word={user.firstName} className="w-[125px] mb-3" />
+      <AtlusAvatar data={user} avatarImageSize="large" className="w-[125px] mb-3" />
       <div>
-        <UserAvatarMenu onSelectAvatarImage={onAvatarImageSelected} />
+        <UserAvatarMenu onSelectAvatarImage={onAvatarImageSelected} userAvatar={user.avatar} />
         {dataImageURL && (
           <AtlusImageCropperModal
             isOpen={isImageCropperModalOpen}

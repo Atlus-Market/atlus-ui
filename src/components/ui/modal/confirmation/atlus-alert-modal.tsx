@@ -10,6 +10,8 @@ import { ReactNode } from 'react';
 export interface AtlusAlertButton {
   onClick: () => void;
   text: string;
+  disabled?: boolean;
+  isLoading?: boolean;
 }
 
 interface AtlusAlertModalProps {
@@ -40,11 +42,23 @@ export const AtlusAlertModal = ({
           <AtlusModalFooter>
             <div className="flex gap-8 justify-end items-center">
               {secondaryButton && (
-                <AtlusButton variant="clear" color="dark-grey" onClick={secondaryButton.onClick}>
+                <AtlusButton
+                  variant="clear"
+                  color="dark-grey"
+                  onClick={secondaryButton.onClick}
+                  disabled={secondaryButton.disabled}
+                  isLoading={secondaryButton.isLoading}
+                >
                   {secondaryButton.text}
                 </AtlusButton>
               )}
-              <AtlusButton variant="solid" color="orange" onClick={mainButton.onClick}>
+              <AtlusButton
+                variant="solid"
+                color="orange"
+                onClick={mainButton.onClick}
+                disabled={mainButton.disabled}
+                isLoading={mainButton.isLoading}
+              >
                 {mainButton.text}
               </AtlusButton>
             </div>

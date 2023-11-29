@@ -1,18 +1,18 @@
 'use client';
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { updateUser } from '@/api/user/update-user';
 import { useEffect } from 'react';
 import { User } from '@/models/user';
-import { userQueryKey } from '@/app/(auth)/session/use-atlus-user';
 import { showSuccessNotification } from '@/components/ui/notification/atlus-notification';
+import { useRefreshUser } from '@/hooks/data/use-refresh-user';
 
 interface UseUpdateUserProps {
   userId: string;
 }
 
 export const useUpdateUser = ({ userId }: UseUpdateUserProps) => {
-  const queryClient = useQueryClient();
+  const refreshUser = useRefreshUser();
 
   const mutation = useMutation({
     mutationFn: async (userSettings: Partial<User>) => {
@@ -25,16 +25,10 @@ export const useUpdateUser = ({ userId }: UseUpdateUserProps) => {
 
   useEffect(() => {
     if (isSuccess && userSettings) {
-      const user = queryClient.getQueryData<User>(userQueryKey);
-      queryClient.setQueryData(userQueryKey, {
-        ...user,
-        ...userSettings,
-        fullName: `${userSettings.firstName} ${userSettings.lastName}`,
-      });
-      queryClient.invalidateQueries(userQueryKey); // Some fields are auto calculated when fetching it
+      refreshUser(userSettings);
       showSuccessNotification({ text: 'Settings saved successfully!' });
     }
-  }, [isSuccess, queryClient, userSettings]);
+  }, [isSuccess, refreshUser, userSettings]);
 
   return mutation;
 };

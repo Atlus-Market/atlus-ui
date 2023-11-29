@@ -15,7 +15,7 @@ export const PackageListedBy = ({ user }: PackageListedByProps) => {
     <div>
       <PackageSectionTitle title={`Listed by ${user.fullName}`} />
       <UserInfo
-        avatar={<AtlusAvatar word={user.fullName} className="w-64 md:w-72" />}
+        avatar={<AtlusAvatar data={user} className="w-64 md:w-72" />}
         fullName={<UserInfoFullName fullName={user.fullName} />}
         companyName={<UserInfoCompanyName companyName={user.companyName} />}
         footer={<ViewOwnerModal user={user} />}

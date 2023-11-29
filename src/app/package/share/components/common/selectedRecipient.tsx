@@ -12,7 +12,7 @@ export const SelectedRecipient = ({ recipient, onRemoveRecipient }: RecipientPro
     <AtlusTag
       text={
         <div className="flex items-center gap-2">
-          <AtlusAvatar className="w-20 md:w-24 " word={recipient.firstName} />
+          <AtlusAvatar className="w-20 md:w-24 " data={recipient} />
           {recipient.firstName} {recipient.lastName}
         </div>
       }

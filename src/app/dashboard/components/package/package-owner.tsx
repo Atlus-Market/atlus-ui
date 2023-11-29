@@ -11,7 +11,7 @@ interface BuyerPackageOwnerProps {
 export const PackageOwner = ({ basePackage }: BuyerPackageOwnerProps) => {
   return (
     <UserInfo
-      avatar={<AtlusAvatar word={basePackage.brokerName} className="w-36" />}
+      avatar={<AtlusAvatar data={{ firstName: basePackage.brokerName }} className="w-36" />}
       fullName={
         <UserInfoFullName fullName={basePackage.brokerName} className="!text-13 md:!text-sm" />
       }

@@ -6,14 +6,17 @@ import { ChangeLink } from '@/app/settings/components/change-link';
 import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
 import { useToggleState } from '@/hooks/use-toggle-state';
 import { ChangeEvent, useRef } from 'react';
+import { useRemoveUserAvatar } from '@/hooks/data/use-remove-user-avatar';
 
 interface UserAvatarMenuProps {
   onSelectAvatarImage: (dataImageUrl: string) => void;
+  userAvatar: string;
 }
 
-export const UserAvatarMenu = ({ onSelectAvatarImage }: UserAvatarMenuProps) => {
+export const UserAvatarMenu = ({ onSelectAvatarImage, userAvatar }: UserAvatarMenuProps) => {
   const { isOn, setOn, setOff } = useToggleState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const { mutateAsync, isLoading } = useRemoveUserAvatar();
 
   const onSelectFile = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -37,13 +40,16 @@ export const UserAvatarMenu = ({ onSelectAvatarImage }: UserAvatarMenuProps) => 
         text="Your avatar will no longer be visible."
         mainButton={{
           text: 'Remove',
-          onClick: () => {
+          isLoading,
+          onClick: async () => {
+            await mutateAsync();
             setOff();
           },
         }}
         secondaryButton={{
           text: 'Cancel',
           onClick: setOff,
+          disabled: isLoading,
         }}
       />
       <input
@@ -51,7 +57,7 @@ export const UserAvatarMenu = ({ onSelectAvatarImage }: UserAvatarMenuProps) => 
         accept="image/*"
         ref={inputRef}
         onChange={onSelectFile}
-        style={{ display: 'none' }}
+        className="hidden"
       />
       <AtlusMenu
         menuButton={
@@ -75,7 +81,7 @@ export const UserAvatarMenu = ({ onSelectAvatarImage }: UserAvatarMenuProps) => 
                 inputRef.current?.click();
               }}
             />
-            <AtlusMenuItem text="Remove" onClick={setOn} />
+            {userAvatar && <AtlusMenuItem text="Remove" onClick={setOn} />}
           </>
         }
       />

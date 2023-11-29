@@ -15,7 +15,7 @@ export const UserHeaderMenu = ({}: UserHeaderMenuProps) => {
   const { data: user } = useAtlusUser();
   const hasAtlusSession = useHasAtlusSession();
 
-  if (!hasAtlusSession) {
+  if (!hasAtlusSession || !user) {
     return null;
   }
 
@@ -23,7 +23,7 @@ export const UserHeaderMenu = ({}: UserHeaderMenuProps) => {
     <AtlusMenu
       menuButton={
         <button>
-          <AtlusAvatar word={user?.fullName} className="w-32 md:w-40" />
+          <AtlusAvatar data={user} className="w-32 md:w-40" />
         </button>
       }
       menuItems={

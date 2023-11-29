@@ -14,7 +14,7 @@ export const ShareBuyerContact = ({ recipient }: ShareBuyerContactProps) => {
 
   return (
     <div className="flex items-center gap-2">
-      <AtlusAvatar word={displayName} className="w-32" />
+      <AtlusAvatar data={recipient} className="w-32" />
       <span className="text-sm font-medium text-soft-black font-inter">{displayName}</span>
     </div>
   );

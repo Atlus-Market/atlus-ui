@@ -9,7 +9,7 @@ interface ContactOptionProps {
 export const ContactOption = ({ contact }: ContactOptionProps) => {
   return (
     <div className="flex items-center gap-2">
-      <AtlusAvatar className="w-32" word={contact.firstName} />
+      <AtlusAvatar className="w-32" data={contact} />
       <span className="leading-normal text-sm font-inter font-medium">
         {contact.firstName} {''} {contact.lastName}
       </span>

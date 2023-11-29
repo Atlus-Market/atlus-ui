@@ -18,7 +18,7 @@ export const ContactBroker = ({ broker }: ContactBrokerProps) => {
       </span>
 
       <UserInfo
-        avatar={<AtlusAvatar word={broker.fullName} className="w-64 md:w-72" />}
+        avatar={<AtlusAvatar data={{ firstName: broker.fullName }} className="w-64 md:w-72" />}
         fullName={<UserInfoFullName fullName={broker.fullName} />}
         companyName={<UserInfoCompanyName companyName={broker.companyName} />}
       />

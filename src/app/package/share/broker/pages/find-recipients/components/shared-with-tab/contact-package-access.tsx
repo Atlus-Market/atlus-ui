@@ -13,7 +13,7 @@ export const ContactPackageAccess = ({ packageAccess }: ContactAccessProp) => {
     <div className="flex items-center justify-between w-full">
       <div className="flex gap-3 md:gap-4 py-3 pr-5 items-center">
         <div className="relative">
-          <AtlusAvatar word={packageAccess.name} className="w-40 md:w-64" />
+          <AtlusAvatar data={{ firstName: packageAccess.name }} className="w-40 md:w-64" />
           <AccessIconStatus
             className="absolute bottom-0 right-[-8px]"
             packageAccess={packageAccess}
