@@ -30,8 +30,8 @@ export const UserAvatar = ({ user }: UserAvatarProps) => {
   );
 
   const closeImageCropper = useCallback(() => {
-    setDataImageURL(null);
     closeImageCropperModal();
+    setDataImageURL(null);
   }, [closeImageCropperModal]);
 
   useEffect(() => {
