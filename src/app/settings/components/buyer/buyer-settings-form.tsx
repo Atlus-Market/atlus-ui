@@ -32,7 +32,7 @@ export const BuyerSettingsForm = ({ user }: BuyerSettingsFormProps) => {
   const { mutate, isLoading } = useUpdateUser({ userId: user.id });
 
   return (
-    <AtlusForm formProps={formProps} onSubmit={formValues => mutate(formValues)}>
+    <AtlusForm formProps={formProps} onSubmit={formValues => mutate(formValues)} className="w-full">
       <BuyerSettingsFormFields user={user} />
       <DeleteAccount />
       <div className="flex justify-end">
