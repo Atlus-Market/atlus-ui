@@ -17,7 +17,7 @@ export const PackagesStats = async () => {
         value={packagesStats.downloads.totalDownloads}
         label="Downloads"
       />
-      <Stat icon={ShareStatSVG} value={packagesStats.totalShares} label="Shares" />
+      <Stat icon={ShareStatSVG} value={packagesStats.shares.totalShares} label="Shares" />
     </div>
   );
 };

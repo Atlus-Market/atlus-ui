@@ -9,8 +9,20 @@ export interface GetBrokerPackagesStatsResponse {
       packageId: string;
     }[];
   };
-  totalPackages: number;
-  totalShares: number;
+  noInterested: {
+    totalNoInterested: number;
+    packages: {
+      notInterested: number;
+      packageId: string;
+    }[];
+  };
+  shares: {
+    totalShares: number;
+    packages: {
+      shares: number;
+      packageId: string;
+    }[];
+  };
   views: {
     totalViews: number;
     packages: {
@@ -18,6 +30,8 @@ export interface GetBrokerPackagesStatsResponse {
       views: number;
     }[];
   };
+
+  totalPackages: number;
 }
 
 export const getBrokerPackageStatsOnServer = async () => {
