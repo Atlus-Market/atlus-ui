@@ -65,17 +65,17 @@ export const ImageCropper = ({ imageCropperRef, dataImageURL }: ImageCropperProp
             image={dataImageURL}
             crop={crop}
             zoom={zoom}
+            aspect={1 / 1}
             cropShape="round"
-            cropSize={{
-              width: 200,
-              height: 200,
-            }}
             onCropChange={setCrop}
             onCropComplete={onCropComplete}
             onZoomChange={setZoom}
             objectFit="contain"
             style={styles}
             showGrid={false}
+            // classes={{
+            //   cropAreaClassName: 'w-[200px] h-[200px] md:w-[300px] md:h-[300px]',
+            // }}
           />
         </div>
       </div>
