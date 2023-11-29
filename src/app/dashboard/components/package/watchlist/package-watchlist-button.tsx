@@ -23,6 +23,7 @@ export const PackageWatchlistButton = ({ isWatched, isLoading }: PackageWatchlis
       variant="icon-only"
       color={isLoading ? 'orange' : 'grey'}
       onClick={stopEventPropagation}
+      type="submit"
     />
   );
 };
