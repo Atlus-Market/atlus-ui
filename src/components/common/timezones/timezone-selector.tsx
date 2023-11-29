@@ -2,15 +2,16 @@ import {
   AtlusFormDropdownList,
   AtlusFormDropdownListProps,
 } from '@/components/ui/form/atlus-form-dropdown';
-import { timezoneOptions } from '@/components/common/timezones/timezone-options';
-import { Timezone } from '@/components/common/timezones/timezones';
+import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 
-type TimezoneSelectorProps = AtlusFormDropdownListProps<Timezone>;
+interface TimezoneSelectorProps extends AtlusFormDropdownListProps<string> {
+  timezoneOptions: DropdownOption<string>[];
+}
 
-export const TimezonesDropdownForm = (props: TimezoneSelectorProps) => {
+export const TimezonesDropdownForm = ({ timezoneOptions, ...rest }: TimezoneSelectorProps) => {
   return (
     <AtlusFormDropdownList
-      {...props}
+      {...rest}
       options={timezoneOptions}
       showDropdownIndicator={true}
       isSearchable={true}

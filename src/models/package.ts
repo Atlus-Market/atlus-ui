@@ -34,4 +34,5 @@ export interface Package {
   downloads: number;
   shares: number;
   views: number;
+  notInterestedCount: number;
 }

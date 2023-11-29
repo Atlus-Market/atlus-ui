@@ -11,12 +11,17 @@ import { AtlusDivider } from '@/components/ui/divider/atlus-divider';
 import { SettingsTitle } from '@/app/settings/components/settings-title';
 import { UserAvatar } from '@/app/settings/components/user-avatar/user-avatar';
 import { TimezonesDropdownForm } from '@/components/common/timezones/timezone-selector';
+import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 
 interface BuyerSettingsFormFieldsProps {
   user: User;
+  timezonesOptions: DropdownOption<string>[];
 }
 
-export const BuyerSettingsFormFields = ({ user }: BuyerSettingsFormFieldsProps) => {
+export const BuyerSettingsFormFields = ({
+  user,
+  timezonesOptions,
+}: BuyerSettingsFormFieldsProps) => {
   const { register, getValues } = useFormContext<BuyerSettings>();
 
   return (
@@ -62,7 +67,7 @@ export const BuyerSettingsFormFields = ({ user }: BuyerSettingsFormFieldsProps) 
       <AtlusDivider className="my-6 md:mb-8" />
       <SettingsTitle title="Account managment" />
 
-      <TimezonesDropdownForm name="timezone" />
+      <TimezonesDropdownForm name="timezone" timezoneOptions={timezonesOptions} />
     </div>
   );
 };

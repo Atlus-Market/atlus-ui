@@ -11,9 +11,11 @@ import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useUpdateUser } from '@/hooks/data/use-update-user';
 import { baseSettingsFormSchema } from '@/app/settings/components/form/base-user-setting-schema';
 import { DeleteAccount } from '@/app/settings/components/delete-account/delete-account';
+import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 
 interface BuyerSettingsFormProps {
   user: User;
+  timezonesOptions: DropdownOption<string>[];
 }
 
 export interface BuyerSettings extends BaseUserSettings {
@@ -24,7 +26,7 @@ const buyerSettingsSchema: ObjectSchema<BuyerSettings> = baseSettingsFormSchema.
   privateProfile: boolean().default(false).required(),
 });
 
-export const BuyerSettingsForm = ({ user }: BuyerSettingsFormProps) => {
+export const BuyerSettingsForm = ({ user, timezonesOptions }: BuyerSettingsFormProps) => {
   const formProps = useForm<BuyerSettings>({
     resolver: yupResolver(buyerSettingsSchema),
     defaultValues: buyerSettingsSchema.cast(user, { stripUnknown: true }),
@@ -33,7 +35,7 @@ export const BuyerSettingsForm = ({ user }: BuyerSettingsFormProps) => {
 
   return (
     <AtlusForm formProps={formProps} onSubmit={formValues => mutate(formValues)} className="w-full">
-      <BuyerSettingsFormFields user={user} />
+      <BuyerSettingsFormFields user={user} timezonesOptions={timezonesOptions} />
       <DeleteAccount />
       <div className="flex justify-end">
         <AtlusButton

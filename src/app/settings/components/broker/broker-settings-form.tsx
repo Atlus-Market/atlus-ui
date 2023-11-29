@@ -16,9 +16,11 @@ import {
   phoneNumberValidator,
 } from '@/components/ui/form/validators/phone-number-validator';
 import { DeleteAccount } from '@/app/settings/components/delete-account/delete-account';
+import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 
 interface BrokerSettingsFormProps {
   user: User;
+  timezonesOptions: DropdownOption<string>[];
 }
 
 export interface BrokerSettings extends BaseUserSettings {
@@ -34,7 +36,7 @@ const brokerSettingsSchema: ObjectSchema<BrokerSettings> = baseSettingsFormSchem
   description: string().trim().default('').optional(),
 });
 
-export const BrokerSettingsForm = ({ user }: BrokerSettingsFormProps) => {
+export const BrokerSettingsForm = ({ user, timezonesOptions }: BrokerSettingsFormProps) => {
   const formProps = useForm<BrokerSettings>({
     resolver: yupResolver(brokerSettingsSchema),
     defaultValues: brokerSettingsSchema.cast(user, { stripUnknown: true }),
@@ -43,7 +45,7 @@ export const BrokerSettingsForm = ({ user }: BrokerSettingsFormProps) => {
 
   return (
     <AtlusForm formProps={formProps} onSubmit={formValues => mutate(formValues)} className="w-full">
-      <BrokerSettingsFormFields user={user} />
+      <BrokerSettingsFormFields user={user} timezonesOptions={timezonesOptions} />
       <DeleteAccount />
       <div className="flex justify-end">
         <AtlusButton
