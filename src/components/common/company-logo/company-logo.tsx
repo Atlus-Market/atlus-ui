@@ -1,8 +1,15 @@
 import Image from 'next/image';
 import ImageGreySvg from '@/public/assets/icons/files/image-grey.svg';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
+import { FileSelector } from '@/components/ui/select-file/file-selector';
+import { useRef } from 'react';
 
-export const CompanyLogo = () => {
+interface CompanyLogoProps {
+  onSelectFile: (file: File) => void;
+}
+
+export const CompanyLogo = ({ onSelectFile }: CompanyLogoProps) => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
   return (
     <div>
       <div className="bg-light-grey-2 rounded-lg px-3 py-4 md:px-7 md:py-8 mb-2">
@@ -19,10 +26,18 @@ export const CompanyLogo = () => {
               </span>
             </div>
           </div>
+          <FileSelector
+            className="hidden"
+            onFileSelected={ime => console.log(ime)}
+            ref={inputRef}
+          />
           <AtlusButton
             variant="outline"
             color="black"
             className="atlus-btn-36 sm:max-md:!min-w-0 sm:max-md:w-[95px]"
+            onClick={() => {
+              inputRef.current?.click();
+            }}
           >
             Upload
           </AtlusButton>

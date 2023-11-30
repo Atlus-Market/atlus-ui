@@ -5,8 +5,9 @@ import { AtlusMenu } from '@/components/ui/menu/atlus-menu';
 import { ChangeLink } from '@/app/settings/components/change-link';
 import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
 import { useToggleState } from '@/hooks/use-toggle-state';
-import { ChangeEvent, useRef } from 'react';
+import { useRef } from 'react';
 import { useRemoveUserAvatar } from '@/hooks/data/use-remove-user-avatar';
+import { FileSelector } from '@/components/ui/select-file/file-selector';
 
 interface UserAvatarMenuProps {
   onSelectAvatarImage: (dataImageUrl: string) => void;
@@ -17,24 +18,6 @@ export const UserAvatarMenu = ({ onSelectAvatarImage, userAvatar }: UserAvatarMe
   const { isOn, setOn, setOff } = useToggleState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { mutateAsync, isLoading } = useRemoveUserAvatar();
-
-  const onSelectFile = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0) {
-      const reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
-      reader.addEventListener(
-        'load',
-        () => {
-          onSelectAvatarImage(reader.result as string);
-          if (inputRef.current) {
-            // Clear the input so same image can be reselected
-            inputRef.current.value = '';
-          }
-        },
-        { once: true }
-      );
-    }
-  };
 
   return (
     <>
@@ -56,13 +39,7 @@ export const UserAvatarMenu = ({ onSelectAvatarImage, userAvatar }: UserAvatarMe
           disabled: isLoading,
         }}
       />
-      <input
-        type="file"
-        accept="image/*"
-        ref={inputRef}
-        onChange={onSelectFile}
-        className="hidden"
-      />
+      <FileSelector className="hidden" onFileSelected={onSelectAvatarImage} ref={inputRef} />
       <AtlusMenu
         menuButton={
           <button
