@@ -10,18 +10,12 @@ import { AtlusFormTextarea } from '@/components/ui/form/atlus-form-textarea';
 import { ChangeEmailFormField } from '@/app/settings/components/change-email-form-field';
 import { ChangePasswordFormField } from '@/app/settings/components/change-password-form-field';
 import { UserAvatar } from '@/app/settings/components/user-avatar/user-avatar';
-import { TimezonesDropdownForm } from '@/components/common/timezones/timezone-selector';
-import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 
 interface BrokerSettingsFormFieldsProps {
   user: User;
-  timezonesOptions: DropdownOption<string>[];
 }
 
-export const BrokerSettingsFormFields = ({
-  user,
-  timezonesOptions,
-}: BrokerSettingsFormFieldsProps) => {
+export const BrokerSettingsFormFields = ({ user }: BrokerSettingsFormFieldsProps) => {
   const { register, getValues } = useFormContext<BrokerSettings>();
 
   return (
@@ -66,8 +60,6 @@ export const BrokerSettingsFormFields = ({
 
       <AtlusDivider className="my-6 md:mb-8" />
       <SettingsTitle title="Account managment" />
-
-      <TimezonesDropdownForm name="timezone" timezoneOptions={timezonesOptions} />
     </div>
   );
 };
