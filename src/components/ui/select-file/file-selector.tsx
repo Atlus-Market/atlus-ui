@@ -1,4 +1,4 @@
-import { ChangeEvent, forwardRef, useRef } from 'react';
+import { ChangeEvent, forwardRef, useEffect, useRef } from 'react';
 import { DataImageURL } from '@/types';
 
 interface FileSelectorProps {
@@ -13,6 +13,12 @@ export const FileSelector = forwardRef<HTMLInputElement, FileSelectorProps>(
     if (externalRef && 'current' in externalRef) {
       externalRef.current = inputRef.current;
     }
+
+    useEffect(() => {
+      if (externalRef && 'current' in externalRef) {
+        externalRef.current = inputRef.current;
+      }
+    }, [inputRef.current, externalRef]);
 
     const onSelectFile = (event: ChangeEvent<HTMLInputElement>) => {
       if (event.target.files && event.target.files.length > 0) {

@@ -14,6 +14,7 @@ interface ImageCropperModalProps {
   onClose: () => void;
   dataImageURL: DataImageURL;
   isLoading?: boolean;
+  onLogoUploaded: (logoUrl: string) => void;
 }
 
 export const UploadCompanyLogoModal = ({
@@ -21,6 +22,7 @@ export const UploadCompanyLogoModal = ({
   isOpen,
   dataImageURL,
   isLoading,
+  onLogoUploaded,
 }: ImageCropperModalProps) => {
   return (
     <AtlusModal
@@ -38,7 +40,9 @@ export const UploadCompanyLogoModal = ({
               variant="solid"
               color="orange"
               className="atlus-btn-45"
-              onClick={async () => {}}
+              onClick={async () => {
+                onLogoUploaded(dataImageURL);
+              }}
               isLoading={isLoading}
             >
               Apply
@@ -47,7 +51,7 @@ export const UploadCompanyLogoModal = ({
         }
       >
         <AtlusModalBody className="overflow-x-auto !w-full !flex !justify-center">
-          Company Logo
+          <img src={dataImageURL} className="max-w-[250px] md:max-w-[300px]" />
         </AtlusModalBody>
       </AtlusModalContainer>
     </AtlusModal>
