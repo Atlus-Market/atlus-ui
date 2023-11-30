@@ -1,14 +1,19 @@
 import { ChangeEvent, forwardRef, useEffect, useRef } from 'react';
 import { DataImageURL } from '@/types';
+import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
+import { useToggleState } from '@/hooks/use-toggle-state';
+import { filesize } from 'filesize';
 
 interface FileSelectorProps {
   className?: string;
   onFileSelected: (image: DataImageURL) => void;
+  maxFileSizeBytes?: number;
 }
 
 export const FileSelector = forwardRef<HTMLInputElement, FileSelectorProps>(
-  function FileSelectorWithRef({ onFileSelected, className }, externalRef) {
+  function FileSelectorWithRef({ onFileSelected, className, maxFileSizeBytes = 0 }, externalRef) {
     const inputRef = useRef<HTMLInputElement | null>(null);
+    const { isOn, setOn, setOff } = useToggleState();
 
     if (externalRef && 'current' in externalRef) {
       externalRef.current = inputRef.current;
@@ -22,8 +27,15 @@ export const FileSelector = forwardRef<HTMLInputElement, FileSelectorProps>(
 
     const onSelectFile = (event: ChangeEvent<HTMLInputElement>) => {
       if (event.target.files && event.target.files.length > 0) {
+        const file = event.target.files[0];
+
+        if (maxFileSizeBytes > 0 && file.size > maxFileSizeBytes) {
+          setOn();
+          return;
+        }
+
         const reader = new FileReader();
-        reader.readAsDataURL(event.target.files[0]);
+        reader.readAsDataURL(file);
         reader.addEventListener(
           'load',
           () => {
@@ -39,13 +51,24 @@ export const FileSelector = forwardRef<HTMLInputElement, FileSelectorProps>(
     };
 
     return (
-      <input
-        type="file"
-        accept="image/*"
-        ref={inputRef}
-        className={className}
-        onChange={onSelectFile}
-      />
+      <>
+        <AtlusAlertModal
+          isOpen={isOn}
+          title="Attention"
+          text={`The file size must not exceed ${filesize(maxFileSizeBytes)}.`}
+          mainButton={{
+            text: 'Close',
+            onClick: setOff,
+          }}
+        />
+        <input
+          type="file"
+          accept="image/*"
+          ref={inputRef}
+          className={className}
+          onChange={onSelectFile}
+        />
+      </>
     );
   }
 );

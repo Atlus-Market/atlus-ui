@@ -8,6 +8,8 @@ interface ButtonLogoSelectorProps {
   onSelectFile: (dataImageURL: DataImageURL) => void;
 }
 
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+
 export const ButtonLogoSelector = ({ btnText, onSelectFile }: ButtonLogoSelectorProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const selectFile = useCallback(() => {
@@ -15,7 +17,12 @@ export const ButtonLogoSelector = ({ btnText, onSelectFile }: ButtonLogoSelector
   }, []);
   return (
     <>
-      <FileSelector className="hidden" onFileSelected={onSelectFile} ref={inputRef} />
+      <FileSelector
+        className="hidden"
+        onFileSelected={onSelectFile}
+        ref={inputRef}
+        maxFileSizeBytes={MAX_FILE_SIZE}
+      />
       <AtlusButton
         variant="outline"
         color="black"
