@@ -4,7 +4,7 @@ import { AtlusAvatar } from '@/components/common/avatar/atlus-avatar';
 import { AtlusMenuItem } from '@/components/ui/menu/atlus-menu-item';
 import { AtlusMenuDivider } from '@/components/ui/menu/atlus-menu-divider';
 import { AtlusMenu } from '@/components/ui/menu/atlus-menu';
-import { DashboardRoute, LogoutRoute, SettingsRoute } from '@/constants/routes';
+import { DashboardRoute, LoginRoute, LogoutRoute, SettingsRoute } from '@/constants/routes';
 import { useAtlusUser } from '@/app/(auth)/session/use-atlus-user';
 import { useHasAtlusSession } from '@/app/(auth)/session/use-has-atlus-session';
 import Link from 'next/link';
@@ -14,8 +14,9 @@ interface UserHeaderMenuProps {}
 export const UserHeaderMenu = ({}: UserHeaderMenuProps) => {
   const { data: user } = useAtlusUser();
   const hasAtlusSession = useHasAtlusSession();
+  const isLoginPathname = window.location.pathname === LoginRoute;
 
-  if (!hasAtlusSession || !user) {
+  if (!hasAtlusSession || !user || isLoginPathname) {
     return null;
   }
 
