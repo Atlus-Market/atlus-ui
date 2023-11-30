@@ -68,7 +68,7 @@ export const LoginForm = ({ onSubmit, errorMessage, isSubmitting }: LoginFormPro
 
       <div className="text-center">
         <AtlusButton
-          className="my-8 md:my-12"
+          className="my-8 md:my-12 !w-[150px] md:!w-[175px]"
           variant="solid"
           color="orange"
           type="submit"
