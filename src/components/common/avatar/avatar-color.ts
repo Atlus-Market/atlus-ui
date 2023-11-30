@@ -1,4 +1,4 @@
-interface AvatarColor {
+export interface AvatarColor {
   backgroundColor: string;
   textColor: string;
 }

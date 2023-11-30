@@ -10,6 +10,8 @@ import { AtlusFormTextarea } from '@/components/ui/form/atlus-form-textarea';
 import { ChangeEmailFormField } from '@/app/settings/components/change-email-form-field';
 import { ChangePasswordFormField } from '@/app/settings/components/change-password-form-field';
 import { UserAvatar } from '@/app/settings/components/user-avatar/user-avatar';
+import { CompanyLogo } from '@/components/common/company-logo/company-logo';
+import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
 
 interface BrokerSettingsFormFieldsProps {
   user: User;
@@ -57,6 +59,9 @@ export const BrokerSettingsFormFields = ({ user }: BrokerSettingsFormFieldsProps
         placeholder="Write a short description about your company (Optional)"
         {...register('description')}
       />
+
+      <AtlusFormLabel label="Company logo" />
+      <CompanyLogo />
 
       <AtlusDivider className="my-6 md:mb-8" />
       <SettingsTitle title="Account managment" />
