@@ -4,14 +4,14 @@ import { useFormContext } from 'react-hook-form';
 import { BuyerSettings } from '@/app/settings/components/buyer/buyer-settings-form';
 import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
 import { User } from '@/models/user';
-import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
-import { ChangeLink } from '@/app/settings/components/change-link';
 import { PrivateProfile } from '@/app/settings/components/buyer/private-profile';
 import { AtlusDivider } from '@/components/ui/divider/atlus-divider';
 import { SettingsTitle } from '@/app/settings/components/settings-title';
 import { UserAvatar } from '@/app/settings/components/user-avatar/user-avatar';
 import { TimezonesDropdownForm } from '@/components/common/timezones/timezone-selector';
 import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
+import { ChangePasswordFormField } from '@/app/settings/components/change-password-form-field';
+import { ChangeEmailFormField } from '@/app/settings/components/change-email-form-field';
 
 interface BuyerSettingsFormFieldsProps {
   user: User;
@@ -29,24 +29,8 @@ export const BuyerSettingsFormFields = ({
       <UserAvatar user={user} />
       <AtlusFormInput placeholder="John" label="First name" {...register('firstName')} />
       <AtlusFormInput placeholder="Doe" label="Last name" {...register('lastName')} />
-      <div className="flex justify-between items-center mb-4 md:mb-6">
-        <div>
-          <AtlusFormLabel label="Email" />
-          <span className="block text-soft-black text-sm md:text-base leading-normal">
-            {user.email}
-          </span>
-        </div>
-        <ChangeLink changePartText="email" />
-      </div>
-      <div className="flex justify-between items-center mb-4 md:mb-6">
-        <div>
-          <AtlusFormLabel label="Password" />
-          <span className="block text-soft-black text-sm md:text-base leading-normal">
-            ************
-          </span>
-        </div>
-        <ChangeLink changePartText="password" />
-      </div>
+      <ChangeEmailFormField email={user.email} />
+      <ChangePasswordFormField />
       <AtlusFormInput placeholder="+1 234 567 890" label="Phone" {...register('cellPhone')} />
       <PrivateProfile />
 
