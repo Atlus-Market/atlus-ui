@@ -2,7 +2,7 @@ import { HiSearch } from 'react-icons/hi';
 import './search.css';
 import clsx from 'clsx';
 import { InputHTMLAttributes } from 'react';
-import { ClearInputButton } from '@/app/search/components/clear-input-button';
+import { ClearInputButton } from '@/app/(main)/search/components/clear-input-button';
 
 export const searchPackagesInputID = 'search-packages';
 

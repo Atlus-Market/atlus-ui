@@ -2,7 +2,7 @@ import AtlusLogo from '@/components/ui/atlus-logo';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { UserHeaderMenu } from '@/components/common/header/user-header-menu';
-import { SearchPackagesBar } from '@/app/search/components/search-packages-bar';
+import { SearchPackagesBar } from '@/app/(main)/search/components/search-packages-bar';
 
 export default function Header() {
   return (

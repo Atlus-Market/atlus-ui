@@ -3,7 +3,7 @@
 import { redirect, RedirectType } from 'next/navigation';
 import { searchPackagesQueryParam } from '@/constants/search-packages';
 import { SearchRoute } from '@/constants/routes';
-import { searchName } from '@/app/search/consts';
+import { searchName } from '@/app/(main)/search/consts';
 
 const createSearchRoute = (query: string): string => {
   const urlSearchParams = new URLSearchParams();
