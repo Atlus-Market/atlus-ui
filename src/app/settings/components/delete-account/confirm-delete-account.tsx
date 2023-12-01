@@ -3,9 +3,16 @@ import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-
 interface ConfirmDeleteAccountProps {
   isModalOpen: boolean;
   hideModal: () => void;
+  onConfirmDeleteAccount: () => void;
+  isRequestingDelete?: boolean;
 }
 
-export const ConfirmDeleteAccount = ({ isModalOpen, hideModal }: ConfirmDeleteAccountProps) => {
+export const ConfirmDeleteAccount = ({
+  isModalOpen,
+  hideModal,
+  onConfirmDeleteAccount,
+  isRequestingDelete,
+}: ConfirmDeleteAccountProps) => {
   return (
     <AtlusAlertModal
       isOpen={isModalOpen}
@@ -27,13 +34,13 @@ export const ConfirmDeleteAccount = ({ isModalOpen, hideModal }: ConfirmDeleteAc
       }
       mainButton={{
         text: 'Delete account',
-        onClick: () => {
-          hideModal();
-        },
+        onClick: onConfirmDeleteAccount,
+        isLoading: isRequestingDelete,
       }}
       secondaryButton={{
         text: 'Cancel',
         onClick: hideModal,
+        disabled: isRequestingDelete,
       }}
     />
   );
