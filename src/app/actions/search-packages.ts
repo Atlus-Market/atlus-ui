@@ -1,6 +1,6 @@
 'use server';
 
-import { redirect } from 'next/navigation';
+import { redirect, RedirectType } from 'next/navigation';
 import { searchPackagesQueryParam } from '@/constants/search-packages';
 import { SearchRoute } from '@/constants/routes';
 import { searchName } from '@/app/search/consts';
@@ -14,5 +14,6 @@ const createSearchRoute = (query: string): string => {
 export const searchPackagesAction = async (formData: FormData) => {
   const query = (formData.get(searchName) as string) ?? '';
   console.log('Server action: searching for packages query:', query);
-  redirect(createSearchRoute(query));
+  console.log(`Search redirecting to: ${createSearchRoute(query)}`);
+  redirect(createSearchRoute(query), RedirectType.push);
 };

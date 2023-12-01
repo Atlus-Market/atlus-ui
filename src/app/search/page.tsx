@@ -17,6 +17,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     per_page: 10,
   });
 
+  console.log(`Searching for "${searchParams[searchPackagesQueryParam]}"`);
+  console.log(`Searching results.packages: ${searchPackagesResponse.packages.length}`);
+
   if (searchPackagesResponse.packages.length === 0) {
     return <NoData image={SearchItemSVG} subtitle="No packages found" />;
   }
