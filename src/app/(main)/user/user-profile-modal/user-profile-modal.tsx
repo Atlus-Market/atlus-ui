@@ -6,7 +6,7 @@ import { AtlusModalContainer } from '@/components/ui/modal/container/atlus-modal
 import { AtlusModalHeader } from '@/components/ui/modal/atlus-modal-header';
 import { AtlusCloseModalButton } from '@/components/ui/modal/atlus-close-modal-button';
 import { AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
-import { UserProfileBody } from '@/app/user/user-profile-modal/user-profile-body';
+import { UserProfileBody } from '@/app/(main)/user/user-profile-modal/user-profile-body';
 
 interface UserProfileModalProps {
   user: User;

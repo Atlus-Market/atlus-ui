@@ -1,4 +1,4 @@
-import { ConfirmEmailChange } from '@/app/user/email/confirm/[token]/confirm-email-change';
+import { ConfirmEmailChange } from '@/app/(main)/user/email/confirm/[token]/confirm-email-change';
 import { AtlusSplashLoader } from '@/components/ui/splash-loader/atlus-splash-loader';
 import { confirmEmailChangeOnServer } from '@/api/auth/confirm-email-change-on-server';
 import { isAxiosError } from 'axios';

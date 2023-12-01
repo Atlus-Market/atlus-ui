@@ -1,4 +1,4 @@
-import { DeleteUserAccountHandler } from '@/app/user/account/delete/[token]/delete-user-account-handler';
+import { DeleteUserAccountHandler } from '@/app/(main)/user/account/delete/[token]/delete-user-account-handler';
 import { deleteUserAccountOnServer } from '@/api/user/delete-user-account-on-server';
 import { isAxiosError } from 'axios';
 import { defaultErrorMessage } from '@/constants/api';

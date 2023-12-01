@@ -2,7 +2,7 @@
 
 import { User } from '@/models/user';
 import { useToggleState } from '@/hooks/use-toggle-state';
-import { UserProfileModal } from '@/app/user/user-profile-modal/user-profile-modal';
+import { UserProfileModal } from '@/app/(main)/user/user-profile-modal/user-profile-modal';
 
 interface ViewOwnerModalProps {
   user: User;
