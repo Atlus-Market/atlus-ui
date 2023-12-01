@@ -1,4 +1,4 @@
-import { ExtendedPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
+import { ExtendedPackageDetailsForm } from '@/app/(main)/set-package/[id]/(pages)/package-details/package-details-form';
 import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { Contact } from '@/models/contact';

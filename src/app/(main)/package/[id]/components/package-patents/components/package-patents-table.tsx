@@ -8,7 +8,7 @@ import { PackageTablePatentTitle } from '@/app/(main)/package/[id]/components/pa
 import { PatentsInFamilyLink } from '@/app/(main)/package/[id]/components/package-patents/components/patents-in-family-link';
 import { PackageTablePatentId } from '@/app/(main)/package/[id]/components/package-patents/components/table-components/package-table-patent-id';
 import { PackageTableApplicationDate } from '@/app/(main)/package/[id]/components/package-patents/components/table-components/package-table-application-date';
-import { FamilyPatentGroup } from '@/app/set-package/[id]/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
+import { FamilyPatentGroup } from '@/app/(main)/set-package/[id]/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
 
 export type PackagePatentsTableType = 'compact' | 'full';
 

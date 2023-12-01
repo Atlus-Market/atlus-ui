@@ -28,6 +28,10 @@
     @media screen(md) {
         --atlus-header-height: 80px;
     }
+
+    /* Main Layout */
+    --atlus-layout-default-color: #ffffff;
+    --atlus-layout-bg-color: var(--atlus-layout-default-color);
 }
 
 html,

@@ -4,12 +4,7 @@ import { AtlusLayout } from '@/components/common/layout/atlus-layout';
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
-    <AtlusLayout
-      header={<Header />}
-      sideBar={null}
-      className="bg-[#FCFCFC]"
-      mainContentAlignment="center"
-    >
+    <AtlusLayout header={<Header />} sideBar={null} mainContentAlignment="center">
       {children}
     </AtlusLayout>
   );

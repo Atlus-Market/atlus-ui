@@ -12,9 +12,9 @@ import {
   selectPackagePatents,
 } from '@/redux/features/set-package/selectors/set-package.selectors';
 import { updatePackage } from '@/api/package/update-package';
-import { NO_FAMILY_GROUP_ID } from '@/app/set-package/[id]/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
+import { NO_FAMILY_GROUP_ID } from '@/app/(main)/set-package/[id]/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
 import { getPatentId, mapPatentToCustomPatentPayload } from '@/utils/patents';
-import { IPackageDetailsForm } from '@/app/set-package/[id]/(pages)/package-details/package-details-form';
+import { IPackageDetailsForm } from '@/app/(main)/set-package/[id]/(pages)/package-details/package-details-form';
 
 export interface PersistPackageResult {
   package: Package;

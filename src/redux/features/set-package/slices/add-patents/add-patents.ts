@@ -1,4 +1,4 @@
-import { AddPatentsStep } from '@/app/set-package/[id]/(pages)/patents/components/add-patents/add-patents-step';
+import { AddPatentsStep } from '@/app/(main)/set-package/[id]/(pages)/patents/components/add-patents/add-patents-step';
 import { Patent } from '@/models/patent';
 import { SetPackageState } from '@/redux/features/set-package/set-package';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -12,7 +12,7 @@ import {
   selectPatentsInitialState,
   SelectPatentsState,
 } from '@/redux/features/set-package/slices/add-patents/slices/select-patents';
-import { EnterPatentsNumberTab } from '@/app/set-package/[id]/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
+import { EnterPatentsNumberTab } from '@/app/(main)/set-package/[id]/(pages)/patents/components/add-patents/enter-patents-manually/tabs/enter-patents-number/components/tabs/enter-patents-number-tab';
 import { cleanSerializedFile } from '@/utils/file';
 import { getPatentId } from '@/utils/patents';
 

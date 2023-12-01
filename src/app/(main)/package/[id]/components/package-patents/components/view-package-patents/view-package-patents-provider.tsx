@@ -2,7 +2,7 @@
 
 import { createContext, ReactNode, useMemo, useState } from 'react';
 import { noop } from '@/utils/noop';
-import { FamilyPatentGroup } from '@/app/set-package/[id]/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
+import { FamilyPatentGroup } from '@/app/(main)/set-package/[id]/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
 
 interface ViewPackagePatentsProviderProps {
   children: ReactNode;

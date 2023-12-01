@@ -3,7 +3,7 @@
 import { pluralize } from '@/utils/words';
 import clsx from 'clsx';
 import { useViewPackagePatentsContext } from '@/app/(main)/package/[id]/components/package-patents/components/view-package-patents/use-view-package-patents-context';
-import { FamilyPatentGroup } from '@/app/set-package/[id]/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
+import { FamilyPatentGroup } from '@/app/(main)/set-package/[id]/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
 
 interface PatentsInFamilyLinkProps {
   familyPatentGroup: FamilyPatentGroup;
