@@ -22,7 +22,7 @@ const getAvatarUrlForSize = (avatarUrl: string, size: UserAvatarSize): string =>
     return avatarUrl;
   }
 
-  return avatarUrl.replace(defaultAvatarSize, size) + `?t=${Math.random()}`;
+  return avatarUrl.replace(defaultAvatarSize, size);
 };
 
 export const AtlusAvatar = ({
