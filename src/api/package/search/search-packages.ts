@@ -1,7 +1,7 @@
 import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 import { PackageStatus } from '@/models/package-status';
 import { Visibility } from '@/components/common/dropdown/visibility-options';
-import { Package } from '@/models/package';
+import { PackageStats } from '@/models/package-stats';
 
 export interface SearchPackagesParams {
   q: string;
@@ -9,7 +9,7 @@ export interface SearchPackagesParams {
   per_page: number;
 }
 
-export interface BasePackage extends Pick<Package, 'views' | 'shares' | 'downloads'> {
+export interface BasePackage extends PackageStats {
   brokerCompany: string;
   brokerName: string;
   brokerUserId: string;

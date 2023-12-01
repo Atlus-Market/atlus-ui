@@ -1,12 +1,10 @@
 import { PackageStat } from '@/app/(main)/dashboard/components/package/package-stat';
 import { HiEye, HiShare } from 'react-icons/hi2';
 import { HiDownload, HiX } from 'react-icons/hi';
-import { Package } from '@/models/package';
-
-type PackageStats = Pick<Package, 'views' | 'shares' | 'downloads' | 'notInterestedCount'>;
+import { PackageStats as PackageStatsType } from '@/models/package-stats';
 
 interface PackageStatsProps {
-  packageStats: PackageStats;
+  packageStats: PackageStatsType;
 }
 
 export const PackageStats = ({ packageStats }: PackageStatsProps) => {
