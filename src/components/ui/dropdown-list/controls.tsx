@@ -8,6 +8,7 @@ import {
   MultiValueProps,
   MultiValueRemoveProps,
   NoticeProps,
+  SingleValueProps,
 } from 'react-select';
 import { DropdownOption, ValueOptionType } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 import { AtlusTag } from '@/components/ui/tag/atlus-tag';
@@ -93,6 +94,18 @@ export const controls = {
     );
   },
   IndicatorSeparator: () => null,
+  SingleValue: <T extends ValueOptionType>({
+    children,
+    ...rest
+  }: SingleValueProps<DropdownOption<T>>) => {
+    console.log('single: ', rest);
+    const { singleValue } = rest.selectProps.atlusDropdownProps;
+    if (singleValue) {
+      const CustomElement = singleValue;
+      return <CustomElement data={rest.data.data} />;
+    }
+    return <components.SingleValue {...rest}>{children}</components.SingleValue>;
+  },
   MultiValue: <T extends ValueOptionType>({
     children,
     ...rest

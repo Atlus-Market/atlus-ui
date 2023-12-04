@@ -29,7 +29,7 @@ export interface DropdownOption<T extends ValueOptionType> {
   options?: Omit<DropdownOption<T>, 'options'>[];
 }
 
-const getClassNames = <T extends ValueOptionType>() => ({
+const getClassNames = <T extends ValueOptionType>(extraClassnames?: ExtraClassnames) => ({
   container: () => 'rounded-lg',
 
   valueContainer: (
@@ -37,12 +37,14 @@ const getClassNames = <T extends ValueOptionType>() => ({
   ) => clsx('text-soft-black text-sm font-normal leading-[16px]', props.isMulti ? 'gap-2' : ''),
   placeholder: () => 'bg-white text-sm font-normal text-dark-grey leading-[16px]',
   input: () => 'text-xs font-medium text-soft-black leading-[16px]',
-  menu: () =>
-    clsx(
+  menu: () => {
+    return clsx(
       'rounded-lg border border-solid border-lightest-grey py-[10px]',
       'bg-white shadow-[0px_2px_6px_0px_rgba(164,162,160,0.25)]',
-      'mt-[13px]'
-    ),
+      'mt-[13px]',
+      extraClassnames?.menu
+    );
+  },
   groupHeading: () => clsx('text-middle-grey text-xs font-medium', 'px-[20px] py-[10px]'),
   option: () => {
     return clsx(
@@ -53,9 +55,17 @@ const getClassNames = <T extends ValueOptionType>() => ({
   },
 });
 
-export interface CustomMultiComponent {
+export interface CustomSingleComponentProps {
+  data?: unknown;
+}
+
+export interface CustomMultiComponentProps {
   clearValue: () => void;
   data?: unknown;
+}
+
+export interface ExtraClassnames {
+  menu?: string;
 }
 
 export interface AtlusDropdownListProps<T extends ValueOptionType> {
@@ -81,15 +91,18 @@ export interface AtlusDropdownListProps<T extends ValueOptionType> {
 
   // Multi
   isMulti?: boolean;
-  customMultiValue?: (props: CustomMultiComponent) => ReactNode;
+  customMultiValue?: (props: CustomMultiComponentProps) => ReactNode;
   cacheOptions?: boolean;
+
+  // SingleValue
+  singleValue?: (props: CustomSingleComponentProps) => ReactNode;
 
   // Components
   groupHeadingHeader?: ReactNode;
   indicatorsExtraCmp?: ReactNode;
   clearIndicator?: ReactNode;
   noOptionsMessage?: ReactNode | ((props: { inputValue: string }) => ReactNode);
-  filterOption?: (options: FilterOptionOption<DropdownOption<T>>, value: string) => boolean;
+  filterOption?: (option: FilterOptionOption<DropdownOption<T>>, value: string) => boolean;
 
   // Async
   isAsync?: boolean;
@@ -101,6 +114,7 @@ export interface AtlusDropdownListProps<T extends ValueOptionType> {
   // Styles
   size?: 'big' | 'small';
   wrapperClassName?: string;
+  extraClassnames?: ExtraClassnames;
 
   innerRef?: Ref<any> | null;
 }
@@ -132,6 +146,7 @@ export function AtlusDropdownList<T extends ValueOptionType>(props: AtlusDropdow
     innerRef,
     loadOptions,
     cacheOptions,
+    extraClassnames,
   } = props;
   const id = useId();
 
@@ -141,7 +156,7 @@ export function AtlusDropdownList<T extends ValueOptionType>(props: AtlusDropdow
 
   const dynamicClassNames = useMemo(() => {
     return {
-      ...getClassNames<T>(),
+      ...getClassNames<T>(extraClassnames),
       control: (props: ControlProps<DropdownOption<T>, boolean, GroupBase<DropdownOption<T>>>) => {
         return clsx(
           'px-4 m-0',
@@ -152,7 +167,7 @@ export function AtlusDropdownList<T extends ValueOptionType>(props: AtlusDropdow
         );
       },
     };
-  }, [isMulti, size]);
+  }, [extraClassnames, isMulti, size]);
 
   const valueOption = useMemo(() => {
     /**

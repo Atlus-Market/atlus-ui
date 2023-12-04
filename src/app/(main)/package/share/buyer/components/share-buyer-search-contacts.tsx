@@ -1,7 +1,7 @@
 'use client';
 
 import {
-  CustomMultiComponent,
+  CustomMultiComponentProps,
   DropdownOption,
 } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 import { SelectedRecipient } from '@/app/(main)/package/share/components/common/selectedRecipient';
@@ -27,7 +27,7 @@ interface CustomRecipient {
   recipient: Recipient;
 }
 
-const DropdownSelectedRecipient = ({ clearValue, data }: CustomMultiComponent) => (
+const DropdownSelectedRecipient = ({ clearValue, data }: CustomMultiComponentProps) => (
   <SelectedRecipient
     recipient={(data as CustomRecipient).recipient}
     onRemoveRecipient={id => {
