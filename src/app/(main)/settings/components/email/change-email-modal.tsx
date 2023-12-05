@@ -8,12 +8,7 @@ interface ChangeEmailModalProps {
 
 export const ChangeEmailModal = ({ isModalOpen, closeModal }: ChangeEmailModalProps) => {
   return (
-    <AtlusModal
-      isOpen={isModalOpen}
-      overlayClassName="z-[2]"
-      onRequestClose={closeModal}
-      modalBodyClassName="!w-[360px] md:!w-[540px] !h-auto"
-    >
+    <AtlusModal isOpen={isModalOpen} overlayClassName="z-[2]" onRequestClose={closeModal}>
       <ChangeEmailBody onCloseModal={closeModal} />
     </AtlusModal>
   );

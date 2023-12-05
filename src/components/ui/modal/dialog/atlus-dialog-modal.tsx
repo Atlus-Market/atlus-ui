@@ -30,7 +30,7 @@ export const AtlusDialogModal = ({
   secondaryButton,
 }: AtlusAlertModalProps) => {
   return (
-    <AtlusModal isOpen={isOpen} modalBodyClassName="!h-auto" size="dialog">
+    <AtlusModal isOpen={isOpen} size="dialog">
       <AtlusModalContainer
         header={
           <AtlusModalHeader>

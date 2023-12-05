@@ -44,7 +44,7 @@ export const SetPatentModal = ({
             </AtlusModalFooter>
           }
         >
-          <AtlusModalBody className="w-[650px] !py-0">
+          <AtlusModalBody>
             <SetPatentFormFields allowEditPublicationNumber={allowEditPublicationNumber} />
           </AtlusModalBody>
         </AtlusModalContainer>

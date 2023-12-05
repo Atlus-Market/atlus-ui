@@ -54,7 +54,6 @@ export const RequestEmailChange = ({
       }}
     >
       <AtlusModalContainer
-        className="!w-auto"
         header={
           <AtlusModalHeader rightContent={<AtlusCloseModalButton onClick={onCloseModal} />}>
             <AtlusModalTitle text="Change email address" />

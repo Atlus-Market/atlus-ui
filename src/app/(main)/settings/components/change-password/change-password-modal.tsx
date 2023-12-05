@@ -8,12 +8,7 @@ interface ChangePasswordModalProps {
 
 export const ChangePasswordModal = ({ isModalOpen, closeModal }: ChangePasswordModalProps) => {
   return (
-    <AtlusModal
-      isOpen={isModalOpen}
-      overlayClassName="z-[2]"
-      onRequestClose={closeModal}
-      modalBodyClassName="!w-[360px] md:!w-[540px] !h-auto"
-    >
+    <AtlusModal isOpen={isModalOpen} overlayClassName="z-[2]" onRequestClose={closeModal}>
       <ChangePasswordBody onCloseModal={closeModal} />
     </AtlusModal>
   );

@@ -40,7 +40,7 @@ export const AddContactModal = ({
             </AtlusModalFooter>
           }
         >
-          <AtlusModalBody className="!w-[650px]">
+          <AtlusModalBody>
             <AddContactFormFields />
           </AtlusModalBody>
         </AtlusModalContainer>

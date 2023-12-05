@@ -16,11 +16,10 @@ export const AtlusModalBody = ({ children, className }: AtlusModalBodyProps) => 
   return (
     <div
       className={clsx(
-        'w-full',
         {
           [atlusMediumModalBodyPx]: isMediumSize,
           'w-[360px] md:w-[540px]': isMediumSize,
-          'px-6 md:px-40 w-[319px] md:w-[740px]': isDialogSize,
+          'px-6 md:px-40 w-[319px] md:w-[540px]': isDialogSize,
         },
         className
       )}

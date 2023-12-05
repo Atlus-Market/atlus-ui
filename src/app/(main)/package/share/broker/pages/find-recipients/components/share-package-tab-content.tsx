@@ -5,5 +5,5 @@ interface SharePackageTabContentProps {
 }
 
 export const SharePackageTabContent = ({ children }: SharePackageTabContentProps) => {
-  return <div className="h-[400px] overflow-y-auto">{children}</div>;
+  return <div className="h-[300px] md:h-[400px] overflow-y-auto">{children}</div>;
 };

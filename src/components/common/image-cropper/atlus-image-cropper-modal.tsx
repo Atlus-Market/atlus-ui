@@ -31,14 +31,8 @@ export const AtlusImageCropperModal = ({
 }: ImageCropperModalProps) => {
   const imageCropperRef = useRef<ImageCropperExposedRef | null>(null);
   return (
-    <AtlusModal
-      isOpen={isOpen}
-      overlayClassName="z-[2]"
-      onRequestClose={onClose}
-      modalBodyClassName="!w-[360px] md:!w-[540px] !h-auto"
-    >
+    <AtlusModal isOpen={isOpen} overlayClassName="z-[2]" onRequestClose={onClose}>
       <AtlusModalContainer
-        className="!h-full !max-h-min !w-auto"
         header={<AtlusModalHeader rightContent={<AtlusCloseModalButton onClick={onClose} />} />}
         footer={
           <AtlusModalFooter className="!justify-center">

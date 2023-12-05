@@ -16,7 +16,6 @@ export const EmailChangeRequested = ({
 }: EmailChangeRequestedProps) => {
   return (
     <AtlusModalContainer
-      className="!w-auto"
       header={
         <AtlusModalHeader>
           <AtlusModalTitle text="You’re almost done!" />

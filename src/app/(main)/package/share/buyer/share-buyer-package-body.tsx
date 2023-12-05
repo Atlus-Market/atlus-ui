@@ -35,7 +35,7 @@ export const ShareBuyerPackageBody = () => {
           </AtlusModalFooter>
         }
       >
-        <AtlusModalBody className="md:!w-[540px] !py-0 !px-0">
+        <AtlusModalBody className="!px-0">
           <ShareBuyerPackageFormFields />
         </AtlusModalBody>
       </AtlusModalContainer>
