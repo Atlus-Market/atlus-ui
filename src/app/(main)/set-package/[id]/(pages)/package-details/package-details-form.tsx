@@ -136,7 +136,7 @@ export const PackageDetailsForm = ({ children }: PackageDetailsFormProps) => {
         }}
       />
 
-      <AtlusForm formProps={formProps} onSubmit={onSubmit}>
+      <AtlusForm formProps={formProps} onSubmit={onSubmit} className="max-w-[710px]">
         {children}
       </AtlusForm>
     </>

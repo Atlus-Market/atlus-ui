@@ -9,7 +9,7 @@ export default function SetPackageLayout({ children }: { children: ReactNode }) 
     <MinimumScreenSize minBreakpointKey="md" noContentChildren={<DesktopOnlyPlaceholder />}>
       <div className="grid grid-cols-[240px,auto] bg-white">
         <div>
-          <div className="max-w-[240px] overflow-hidden fixed">
+          <div className="w-[240px] overflow-hidden fixed">
             <Sidebar />
           </div>
         </div>

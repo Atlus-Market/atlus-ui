@@ -76,6 +76,7 @@ export const PackageDetailsFormFields = ({
           showDropdownIndicator={true}
           isMulti={true}
           isSearchable={false}
+          wrapperClassName="!max-w-[350px]"
         />
 
         <AtlusFormInputWithTags
@@ -100,6 +101,7 @@ export const PackageDetailsFormFields = ({
           defaultValue={dropdownNoOption.value}
           showDropdownIndicator={true}
           isSearchable={false}
+          wrapperClassName="!max-w-[350px]"
         />
 
         {packageContainsSep && (
@@ -111,6 +113,7 @@ export const PackageDetailsFormFields = ({
             showDropdownIndicator={true}
             isSearchable={false}
             isMulti={true}
+            wrapperClassName="!max-w-[350px]"
           />
         )}
 
@@ -122,6 +125,7 @@ export const PackageDetailsFormFields = ({
           bottomText="Only people you share the package with can view it."
           showDropdownIndicator={true}
           isSearchable={false}
+          wrapperClassName="!max-w-[350px]"
         />
 
         <AtlusFormDropdownList
@@ -132,7 +136,7 @@ export const PackageDetailsFormFields = ({
           bottomText={packageStatusActiveOption?.data?.description as string}
           showDropdownIndicator={true}
           isSearchable={false}
-          wrapperClassName="!mb-0"
+          wrapperClassName="!mb-0 !max-w-[350px]"
         />
       </div>
 
