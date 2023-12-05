@@ -25,7 +25,7 @@ export const PackageLink = ({ children }: PackageLinkProps) => {
   );
 
   return (
-    <div onClick={onClick} className="hover:cursor-pointer">
+    <div onClick={onClick} className="[&:hover_[data-package-id]]:cursor-pointer">
       {children}
     </div>
   );
