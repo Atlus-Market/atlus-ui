@@ -2,21 +2,23 @@
 
 import { SearchPackagesResponse } from '@/api/package/search/search-packages';
 import { useLoadPackagesPages } from '@/app/(main)/search/hooks/use-load-packages-pages';
-import { AtlusIsVisible } from '@/components/common/atlus-is-visible';
-import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loading-spinner';
-import { BuyerPackageSearch } from '@/app/(main)/search/components/buyer-package-search';
+import { SharePackageModal } from '@/app/(main)/package/share/share-package-modal';
 import { PackageLink } from '@/app/(main)/dashboard/components/package/package-link';
 import { PackagesListWrapper } from '@/app/(main)/dashboard/components/packages-list-wrapper';
-import { SharePackageModal } from '@/app/(main)/package/share/share-package-modal';
+import { BuyerPackageSearch } from '@/app/(main)/search/components/buyer-package-search';
 import { BrokerPackageSearch } from '@/app/(main)/search/components/broker-package-search';
+import { AtlusIsVisible } from '@/components/common/atlus-is-visible';
+import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loading-spinner';
 
 interface PackagesListProps {
   searchPackagesResult: SearchPackagesResponse;
+  searchQuery: string;
 }
 
-export const PackagesList = ({ searchPackagesResult }: PackagesListProps) => {
+export const PackagesList = ({ searchPackagesResult, searchQuery }: PackagesListProps) => {
   const { data, fetchNextPage, isFetching, hasNextPage } = useLoadPackagesPages({
     initialPage: searchPackagesResult,
+    searchQuery,
   });
 
   if (!data) {
@@ -25,6 +27,11 @@ export const PackagesList = ({ searchPackagesResult }: PackagesListProps) => {
 
   return (
     <div>
+      <div>
+        {searchPackagesResult.packages.map(p => (
+          <div key={p.id}>{p.title}</div>
+        ))}
+      </div>
       <SharePackageModal useSimpleShareModal={true} />
       <PackageLink>
         <PackagesListWrapper>
@@ -34,7 +41,6 @@ export const PackagesList = ({ searchPackagesResult }: PackagesListProps) => {
           })}
         </PackagesListWrapper>
       </PackageLink>
-
       <AtlusIsVisible
         enabled={hasNextPage}
         onVisibilityChange={inView => {
