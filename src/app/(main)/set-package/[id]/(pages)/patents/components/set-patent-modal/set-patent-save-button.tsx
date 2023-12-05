@@ -8,9 +8,5 @@ export const SetPatentSaveButton = () => {
     formState: { isValid },
   } = useFormContext();
 
-  return (
-    <AtlusButton disabled={!isValid} type="submit">
-      Save
-    </AtlusButton>
-  );
+  return <AtlusButton type="submit">Save</AtlusButton>;
 };

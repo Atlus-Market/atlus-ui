@@ -11,6 +11,8 @@ export const AtlusModalFooter = ({ children, className }: AtlusModalFooterProps)
   const { size } = useAtlusModalContext();
   const isMediumSize = size === 'medium';
   const isDialogSize = size === 'dialog';
+  const isLargeSize = size === 'large';
+
   const validChildrenCount = 1; //countValidChildren(children);
   return (
     <div
@@ -20,8 +22,9 @@ export const AtlusModalFooter = ({ children, className }: AtlusModalFooterProps)
         // It doesn't update after first render.
         validChildrenCount > 1 ? 'justify-between' : 'justify-end',
         {
-          'px-4 pt-5 pb-8 md:px-40 md:pt-6 md:pb-8': isMediumSize,
           'p-6 md:p-40': isDialogSize,
+          'px-4 pt-5 pb-8 md:px-40 md:pt-6 md:pb-8': isMediumSize,
+          'md:px-40 md:pt-4 md:pb-[28px]': isLargeSize,
         },
         className
       )}

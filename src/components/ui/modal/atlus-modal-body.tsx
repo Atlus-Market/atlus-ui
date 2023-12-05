@@ -13,13 +13,15 @@ export const AtlusModalBody = ({ children, className }: AtlusModalBodyProps) => 
   const { size } = useAtlusModalContext();
   const isMediumSize = size === 'medium';
   const isDialogSize = size === 'dialog';
+  const isLargeSize = size === 'large';
+
   return (
     <div
       className={clsx(
         {
-          [atlusMediumModalBodyPx]: isMediumSize,
-          'w-[360px] md:w-[540px]': isMediumSize,
           'px-6 md:px-40 w-[319px] md:w-[540px]': isDialogSize,
+          [atlusMediumModalBodyPx]: isMediumSize || isLargeSize,
+          'w-[360px] md:w-[540px]': isMediumSize,
         },
         className
       )}

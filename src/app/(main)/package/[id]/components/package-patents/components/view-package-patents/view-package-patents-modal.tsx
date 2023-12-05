@@ -32,6 +32,7 @@ export const ViewPackagePatentsModal = ({ packageId }: ViewPackagePatentsModalPr
       overlayClassName="z-[2]"
       onRequestClose={clear}
       modalBodyClassName="h-screen !max-h-none"
+      size="large"
     >
       {/* Add !basis-auto because on safari, height is zero. */}
       <AtlusModalContainer

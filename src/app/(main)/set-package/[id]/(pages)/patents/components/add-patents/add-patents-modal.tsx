@@ -33,6 +33,7 @@ export const AddPatentsModal = () => {
         isOpen={isAddPatentsModalOpen}
         onRequestClose={() => dispatch(hideAddPatentsModal())}
         onAfterClose={() => dispatch(resetAddPatents())}
+        size={currentStep === AddPatentsStep.SelectPatents ? 'large' : 'medium'}
       >
         {step}
       </AtlusModal>

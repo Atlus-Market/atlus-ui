@@ -18,13 +18,16 @@ export const AtlusModalHeader = ({
   const { size } = useAtlusModalContext();
   const isMediumSize = size === 'medium';
   const isDialogSize = size === 'dialog';
+  const isLargeSize = size === 'large';
+
   return (
     <div
       className={clsx(
         'flex justify-between items-center w-full',
         {
-          'pt-4 pb-6 px-4 md:px-40 md:py-8': isMediumSize,
           'px-6 pt-6 pb-5 md:px-40 md:pt-40 md:pb-6': isDialogSize,
+          'pt-4 pb-6 px-4 md:px-40 md:py-8': isMediumSize,
+          'p-4 md:px-40 md:py-8': isLargeSize,
         },
         className
       )}
