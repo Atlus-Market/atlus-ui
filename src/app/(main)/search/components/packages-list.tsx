@@ -13,7 +13,6 @@ import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loadi
 interface PackagesListProps {
   searchPackagesResult: SearchPackagesResponse;
   searchQuery: string;
-  searchTime: number;
 }
 
 export const PackagesList = ({ searchPackagesResult, searchQuery }: PackagesListProps) => {
@@ -28,11 +27,6 @@ export const PackagesList = ({ searchPackagesResult, searchQuery }: PackagesList
 
   return (
     <div>
-      <div>
-        {searchPackagesResult.packages.map(p => (
-          <div key={p.id}>{p.title}</div>
-        ))}
-      </div>
       <SharePackageModal useSimpleShareModal={true} />
       <PackageLink>
         <PackagesListWrapper>
