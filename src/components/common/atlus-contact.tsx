@@ -2,7 +2,6 @@ import { HiCheckCircle } from 'react-icons/hi2';
 import CircleSVG from '@/public/assets/images/circle.svg';
 import Image from 'next/image';
 import clsx from 'clsx';
-import { atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
 import { Fragment } from 'react';
 import { AtlusAvatar } from '@/components/common/avatar/atlus-avatar';
 import { Recipient } from '@/redux/features/share-package/slices/recipient';
@@ -24,15 +23,9 @@ export const AtlusContact = ({
 }: ContactCardProps) => {
   return (
     <div
-      className={clsx(
-        'flex items-center py-3',
-        atlusModalBodyPaddingX,
-        wrapperClassnames,
-        'gap-2 md:gap-4',
-        {
-          'bg-off-white': isActive,
-        }
-      )}
+      className={clsx('flex items-center py-3', wrapperClassnames, 'gap-2 md:gap-4', {
+        'bg-off-white': isActive,
+      })}
       data-contact-id={recipient.id}
     >
       <AtlusAvatar className="w-40 md:w-64" data={recipient} />

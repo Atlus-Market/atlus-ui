@@ -39,7 +39,7 @@ export const UserProfileBody = ({ user }: UserProfileBodyProps) => {
         </Link>
       </div>
 
-      <div className="flex items-center gap-[18px]">
+      <div className="flex items-center gap-[18px] mb-6 md:mb-12">
         <HiGlobeAlt className={iconClassnames} />
         {(user.externalUrl && (
           <Link href={user.externalUrl || ''} target="_blank">
@@ -48,11 +48,11 @@ export const UserProfileBody = ({ user }: UserProfileBodyProps) => {
         )) || <span className="text-black text-sm md:text-base">None</span>}
       </div>
 
-      <div className="w-full text-center mt-6 md:mt-12 mb-[14px] md:mb-2">
-        <AtlusButton variant="outline" color="black">
-          View Profile
-        </AtlusButton>
-      </div>
+      {/*<div className="w-full text-center  mb-[14px] md:mb-2">*/}
+      {/*  <AtlusButton variant="outline" color="black">*/}
+      {/*    View Profile*/}
+      {/*  </AtlusButton>*/}
+      {/*</div>*/}
     </div>
   );
 };

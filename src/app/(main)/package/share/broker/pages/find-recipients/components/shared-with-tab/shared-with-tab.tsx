@@ -6,9 +6,9 @@ import { fetchPackageAccess } from '@/redux/features/share-package/thunks/get-pa
 import { selectPackageAccess } from '@/redux/features/share-package/selectors/find-recipients/shared-with.selectors';
 import { ContactPackageAccess } from '@/app/(main)/package/share/broker/pages/find-recipients/components/shared-with-tab/contact-package-access';
 import clsx from 'clsx';
-import { atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
 import { AtlusPlaceholderImage } from '@/components/common/atlus-placeholder-image';
 import SharedWithImage from '@/public/assets/images/shared_width.svg';
+import { atlusMediumModalBodyPx } from '@/components/ui/modal/atlus-modal-body';
 
 export const SharedWithTab = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +22,7 @@ export const SharedWithTab = () => {
   const hasPeopleAccess = packageAccess.length > 0;
 
   return (
-    <div className={clsx(atlusModalBodyPaddingX, 'min-h-[400px]')}>
+    <div className={clsx(atlusMediumModalBodyPx, 'h-[400px]')}>
       {hasPeopleAccess ? (
         packageAccess.map(contactPackageAccess => (
           <ContactPackageAccess

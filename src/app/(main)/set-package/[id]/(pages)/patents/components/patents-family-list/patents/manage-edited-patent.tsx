@@ -5,7 +5,7 @@ import { HiPencil, HiTrash } from 'react-icons/hi2';
 import { NO_FAMILY_GROUP_ID } from '@/app/(main)/set-package/[id]/(pages)/patents/components/add-patents/select-patents/use-table-group-patents-by-family';
 import { useAppDispatch } from '@/redux/hooks';
 import { removePatent, showEditPatentModal } from '@/redux/features/set-package/set-package';
-import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
+import { AtlusDialogModal } from '@/components/ui/modal/dialog/atlus-dialog-modal';
 import { useAtlusModal } from '@/components/ui/modal/use-atlus-modal';
 import { getPatentId } from '@/utils/patents';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
@@ -35,7 +35,7 @@ export const ManageEditedPatent = ({ patent }: ManageEditedPatentProps) => {
         variant="icon-only"
         color="grey"
       />
-      <AtlusAlertModal
+      <AtlusDialogModal
         isOpen={isShowingAlertModal}
         title="Remove patent?"
         text="Remove this patent from your package."

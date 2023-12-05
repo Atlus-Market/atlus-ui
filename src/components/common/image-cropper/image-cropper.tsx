@@ -59,7 +59,7 @@ export const ImageCropper = ({ imageCropperRef, dataImageURL }: ImageCropperProp
 
   return (
     <div>
-      <div className="relative w-[300px] md:w-[500px] h-[300px] md:h-[500px]">
+      <div className="relative w-[300px] md:w-[450px] h-[300px] md:h-[450px]">
         <div className="crop-container h-full">
           <Cropper
             image={dataImageURL}

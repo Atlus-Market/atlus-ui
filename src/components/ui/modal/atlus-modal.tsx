@@ -4,6 +4,10 @@ import Modal from 'react-modal';
 import './atlus-modal.css';
 import { ReactNode, useCallback } from 'react';
 import clsx from 'clsx';
+import {
+  AtlusModalContextProvider,
+  AtlusModalSize,
+} from '@/components/ui/modal/atlus-modal-context';
 
 interface AtlusModalProps {
   isOpen?: boolean;
@@ -12,6 +16,7 @@ interface AtlusModalProps {
   onAfterClose?: () => void; // should call the close modal function
   modalBodyClassName?: string;
   overlayClassName?: string;
+  size?: AtlusModalSize;
 }
 
 export const AtlusModal = ({
@@ -21,6 +26,7 @@ export const AtlusModal = ({
   overlayClassName,
   modalBodyClassName,
   onRequestClose,
+  size = 'medium',
 }: AtlusModalProps) => {
   const internalAfterModalClosed = useCallback(() => {
     onAfterClose?.();
@@ -41,19 +47,21 @@ export const AtlusModal = ({
   }, [onAfterClose]);
 
   return (
-    <Modal
-      isOpen={isOpen}
-      overlayClassName={clsx('atlus-modal--overlay', overlayClassName)}
-      onAfterClose={internalAfterModalClosed}
-      shouldCloseOnOverlayClick={true}
-      onRequestClose={onRequestClose}
-      className={clsx(
-        'atlus-modal-content h-screen md:h-auto md:max-h-[792px]',
-        modalBodyClassName
-      )}
-    >
-      {children}
-    </Modal>
+    <AtlusModalContextProvider size={size}>
+      <Modal
+        isOpen={isOpen}
+        overlayClassName={clsx('atlus-modal--overlay', overlayClassName)}
+        onAfterClose={internalAfterModalClosed}
+        shouldCloseOnOverlayClick={true}
+        onRequestClose={onRequestClose}
+        className={clsx(
+          'atlus-modal-content h-auto md:h-auto md:max-h-[792px]',
+          modalBodyClassName
+        )}
+      >
+        {children}
+      </Modal>
+    </AtlusModalContextProvider>
   );
 };
 

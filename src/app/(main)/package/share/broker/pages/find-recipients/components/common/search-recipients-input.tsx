@@ -5,7 +5,7 @@ import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loadi
 import { ChangeEvent, useCallback, useRef } from 'react';
 import { debounce } from 'lodash';
 import clsx from 'clsx';
-import { atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
+import { atlusMediumModalBodyPx } from '@/components/ui/modal/atlus-modal-body';
 import { useAppDispatch } from '@/redux/hooks';
 import { Action } from 'redux';
 import { AsyncThunkAction } from '@reduxjs/toolkit';
@@ -66,7 +66,7 @@ export const SearchRecipientsInput = ({
     <AtlusInput
       placeholder={!hasRecipients ? placeholder : undefined}
       onChange={onChangedDebounced}
-      wrapperClassName={clsx('!mb-[10px]', atlusModalBodyPaddingX)}
+      wrapperClassName={clsx('!mb-[10px]', atlusMediumModalBodyPx)}
       leftCmp={<RecipientsTagsList recipients={recipients} onRemoveRecipient={removeRecipient} />}
       rightIcon={rightIcon}
     />

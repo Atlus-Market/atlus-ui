@@ -5,7 +5,7 @@ import { PackageAccessValue } from '@/models/package-access-value';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { changePackageAccess } from '@/redux/features/share-package/thunks/change-package-access';
-import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
+import { AtlusDialogModal } from '@/components/ui/modal/dialog/atlus-dialog-modal';
 import { useAtlusModal } from '@/components/ui/modal/use-atlus-modal';
 import { selectIsChangingPackageAccessForEmail } from '@/redux/features/share-package/selectors/find-recipients/shared-with.selectors';
 import { ChangePackageAccessMenu } from '@/app/(main)/package/share/broker/pages/find-recipients/components/shared-with-tab/change-package-access/change-package-access-menu';
@@ -81,7 +81,7 @@ export const ChangePackageAccessButton = ({
         isLoading={isLoading}
       />
       {isShowingAlertModal && (
-        <AtlusAlertModal
+        <AtlusDialogModal
           isOpen={isShowingAlertModal}
           title="Remove access?"
           text="This person will no longer be able to view this package."

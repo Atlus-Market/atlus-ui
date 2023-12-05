@@ -1,5 +1,5 @@
 import { HiOutlineX } from 'react-icons/hi';
-import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
+import { AtlusDialogModal } from '@/components/ui/modal/dialog/atlus-dialog-modal';
 import { useAppDispatch } from '@/redux/hooks';
 import { useMutation } from '@tanstack/react-query';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
@@ -36,7 +36,7 @@ export const RemoveDocumentButton = ({ dataroomId, documentId }: RemoveDocumentB
 
   return (
     <>
-      <AtlusAlertModal
+      <AtlusDialogModal
         isOpen={isShowingAlertModal}
         title="Delete file?"
         text="This file will be deleted from your package."

@@ -7,7 +7,7 @@ import { SetPackagePatent } from '@/constants/routes';
 import Link from 'next/link';
 import { useDeletePackageAction } from '@/hooks/data/use-delete-package-action';
 import { DashboardMenuSpinner } from '@/app/(main)/dashboard/components/dashboard-menu-spinner';
-import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
+import { AtlusDialogModal } from '@/components/ui/modal/dialog/atlus-dialog-modal';
 import { useToggleState } from '@/hooks/use-toggle-state';
 import { Package } from '@/models/package';
 import { useSharePackage } from '@/app/(main)/package/share/hooks/use-share-package';
@@ -30,7 +30,7 @@ export const BrokerPackageMenu = ({ basePackage }: BrokerPackageMenuProps) => {
 
   return (
     <>
-      <AtlusAlertModal
+      <AtlusDialogModal
         isOpen={isOn}
         title="Delete package?"
         text="If you delete this package, you won’t be able to restore it."

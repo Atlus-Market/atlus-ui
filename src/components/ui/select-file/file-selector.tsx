@@ -1,6 +1,6 @@
 import { ChangeEvent, forwardRef, useEffect, useRef } from 'react';
 import { DataImageURL } from '@/types';
-import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
+import { AtlusDialogModal } from '@/components/ui/modal/dialog/atlus-dialog-modal';
 import { useToggleState } from '@/hooks/use-toggle-state';
 import { filesize } from 'filesize';
 
@@ -52,7 +52,7 @@ export const FileSelector = forwardRef<HTMLInputElement, FileSelectorProps>(
 
     return (
       <>
-        <AtlusAlertModal
+        <AtlusDialogModal
           isOpen={isOn}
           title="Attention"
           text={`The file size must not exceed ${filesize(maxFileSizeBytes)}.`}

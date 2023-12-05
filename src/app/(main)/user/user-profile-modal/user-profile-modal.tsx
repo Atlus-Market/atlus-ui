@@ -16,16 +16,15 @@ interface UserProfileModalProps {
 
 export const UserProfileModal = ({ user, isModalOpen, onCloseModal }: UserProfileModalProps) => {
   return (
-    <AtlusModal isOpen={isModalOpen} modalBodyClassName="!h-auto" onRequestClose={onCloseModal}>
+    <AtlusModal isOpen={isModalOpen} onRequestClose={onCloseModal}>
       <AtlusModalContainer
-        className="sm:max-md:!w-[360px]"
         header={
           <AtlusModalHeader
             rightContent={<AtlusCloseModalButton onClick={onCloseModal} />}
           ></AtlusModalHeader>
         }
       >
-        <AtlusModalBody className="md:!w-[540px]">
+        <AtlusModalBody>
           <UserProfileBody user={user} />
         </AtlusModalBody>
       </AtlusModalContainer>

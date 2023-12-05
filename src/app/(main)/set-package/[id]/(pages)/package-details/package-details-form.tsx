@@ -15,7 +15,7 @@ import {
   hasValidTitleName,
   invalidTitleErrorMessage,
 } from '@/app/(main)/set-package/[id]/(pages)/package-details/package-details-title';
-import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
+import { AtlusDialogModal } from '@/components/ui/modal/dialog/atlus-dialog-modal';
 import { useToggleState } from '@/hooks/use-toggle-state';
 import { useRouter } from 'next/navigation';
 import { SetNewPackageUrl, SetPackagePatent } from '@/constants/routes';
@@ -115,7 +115,7 @@ export const PackageDetailsForm = ({ children }: PackageDetailsFormProps) => {
 
   return (
     <>
-      <AtlusAlertModal
+      <AtlusDialogModal
         isOpen={isOn}
         title="Attention"
         text="The package can't be saved because it doesn't have any patent. Do you want to add one now?"

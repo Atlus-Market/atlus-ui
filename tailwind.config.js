@@ -39,6 +39,9 @@ module.exports = {
         64: '64px',
         72: '72px',
       },
+      padding: {
+        40: '40px',
+      },
     },
     colors: colors,
     screens,

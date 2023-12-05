@@ -7,6 +7,7 @@ import { AtlusContact } from '@/components/common/atlus-contact';
 import { isValidEmail } from '@/utils/email';
 import { setCustomRecipient } from '@/redux/features/share-package/share-package';
 import { Recipient } from '@/redux/features/share-package/slices/recipient';
+import { atlusMediumModalBodyPx } from '@/components/ui/modal/atlus-modal-body';
 
 interface RecipientsListProps<T extends Recipient> {
   selectRecipientAction: (recipient: T) => Action;
@@ -113,6 +114,7 @@ export const RecipientsList = <T extends Recipient>({
             recipient={recipient}
             isActive={selectedRecipientsIds.includes(recipient.id)}
             subLines={recipientSubLinesFn(recipient)}
+            wrapperClassnames={atlusMediumModalBodyPx}
           />
         </a>
       ))}

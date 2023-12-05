@@ -3,7 +3,7 @@
 import { useAppSelector } from '@/redux/hooks';
 import { selectFindRecipientsActiveTab } from '@/redux/features/share-package/selectors/find-recipients.selectors';
 import clsx from 'clsx';
-import { AtlusModalBody, atlusModalBodyPaddingX } from '@/components/ui/modal/atlus-modal-body';
+import { atlusMediumModalBodyPx, AtlusModalBody } from '@/components/ui/modal/atlus-modal-body';
 import { SharePackageTabsHeader } from '@/app/(main)/package/share/broker/pages/find-recipients/components/share-package-tabs-header';
 import { SharePackageFindRecipientsTab } from '@/app/(main)/package/share/broker/pages/find-recipients/components/common/share-package-find-recipients-tab';
 import { ContactsTab } from '@/app/(main)/package/share/broker/pages/find-recipients/components/contacts-tab/contacts-tab';
@@ -24,6 +24,8 @@ export const FindRecipientsPage = () => {
 
   return (
     <AtlusModalContainer
+      className="overflow-hidden"
+      bodyContainerClassName="!overflow-hidden"
       header={
         <AtlusModalHeader rightContent={<AtlusCloseModalButton onClick={hideSharePackageModal} />}>
           <AtlusModalTitle text="Share package" />
@@ -37,33 +39,31 @@ export const FindRecipientsPage = () => {
         </AtlusModalFooter>
       }
     >
-      <AtlusModalBody className="md:!w-[540px] !py-0 !px-0">
-        <div>
-          <div className={clsx(atlusModalBodyPaddingX)}>
-            <SharePackageTabsHeader />
+      <AtlusModalBody className="!px-0">
+        <div className={atlusMediumModalBodyPx}>
+          <SharePackageTabsHeader />
+        </div>
+        <div className="py-5">
+          <div
+            className={clsx(
+              activeTab === SharePackageFindRecipientsTab.Contacts ? 'block' : 'hidden'
+            )}
+          >
+            <ContactsTab />
           </div>
-          <div className="py-5">
-            <div
-              className={clsx(
-                activeTab === SharePackageFindRecipientsTab.Contacts ? 'block' : 'hidden'
-              )}
-            >
-              <ContactsTab />
-            </div>
-            <div
-              className={clsx(
-                activeTab === SharePackageFindRecipientsTab.Directory ? 'block' : 'hidden'
-              )}
-            >
-              <DirectoryTab />
-            </div>
-            <div
-              className={clsx(
-                activeTab === SharePackageFindRecipientsTab.SharedWith ? 'block' : 'hidden'
-              )}
-            >
-              <SharedWithTab />
-            </div>
+          <div
+            className={clsx(
+              activeTab === SharePackageFindRecipientsTab.Directory ? 'block' : 'hidden'
+            )}
+          >
+            <DirectoryTab />
+          </div>
+          <div
+            className={clsx(
+              activeTab === SharePackageFindRecipientsTab.SharedWith ? 'block' : 'hidden'
+            )}
+          >
+            <SharedWithTab />
           </div>
         </div>
       </AtlusModalBody>

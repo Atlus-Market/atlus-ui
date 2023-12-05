@@ -12,7 +12,7 @@ export const AtlusModalTitle = ({ text, classNames }: AtlusModalTitleProps) => {
       text={text}
       className={clsx(
         classNames,
-        '!text-xl md:!text-2xl !leading-normal md:!leading-[30px] font-normal'
+        '!text-lg md:!text-2xl !leading-normal md:!leading-[30px] font-normal'
       )}
     />
   );

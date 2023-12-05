@@ -17,7 +17,7 @@ export const AtlusCloseModalButton = ({ onClick, icon }: CloseModalButtonProps) 
       onClick={onClick}
       variant="icon-only"
       color="grey"
-      className="atlus-btn-40 md:atlus-btn-45"
+      className="atlus-btn-24 md:!atlus-btn-28"
       iconOnlyIcon={<Icon />}
       type="button"
     />

@@ -30,12 +30,15 @@ const extraClassnames: ExtraClassnames = {
 export const AtlusPhoneNumberInput = (props: AtlusPhoneNumberInputProps) => {
   const countryOptions = useMemo(getCountryOptions, []);
 
-  const defaultCountryOption = countryOptions.find(co => co.data.countryData.code === 'US');
+  const defaultCountryOption = useMemo(
+    () => countryOptions.find(co => co.data.countryData.code === 'US'),
+    [countryOptions]
+  );
 
   console.log(defaultCountryOption);
 
   return (
-    <div className="flex">
+    <div className="flex gap-4">
       <AtlusDropdownList
         defaultValue={defaultCountryOption?.value}
         placeholder="Select country code"
@@ -48,7 +51,7 @@ export const AtlusPhoneNumberInput = (props: AtlusPhoneNumberInputProps) => {
         onChange={(valueEvent: any) => {
           console.log('Value: ', valueEvent);
         }}
-        isOpen={true}
+        // isOpen={true}
         singleValue={SingleValueFlag}
         extraClassnames={extraClassnames}
       />

@@ -22,7 +22,7 @@ interface AtlusAlertModalProps {
   secondaryButton?: AtlusAlertButton;
 }
 
-export const AtlusAlertModal = ({
+export const AtlusDialogModal = ({
   isOpen,
   title,
   text,
@@ -30,12 +30,11 @@ export const AtlusAlertModal = ({
   secondaryButton,
 }: AtlusAlertModalProps) => {
   return (
-    <AtlusModal isOpen={isOpen} modalBodyClassName="!h-auto">
+    <AtlusModal isOpen={isOpen} modalBodyClassName="!h-auto" size="dialog">
       <AtlusModalContainer
-        className="!w-auto"
         header={
           <AtlusModalHeader>
-            <AtlusModalTitle text={title} classNames="!text-2xl" />
+            <AtlusModalTitle text={title} />
           </AtlusModalHeader>
         }
         footer={
@@ -45,6 +44,7 @@ export const AtlusAlertModal = ({
                 <AtlusButton
                   variant="clear"
                   color="dark-grey"
+                  className="atlus-btn-40 md:atlus-btn-53"
                   onClick={secondaryButton.onClick}
                   disabled={secondaryButton.disabled}
                   isLoading={secondaryButton.isLoading}
@@ -55,6 +55,7 @@ export const AtlusAlertModal = ({
               <AtlusButton
                 variant="solid"
                 color="orange"
+                className="atlus-btn-40 md:atlus-btn-53"
                 onClick={mainButton.onClick}
                 disabled={mainButton.disabled}
                 isLoading={mainButton.isLoading}
@@ -65,7 +66,7 @@ export const AtlusAlertModal = ({
           </AtlusModalFooter>
         }
       >
-        <AtlusModalBody className="!pt-4">
+        <AtlusModalBody>
           <span className="text-soft-black text-base font-normal">{text}</span>
         </AtlusModalBody>
       </AtlusModalContainer>

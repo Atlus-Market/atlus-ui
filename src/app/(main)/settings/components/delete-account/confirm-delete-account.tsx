@@ -1,4 +1,4 @@
-import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
+import { AtlusDialogModal } from '@/components/ui/modal/dialog/atlus-dialog-modal';
 
 interface ConfirmDeleteAccountProps {
   isModalOpen: boolean;
@@ -14,7 +14,7 @@ export const ConfirmDeleteAccount = ({
   isRequestingDelete,
 }: ConfirmDeleteAccountProps) => {
   return (
-    <AtlusAlertModal
+    <AtlusDialogModal
       isOpen={isModalOpen}
       title="Delete this account?"
       text={

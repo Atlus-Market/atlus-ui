@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { SetPackageFooter } from '@/app/(main)/set-package/components/set-package-footer';
 import { selectPackagePatents } from '@/redux/features/set-package/selectors/set-package.selectors';
 import { useGroupPatentsByFamilyId } from '@/app/(main)/set-package/[id]/(pages)/patents/components/patents-family-list/use-group-patents-by-family-id';
-import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
+import { AtlusDialogModal } from '@/components/ui/modal/dialog/atlus-dialog-modal';
 import { useState } from 'react';
 import { removeFamilyPatents } from '@/redux/features/set-package/set-package';
 import { useAtlusModal } from '@/components/ui/modal/use-atlus-modal';
@@ -50,7 +50,7 @@ export const PatentsFamilyList = () => {
           />
         ))}
       </div>
-      <AtlusAlertModal
+      <AtlusDialogModal
         isOpen={isShowingAlertModal}
         title="Remove family?"
         text="Remove this family and its patents from your package."

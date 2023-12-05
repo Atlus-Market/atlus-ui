@@ -3,7 +3,7 @@
 import { AtlusMenuItem } from '@/components/ui/menu/atlus-menu-item';
 import { AtlusMenu } from '@/components/ui/menu/atlus-menu';
 import { ChangeLink } from '@/app/(main)/settings/components/change-link';
-import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
+import { AtlusDialogModal } from '@/components/ui/modal/dialog/atlus-dialog-modal';
 import { useToggleState } from '@/hooks/use-toggle-state';
 import { useRef } from 'react';
 import { useRemoveUserAvatar } from '@/hooks/data/use-remove-user-avatar';
@@ -21,7 +21,7 @@ export const UserAvatarMenu = ({ onSelectAvatarImage, userAvatar }: UserAvatarMe
 
   return (
     <>
-      <AtlusAlertModal
+      <AtlusDialogModal
         isOpen={isOn}
         title="Remove avatar?"
         text="Your avatar will no longer be visible."

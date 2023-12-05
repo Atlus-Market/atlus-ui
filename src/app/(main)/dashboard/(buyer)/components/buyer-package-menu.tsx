@@ -6,7 +6,7 @@ import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useDownloadPackagePatents } from '@/hooks/data/use-download-package-patents';
 import { DashboardMenuSpinner } from '@/app/(main)/dashboard/components/dashboard-menu-spinner';
 import { useNotInterestedInPackage } from '@/hooks/data/use-not-interested-inpackage-action';
-import { AtlusAlertModal } from '@/components/ui/modal/confirmation/atlus-alert-modal';
+import { AtlusDialogModal } from '@/components/ui/modal/dialog/atlus-dialog-modal';
 import { useToggleState } from '@/hooks/use-toggle-state';
 import { useSharePackage } from '@/app/(main)/package/share/hooks/use-share-package';
 import { BasePackage } from '@/api/package/search/search-packages';
@@ -32,7 +32,7 @@ export const BuyerPackageMenu = ({ basePackage }: BuyerPackageMenuProps) => {
 
   return (
     <>
-      <AtlusAlertModal
+      <AtlusDialogModal
         isOpen={isOn}
         title="Not interested?"
         text="This package will be removed from your dashboard."
