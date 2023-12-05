@@ -23,7 +23,7 @@ export const BrokerSettingsFormFields = ({ user }: BrokerSettingsFormFieldsProps
 
   return (
     <div>
-      <AtlusPhoneNumberInput />
+      {/*<AtlusPhoneNumberInput />*/}
       <UserAvatar user={user} />
       <AtlusFormInput placeholder="John" label="First name" {...register('firstName')} />
       <AtlusFormInput placeholder="Doe" label="Last name" {...register('lastName')} />
