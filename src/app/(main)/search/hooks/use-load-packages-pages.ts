@@ -4,27 +4,25 @@ import {
   SearchPackagesParams,
   SearchPackagesResponse,
 } from '@/api/package/search/search-packages';
+import { useMemo } from 'react';
 
 interface UseLoadPackagesPagesProps {
   initialPage: SearchPackagesResponse;
   searchQuery: string;
-  searchTime: number;
 }
 
 export const SearchPackagesKeys = '/packages/search';
 
-export const useLoadPackagesPages = ({
-  initialPage,
-  searchQuery,
-  searchTime,
-}: UseLoadPackagesPagesProps) => {
+export const useLoadPackagesPages = ({ initialPage, searchQuery }: UseLoadPackagesPagesProps) => {
+  const searchTime = useMemo(() => `${searchQuery}-${Date.now()}`, [searchQuery]);
+
   return useInfiniteQuery<
     SearchPackagesResponse,
     [string, SearchPackagesParams],
     SearchPackagesResponse,
     any
   >({
-    queryKey: [SearchPackagesKeys, searchQuery, searchTime],
+    queryKey: [SearchPackagesKeys, searchTime],
     queryFn: ({ pageParam, ...restParams }) => searchPackages(pageParam),
     initialData: {
       pages: [initialPage],

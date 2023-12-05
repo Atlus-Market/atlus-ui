@@ -16,15 +16,10 @@ interface PackagesListProps {
   searchTime: number;
 }
 
-export const PackagesList = ({
-  searchPackagesResult,
-  searchQuery,
-  searchTime,
-}: PackagesListProps) => {
+export const PackagesList = ({ searchPackagesResult, searchQuery }: PackagesListProps) => {
   const { data, fetchNextPage, isFetching, hasNextPage } = useLoadPackagesPages({
     initialPage: searchPackagesResult,
     searchQuery,
-    searchTime,
   });
 
   if (!data) {
