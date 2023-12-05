@@ -12,6 +12,7 @@ interface SearchPageProps {
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
   const searchQuery = searchParams[searchPackagesQueryParam];
+  const searchTime = Date.now();
   const searchPackagesResponse = await searchPackagesOnServer({
     q: searchQuery,
     page: 1,
@@ -27,5 +28,11 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     return <NoData image={SearchItemSVG} subtitle="No packages found" />;
   }
 
-  return <PackagesList searchPackagesResult={searchPackagesResponse} searchQuery={searchQuery} />;
+  return (
+    <PackagesList
+      searchPackagesResult={searchPackagesResponse}
+      searchQuery={searchQuery}
+      searchTime={searchTime}
+    />
+  );
 }

@@ -8,18 +8,23 @@ import {
 interface UseLoadPackagesPagesProps {
   initialPage: SearchPackagesResponse;
   searchQuery: string;
+  searchTime: number;
 }
 
 export const SearchPackagesKeys = '/packages/search';
 
-export const useLoadPackagesPages = ({ initialPage, searchQuery }: UseLoadPackagesPagesProps) => {
+export const useLoadPackagesPages = ({
+  initialPage,
+  searchQuery,
+  searchTime,
+}: UseLoadPackagesPagesProps) => {
   return useInfiniteQuery<
     SearchPackagesResponse,
     [string, SearchPackagesParams],
     SearchPackagesResponse,
     any
   >({
-    queryKey: [SearchPackagesKeys, searchQuery],
+    queryKey: [SearchPackagesKeys, searchQuery, searchTime],
     queryFn: ({ pageParam, ...restParams }) => searchPackages(pageParam),
     initialData: {
       pages: [initialPage],

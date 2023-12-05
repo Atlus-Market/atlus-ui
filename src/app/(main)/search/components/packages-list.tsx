@@ -13,12 +13,18 @@ import { AtlusLoadingSpinner } from '@/components/ui/loading-spinner/atlus-loadi
 interface PackagesListProps {
   searchPackagesResult: SearchPackagesResponse;
   searchQuery: string;
+  searchTime: number;
 }
 
-export const PackagesList = ({ searchPackagesResult, searchQuery }: PackagesListProps) => {
+export const PackagesList = ({
+  searchPackagesResult,
+  searchQuery,
+  searchTime,
+}: PackagesListProps) => {
   const { data, fetchNextPage, isFetching, hasNextPage } = useLoadPackagesPages({
     initialPage: searchPackagesResult,
     searchQuery,
+    searchTime,
   });
 
   if (!data) {
