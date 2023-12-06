@@ -16,6 +16,7 @@ export const useUpdateUser = ({ userId }: UseUpdateUserProps) => {
 
   const mutation = useMutation({
     mutationFn: async (userSettings: Partial<User>) => {
+      console.log('FormValues: ', userSettings);
       await updateUser(userId, userSettings);
       return userSettings;
     },

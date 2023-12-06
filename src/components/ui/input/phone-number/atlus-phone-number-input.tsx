@@ -12,8 +12,12 @@ import {
   getCountryOptions,
 } from '@/components/ui/input/phone-number/country-options';
 import { AtlusFormPhoneNumberInput } from '@/components/ui/form/atlus-form-phone-number-input';
+import CountryList from 'country-list-with-dial-code-and-flag';
 
-export interface AtlusPhoneNumberInputProps extends AtlusInputProps {}
+export interface AtlusPhoneNumberInputProps extends AtlusInputProps {
+  dialCodeInputName?: string;
+  onCountryCodeChanged?: (countryCode: string) => void;
+}
 
 const SingleValueFlag = (props: CustomSingleComponentProps) => {
   const country = (props.data as CountryOptionData).countryData;
@@ -29,7 +33,7 @@ const extraClassnames: ExtraClassnames = {
 };
 
 export const AtlusPhoneNumberInput = forwardRef<HTMLInputElement, AtlusFormPhoneNumberInput>(
-  function AtlusPhoneNumberInput(props, ref) {
+  function AtlusPhoneNumberInput({ dialCodeInputName, onCountryCodeChanged, ...restProps }, ref) {
     const countryOptions = useMemo(getCountryOptions, []);
 
     const defaultCountryOption = useMemo(
@@ -38,22 +42,25 @@ export const AtlusPhoneNumberInput = forwardRef<HTMLInputElement, AtlusFormPhone
     );
 
     return (
-      <div className="flex gap-4">
+      <div className="flex gap-4 w-full">
         <AtlusDropdownList
+          wrapperClassName="shrink-0"
           defaultValue={defaultCountryOption?.value}
           placeholder="Select country code"
-          name="country_code"
+          name={dialCodeInputName}
           options={countryOptions}
           showDropdownIndicator={true}
           isSearchable={false}
-          onChange={(valueEvent: any) => {
-            console.log('Value: ', valueEvent);
+          onChange={(countryCode: any) => {
+            const country = CountryList.getAll().find(c => c.code === countryCode);
+            if (country) {
+              onCountryCodeChanged?.(country.dialCode);
+            }
           }}
-          // isOpen={true}
           singleValue={SingleValueFlag}
           extraClassnames={extraClassnames}
         />
-        <AtlusInput {...props} ref={ref} />
+        <AtlusInput {...restProps} ref={ref} wrapperClassName="w-full" />
       </div>
     );
   }

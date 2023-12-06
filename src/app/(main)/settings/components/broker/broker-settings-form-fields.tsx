@@ -1,6 +1,6 @@
 'use client';
 
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
 import { User } from '@/models/user';
 import { AtlusDivider } from '@/components/ui/divider/atlus-divider';
@@ -19,22 +19,36 @@ interface BrokerSettingsFormFieldsProps {
 }
 
 export const BrokerSettingsFormFields = ({ user }: BrokerSettingsFormFieldsProps) => {
-  const { register, getValues } = useFormContext<BrokerSettings>();
+  const {
+    register,
+    getValues,
+    formState: { errors },
+  } = useFormContext<BrokerSettings>();
+
+  const v = useWatch();
+  console.log('form values: ', v);
+  console.log('form errors: ', errors);
 
   return (
     <div>
-      <AtlusFormPhoneNumberInput placeholder="phone number" {...register('businessPhone')} />
       <UserAvatar user={user} />
       <AtlusFormInput placeholder="John" label="First name" {...register('firstName')} />
       <AtlusFormInput placeholder="Doe" label="Last name" {...register('lastName')} />
       <ChangeEmailFormField email={user.email} />
       <ChangePasswordFormField />
-      {/*<AtlusFormInput*/}
-      {/*  placeholder="+1 234 567 890"*/}
-      {/*  label="Business phone"*/}
-      {/*  {...register('businessPhone')}*/}
-      {/*/>*/}
-      <AtlusFormInput placeholder="+1 234 567 890" label="Cell phone" {...register('cellPhone')} />
+
+      <AtlusFormPhoneNumberInput
+        placeholder="phone number"
+        {...register('businessPhoneBuilder.phoneNumberBuilder.phoneNumber')}
+        dialCodeInputName="businessPhoneBuilder.phoneNumberBuilder.dialCode"
+      />
+
+      <AtlusFormPhoneNumberInput
+        placeholder="phone number"
+        {...register('cellPhoneBuilder.phoneNumberBuilder.phoneNumber')}
+        dialCodeInputName="cellPhoneBuilder.phoneNumberBuilder.dialCode"
+      />
+
       <AtlusFormInput
         placeholder="External URL"
         label="Link to your website (Optional)"

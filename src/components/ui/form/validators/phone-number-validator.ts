@@ -18,3 +18,19 @@ export const optionalPhoneNumberValidator: Validator<string | undefined> = {
     return isValidPhoneNumber(value);
   },
 };
+
+export const phoneNumberBuilderValidator = (required: boolean): Validator<string | undefined> => ({
+  name: 'is-valid-phone-number-nested',
+  message: 'Enter a valid phone number.',
+  test: (value, context): boolean => {
+    const { parent } = context;
+
+    // Optional phone number. Only validate when there's a value
+    if (!required && (!parent.phoneNumber || parent.phoneNumber.trim().length === 0)) {
+      return true;
+    }
+
+    const fullPhoneNumber = `${parent.dialCode}${parent.phoneNumber}`;
+    return isValidPhoneNumber(fullPhoneNumber);
+  },
+});

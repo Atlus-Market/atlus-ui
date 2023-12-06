@@ -16,6 +16,11 @@ import {
   phoneNumberValidator,
 } from '@/components/ui/form/validators/phone-number-validator';
 import { DeleteAccount } from '@/app/(main)/settings/components/delete-account/delete-account';
+import {
+  getPhoneNumberBuilderObject,
+  PhoneNumberBuilder,
+  phoneNumberTransformer,
+} from '@/components/ui/form/schema/phone-number';
 
 interface BrokerSettingsFormProps {
   user: User;
@@ -25,14 +30,21 @@ export interface BrokerSettings extends BaseUserSettings {
   externalUrl: string;
   businessPhone: string;
   description: string;
+  businessPhoneBuilder: PhoneNumberBuilder;
+  cellPhoneBuilder: PhoneNumberBuilder;
 }
 
-const brokerSettingsSchema: ObjectSchema<BrokerSettings> = baseSettingsFormSchema.shape({
-  externalUrl: string().url('Enter a valid URL').optional().default(''),
-  cellPhone: string().trim().optional().default('').test(optionalPhoneNumberValidator),
-  businessPhone: string().trim().required(RequiredField).test(phoneNumberValidator),
-  description: string().trim().default('').optional(),
-});
+const brokerSettingsSchema: ObjectSchema<BrokerSettings> = baseSettingsFormSchema
+  .shape({
+    externalUrl: string().url('Enter a valid URL').optional().default(''),
+    cellPhone: string().trim().optional().default('').test(optionalPhoneNumberValidator),
+    businessPhone: string().trim().required(RequiredField).test(phoneNumberValidator),
+    description: string().trim().default('').optional(),
+    businessPhoneBuilder: getPhoneNumberBuilderObject({ required: true }),
+    cellPhoneBuilder: getPhoneNumberBuilderObject({ required: false }),
+  })
+  .transform(phoneNumberTransformer<BrokerSettings>('businessPhoneBuilder', 'businessPhone'))
+  .transform(phoneNumberTransformer<BrokerSettings>('cellPhoneBuilder', 'cellPhone'));
 
 export const BrokerSettingsForm = ({ user }: BrokerSettingsFormProps) => {
   const formProps = useForm<BrokerSettings>({
