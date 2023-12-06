@@ -6,6 +6,8 @@ export interface CountryOptionData {
   countryData: Country;
 }
 
+export const defaultCountry = CountryList.findOneByCountryCode('US')!;
+
 export const getCountryOptions = () => {
   const countries = CountryList.getAll();
   return countries.map(country => {
@@ -35,4 +37,15 @@ export const filterCountryOptions = (option: CountryOption, input: string) => {
     );
   }
   return true;
+};
+
+export const getCountryByDialCode = (dialCode: string | undefined): Country[] => {
+  if (!dialCode) {
+    return [];
+  }
+  return CountryList.findByDialCode(dialCode);
+};
+
+export const getCountryByCode = (countryCode: string): Country | undefined => {
+  return CountryList.findOneByCountryCode(countryCode);
 };

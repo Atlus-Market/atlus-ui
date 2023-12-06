@@ -1,6 +1,7 @@
 import { AnyObject, Maybe, object, string } from 'yup';
 import { RequiredField } from '@/constants/form';
 import { phoneNumberBuilderValidator } from '@/components/ui/form/validators/phone-number-validator';
+import { defaultCountry } from '@/components/ui/input/phone-number/country-options';
 
 export interface PhoneNumberBuilder {
   phoneNumberBuilder?: {
@@ -10,7 +11,7 @@ export interface PhoneNumberBuilder {
 }
 
 export const getPhoneNumberBuilderObject = ({ required }: { required: boolean }) => {
-  const dialCode = string().default('+1');
+  const dialCode = string().default(defaultCountry.dialCode);
   const phoneNumber = string().default('');
   return object({
     phoneNumberBuilder: object({
@@ -33,3 +34,12 @@ export const phoneNumberTransformer =
     }
     return formValue;
   };
+
+export const createInitialPhoneNumberBuilderValue = (phoneNumber: string): PhoneNumberBuilder => {
+  return {
+    phoneNumberBuilder: {
+      dialCode: '+54',
+      phoneNumber: '1168075022',
+    },
+  };
+};

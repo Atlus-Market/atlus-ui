@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/form/validators/phone-number-validator';
 import { DeleteAccount } from '@/app/(main)/settings/components/delete-account/delete-account';
 import {
+  createInitialPhoneNumberBuilderValue,
   getPhoneNumberBuilderObject,
   PhoneNumberBuilder,
   phoneNumberTransformer,
@@ -49,7 +50,13 @@ const brokerSettingsSchema: ObjectSchema<BrokerSettings> = baseSettingsFormSchem
 export const BrokerSettingsForm = ({ user }: BrokerSettingsFormProps) => {
   const formProps = useForm<BrokerSettings>({
     resolver: yupResolver(brokerSettingsSchema),
-    defaultValues: brokerSettingsSchema.cast(user, { stripUnknown: true }),
+    defaultValues: brokerSettingsSchema.cast(
+      {
+        ...user,
+        businessPhoneBuilder: createInitialPhoneNumberBuilderValue(''),
+      },
+      { stripUnknown: true }
+    ),
   });
   const { mutate, isLoading } = useUpdateUser({ userId: user.id });
 
