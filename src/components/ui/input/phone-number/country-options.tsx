@@ -8,6 +8,9 @@ export interface CountryOptionData {
 
 export const defaultCountry = CountryList.findOneByCountryCode('US')!;
 
+export const UScountry = CountryList.findOneByCountryCode('US')!;
+export const CAcountry = CountryList.findOneByCountryCode('CA')!;
+
 export const getCountryOptions = () => {
   const countries = CountryList.getAll();
   const countryOptions = countries.map(country => {
