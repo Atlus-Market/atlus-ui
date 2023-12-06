@@ -41,12 +41,14 @@ export const BrokerSettingsFormFields = ({ user }: BrokerSettingsFormFieldsProps
         placeholder="phone number"
         {...register('businessPhoneBuilder.phoneNumberBuilder.phoneNumber')}
         dialCodeInputName="businessPhoneBuilder.phoneNumberBuilder.dialCode"
+        label="Business phone"
       />
 
       <AtlusFormPhoneNumberInput
         placeholder="phone number"
         {...register('cellPhoneBuilder.phoneNumberBuilder.phoneNumber')}
         dialCodeInputName="cellPhoneBuilder.phoneNumberBuilder.dialCode"
+        label="Cell phone"
       />
 
       <AtlusFormInput

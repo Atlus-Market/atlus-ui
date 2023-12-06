@@ -1,6 +1,7 @@
 interface AtlusFormLabelProps {
   label?: string;
   htmlFor?: string;
+  className?: string;
 }
 
 export const AtlusFormLabel = ({ label, ...rest }: AtlusFormLabelProps) => {
