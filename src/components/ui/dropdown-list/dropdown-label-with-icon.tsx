@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 interface DropdownLabelWithIconProps {
   icon: ReactNode;
-  label: string;
+  label: ReactNode;
 }
 
 export const DropdownLabelWithIcon = ({ label, icon }: DropdownLabelWithIconProps) => {

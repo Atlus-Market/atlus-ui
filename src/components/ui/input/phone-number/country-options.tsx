@@ -10,8 +10,13 @@ export const defaultCountry = CountryList.findOneByCountryCode('US')!;
 
 export const getCountryOptions = () => {
   const countries = CountryList.getAll();
-  return countries.map(country => {
-    const label: string = `${country.name} (${country.dialCode})`;
+  const countryOptions = countries.map(country => {
+    const label = (
+      <span className="font-inter text-sm font-medium">
+        <span className="text-soft-black mr-4">{country.name}</span>
+        <span className="text-dark-grey">{country.dialCode}</span>
+      </span>
+    );
     return {
       label: (
         <DropdownLabelWithIcon label={label} icon={<div className="mr-5px">{country.flag}</div>} />
@@ -22,6 +27,13 @@ export const getCountryOptions = () => {
       },
     };
   });
+  return [
+    {
+      options: countryOptions,
+      label: 'Country codes',
+      value: 'country_codes',
+    },
+  ];
 };
 
 type CountryOption = ReturnType<typeof getCountryOptions>[number];

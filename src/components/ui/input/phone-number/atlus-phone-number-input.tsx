@@ -64,7 +64,6 @@ export const AtlusPhoneNumberInput = forwardRef<HTMLInputElement, AtlusFormPhone
             }}
             singleValue={SingleValueFlag}
             extraClassnames={extraClassnames}
-            isOpen={true}
           />
           <AtlusInput {...restProps} ref={ref} wrapperClassName="w-full" />
         </div>
