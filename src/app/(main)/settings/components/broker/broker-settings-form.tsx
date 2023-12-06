@@ -53,7 +53,8 @@ export const BrokerSettingsForm = ({ user }: BrokerSettingsFormProps) => {
     defaultValues: brokerSettingsSchema.cast(
       {
         ...user,
-        businessPhoneBuilder: createInitialPhoneNumberBuilderValue(''),
+        businessPhoneBuilder: createInitialPhoneNumberBuilderValue(user.businessPhone),
+        cellPhoneBuilder: createInitialPhoneNumberBuilderValue(user.cellPhone),
       },
       { stripUnknown: true }
     ),

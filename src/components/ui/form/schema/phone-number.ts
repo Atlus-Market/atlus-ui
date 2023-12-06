@@ -2,6 +2,7 @@ import { AnyObject, Maybe, object, string } from 'yup';
 import { RequiredField } from '@/constants/form';
 import { phoneNumberBuilderValidator } from '@/components/ui/form/validators/phone-number-validator';
 import { defaultCountry } from '@/components/ui/input/phone-number/country-options';
+import parsePhoneNumber from 'libphonenumber-js';
 
 export interface PhoneNumberBuilder {
   phoneNumberBuilder?: {
@@ -35,11 +36,28 @@ export const phoneNumberTransformer =
     return formValue;
   };
 
-export const createInitialPhoneNumberBuilderValue = (phoneNumber: string): PhoneNumberBuilder => {
+export const createInitialPhoneNumberBuilderValue = (
+  phoneNumberToParse: string
+): PhoneNumberBuilder => {
+  const phoneNumber = parsePhoneNumber(phoneNumberToParse, {
+    extract: false, // Do not extract phone number from phoneNumber argument. Just parse it entirely.
+  });
+
+  console.log('parsedPhoneNumber: ', phoneNumber);
+
+  if (phoneNumber && phoneNumber?.isValid()) {
+    return {
+      phoneNumberBuilder: {
+        dialCode: `+${phoneNumber.countryCallingCode}`,
+        phoneNumber: phoneNumber.nationalNumber,
+      },
+    };
+  }
+
   return {
     phoneNumberBuilder: {
-      dialCode: '+54',
-      phoneNumber: '1168075022',
+      dialCode: defaultCountry.dialCode,
+      phoneNumber: '',
     },
   };
 };
