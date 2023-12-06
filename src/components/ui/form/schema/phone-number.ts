@@ -43,8 +43,6 @@ export const createInitialPhoneNumberBuilderValue = (
     extract: false, // Do not extract phone number from phoneNumber argument. Just parse it entirely.
   });
 
-  console.log('parsedPhoneNumber: ', phoneNumber);
-
   if (phoneNumber && phoneNumber?.isValid()) {
     return {
       phoneNumberBuilder: {

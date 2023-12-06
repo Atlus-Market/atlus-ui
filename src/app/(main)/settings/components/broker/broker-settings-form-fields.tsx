@@ -1,6 +1,6 @@
 'use client';
 
-import { useFormContext, useWatch } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { AtlusFormInput } from '@/components/ui/form/atlus-form-input';
 import { User } from '@/models/user';
 import { AtlusDivider } from '@/components/ui/divider/atlus-divider';
@@ -19,15 +19,7 @@ interface BrokerSettingsFormFieldsProps {
 }
 
 export const BrokerSettingsFormFields = ({ user }: BrokerSettingsFormFieldsProps) => {
-  const {
-    register,
-    getValues,
-    formState: { errors },
-  } = useFormContext<BrokerSettings>();
-
-  const v = useWatch();
-  console.log('form values: ', v);
-  console.log('form errors: ', errors);
+  const { register } = useFormContext<BrokerSettings>();
 
   return (
     <div>
@@ -48,7 +40,7 @@ export const BrokerSettingsFormFields = ({ user }: BrokerSettingsFormFieldsProps
         placeholder="phone number"
         {...register('cellPhoneBuilder.phoneNumberBuilder.phoneNumber')}
         dialCodeInputName="cellPhoneBuilder.phoneNumberBuilder.dialCode"
-        label="Cell phone"
+        label="Cell phone (Optional)"
       />
 
       <AtlusFormInput

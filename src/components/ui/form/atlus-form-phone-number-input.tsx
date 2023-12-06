@@ -36,7 +36,6 @@ export const AtlusFormPhoneNumberInput = forwardRef<HTMLInputElement, AtlusFormP
       }
       if (dialCode) {
         const countries = getCountryByDialCode(dialCode);
-        console.log('countries: ', countries);
         if (countries.length > 0) {
           return countries[0].code;
         }

@@ -43,7 +43,6 @@ export const AtlusPhoneNumberInput = forwardRef<HTMLInputElement, AtlusFormPhone
     ref
   ) {
     const countryOptions = useMemo(getCountryOptions, []);
-    console.log('defaultCountryCode: ', defaultCountryCode);
 
     return (
       <div className="flex flex-col">
