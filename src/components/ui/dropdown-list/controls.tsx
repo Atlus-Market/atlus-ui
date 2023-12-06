@@ -98,7 +98,6 @@ export const controls = {
     children,
     ...rest
   }: SingleValueProps<DropdownOption<T>>) => {
-    console.log('single: ', rest);
     const { singleValue } = rest.selectProps.atlusDropdownProps;
     if (singleValue) {
       const CustomElement = singleValue;

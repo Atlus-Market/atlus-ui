@@ -12,7 +12,6 @@ interface UploadCompanyLogoFieldProps {
 export const UploadCompanyLogoField = ({}: UploadCompanyLogoFieldProps) => {
   const [logoUrl, setLogoUrl] = useState('');
 
-  ///////
   const { isOn, setOn, setOff } = useToggleState();
   const [companyLogoDataImageURL, setCompanyLogoDataImageURL] = useState<string>('');
 
@@ -36,9 +35,6 @@ export const UploadCompanyLogoField = ({}: UploadCompanyLogoFieldProps) => {
     },
     [setOff]
   );
-
-  console.log('logoUrl: ', logoUrl);
-  console.log('companyLogoDataImageURL: ', companyLogoDataImageURL);
 
   return (
     <>

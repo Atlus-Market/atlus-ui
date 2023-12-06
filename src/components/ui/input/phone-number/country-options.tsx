@@ -14,7 +14,7 @@ export const getCountryOptions = () => {
       label: (
         <DropdownLabelWithIcon label={label} icon={<div className="mr-5px">{country.flag}</div>} />
       ),
-      value: country.dialCode,
+      value: country.code,
       data: {
         countryData: country,
       },

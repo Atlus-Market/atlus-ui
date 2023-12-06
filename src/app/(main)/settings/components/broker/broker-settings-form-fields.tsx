@@ -12,7 +12,7 @@ import { ChangePasswordFormField } from '@/app/(main)/settings/components/change
 import { UserAvatar } from '@/app/(main)/settings/components/user-avatar/user-avatar';
 import { AtlusFormLabel } from '@/components/ui/form/atlus-form-label';
 import { UploadCompanyLogoField } from '@/app/(main)/settings/components/upload-company-logo-field';
-import { AtlusPhoneNumberInput } from '@/components/ui/input/phone-number/atlus-phone-number-input';
+import { AtlusFormPhoneNumberInput } from '@/components/ui/form/atlus-form-phone-number-input';
 
 interface BrokerSettingsFormFieldsProps {
   user: User;
@@ -23,17 +23,17 @@ export const BrokerSettingsFormFields = ({ user }: BrokerSettingsFormFieldsProps
 
   return (
     <div>
-      {/*<AtlusPhoneNumberInput />*/}
+      <AtlusFormPhoneNumberInput placeholder="phone number" {...register('businessPhone')} />
       <UserAvatar user={user} />
       <AtlusFormInput placeholder="John" label="First name" {...register('firstName')} />
       <AtlusFormInput placeholder="Doe" label="Last name" {...register('lastName')} />
       <ChangeEmailFormField email={user.email} />
       <ChangePasswordFormField />
-      <AtlusFormInput
-        placeholder="+1 234 567 890"
-        label="Business phone"
-        {...register('businessPhone')}
-      />
+      {/*<AtlusFormInput*/}
+      {/*  placeholder="+1 234 567 890"*/}
+      {/*  label="Business phone"*/}
+      {/*  {...register('businessPhone')}*/}
+      {/*/>*/}
       <AtlusFormInput placeholder="+1 234 567 890" label="Cell phone" {...register('cellPhone')} />
       <AtlusFormInput
         placeholder="External URL"
