@@ -11,6 +11,7 @@ import { UserAvatar } from '@/app/(main)/settings/components/user-avatar/user-av
 import { DropdownOption } from '@/components/ui/dropdown-list/atlus-dropdown-list';
 import { ChangePasswordFormField } from '@/app/(main)/settings/components/change-password-form-field';
 import { ChangeEmailFormField } from '@/app/(main)/settings/components/change-email-form-field';
+import { AtlusFormPhoneNumberInput } from '@/components/ui/form/atlus-form-phone-number-input';
 
 interface BuyerSettingsFormFieldsProps {
   user: User;
@@ -26,7 +27,12 @@ export const BuyerSettingsFormFields = ({ user }: BuyerSettingsFormFieldsProps) 
       <AtlusFormInput placeholder="Doe" label="Last name" {...register('lastName')} />
       <ChangeEmailFormField email={user.email} />
       <ChangePasswordFormField />
-      <AtlusFormInput placeholder="+1 234 567 890" label="Phone" {...register('cellPhone')} />
+      <AtlusFormPhoneNumberInput
+        placeholder="phone number"
+        {...register('cellPhoneBuilder.phoneNumberBuilder.phoneNumber')}
+        dialCodeInputName="cellPhoneBuilder.phoneNumberBuilder.dialCode"
+        label="Cell phone"
+      />
       <PrivateProfile />
 
       <AtlusDivider className="my-6 md:mb-8" />

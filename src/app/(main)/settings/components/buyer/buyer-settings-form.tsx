@@ -11,6 +11,13 @@ import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { useUpdateUser } from '@/hooks/data/use-update-user';
 import { baseSettingsFormSchema } from '@/app/(main)/settings/components/form/base-user-setting-schema';
 import { DeleteAccount } from '@/app/(main)/settings/components/delete-account/delete-account';
+import {
+  createInitialPhoneNumberBuilderValue,
+  getPhoneNumberBuilderObject,
+  PhoneNumberBuilder,
+  phoneNumberTransformer,
+} from '@/components/ui/form/schema/phone-number';
+import { BrokerSettings } from '@/app/(main)/settings/components/broker/broker-settings-form';
 
 interface BuyerSettingsFormProps {
   user: User;
@@ -18,16 +25,26 @@ interface BuyerSettingsFormProps {
 
 export interface BuyerSettings extends BaseUserSettings {
   privateProfile: boolean;
+  cellPhoneBuilder: PhoneNumberBuilder;
 }
 
-const buyerSettingsSchema: ObjectSchema<BuyerSettings> = baseSettingsFormSchema.shape({
-  privateProfile: boolean().default(false).required(),
-});
+const buyerSettingsSchema: ObjectSchema<BuyerSettings> = baseSettingsFormSchema
+  .shape({
+    privateProfile: boolean().default(false).required(),
+    cellPhoneBuilder: getPhoneNumberBuilderObject({ required: false }),
+  })
+  .transform(phoneNumberTransformer<BrokerSettings>('cellPhoneBuilder', 'cellPhone'));
 
 export const BuyerSettingsForm = ({ user }: BuyerSettingsFormProps) => {
   const formProps = useForm<BuyerSettings>({
     resolver: yupResolver(buyerSettingsSchema),
-    defaultValues: buyerSettingsSchema.cast(user, { stripUnknown: true }),
+    defaultValues: buyerSettingsSchema.cast(
+      {
+        ...user,
+        cellPhoneBuilder: createInitialPhoneNumberBuilderValue(user.cellPhone),
+      },
+      { stripUnknown: true }
+    ),
   });
   const { mutate, isLoading } = useUpdateUser({ userId: user.id });
 
