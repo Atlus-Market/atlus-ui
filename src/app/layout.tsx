@@ -13,6 +13,12 @@ export const metadata = {
   description: '',
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={clsx(inter.variable, geologica.variable)}>
