@@ -27,7 +27,7 @@ export default function DocumentsPage({ params }: DocumentsPageProps) {
         <DocumentsUploader />
         <DocumentsList />
         <SetPackageFooter>
-          <ViewPackageButton packageId={params.id} />
+          <ViewPackageButton />
         </SetPackageFooter>
       </DocumentsProvider>
     </DocumentsPageValidator>
