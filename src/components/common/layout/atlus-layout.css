@@ -1,6 +1,6 @@
 .atlus-layout {
     display: grid;
-    grid-template-rows: var(--atlus-header-height) calc(100vh - var(--atlus-header-height));
+    grid-template-rows: var(--atlus-header-height) calc(100dvh - var(--atlus-header-height));
     @apply h-screen;
 }
 

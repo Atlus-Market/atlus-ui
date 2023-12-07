@@ -39,6 +39,7 @@ body {
     height: 100%;
     background: var(--color-white);
     overflow-y: hidden; /* Layout handlers scroll */
+    overscroll-behavior: none;
 }
 
 body:has([data-prevent-scoll='true']) {

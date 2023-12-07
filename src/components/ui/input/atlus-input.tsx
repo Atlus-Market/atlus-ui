@@ -62,6 +62,7 @@ export const AtlusInput = forwardRef<HTMLInputElement, AtlusInputProps>(function
             'placeholder:text-dark-grey',
             'flex-grow',
             'disabled:bg-lightest-grey',
+            'w-0', // Needed for shrinking the input on flex containers
             inputClassName
           )}
           ref={ref}
