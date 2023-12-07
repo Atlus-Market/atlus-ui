@@ -28,6 +28,7 @@ export const AtlusSearchBar = ({ initialValue, onChange, ...restProps }: AtlusSe
         className={clsx(
           'placeholder:text-dark-grey',
           'text-13 md:text-sm',
+          'outline-none',
           ' text-soft-black font-inter leading-normal bg-lightest-grey outline-0',
           'w-full'
         )}
