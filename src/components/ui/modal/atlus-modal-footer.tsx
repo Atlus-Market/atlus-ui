@@ -13,14 +13,13 @@ export const AtlusModalFooter = ({ children, className }: AtlusModalFooterProps)
   const isDialogSize = size === 'dialog';
   const isLargeSize = size === 'large';
 
-  const validChildrenCount = 1; //countValidChildren(children);
   return (
     <div
       className={clsx(
         'flex modal-footer items-center w-full',
         // [&:has(:nth-child(2))]:justify-between justify-end does not work on Safari.
         // It doesn't update after first render.
-        validChildrenCount > 1 ? 'justify-between' : 'justify-end',
+        'justify-end',
         {
           'p-6 md:p-40': isDialogSize,
           'px-4 pt-5 pb-8 md:px-40 md:pt-6 md:pb-8': isMediumSize,
