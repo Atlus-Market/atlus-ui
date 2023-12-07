@@ -3,6 +3,7 @@ import './search.css';
 import clsx from 'clsx';
 import { InputHTMLAttributes } from 'react';
 import { ClearInputButton } from '@/app/(main)/search/components/clear-input-button';
+import { SearchingPackagesLoader } from '@/app/(main)/search/components/searching-packages-loader';
 
 export const searchPackagesInputID = 'search-packages';
 
@@ -32,6 +33,7 @@ export const AtlusSearchBar = ({ initialValue, onChange, ...restProps }: AtlusSe
         )}
         {...restProps}
       />
+      <SearchingPackagesLoader />
       <ClearInputButton />
     </div>
   );
