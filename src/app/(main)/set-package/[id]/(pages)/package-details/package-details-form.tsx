@@ -10,7 +10,6 @@ import { selectPackageDetailsFormValues } from '@/redux/features/set-package/sel
 import { ReactNode, useCallback } from 'react';
 import { Visibility } from '@/components/common/dropdown/visibility-options';
 import { useSubmitPackageDetailsForm } from '@/app/(main)/set-package/[id]/(pages)/package-details/use-submit-package-details-form';
-import { PackageStatus } from '@/models/package-status';
 import {
   hasValidTitleName,
   invalidTitleErrorMessage,
@@ -23,22 +22,24 @@ import {
   selectPackage,
   selectPackagePatents,
 } from '@/redux/features/set-package/selectors/set-package.selectors';
+import { Package } from '@/models/package';
 
-export interface IPackageDetailsForm {
-  title: string;
-  description: string;
-  industryIds: number[];
-  keywords: string[];
-  visibility: Visibility;
-  priceUsd: number;
-  openToLicensing: boolean;
-  showPublicPricing: boolean;
-  sellerUserId: string;
-  products: string[];
-  containsSep: boolean;
-  sepStandardIds: string[];
-  status: PackageStatus;
-}
+export type IPackageDetailsForm = Pick<
+  Package,
+  | 'title'
+  | 'description'
+  | 'industryIds'
+  | 'keywords'
+  | 'visibility'
+  | 'priceUsd'
+  | 'openToLicensing'
+  | 'showPublicPricing'
+  | 'sellerUserId'
+  | 'products'
+  | 'containsSep'
+  | 'sepStandardIds'
+  | 'status'
+>;
 
 export type ExtendedPackageDetailsForm = IPackageDetailsForm & {
   [hasValidTitleName]: boolean;
