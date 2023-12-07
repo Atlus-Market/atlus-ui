@@ -11,6 +11,7 @@ import { AtlusDialogModal } from '@/components/ui/modal/dialog/atlus-dialog-moda
 import { useToggleState } from '@/hooks/use-toggle-state';
 import { Package } from '@/models/package';
 import { useSharePackage } from '@/app/(main)/package/share/hooks/use-share-package';
+import { useBetweenTailwindBreakpoints } from '@/hooks/use-between-tailwind-breakpoints';
 
 interface BrokerPackageMenuProps {
   basePackage: Pick<Package, 'id' | 'visibility'>;
@@ -20,6 +21,9 @@ const shareMenuOptionValue = 'share';
 
 export const BrokerPackageMenu = ({ basePackage }: BrokerPackageMenuProps) => {
   const { isOn, setOn, setOff } = useToggleState(false);
+  const isMdScreen = useBetweenTailwindBreakpoints({
+    minBreakpoint: 'md',
+  });
   const { id: packageId } = basePackage;
   const { sharePackage } = useSharePackage({ basePackage });
   const { deletePackage, isDeletingPackage } = useDeletePackageAction({ packageId });
@@ -74,9 +78,11 @@ export const BrokerPackageMenu = ({ basePackage }: BrokerPackageMenuProps) => {
         menuItems={
           <>
             <AtlusMenuItem value={shareMenuOptionValue} text="Share" />
-            <Link href={SetPackagePatent(packageId)}>
-              <AtlusMenuItem text="Edit" />
-            </Link>
+            {isMdScreen && (
+              <Link href={SetPackagePatent(packageId)}>
+                <AtlusMenuItem text="Edit" />
+              </Link>
+            )}
             <AtlusMenuItem text="Delete" onClick={setOn} />
           </>
         }
