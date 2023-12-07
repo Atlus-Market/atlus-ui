@@ -8,13 +8,13 @@ import { HiCheck } from 'react-icons/hi2';
 interface AtlusCopyToClipboardProps {
   textToCopy: string;
   children: ReactNode;
-  onCopiedText: string;
+  onCopiedNode: ReactNode;
 }
 
 export const AtlusCopyToClipboard = ({
   children,
   textToCopy,
-  onCopiedText,
+  onCopiedNode,
 }: AtlusCopyToClipboardProps) => {
   const [, copy] = useCopyToClipboard();
   const [isShowingCopiedText, setIsShowingCopiedText] = useState<boolean>(false);
@@ -37,12 +37,7 @@ export const AtlusCopyToClipboard = ({
   );
 
   if (isShowingCopiedText) {
-    return (
-      <span className="flex items-center text-green hover:text-green">
-        {onCopiedText}
-        <HiCheck size={20} className="ml-[10px]" />
-      </span>
-    );
+    return <>{onCopiedNode}</>;
   }
 
   return <div onClick={onCopyClicked}>{children}</div>;

@@ -1,7 +1,7 @@
 'use client';
 
 import { AtlusButton } from '@/components/ui/button/atlus-button';
-import { HiLink } from 'react-icons/hi2';
+import { HiCheck, HiLink } from 'react-icons/hi2';
 import { AtlusCopyToClipboard } from '@/components/common/atlus-copy-to-clipboard';
 import { ReactNode } from 'react';
 import { useAppSelector } from '@/redux/hooks';
@@ -12,13 +12,29 @@ interface SharePackageFooterProps {
   children: ReactNode;
 }
 
+const onCopy = (
+  <AtlusButton
+    variant="clear"
+    color="dark-grey"
+    className="atlus-btn-40"
+    leftIcon={<HiCheck className="text-green" />}
+  >
+    <span className="text-green">Copied!</span>
+  </AtlusButton>
+);
+
 export const SharePackageFooter = ({ children }: SharePackageFooterProps) => {
   const packageId = useAppSelector(selectSharePackageId);
   const packageUrl = `${window.location.origin}/${PackagePageUrl(packageId)}`;
   return (
     <div className="flex justify-between items-center w-full min-h-[28px]">
-      <AtlusCopyToClipboard textToCopy={packageUrl} onCopiedText="Link copied!">
-        <AtlusButton variant="clear" color="dark-grey" leftIcon={<HiLink />}>
+      <AtlusCopyToClipboard textToCopy={packageUrl} onCopiedNode={onCopy}>
+        <AtlusButton
+          variant="clear"
+          color="dark-grey"
+          className="atlus-btn-40"
+          leftIcon={<HiLink />}
+        >
           Copy Link
         </AtlusButton>
       </AtlusCopyToClipboard>
