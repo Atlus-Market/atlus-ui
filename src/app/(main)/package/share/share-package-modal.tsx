@@ -3,7 +3,6 @@
 import dynamic from 'next/dynamic';
 import { useSharePackageVisibility } from '@/app/(main)/package/share/hooks/use-share-package-visibility';
 import { useAtlusUser } from '@/app/(auth)/session/use-atlus-user';
-import { AtlusSplashLoader } from '@/components/ui/splash-loader/atlus-splash-loader';
 import { useSelector } from 'react-redux';
 import { selectIsPrivatePackage } from '@/redux/features/share-package/selectors/share-package.selectors';
 
@@ -13,8 +12,7 @@ const ShareBrokerPackage = dynamic(
       mod => mod.ShareBrokerPackage
     ),
   {
-    loading: () => <AtlusSplashLoader />,
-    ssr: false,
+    // loading: () => <AtlusSplashLoader />,
   }
 );
 
@@ -24,15 +22,14 @@ const ShareBuyerPackage = dynamic(
       mod => mod.ShareBuyerPackage
     ),
   {
-    loading: () => <AtlusSplashLoader />,
-    ssr: false,
+    // loading: () => <AtlusSplashLoader />,
   }
 );
 
 const AtlusAlertModal = dynamic(
   () => import('@/components/ui/modal/dialog/atlus-dialog-modal').then(mod => mod.AtlusDialogModal),
   {
-    loading: () => <AtlusSplashLoader />,
+    // loading: () => <AtlusSplashLoader />,
     ssr: false,
   }
 );

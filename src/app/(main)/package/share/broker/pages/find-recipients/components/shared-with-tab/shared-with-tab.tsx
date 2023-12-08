@@ -22,7 +22,7 @@ export const SharedWithTab = () => {
   const hasPeopleAccess = packageAccess.length > 0;
 
   return (
-    <div className={clsx(atlusMediumModalBodyPx, 'h-[300px] md:h-[400px] overflow-y-auto')}>
+    <div className={clsx(atlusMediumModalBodyPx, 'h-[300px] overflow-y-auto')}>
       {hasPeopleAccess ? (
         packageAccess.map(contactPackageAccess => (
           <ContactPackageAccess
