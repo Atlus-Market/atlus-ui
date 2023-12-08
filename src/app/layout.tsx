@@ -7,10 +7,17 @@ import { LogRocketProvider } from '@/app/log-rocket-provider';
 import { AtlusNotificationProvider } from '@/components/ui/notification/atlus-notification-provider';
 import { geologica, inter } from '@/components/ui/theme/fonts';
 import clsx from 'clsx';
+import type { Metadata } from 'next';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Atlus',
   description: '',
+  formatDetection: {
+    telephone: false,
+    date: false,
+    email: false,
+    address: false,
+  },
 };
 
 export const viewport = {
