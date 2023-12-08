@@ -5,6 +5,7 @@
 import { Area } from 'react-easy-crop/types';
 import { DataImageURL } from '@/types';
 import { generateID } from '@/utils/id';
+import canvasSize from 'canvas-size';
 
 const createImage = (url: string): Promise<HTMLImageElement> =>
   new Promise((resolve, reject) => {
@@ -29,7 +30,15 @@ async function getCroppedImg(imageSrc: DataImageURL, pixelCrop: Area, rotation =
   }
 
   const maxSize = Math.max(image.width, image.height);
-  const safeArea = 2 * ((maxSize / 2) * Math.sqrt(2));
+  let safeArea = 2 * ((maxSize / 2) * Math.sqrt(2));
+  const canvasLimitation = await canvasSize.maxArea({
+    usePromise: true,
+    useWorker: true,
+  });
+
+  if (safeArea > canvasLimitation.height) {
+    safeArea *= canvasLimitation.height / safeArea;
+  }
 
   // set each dimensions to double largest dimension to allow for a safe area for the
   // image to rotate in without being clipped by canvas context

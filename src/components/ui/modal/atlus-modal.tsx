@@ -55,7 +55,7 @@ export const AtlusModal = ({
         shouldCloseOnOverlayClick={true}
         onRequestClose={onRequestClose}
         className={clsx(
-          'atlus-modal-content h-auto md:h-auto max-h-[90dvh] md:max-h-[792px]',
+          'atlus-modal-content h-auto md:h-auto max-h-[95dvh] md:max-h-[792px]',
           modalBodyClassName
         )}
       >
