@@ -40,7 +40,10 @@ export const AtlusFormDropdownList = <T extends ValueOptionType>({
             errors={errors}
             defaultValue={value || defaultValue}
             {...rest}
-            onChange={onChange}
+            onChange={(v: T) => {
+              onChange(v);
+              trigger(name);
+            }}
             onBlur={() => trigger(name)}
             wrapperClassName={clsx('mb-4 md:mb-6', wrapperClassName)}
           />
