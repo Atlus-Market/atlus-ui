@@ -12,6 +12,7 @@ export default async function middlewares(req: NextRequest, event: NextFetchEven
   const isAuthenticated = !!token;
   const isTokenExpired = isAuthenticated && accessToken && hasTokenExpired(accessToken);
   const { pathname } = req.nextUrl;
+  const isRootPathname = pathname === '/';
 
   console.log('[Middleware] pathname: ', pathname);
   console.log('[Middleware] isAuthenticated: ', isAuthenticated);
@@ -25,11 +26,15 @@ export default async function middlewares(req: NextRequest, event: NextFetchEven
     }
   }
 
+  if (!isAuthenticated && isRootPathname) {
+    return NextResponse.redirect(new URL('/login', req.url));
+  }
+
   const isUnauthenticatedPathname = isUnauthenticatedEndpoint(pathname);
   const canRunOnAllCases = canEndpointRunOnAllCases(pathname);
 
   // Prevent access to pages that are for users with no auth session
-  if (isAuthenticated && isUnauthenticatedPathname && !canRunOnAllCases) {
+  if (isAuthenticated && ((isUnauthenticatedPathname && !canRunOnAllCases) || isRootPathname)) {
     // Do not redirect to "/" because the redirect is being done in next.config.js
     return NextResponse.redirect(new URL('/dashboard', req.url));
   } else if (isUnauthenticatedPathname || canRunOnAllCases) {
@@ -75,7 +80,7 @@ const isUnauthenticatedEndpoint = (pathname: string): boolean => {
 };
 
 export const config = {
-  matcher: ['/((?!_next|api/auth).*)(.+)'],
+  matcher: ['/((?!_next|api/auth).*)(.+)', '/'],
 };
 
 const isBrokerOnlyPathname = (pathname: string): boolean => {
