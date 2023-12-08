@@ -15,7 +15,7 @@ export default function Header() {
         'border-b border-b-lightest-grey'
       )}
     >
-      <Link href="/">
+      <Link href="/" prefetch={false}>
         <AtlusLogo />
       </Link>
 
