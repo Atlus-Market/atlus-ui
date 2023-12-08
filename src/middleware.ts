@@ -1,79 +1,63 @@
-import { NextRequestWithAuth, withAuth } from 'next-auth/middleware';
 import { hasTokenExpired } from '@/utils/auth';
-import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
-export default async function middlewares(req: NextRequest, event: NextFetchEvent) {
-  console.log('------------- [Middleware] -------------');
-  const logoutPath = '/logout';
+const LogoutPath = '/';
+
+export default async function middleware(req: NextRequest) {
+  console.log('------------- [Middleware] - Start -------------');
   const token = await getToken({ req });
   const accessToken = token?.user?.accessToken;
-  const isBrokerUser = token?.user?.isBroker || false;
   const isAuthenticated = !!token;
   const isTokenExpired = isAuthenticated && accessToken && hasTokenExpired(accessToken);
   const { pathname } = req.nextUrl;
-  const isRootPathname = pathname === '/';
 
   console.log('[Middleware] pathname: ', pathname);
   console.log('[Middleware] isAuthenticated: ', isAuthenticated);
   console.log('[Middleware] isTokenExpired: ', isTokenExpired);
 
   if (isTokenExpired) {
-    if (pathname !== logoutPath) {
-      return NextResponse.redirect(new URL(logoutPath, req.url));
+    if (pathname !== LogoutPath) {
+      return NextResponse.redirect(new URL(LogoutPath, req.url));
     } else {
       return NextResponse.next();
     }
   }
+  const isPathnameFree = isFreePathname(pathname);
+  const mustNotContainSession = pathnameMustNotContainSession(pathname);
 
-  if (!isAuthenticated && isRootPathname) {
-    return NextResponse.redirect(new URL('/login', req.url));
-  }
+  if (isAuthenticated) {
+    const isRootPathname = pathname === '/';
+    const isBrokerUser = token?.user?.isBroker || false;
+    const shouldRedirectBrokerPathnameAccess = !isBrokerUser && isBrokerOnlyPathname(pathname);
 
-  const isUnauthenticatedPathname = isUnauthenticatedEndpoint(pathname);
-  const canRunOnAllCases = canEndpointRunOnAllCases(pathname);
-
-  // Prevent access to pages that are for users with no auth session
-  if (isAuthenticated && ((isUnauthenticatedPathname && !canRunOnAllCases) || isRootPathname)) {
-    // Do not redirect to "/" because the redirect is being done in next.config.js
-    return NextResponse.redirect(new URL('/dashboard', req.url));
-  } else if (isUnauthenticatedPathname || canRunOnAllCases) {
-    // Continue loading the free endpoint
+    if (mustNotContainSession || isRootPathname || shouldRedirectBrokerPathnameAccess) {
+      console.log('*** REDIRECTING TO DASHBOARD ***');
+      return NextResponse.redirect(new URL('/dashboard', req.url));
+    }
+    console.log('Continue loading regular auth endpoint...');
+    // Continue loading the authenticated endpoint
     return NextResponse.next();
   }
 
-  if (isBrokerOnlyPathname(pathname) && !isBrokerUser) {
-    console.log('User is not broker. Redirecting...');
-    return NextResponse.redirect(new URL('/dashboard', req.url));
+  if (isPathnameFree || mustNotContainSession) {
+    // Continue loading the endpoint
+    return NextResponse.next();
   }
 
-  // The pathname requires auth and the user is not logged in
-  const authMiddleware = await withAuth({
-    pages: {
-      signIn: `/login`,
-    },
-  });
-
-  if (authMiddleware instanceof Response) {
-    return authMiddleware;
-  }
-
-  if (authMiddleware) {
-    return authMiddleware(req as NextRequestWithAuth, event);
-  }
-
-  return authMiddleware;
+  console.log('------------- [Middleware] - End -------------');
+  return NextResponse.redirect(new URL('/login', req.url));
 }
 
 /**
  * Validates if an endpoint can run with or without session
  * @param pathname
  */
-const canEndpointRunOnAllCases = (pathname: string): boolean => {
+const isFreePathname = (pathname: string): boolean => {
   return new RegExp(/(^\/package\/*|api\/email\/*).*/).test(pathname);
 };
 
-const isUnauthenticatedEndpoint = (pathname: string): boolean => {
+const pathnameMustNotContainSession = (pathname: string): boolean => {
   return new RegExp(
     /(login|forgot-password|onboarding|user\/confirm\/*|password\/reset\/*).*/
   ).test(pathname);

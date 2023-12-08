@@ -14,6 +14,7 @@ export const Login = () => {
   const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const router = useRouter();
+
   const onSubmit = async ({ email, password }: LoginFormSchema) => {
     setErrorMessage(undefined);
     setIsLoggingIn(true);

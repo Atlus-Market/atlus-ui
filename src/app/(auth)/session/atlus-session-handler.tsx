@@ -20,12 +20,14 @@ export const AtlusSessionHandler = ({ children }: AtlusTokenHandlerProps) => {
   const router = useRouter();
   const pathname = usePathname();
 
+  const hasAuthenticatedSession = atlusSession.status === 'authenticated';
   const hasExpiredSession =
-    atlusSession.status === 'authenticated' && session?.hasAtlusInvalidSession;
+    atlusSession.status === 'authenticated' && !!session?.hasAtlusInvalidSession;
+  const isLoadingSession = atlusSession.status === 'loading';
 
   useEffect(() => {
     AtlusSessionManager.session = session;
-  }, [atlusSession.status, session]);
+  }, [atlusSession.status, router, session]);
 
   useEffect(() => {
     if (pathname === LogoutRoute) {
@@ -36,7 +38,14 @@ export const AtlusSessionHandler = ({ children }: AtlusTokenHandlerProps) => {
     }
   }, [hasExpiredSession, router, pathname]);
 
-  if (atlusSession.status === 'loading') {
+  useEffect(() => {
+    if (!isLoadingSession) {
+      // Call this to clear Nextjs Cache
+      router.refresh();
+    }
+  }, [hasExpiredSession, hasAuthenticatedSession, isLoadingSession, router]);
+
+  if (isLoadingSession) {
     return null;
   }
 
