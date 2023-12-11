@@ -1,19 +1,19 @@
 import { createRequest, getResponseData, ProtectedEndpoint } from '@/api/api';
 
-export interface UploadUserAvatarPayload {
-  avatar: File;
+export interface UploadUserCompanyLogoPayload {
+  logo: File;
 }
 
-export const uploadUserAvatar = (payload: UploadUserAvatarPayload): Promise<void> => {
+export const uploadUserCompanyLogo = (payload: UploadUserCompanyLogoPayload): Promise<void> => {
   const headers = {
     'content-type': 'multipart/form-data',
   };
 
   const formData = new FormData();
-  formData.append('avatar', payload.avatar);
+  formData.append('image', payload.logo);
 
   return createRequest<FormData, void>({
-    url: '/user/avatar',
+    url: '/user/company-image',
     method: 'POST',
     isProtected: ProtectedEndpoint.True,
     headers,

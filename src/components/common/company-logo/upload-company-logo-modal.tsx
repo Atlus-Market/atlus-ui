@@ -8,22 +8,24 @@ import { AtlusModal } from '@/components/ui/modal/atlus-modal';
 import { AtlusModalFooter } from '@/components/ui/modal/atlus-modal-footer';
 import { AtlusButton } from '@/components/ui/button/atlus-button';
 import { DataImageURL } from '@/types';
+import { useUploadUserCompanyLogo } from '@/hooks/data/use-upload-user-company-logo';
+import { dataImageURLToFile } from '@/utils/file';
+import { generateID } from '@/utils/id';
 
 interface ImageCropperModalProps {
   isOpen: boolean;
   onClose: () => void;
   dataImageURL: DataImageURL;
-  isLoading?: boolean;
-  onLogoUploaded: (logoUrl: string) => void;
+  onLogoUploaded: () => void;
 }
 
 export const UploadCompanyLogoModal = ({
   onClose,
   isOpen,
   dataImageURL,
-  isLoading,
   onLogoUploaded,
 }: ImageCropperModalProps) => {
+  const { isLoading, mutateAsync } = useUploadUserCompanyLogo();
   return (
     <AtlusModal isOpen={isOpen} overlayClassName="z-[2]" onRequestClose={onClose}>
       <AtlusModalContainer
@@ -35,7 +37,10 @@ export const UploadCompanyLogoModal = ({
               color="orange"
               className="atlus-btn-45"
               onClick={async () => {
-                onLogoUploaded(dataImageURL);
+                const fileName = `${generateID()}.png`;
+                const companyLogoFile = await dataImageURLToFile(dataImageURL, fileName);
+                await mutateAsync(companyLogoFile);
+                onLogoUploaded();
               }}
               isLoading={isLoading}
             >

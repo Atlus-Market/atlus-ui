@@ -71,7 +71,7 @@ export const BrokerSettingsFormFields = ({ user }: BrokerSettingsFormFieldsProps
       />
 
       <AtlusFormLabel label="Company logo" />
-      <UploadCompanyLogoField />
+      <UploadCompanyLogoField logoUrl={user.companyImage} />
 
       <AtlusDivider className="my-6 md:mb-8" />
       <SettingsTitle title="Account managment" />

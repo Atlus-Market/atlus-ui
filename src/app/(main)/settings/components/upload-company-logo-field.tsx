@@ -9,15 +9,19 @@ interface UploadCompanyLogoFieldProps {
   logoUrl?: string;
 }
 
-export const UploadCompanyLogoField = ({}: UploadCompanyLogoFieldProps) => {
-  const [logoUrl, setLogoUrl] = useState('');
+export const UploadCompanyLogoField = ({ logoUrl }: UploadCompanyLogoFieldProps) => {
+  const [companyLogoUrl, setCompanyLogoUrl] = useState(logoUrl);
+
+  if (logoUrl !== companyLogoUrl) {
+    setCompanyLogoUrl(logoUrl);
+  }
 
   const { isOn, setOn, setOff } = useToggleState();
-  const [companyLogoDataImageURL, setCompanyLogoDataImageURL] = useState<string>('');
+  const [selectedCompanyLogo, setSelectedCompanyLogo] = useState<string>('');
 
   const onLogoSelected = useCallback(
     (dataImageURL: DataImageURL) => {
-      setCompanyLogoDataImageURL(dataImageURL);
+      setSelectedCompanyLogo(dataImageURL);
       setOn();
     },
     [setOn]
@@ -25,29 +29,21 @@ export const UploadCompanyLogoField = ({}: UploadCompanyLogoFieldProps) => {
 
   const onModalClose = useCallback(() => {
     setOff();
-    setCompanyLogoDataImageURL('');
+    setSelectedCompanyLogo('');
   }, [setOff]);
-
-  const onLogoUploaded = useCallback(
-    (logoUrl: string) => {
-      setLogoUrl(logoUrl);
-      setOff();
-    },
-    [setOff]
-  );
 
   return (
     <>
-      {logoUrl ? (
-        <CompanyLogo logoUrl={logoUrl} onSelectFile={onLogoSelected} />
+      {companyLogoUrl ? (
+        <CompanyLogo logoUrl={companyLogoUrl} onSelectFile={onLogoSelected} />
       ) : (
         <SelectCompanyLogo onSelectFile={onLogoSelected} />
       )}
       <UploadCompanyLogoModal
         isOpen={isOn}
         onClose={onModalClose}
-        dataImageURL={companyLogoDataImageURL}
-        onLogoUploaded={onLogoUploaded}
+        dataImageURL={selectedCompanyLogo}
+        onLogoUploaded={onModalClose}
       />
     </>
   );

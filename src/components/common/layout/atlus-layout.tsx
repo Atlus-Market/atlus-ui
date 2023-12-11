@@ -35,7 +35,7 @@ export const AtlusLayout = ({
           'bg-[color:var(--atlus-layout-bg-color)]'
         )}
       >
-        <div className="max-w-[1280px] w-full h-fit">{children}</div>
+        <div className="max-w-[1280px] w-full h-fit my-0 mx-auto">{children}</div>
       </div>
     </div>
   );

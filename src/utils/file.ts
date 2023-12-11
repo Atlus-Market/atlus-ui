@@ -46,3 +46,18 @@ export const downloadBlobFile = (blob: Blob, fileName?: string): void => {
   link.remove();
   window.URL.revokeObjectURL(documentsZipFileUrl);
 };
+
+export const dataImageURLToFile = async (
+  dataUrl: string,
+  fileName: string,
+  mimeType: string = 'image/png'
+): Promise<File> => {
+  mimeType = mimeType || (dataUrl.match(/^data:([^;]+);/) || '')[1];
+  return fetch(dataUrl)
+    .then(function (res) {
+      return res.arrayBuffer();
+    })
+    .then(function (buf) {
+      return new File([buf], fileName, { type: mimeType });
+    });
+};

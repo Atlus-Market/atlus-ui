@@ -51,7 +51,6 @@ export const UserAvatar = ({ user }: UserAvatarProps) => {
             onClose={closeImageCropper}
             dataImageURL={dataImageURL}
             onImageCropped={(avatarFile: File) => {
-              console.log('Avatar File: ', avatarFile);
               mutate(avatarFile);
             }}
             isLoading={isLoading}

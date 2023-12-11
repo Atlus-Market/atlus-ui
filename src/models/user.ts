@@ -8,6 +8,7 @@ export interface User {
   businessPhone: string;
   cellPhone: string;
   companyName: string;
+  companyImage: string;
   confirmedEmail: boolean;
   dealSizePreference: DealSize;
   dealTimeframePreference: Timeframe;

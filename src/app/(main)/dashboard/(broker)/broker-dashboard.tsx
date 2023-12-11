@@ -14,9 +14,9 @@ export const BrokerDashboard = async () => {
   }
 
   return (
-    <div>
+    <div className="flex items-center flex-col max-w-[909px] mx-auto">
       <PackagesStats />
-      <div className="flex justify-between items-center mb-[11px] md:mb-4 mt-6 md:mt-8">
+      <div className="flex justify-between items-center mb-[11px] w-full  md:mb-4 mt-6 md:mt-8">
         <span className="text-dark-grey text-sm md:text-18 font-geologica">Your packages</span>
         <CreatePackageButton />
       </div>

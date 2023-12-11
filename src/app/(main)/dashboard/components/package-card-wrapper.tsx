@@ -10,7 +10,7 @@ interface PackageCardWrapperProps {
 export const PackageCardWrapper = ({ children, packageId, className }: PackageCardWrapperProps) => {
   return (
     <div
-      className={clsx('bg-white rounded-xl', 'max-w-[909px]', className)}
+      className={clsx('bg-white rounded-xl', 'w-full max-w-[909px]', className)}
       data-package-id={packageId}
     >
       {children}
