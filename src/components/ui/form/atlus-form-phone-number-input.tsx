@@ -1,7 +1,7 @@
 'use client';
 
 import { useFormContext, useFormState } from 'react-hook-form';
-import { forwardRef, useCallback, useMemo } from 'react';
+import { forwardRef, useCallback, useEffect, useMemo } from 'react';
 import {
   AtlusPhoneNumberInput,
   AtlusPhoneNumberInputProps,
@@ -43,6 +43,16 @@ export const AtlusFormPhoneNumberInput = forwardRef<HTMLInputElement, AtlusFormP
       return defaultCountry.code;
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+      if (countryCode) {
+        const countries = getCountryByDialCode(countryCode);
+        if (countries.length > 0) {
+          onCountryCodeChanged(countries[0].code);
+        }
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [countryCode]);
 
     return (
       <AtlusPhoneNumberInput

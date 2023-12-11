@@ -14,8 +14,16 @@ import {
   UserAccountForm,
 } from '@/app/onboarding/components/create-user-account';
 import { emailField } from '@/components/ui/form/validators/email-field';
+import {
+  getPhoneNumberBuilderObject,
+  PhoneNumberBuilder,
+  phoneNumberTransformer,
+} from '@/components/ui/form/schema/phone-number';
+import { AtlusFormPhoneNumberInput } from '@/components/ui/form/atlus-form-phone-number-input';
 
-export type BrokerAccountForm = Omit<UserAccountForm, 'title'>;
+export type BrokerAccountForm = Omit<UserAccountForm, 'title'> & {
+  cellPhoneBuilder?: PhoneNumberBuilder;
+};
 
 export interface CreateBrokerAccountFormProps {
   onSubmit: (formValues: UserAccountForm) => void;
@@ -26,9 +34,11 @@ const schema: ObjectSchema<BrokerAccountForm> = object({
   lastName: string().trim().required(RequiredField),
   companyName: string().trim().required(RequiredField),
   businessPhone: string().trim().optional().default('').test(optionalPhoneNumberValidator),
+  cellPhoneBuilder: getPhoneNumberBuilderObject({ required: false }),
   email: emailField,
   password: string().trim().required(RequiredField).test(passwordValidator),
-});
+}).transform(phoneNumberTransformer('cellPhoneBuilder', 'businessPhone'));
+
 export const CreateBrokerAccountForm = forwardRef<
   CreateAccountRefExposedProps,
   CreateBrokerAccountFormProps
@@ -68,11 +78,11 @@ export const CreateBrokerAccountForm = forwardRef<
         {...register('companyName')}
       />
 
-      <AtlusFormInput
-        label="Business phone (Optional)"
+      <AtlusFormPhoneNumberInput
         placeholder={PhoneNumberPlaceholder}
-        type="tel"
-        {...register('businessPhone')}
+        {...register('cellPhoneBuilder.phoneNumberBuilder.phoneNumber')}
+        dialCodeInputName="cellPhoneBuilder.phoneNumberBuilder.dialCode"
+        label="Business phone (Optional)"
       />
 
       <AtlusFormInput

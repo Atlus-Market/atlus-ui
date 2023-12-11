@@ -44,8 +44,8 @@ const brokerSettingsSchema: ObjectSchema<BrokerSettings> = baseSettingsFormSchem
     businessPhoneBuilder: getPhoneNumberBuilderObject({ required: true }),
     cellPhoneBuilder: getPhoneNumberBuilderObject({ required: false }),
   })
-  .transform(phoneNumberTransformer<BrokerSettings>('businessPhoneBuilder', 'businessPhone'))
-  .transform(phoneNumberTransformer<BrokerSettings>('cellPhoneBuilder', 'cellPhone'));
+  .transform(phoneNumberTransformer('businessPhoneBuilder', 'businessPhone'))
+  .transform(phoneNumberTransformer('cellPhoneBuilder', 'cellPhone'));
 
 export const BrokerSettingsForm = ({ user }: BrokerSettingsFormProps) => {
   const formProps = useForm<BrokerSettings>({

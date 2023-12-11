@@ -33,7 +33,7 @@ const buyerSettingsSchema: ObjectSchema<BuyerSettings> = baseSettingsFormSchema
     privateProfile: boolean().default(false).required(),
     cellPhoneBuilder: getPhoneNumberBuilderObject({ required: false }),
   })
-  .transform(phoneNumberTransformer<BrokerSettings>('cellPhoneBuilder', 'cellPhone'));
+  .transform(phoneNumberTransformer('cellPhoneBuilder', 'cellPhone'));
 
 export const BuyerSettingsForm = ({ user }: BuyerSettingsFormProps) => {
   const formProps = useForm<BuyerSettings>({

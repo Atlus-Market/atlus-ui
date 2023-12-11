@@ -14,25 +14,36 @@ import {
   UserAccountForm,
 } from '@/app/onboarding/components/create-user-account';
 import { emailField } from '@/components/ui/form/validators/email-field';
+import { AtlusFormPhoneNumberInput } from '@/components/ui/form/atlus-form-phone-number-input';
+import {
+  getPhoneNumberBuilderObject,
+  PhoneNumberBuilder,
+  phoneNumberTransformer,
+} from '@/components/ui/form/schema/phone-number';
 
 interface CreateUserAccountFormProps {
   onSubmit: (formValues: UserAccountForm) => void;
 }
 
-const schema: ObjectSchema<UserAccountForm> = object({
+type CreateBuyerAccountForm = UserAccountForm & {
+  cellPhoneBuilder?: PhoneNumberBuilder;
+};
+
+const schema: ObjectSchema<CreateBuyerAccountForm> = object({
   firstName: string().trim().required(RequiredField),
   lastName: string().trim().required(RequiredField),
   companyName: string().trim().required(RequiredField),
   title: string().trim().required(RequiredField),
   businessPhone: string().trim().optional().default('').test(optionalPhoneNumberValidator),
+  cellPhoneBuilder: getPhoneNumberBuilderObject({ required: false }),
   email: emailField,
   password: string().trim().required(RequiredField).test(passwordValidator),
-});
+}).transform(phoneNumberTransformer('cellPhoneBuilder', 'businessPhone'));
 export const CreateBuyerAccountForm = forwardRef<
   CreateAccountRefExposedProps,
   CreateUserAccountFormProps
 >(function CreateUserAccountForm({ onSubmit }, ref) {
-  const formProps = useAtlusForm<UserAccountForm>({
+  const formProps = useAtlusForm<CreateBuyerAccountForm>({
     formOptions: {
       resolver: yupResolver(schema),
     },
@@ -79,11 +90,11 @@ export const CreateBuyerAccountForm = forwardRef<
         {...register('title')}
       />
 
-      <AtlusFormInput
-        label="Business phone (Optional)"
+      <AtlusFormPhoneNumberInput
         placeholder={PhoneNumberPlaceholder}
-        type="tel"
-        {...register('businessPhone')}
+        {...register('cellPhoneBuilder.phoneNumberBuilder.phoneNumber')}
+        dialCodeInputName="cellPhoneBuilder.phoneNumberBuilder.dialCode"
+        label="Business phone (Optional)"
       />
 
       <AtlusFormInput
